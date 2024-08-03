@@ -30,7 +30,8 @@ const context = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 500;
 
-const player = new Player(100, 400);
+const obj = new StaticObject(-10, 400, 820, 110);
+const player = new Player(100, 380);
 
 function update() {
     if (!player.canOperate) {
@@ -46,6 +47,7 @@ function update() {
         player.jump();
     }
 
+    obj.draw(context);
     player.draw(context);
 }
 
