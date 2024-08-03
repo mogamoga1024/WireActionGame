@@ -1,8 +1,10 @@
 
 class Player {
     #r = 20;
-    #vx = 10;
-    #vy = 10;
+    #vx = 0;
+    #vxMax = 10;
+    #vy = 0;
+    #vyMax = 10;
 
     #actStatus = "normal"; // 仮
     get actStatus() {
@@ -21,7 +23,12 @@ class Player {
         context.fill();
     }
 
+    standStill() {
+        this.#vx = 0;
+    }
+
     run(direction) {
+        this.#vx = this.#vxMax;
         if (direction === "left") {
             this.x -= this.#vx;
         }
@@ -38,7 +45,13 @@ class Player {
 
         this.#jumpFrame++;
 
-        this.y -= this.#vy - this.#jumpFrame * dt * g;
+        this.#vy = this.#vyMax - this.#jumpFrame * dt * g;
+        this.y -= this.#vy;
+    }
+
+    jumpEnd() {
+        this.#vy = 0;
+        this.#jumpFrame = 0;
     }
 
     resolveCollision(staticObj) {
@@ -51,9 +64,12 @@ class Player {
             return;
         }
 
-        
-
         // todo 接させる
+
+        // 落下中
+        if (this.#vy > 0) {
+            
+        }
 
         this.#actStatus = "normal";
     }

@@ -46,6 +46,9 @@ function update() {
     else if (isPressedSpace) {
         player.jump();
     }
+    else {
+        player.standStill();
+    }
 
     player.resolveCollision(staticObj);
 
