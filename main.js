@@ -34,8 +34,8 @@ const obj = new StaticObject(-10, 400, 820, 110);
 const player = new Player(100, 380);
 
 function update() {
-    if (!player.canOperate) {
-        // 何もしない
+    if (player.actStatus === "jump") {
+        player.jump();
     }
     else if (isPressedLeft) {
         player.run("left");
