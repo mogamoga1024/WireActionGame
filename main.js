@@ -33,7 +33,10 @@ canvas.height = 500;
 const player = new Player(100, 400);
 
 function update() {
-    if (isPressedLeft) {
+    if (!player.canOperate) {
+        // 何もしない
+    }
+    else if (isPressedLeft) {
         player.run("left");
     }
     else if (isPressedRight) {

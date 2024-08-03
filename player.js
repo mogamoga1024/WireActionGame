@@ -1,5 +1,10 @@
 
 class Player {
+    #canOperate = true;
+    get canOperate() {
+        return this.#canOperate;
+    }
+
     constructor(x, y) {
         this.x = x;
         this.y = y;
