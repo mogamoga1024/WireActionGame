@@ -40,4 +40,21 @@ class Player {
 
         this.y -= this.#vy - this.#jumpFrame * dt * g;
     }
+
+    resolveCollision(staticObj) {
+        if (
+            this.x + this.#r <= staticObj.x ||
+            this.x - this.#r >= staticObj.x + staticObj.width ||
+            this.y + this.#r <= staticObj.y ||
+            this.y - this.#r >= staticObj.y + staticObj.height
+        ) {
+            return;
+        }
+
+        
+
+        // todo 接させる
+
+        this.#actStatus = "normal";
+    }
 }
