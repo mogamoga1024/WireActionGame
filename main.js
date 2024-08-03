@@ -22,7 +22,7 @@ addEventListener("keyup", e => {
 setInterval(() => {
     context.clearRect(0, 0, canvas.width, canvas.height);
     update();
-}, 1000 / 60);
+}, dt * 1000);
 
 const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");

@@ -30,11 +30,14 @@ class Player {
         }
     }
 
+    #jumpFrame = 0;
     jump() {
         // todo
 
         this.#actStatus = "jump";
 
-        this.y -= this.#vy;
+        this.#jumpFrame++;
+
+        this.y -= this.#vy - this.#jumpFrame * dt * g;
     }
 }
