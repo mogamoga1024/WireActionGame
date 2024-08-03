@@ -31,7 +31,7 @@ canvas.width = 800;
 canvas.height = 500;
 
 const staticObj = new StaticObject(-10, 400, 820, 110);
-const player = new Player(100, 380);
+const player = new Player(100, 360);
 
 function update() {
     if (player.actStatus === "jump") {
