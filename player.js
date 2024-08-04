@@ -7,7 +7,7 @@ class Player {
     #vy = 0;
     #vyMax = 10;
 
-    #actStatus = "normal"; // 仮
+    #actStatus = "normal";
     get actStatus() {
         return this.#actStatus;
     }
@@ -24,10 +24,6 @@ class Player {
         context.fill();
     }
 
-    // standStill() {
-    //     this.#vx = 0;
-    // }
-
     move(direction) {
         this.#vx = this.#vxMax;
         if (direction === "left") {
@@ -38,28 +34,19 @@ class Player {
         }
     }
 
-    #jumpFrame = 0;
+    #fallFrame = 0;
     jump() {
-        this.#actStatus = "jumping";
-        this.#jumpFrame++;
-        this.#vy = this.#jumpFrame * dt * g - this.#vyMax;
+        this.#actStatus = "falling";
+        this.#fallFrame++;
+        this.#vy = this.#fallFrame * dt * g - this.#vyMax;
         this.y += this.#vy;
     }
-
-    #jumpEnd() {
-        this.#vy = 0;
-        this.#jumpFrame = 0;
-        this.#actStatus = "normal";
-    }
-
-    #fallFrame = 0;
     fall() {
         this.#actStatus = "falling";
         this.#fallFrame++;
         this.#vy = this.#fallFrame * dt * g;
         this.y += this.#vy;
     }
-
     #fallEnd() {
         this.#vy = 0;
         this.#fallFrame = 0;
@@ -86,7 +73,7 @@ class Player {
             this.y + this.#height >= staticObj.y
         ) {
             this.y = staticObj.y - this.#height;
-            this.#jumpEnd();
+            this.#fallEnd();
         }
         else {
             return;
