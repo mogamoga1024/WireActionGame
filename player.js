@@ -53,7 +53,8 @@ class Player {
         this.#actStatus = "normal";
     }
 
-    resolveCollision(staticObj) {
+    // 戻り値：落下するかどうか
+    checkCollision(staticObj) {
         // if (
         //     this.x + this.#r <= staticObj.x ||
         //     this.x - this.#r >= staticObj.x + staticObj.width ||
@@ -74,9 +75,19 @@ class Player {
         ) {
             this.y = staticObj.y - this.#height;
             this.#fallEnd();
+            return false;
+        }
+        // 床に接しているか？
+        if (
+            this.#vy === 0 &&
+            this.x + this.#width >= staticObj.x &&
+            this.x <= staticObj.x + staticObj.width &&
+            this.y + this.#height === staticObj.y
+        ) {
+            return false;
         }
         else {
-            return;
+            return true;
         }
     }
 }
