@@ -28,7 +28,7 @@ class Player {
     //     this.#vx = 0;
     // }
 
-    run(direction) {
+    move(direction) {
         this.#vx = this.#vxMax;
         if (direction === "left") {
             this.x -= this.#vx;

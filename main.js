@@ -38,11 +38,14 @@ function update() {
     if (isPressedSpace || player.actStatus === "jump") {
         player.jump();
     }
-    if (isPressedLeft) {
-        player.run("left");
+    if (isPressedLeft && !isPressedRight) {
+        player.move("left");
     }
-    if (isPressedRight) {
-        player.run("right");
+    else if (!isPressedLeft && isPressedRight) {
+        player.move("right");
+    }
+    else {
+        // 何もしない
     }
 
     player.resolveCollision(staticObj1);
