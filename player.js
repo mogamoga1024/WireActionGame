@@ -24,9 +24,9 @@ class Player {
         context.fill();
     }
 
-    standStill() {
-        this.#vx = 0;
-    }
+    // standStill() {
+    //     this.#vx = 0;
+    // }
 
     run(direction) {
         this.#vx = this.#vxMax;

@@ -34,20 +34,14 @@ const staticObj = new StaticObject(-10, 400, 820, 110);
 const player = new Player(100, 360);
 
 function update() {
-    if (player.actStatus === "jump") {
+    if (isPressedSpace || player.actStatus === "jump") {
         player.jump();
     }
-    else if (isPressedLeft) {
+    if (isPressedLeft) {
         player.run("left");
     }
-    else if (isPressedRight) {
+    if (isPressedRight) {
         player.run("right");
-    }
-    else if (isPressedSpace) {
-        player.jump();
-    }
-    else {
-        player.standStill();
     }
 
     player.resolveCollision(staticObj);
