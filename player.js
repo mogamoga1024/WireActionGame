@@ -41,9 +41,7 @@ class Player {
     #jumpFrame = 0;
     jump() {
         this.#actStatus = "jumping";
-
         this.#jumpFrame++;
-
         this.#vy = this.#jumpFrame * dt * g - this.#vyMax;
         this.y += this.#vy;
     }
@@ -51,6 +49,20 @@ class Player {
     #jumpEnd() {
         this.#vy = 0;
         this.#jumpFrame = 0;
+        this.#actStatus = "normal";
+    }
+
+    #fallFrame = 0;
+    fall() {
+        this.#actStatus = "falling";
+        this.#fallFrame++;
+        this.#vy = this.#fallFrame * dt * g;
+        this.y += this.#vy;
+    }
+
+    #fallEnd() {
+        this.#vy = 0;
+        this.#fallFrame = 0;
         this.#actStatus = "normal";
     }
 
