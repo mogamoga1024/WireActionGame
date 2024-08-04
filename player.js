@@ -53,8 +53,20 @@ class Player {
         this.#actStatus = "normal";
     }
 
+    checkCollisionList(staticObjList) {
+        let isFall = this.#actStatus !== "jumping";
+        for (const staticObj of staticObjList) {
+            if (!this.#checkCollision(staticObj)) {
+                isFall = false;
+            }
+        }
+        if (isFall) {
+            this.#actStatus = "falling";
+        }
+    }
+
     // 戻り値：落下するかどうか
-    checkCollision(staticObj) {
+    #checkCollision(staticObj) {
         // if (
         //     this.x + this.#r <= staticObj.x ||
         //     this.x - this.#r >= staticObj.x + staticObj.width ||

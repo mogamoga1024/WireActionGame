@@ -52,16 +52,8 @@ function update() {
         // 何もしない
     }
 
-    // 落下判定 ＆ 衝突処理
-    let isFall = true;
-    for (const staticObj of [staticObj1, staticObj2]) {
-        if (!player.checkCollision(staticObj)) {
-            isFall = false;
-        }
-    }
-    if (isFall) {
-        player.actStatus === "falling";
-    }
+    // 衝突処理
+    player.checkCollisionList([staticObj1, staticObj2]);
 
     staticObj1.draw(context);
     staticObj2.draw(context);
