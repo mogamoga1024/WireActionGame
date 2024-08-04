@@ -25,13 +25,33 @@ class Player {
     }
 
     move(direction) {
-        this.#vx = this.#vxMax;
         if (direction === "left") {
-            this.x -= this.#vx;
+            this.#vx -= 0.5;
+            if (this.#vx < -this.#vxMax) {
+                this.#vx = -this.#vxMax;
+            }
         }
         else if (direction === "right") {
-            this.x += this.#vx;
+            this.#vx += 0.5;
+            if (this.#vx > this.#vxMax) {
+                this.#vx = this.#vxMax;
+            }
         }
+        else if (direction === "none") {
+            if (this.#vx > 0) {
+                this.#vx -= 0.2;
+                if (this.#vx < 0) {
+                    this.#vx = 0;
+                }
+            }
+            else if (this.#vx < 0) {
+                this.#vx += 0.2;
+                if (this.#vx > 0) {
+                    this.#vx = 0;
+                }
+            }
+        }
+        this.x += this.#vx;
     }
 
     #fallFrame = 0;

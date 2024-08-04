@@ -49,7 +49,8 @@ function update() {
         player.move("right");
     }
     else {
-        // 何もしない
+        // 慣性
+        player.move("none");
     }
 
     // 衝突処理
