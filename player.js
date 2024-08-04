@@ -36,7 +36,7 @@ class Player {
 
     #fallFrame = 0;
     jump() {
-        this.#actStatus = "falling";
+        this.#actStatus = "jumping";
         this.#fallFrame++;
         this.#vy = this.#fallFrame * dt * g - this.#vyMax;
         this.y += this.#vy;
