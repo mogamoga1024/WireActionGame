@@ -54,14 +54,15 @@ class Player {
     }
 
     checkCollisionList(staticObjList) {
-        let isFall = this.#actStatus !== "jumping";
+        let isFall = this.#actStatus === "normal";
         for (const staticObj of staticObjList) {
             if (!this.#checkCollision(staticObj)) {
                 isFall = false;
             }
         }
         if (isFall) {
-            this.#actStatus = "falling";
+            this.fall();
+            this.checkCollisionList(staticObjList);
         }
     }
 
