@@ -30,7 +30,8 @@ const context = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 500;
 
-const staticObj = new StaticObject(-10, 400, 820, 110);
+const staticObj1 = new StaticObject(0, 400, 400, 100);
+const staticObj2 = new StaticObject(600, 400, 400, 100);
 const player = new Player(100, 360);
 
 function update() {
@@ -44,9 +45,11 @@ function update() {
         player.run("right");
     }
 
-    player.resolveCollision(staticObj);
+    player.resolveCollision(staticObj1);
+    player.resolveCollision(staticObj2);
 
-    staticObj.draw(context);
+    staticObj1.draw(context);
+    staticObj2.draw(context);
     player.draw(context);
 }
 
