@@ -40,7 +40,7 @@ class Player {
 
     #jumpFrame = 0;
     jump() {
-        this.#actStatus = "jump";
+        this.#actStatus = "jumping";
 
         this.#jumpFrame++;
 

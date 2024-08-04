@@ -35,7 +35,7 @@ const staticObj2 = new StaticObject(600, 400, 400, 100);
 const player = new Player(100, 360);
 
 function update() {
-    if (isPressedSpace || player.actStatus === "jump") {
+    if (isPressedSpace || player.actStatus === "jumping") {
         player.jump();
     }
     if (isPressedLeft && !isPressedRight) {
