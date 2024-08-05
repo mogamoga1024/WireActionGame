@@ -8,9 +8,7 @@ class Player {
     #hook = null;
 
     #actStatus = "ground";
-    get actStatus() {
-        return this.#actStatus;
-    }
+    get actStatus() { return this.#actStatus; }
 
     #x = 0; #prevX = 0;
     get x() { return this.#x; }
