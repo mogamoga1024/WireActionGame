@@ -30,9 +30,10 @@ const context = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 500;
 
-const staticObj1 = new StaticObject(0, 400, 400, 100);
+const staticObj1 = new StaticObject(0, 400, 500, 100);
 const staticObj2 = new StaticObject(600, 400, 400, 100);
 const staticObj3 = new StaticObject(0, 200, 80, 200);
+const staticObj4 = new StaticObject(200, 350, 80, 50);
 const player = new Player(100, 360);
 
 function update() {
@@ -55,11 +56,12 @@ function update() {
     }
 
     // 衝突処理
-    player.checkCollisionList([staticObj1, staticObj2, staticObj3]);
+    player.checkCollisionList([staticObj1, staticObj2, staticObj3, staticObj4]);
 
     staticObj1.draw(context);
     staticObj2.draw(context);
     staticObj3.draw(context);
+    staticObj4.draw(context);
     player.draw(context);
 }
 
