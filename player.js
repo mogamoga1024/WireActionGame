@@ -104,7 +104,6 @@ class Player {
         if (
             this.#actStatus === "normal" &&
             this.#vx < 0 &&
-            this.#prevY + this.#height > staticObj.y &&
             this.y + this.#height > staticObj.y &&
             this.y < staticObj.y + staticObj.height &&
             this.x <= staticObj.x + staticObj.width &&
@@ -119,7 +118,6 @@ class Player {
         if (
             this.#actStatus === "normal" &&
             this.#vx > 0 &&
-            this.#prevY + this.#height > staticObj.y &&
             this.y + this.#height > staticObj.y &&
             this.y < staticObj.y + staticObj.height &&
             this.x + this.#width >= staticObj.x &&
@@ -135,6 +133,7 @@ class Player {
         if (
             (this.#actStatus === "jumping" || this.#actStatus === "falling") &&
             this.#vy > 0 &&
+            !(this.#prevX + this.#width <= staticObj.x || this.#prevX >= staticObj.x + staticObj.width) &&
             this.x + this.#width > staticObj.x &&
             this.x < staticObj.x + staticObj.width &&
             this.y + this.#height >= staticObj.y &&
@@ -150,6 +149,7 @@ class Player {
         if (
             (this.#actStatus === "jumping" || this.#actStatus === "falling") &&
             this.#vx < 0 &&
+            this.#prevY + this.#height > staticObj.y &&
             this.y + this.#height > staticObj.y &&
             this.y < staticObj.y + staticObj.height &&
             this.x <= staticObj.x + staticObj.width &&
@@ -164,6 +164,7 @@ class Player {
         if (
             (this.#actStatus === "jumping" || this.#actStatus === "falling") &&
             this.#vx > 0 &&
+            this.#prevY + this.#height > staticObj.y &&
             this.y + this.#height > staticObj.y &&
             this.y < staticObj.y + staticObj.height &&
             this.x + this.#width >= staticObj.x &&
