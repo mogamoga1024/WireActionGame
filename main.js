@@ -36,6 +36,8 @@ const staticObj3 = new StaticObject(0, 200, 80, 200);
 const staticObj4 = new StaticObject(200, 350, 80, 50);
 const player = new Player(100, 360);
 
+const staticObjList = [staticObj1, staticObj2, staticObj3, staticObj4];
+
 function update() {
     if (player.actStatus === "falling") {
         player.fall();
@@ -56,12 +58,12 @@ function update() {
     }
 
     // 衝突処理
-    player.checkCollisionList([staticObj1, staticObj2, staticObj3, staticObj4]);
+    player.checkCollisionList(staticObjList);
 
-    staticObj1.draw(context);
-    staticObj2.draw(context);
-    staticObj3.draw(context);
-    staticObj4.draw(context);
+    // 描画する
+    staticObjList.forEach(staticObj => {
+        staticObj.draw(context);
+    });
     player.draw(context);
 }
 
