@@ -48,13 +48,13 @@ class Player {
         }
         else if (direction === "none" && this.#actStatus === "ground") {
             if (this.#vx > 0) {
-                this.#vx -= 0.15;
+                this.#vx -= 0.2;
                 if (this.#vx < 0) {
                     this.#vx = 0;
                 }
             }
             else if (this.#vx < 0) {
-                this.#vx += 0.15;
+                this.#vx += 0.2;
                 if (this.#vx > 0) {
                     this.#vx = 0;
                 }
