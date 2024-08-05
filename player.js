@@ -5,7 +5,8 @@ class Player {
     #vy = 0;
     #vyMax = 10;
     #hook = null;
-
+    #direction = "right";
+    get direction() { return this.#direction; }
     #actStatus = "ground";
     get actStatus() { return this.#actStatus; }
 
@@ -42,12 +43,14 @@ class Player {
 
     move(direction) {
         if (direction === "left") {
+            this.#direction = direction;
             this.#vx -= 0.3;
             if (this.#vx < -this.#vxMax) {
                 this.#vx = -this.#vxMax;
             }
         }
         else if (direction === "right") {
+            this.#direction = direction;
             this.#vx += 0.3;
             if (this.#vx > this.#vxMax) {
                 this.#vx = this.#vxMax;
