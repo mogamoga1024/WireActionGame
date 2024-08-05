@@ -4,16 +4,19 @@ class Hook {
     get x() { return this.#x }
     #y = 0;
     get y() { return this.#y }
-    #width = 10;
+    #width = 14;
     get width() { return this.#width }
-    #height = 10;
+    #height = 14;
     get height() { return this.#height }
 
-    #v = 10;
+    #vx = 0;
+    #vy = 0;
     
-    constructor(player) {
+    constructor(player, radian) {
         this.#x = player.x + player.width / 2 - this.width / 2;
         this.#y = player.y + player.height / 2 - this.height / 2;
+        this.#vx = 10 * Math.cos(radian);
+        this.#vy = -1 * 10 * Math.sin(radian);
     }
 
     draw(context) {
@@ -21,5 +24,10 @@ class Hook {
         context.rect(this.x, this.y, this.width, this.height);
         context.fillStyle = "black";
         context.fill();
+    }
+
+    move() {
+        this.#x += this.#vx;
+        this.#y += this.#vy;
     }
 }

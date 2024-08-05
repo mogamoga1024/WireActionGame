@@ -44,7 +44,7 @@ const staticObjList = [staticObj1, staticObj2, staticObj3, staticObj4, staticObj
 
 function update() {
     if (isPressedZ) {
-        player.fireHook();
+        player.fireHook(Math.PI / 4);
     }
     player.hookMove();
 

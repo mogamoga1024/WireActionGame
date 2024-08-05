@@ -92,17 +92,18 @@ class Player {
         this.#actStatus = "ground";
     }
 
-    fireHook(direction) {
+    fireHook(radian) {
         if (!this.#canFireHook) {
             return;
         }
         this.#canFireHook = false;
-        this.#hook = new Hook(this);
+        this.#hook = new Hook(this, radian);
     }
     hookMove() {
         if (this.#hook === null) {
             return;
         }
+        this.#hook.move();
         // todo
     }
 
