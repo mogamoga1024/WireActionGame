@@ -13,18 +13,10 @@ class Player {
     }
 
     #x = 0; #prevX = 0;
-    set x(val) {
-        this.#prevX = this.#x;
-        this.#x = val;
-    }
     get x() {
         return this.#x;
     }
     #y = 0; #prevY = 0;
-    set y(val) {
-        this.#prevY = this.#y;
-        this.#y = val;
-    }
     get y() {
         return this.#y;
     }
@@ -68,7 +60,8 @@ class Player {
                 }
             }
         }
-        this.x += this.#vx;
+        this.#prevX = this.#x;
+        this.#x += this.#vx;
     }
 
     #fallFrame = 0;
@@ -76,13 +69,15 @@ class Player {
         this.#actStatus = "jumping";
         this.#fallFrame++;
         this.#vy = this.#fallFrame * dt * g - this.#vyMax;
-        this.y += this.#vy;
+        this.#prevY = this.#y;
+        this.#y += this.#vy;
     }
     fall() {
         this.#actStatus = "falling";
         this.#fallFrame++;
         this.#vy = this.#fallFrame * dt * g;
-        this.y += this.#vy;
+        this.#prevY = this.#y;
+        this.#y += this.#vy;
     }
     #fallEnd() {
         this.#vy = 0;
@@ -109,12 +104,14 @@ class Player {
         if (
             this.#actStatus === "normal" &&
             this.#vx < 0 &&
+            this.#prevY + this.#height > staticObj.y &&
             this.y + this.#height > staticObj.y &&
             this.y < staticObj.y + staticObj.height &&
             this.x <= staticObj.x + staticObj.width &&
             this.x + this.#width > staticObj.x + staticObj.width
         ) {
-            this.x = staticObj.x + staticObj.width;
+            this.#x = staticObj.x + staticObj.width;
+            this.#prevX = this.x;
             this.#vx = 0;
             return false;
         }
@@ -122,12 +119,14 @@ class Player {
         if (
             this.#actStatus === "normal" &&
             this.#vx > 0 &&
+            this.#prevY + this.#height > staticObj.y &&
             this.y + this.#height > staticObj.y &&
             this.y < staticObj.y + staticObj.height &&
             this.x + this.#width >= staticObj.x &&
             this.x < staticObj.x
         ) {
-            this.x = staticObj.x - this.#width;
+            this.#x = staticObj.x - this.#width;
+            this.#prevX = this.x;
             this.#vx = 0;
             return false;
         }
@@ -141,7 +140,8 @@ class Player {
             this.y + this.#height >= staticObj.y &&
             this.y < staticObj.y
         ) {
-            this.y = staticObj.y - this.#height;
+            this.#y = staticObj.y - this.#height;
+            this.#prevY = this.y;
             this.#fallEnd();
             return false;
         }
@@ -155,8 +155,9 @@ class Player {
             this.x <= staticObj.x + staticObj.width &&
             this.x + this.#width > staticObj.x + staticObj.width
         ) {
-            this.x = staticObj.x + staticObj.width;
-            this.#vx *= -1;
+            this.#x = staticObj.x + staticObj.width;
+            this.#prevX = this.x;
+            this.#vx *= -0.8;
             return true;
         }
         // 空中で右の壁に衝突
@@ -168,8 +169,9 @@ class Player {
             this.x + this.#width >= staticObj.x &&
             this.x < staticObj.x
         ) {
-            this.x = staticObj.x - this.#width;
-            this.#vx *= -1;
+            this.#x = staticObj.x - this.#width;
+            this.#prevX = this.x;
+            this.#vx *= -0.8;
             return true;
         }
 
