@@ -34,9 +34,10 @@ const staticObj1 = new StaticObject(0, 400, 500, 100);
 const staticObj2 = new StaticObject(600, 400, 400, 100);
 const staticObj3 = new StaticObject(0, 200, 80, 200);
 const staticObj4 = new StaticObject(200, 350, 80, 50);
+const staticObj5 = new StaticObject(70, 210, 250, 20);
 const player = new Player(100, 360);
 
-const staticObjList = [staticObj1, staticObj2, staticObj3, staticObj4];
+const staticObjList = [staticObj1, staticObj2, staticObj3, staticObj4, staticObj5];
 
 function update() {
     if (player.actStatus === "falling") {
