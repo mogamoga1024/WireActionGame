@@ -4,7 +4,6 @@ class Player {
     #vxMax = 7;
     #vy = 0;
     #vyMax = 10;
-    #canFireHook = true;
     #hook = null;
 
     #actStatus = "ground";
@@ -99,18 +98,18 @@ class Player {
     }
 
     fireHook(radian) {
-        if (!this.#canFireHook) {
+        if (this.#hook !== null) {
             return;
         }
-        this.#canFireHook = false;
         this.#hook = new Hook(this, radian);
     }
     hookMove() {
         if (this.#hook === null) {
             return;
         }
-        this.#hook.move();
-        // todo
+        if (this.#hook.move()) {
+            this.#hook = null;
+        }
     }
 
     resolveCollision(staticObjList) {
