@@ -3,11 +3,11 @@ class Player {
     #width = 40;
     #height = 40;
     #vx = 0;
-    #vxMax = 10;
+    #vxMax = 7;
     #vy = 0;
     #vyMax = 10;
 
-    #actStatus = "normal";
+    #actStatus = "ground";
     get actStatus() {
         return this.#actStatus;
     }
@@ -35,26 +35,26 @@ class Player {
 
     move(direction) {
         if (direction === "left") {
-            this.#vx -= 0.5;
+            this.#vx -= 0.3;
             if (this.#vx < -this.#vxMax) {
                 this.#vx = -this.#vxMax;
             }
         }
         else if (direction === "right") {
-            this.#vx += 0.5;
+            this.#vx += 0.3;
             if (this.#vx > this.#vxMax) {
                 this.#vx = this.#vxMax;
             }
         }
-        else if (direction === "none") {
+        else if (direction === "none" && this.#actStatus === "ground") {
             if (this.#vx > 0) {
-                this.#vx -= 0.2;
+                this.#vx -= 0.15;
                 if (this.#vx < 0) {
                     this.#vx = 0;
                 }
             }
             else if (this.#vx < 0) {
-                this.#vx += 0.2;
+                this.#vx += 0.15;
                 if (this.#vx > 0) {
                     this.#vx = 0;
                 }
@@ -82,11 +82,11 @@ class Player {
     #fallEnd() {
         this.#vy = 0;
         this.#fallFrame = 0;
-        this.#actStatus = "normal";
+        this.#actStatus = "ground";
     }
 
     checkCollision(staticObjList) {
-        let isFall = this.#actStatus === "normal";
+        let isFall = this.#actStatus === "ground";
         for (const staticObj of staticObjList) {
             if (!this.#checkCollision(staticObj)) {
                 isFall = false;
@@ -102,7 +102,7 @@ class Player {
     #checkCollision(staticObj) {
         // 地面で左の壁に衝突
         if (
-            this.#actStatus === "normal" &&
+            this.#actStatus === "ground" &&
             this.#vx < 0 &&
             this.y + this.#height > staticObj.y &&
             this.y < staticObj.y + staticObj.height &&
@@ -116,7 +116,7 @@ class Player {
         }
         // 地面で右の壁に衝突
         if (
-            this.#actStatus === "normal" &&
+            this.#actStatus === "ground" &&
             this.#vx > 0 &&
             this.y + this.#height > staticObj.y &&
             this.y < staticObj.y + staticObj.height &&
