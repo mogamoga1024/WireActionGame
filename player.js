@@ -88,17 +88,6 @@ class Player {
 
     // 戻り値：落下するかどうか
     #checkCollision(staticObj) {
-        // if (
-        //     this.x + this.#r <= staticObj.x ||
-        //     this.x - this.#r >= staticObj.x + staticObj.width ||
-        //     this.y + this.#r <= staticObj.y ||
-        //     this.y - this.#r >= staticObj.y + staticObj.height
-        // ) {
-        //     return;
-        // }
-
-        // todo 接させる
-
         // 地面で左の壁に衝突
         if (
             this.#actStatus === "normal" &&
@@ -123,6 +112,9 @@ class Player {
             this.x = staticObj.x - this.#width;
             return false;
         }
+
+        // 空中で左の壁に衝突 todo
+
         // 落下中に床に衝突
         if (
             (this.#actStatus === "jumping" || this.#actStatus === "falling") &&
