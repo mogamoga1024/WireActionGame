@@ -1,13 +1,15 @@
 
 let isPressedLeft = false;
 let isPressedRight = false;
-let isPressedSpace = false;
+let isPressedX = false;
+let isPressedZ = false;
 
 addEventListener("keydown", e => {
     switch (e.key) {
         case "ArrowLeft":  isPressedLeft = true;  break;
         case "ArrowRight": isPressedRight = true; break;
-        case " ": isPressedSpace = true; break;
+        case "x": isPressedX = true; break;
+        case "z": isPressedZ = true; break;
     }
 });
 
@@ -15,7 +17,8 @@ addEventListener("keyup", e => {
     switch (e.key) {
         case "ArrowLeft":  isPressedLeft = false;  break;
         case "ArrowRight": isPressedRight = false; break;
-        case " ": isPressedSpace = false; break;
+        case "x": isPressedX = false; break;
+        case "z": isPressedZ = false; break;
     }
 });
 
@@ -46,7 +49,7 @@ function update() {
     else if (player.actStatus === "jumping") {
         player.jump();
     }
-    else if (isPressedSpace) {
+    else if (isPressedX) {
         player.jumpStart();
     }
 
