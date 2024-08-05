@@ -6,6 +6,7 @@ class Player {
     #vxMax = 7;
     #vy = 0;
     #vyMax = 10;
+    #hook = null;
 
     #actStatus = "ground";
     get actStatus() {
@@ -13,13 +14,9 @@ class Player {
     }
 
     #x = 0; #prevX = 0;
-    get x() {
-        return this.#x;
-    }
+    get x() { return this.#x; }
     #y = 0; #prevY = 0;
-    get y() {
-        return this.#y;
-    }
+    get y() { return this.#y; }
 
     constructor(x, y) {
         this.#prevX = this.#x = x;
