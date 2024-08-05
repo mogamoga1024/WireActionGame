@@ -11,16 +11,22 @@ class Hook {
     get height() { return this.#height }
     get centerX() { return this.#x + this.#width / 2; }
     get centerY() { return this.#y + this.#height / 2; }
+    get baseCenterX() { return this.#baseX + this.#width / 2; }
+    get baseCenterY() { return this.#baseY + this.#height / 2; }
 
+    #player = null;
+    #v = 10;
     #vx = 0;
     #vy = 0;
     #maxWireLength = 200;
+    #isShrinking = false;
     
     constructor(player, radian) {
+        this.#player = player;
         this.#baseX = this.#x = player.x + player.width / 2 - this.width / 2;
         this.#baseY = this.#y = player.y + player.height / 2 - this.height / 2;
-        this.#vx = 10 * Math.cos(radian);
-        this.#vy = -1 * 10 * Math.sin(radian);
+        this.#vx = this.#v * Math.cos(radian);
+        this.#vy = -1 * this.#v * Math.sin(radian);
     }
 
     draw(context) {
@@ -32,12 +38,28 @@ class Hook {
 
     // 戻り値：フックを消去するべきか
     move() {
+        if (this.#isShrinking) {
+            const vecX = this.centerX - this.#player.centerX;
+            const vecY = this.centerY - this.#player.centerY;
+            const radian = Math.atan2(vecY, vecX);
+            this.#vx = -1 * this.#v * Math.cos(radian);
+            this.#vy = -1 * this.#v * Math.sin(radian);
+        }
         this.#x += this.#vx;
         this.#y += this.#vy;
-        const diffX = this.x - this.#baseX;
-        const diffY = this.y - this.#baseY;
-        if (Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2)) >= this.#maxWireLength) {
-            return true;
+        if (!this.#isShrinking) {
+            const diffX = this.centerX - this.baseCenterX;
+            const diffY = this.centerY - this.baseCenterY;
+            if (Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2)) >= this.#maxWireLength) {
+                this.#isShrinking = true;
+            }
+        }
+        else {
+            const diffX = this.centerX - this.#player.centerX;
+            const diffY = this.centerY - this.#player.centerY;
+            if (Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2)) <= this.#v * 1.1) {
+                return true;
+            }
         }
         return false;
     }
