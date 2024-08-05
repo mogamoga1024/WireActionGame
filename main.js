@@ -43,6 +43,11 @@ const player = new Player(100, 360);
 const staticObjList = [staticObj1, staticObj2, staticObj3, staticObj4, staticObj5];
 
 function update() {
+    if (isPressedZ) {
+        player.fireHook();
+    }
+    player.hookMove();
+
     if (player.actStatus === "falling") {
         player.fall();
     }
@@ -65,7 +70,7 @@ function update() {
     }
 
     // 衝突処理
-    player.checkCollision(staticObjList);
+    player.resolveCollision(staticObjList);
 
     // 描画する
     staticObjList.forEach(staticObj => {

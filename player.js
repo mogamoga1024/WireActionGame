@@ -6,6 +6,7 @@ class Player {
     #vxMax = 7;
     #vy = 0;
     #vyMax = 10;
+    #canFireHook = true;
     #hook = null;
 
     #actStatus = "ground";
@@ -87,7 +88,14 @@ class Player {
         this.#actStatus = "ground";
     }
 
-    checkCollision(staticObjList) {
+    fireHook(direction) {
+        // todo
+    }
+    hookMove() {
+        // todo
+    }
+
+    resolveCollision(staticObjList) {
         let isFall = this.#actStatus === "ground";
         for (const staticObj of staticObjList) {
             if (this.#checkCollision(staticObj) !== "falling") {
@@ -96,7 +104,7 @@ class Player {
         }
         if (isFall) {
             this.fallStart();
-            this.checkCollision(staticObjList);
+            this.resolveCollision(staticObjList);
         }
     }
 
