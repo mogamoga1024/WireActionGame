@@ -99,12 +99,26 @@ class Player {
 
         // todo 接させる
 
+        // 地面で左の壁に衝突
+        if (
+            this.#actStatus === "normal" &&
+            this.#vx < 0 &&
+            this.y + this.#height > staticObj.y &&
+            this.y < staticObj.y + staticObj.height &&
+            this.x <= staticObj.x + staticObj.width &&
+            this.x + this.#width > staticObj.x + staticObj.width
+        ) {
+            this.x = staticObj.x + staticObj.width;
+            return false;
+        }
         // 落下中に床に衝突
         if (
+            (this.#actStatus === "jumping" || this.#actStatus === "falling") &&
             this.#vy > 0 &&
-            this.x + this.#width >= staticObj.x &&
-            this.x <= staticObj.x + staticObj.width &&
-            this.y + this.#height >= staticObj.y
+            this.x + this.#width > staticObj.x &&
+            this.x < staticObj.x + staticObj.width &&
+            this.y + this.#height >= staticObj.y &&
+            this.y < staticObj.y
         ) {
             this.y = staticObj.y - this.#height;
             this.#fallEnd();
