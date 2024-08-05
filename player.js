@@ -111,6 +111,18 @@ class Player {
             this.x = staticObj.x + staticObj.width;
             return false;
         }
+        // 地面で右の壁に衝突
+        if (
+            this.#actStatus === "normal" &&
+            this.#vx > 0 &&
+            this.y + this.#height > staticObj.y &&
+            this.y < staticObj.y + staticObj.height &&
+            this.x + this.#width >= staticObj.x &&
+            this.x < staticObj.x
+        ) {
+            this.x = staticObj.x - this.#width;
+            return false;
+        }
         // 落下中に床に衝突
         if (
             (this.#actStatus === "jumping" || this.#actStatus === "falling") &&
