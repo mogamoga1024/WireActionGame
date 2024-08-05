@@ -64,24 +64,29 @@ class Player {
         this.#x += this.#vx;
     }
 
-    #fallFrame = 0;
-    jump() {
+    jumpStart() {
         this.#actStatus = "jumping";
-        this.#fallFrame++;
-        this.#vy = this.#fallFrame * dt * g - this.#vyMax;
+        this.#vy = -this.#vyMax;
+        this.jump();
+    }
+    jump() {
+        this.#vy += dt * g;
         this.#prevY = this.#y;
         this.#y += this.#vy;
     }
+    fallStart() {
+        this.#actStatus = "falling";
+        this.#vy = 0;
+        this.fall();
+    }
     fall() {
         this.#actStatus = "falling";
-        this.#fallFrame++;
-        this.#vy = this.#fallFrame * dt * g;
+        this.#vy += dt * g;
         this.#prevY = this.#y;
         this.#y += this.#vy;
     }
     #fallEnd() {
         this.#vy = 0;
-        this.#fallFrame = 0;
         this.#actStatus = "ground";
     }
 
@@ -93,7 +98,7 @@ class Player {
             }
         }
         if (isFall) {
-            this.fall();
+            this.fallStart();
             this.checkCollision(staticObjList);
         }
     }
@@ -141,7 +146,7 @@ class Player {
         ) {
             this.#y = staticObj.y + staticObj.height;
             this.#prevY = this.y;
-            this.#vy *= -1;
+            this.#vy *= -0.8;
             return this.#actStatus;
         }
 

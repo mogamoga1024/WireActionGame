@@ -43,8 +43,11 @@ function update() {
     if (player.actStatus === "falling") {
         player.fall();
     }
-    else if (isPressedSpace || player.actStatus === "jumping") {
+    else if (player.actStatus === "jumping") {
         player.jump();
+    }
+    else if (isPressedSpace) {
+        player.jumpStart();
     }
 
     if (isPressedLeft && !isPressedRight) {
