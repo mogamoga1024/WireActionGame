@@ -113,7 +113,32 @@ class Player {
             return false;
         }
 
-        // 空中で左の壁に衝突 todo
+        // 空中で左の壁に衝突
+        if (
+            (this.#actStatus === "jumping" || this.#actStatus === "falling") &&
+            this.#vx < 0 &&
+            this.y + this.#height > staticObj.y &&
+            this.y < staticObj.y + staticObj.height &&
+            this.x <= staticObj.x + staticObj.width &&
+            this.x + this.#width > staticObj.x + staticObj.width
+        ) {
+            this.x = staticObj.x + staticObj.width;
+            this.#vx *= -1;
+            return false;
+        }
+        // 空中で右の壁に衝突
+        if (
+            (this.#actStatus === "jumping" || this.#actStatus === "falling") &&
+            this.#vx > 0 &&
+            this.y + this.#height > staticObj.y &&
+            this.y < staticObj.y + staticObj.height &&
+            this.x + this.#width >= staticObj.x &&
+            this.x < staticObj.x
+        ) {
+            this.x = staticObj.x - this.#width;
+            this.#vx *= -1;
+            return false;
+        }
 
         // 落下中に床に衝突
         if (
