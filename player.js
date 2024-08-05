@@ -114,9 +114,13 @@ class Player {
     }
 
     resolveCollision(staticObjList) {
+        if (this.#hook !== null) {
+            this.#hook.resolveCollision(staticObjList);
+        }
+
         let isFall = this.#actStatus === "ground";
         for (const staticObj of staticObjList) {
-            if (this.#checkCollision(staticObj) !== "falling") {
+            if (this.#resolveCollision(staticObj) !== "falling") {
                 isFall = false;
             }
         }
@@ -127,7 +131,7 @@ class Player {
     }
 
     // 戻り値：次のactStatus
-    #checkCollision(staticObj) {
+    #resolveCollision(staticObj) {
         // 地面で左の壁に衝突
         if (
             this.#actStatus === "ground" &&

@@ -32,4 +32,16 @@ class Hook {
         this.#x += this.#vx;
         this.#y += this.#vy;
     }
+
+    resolveCollision(staticObjList) {
+        for (const staticObj of staticObjList) {
+            if (this.#resolveCollision(staticObj)) {
+                return;
+            }
+        }
+    }
+
+    #resolveCollision(staticObj) {
+        // todo
+    }
 }
