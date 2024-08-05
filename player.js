@@ -88,7 +88,7 @@ class Player {
     checkCollision(staticObjList) {
         let isFall = this.#actStatus === "ground";
         for (const staticObj of staticObjList) {
-            if (!this.#checkCollision(staticObj)) {
+            if (this.#checkCollision(staticObj) !== "falling") {
                 isFall = false;
             }
         }
@@ -98,7 +98,7 @@ class Player {
         }
     }
 
-    // 戻り値：落下するかどうか
+    // 戻り値：次のactStatus
     #checkCollision(staticObj) {
         // 地面で左の壁に衝突
         if (
@@ -112,7 +112,7 @@ class Player {
             this.#x = staticObj.x + staticObj.width;
             this.#prevX = this.x;
             this.#vx = 0;
-            return false;
+            return this.#actStatus;
         }
         // 地面で右の壁に衝突
         if (
@@ -126,7 +126,23 @@ class Player {
             this.#x = staticObj.x - this.#width;
             this.#prevX = this.x;
             this.#vx = 0;
-            return false;
+            return this.#actStatus;
+        }
+
+        // ジャンプ中に天井に衝突
+        if (
+            this.#actStatus === "jumping" &&
+            this.#vy < 0 &&
+            !(this.#prevX + this.#width <= staticObj.x || this.#prevX >= staticObj.x + staticObj.width) &&
+            this.x + this.#width > staticObj.x &&
+            this.x < staticObj.x + staticObj.width &&
+            this.y <= staticObj.y + staticObj.height &&
+            this.y + this.#height > staticObj.y + staticObj.height
+        ) {
+            this.#y = staticObj.y + staticObj.height;
+            this.#prevY = this.y;
+            this.#vy *= -1;
+            return this.#actStatus;
         }
 
         // 落下中に床に衝突
@@ -142,7 +158,7 @@ class Player {
             this.#y = staticObj.y - this.#height;
             this.#prevY = this.y;
             this.#fallEnd();
-            return false;
+            return this.#actStatus;
         }
 
         // 空中で左の壁に衝突
@@ -158,7 +174,7 @@ class Player {
             this.#x = staticObj.x + staticObj.width;
             this.#prevX = this.x;
             this.#vx *= -0.8;
-            return true;
+            return this.#actStatus;
         }
         // 空中で右の壁に衝突
         if (
@@ -173,7 +189,7 @@ class Player {
             this.#x = staticObj.x - this.#width;
             this.#prevX = this.x;
             this.#vx *= -0.8;
-            return true;
+            return this.#actStatus;
         }
 
         // 床に接しているか？
@@ -183,10 +199,10 @@ class Player {
             this.x <= staticObj.x + staticObj.width &&
             this.y + this.#height === staticObj.y
         ) {
-            return false;
+            return this.#actStatus;
         }
         else {
-            return true;
+            return "falling";
         }
     }
 }
