@@ -90,7 +90,7 @@ class Player {
         this.#actStatus = "normal";
     }
 
-    checkCollisionList(staticObjList) {
+    checkCollision(staticObjList) {
         let isFall = this.#actStatus === "normal";
         for (const staticObj of staticObjList) {
             if (!this.#checkCollision(staticObj)) {
@@ -99,7 +99,7 @@ class Player {
         }
         if (isFall) {
             this.fall();
-            this.checkCollisionList(staticObjList);
+            this.checkCollision(staticObjList);
         }
     }
 

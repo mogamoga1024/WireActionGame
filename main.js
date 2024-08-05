@@ -58,7 +58,7 @@ function update() {
     }
 
     // 衝突処理
-    player.checkCollisionList(staticObjList);
+    player.checkCollision(staticObjList);
 
     // 描画する
     staticObjList.forEach(staticObj => {
