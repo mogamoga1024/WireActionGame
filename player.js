@@ -12,9 +12,26 @@ class Player {
         return this.#actStatus;
     }
 
+    #x = 0; #prevX = 0;
+    set x(val) {
+        this.#prevX = this.#x;
+        this.#x = val;
+    }
+    get x() {
+        return this.#x;
+    }
+    #y = 0; #prevY = 0;
+    set y(val) {
+        this.#prevY = this.#y;
+        this.#y = val;
+    }
+    get y() {
+        return this.#y;
+    }
+
     constructor(x, y) {
-        this.x = x;
-        this.y = y;
+        this.#prevX = this.#x = x;
+        this.#prevY = this.#y = y;
     }
 
     draw(context) {
