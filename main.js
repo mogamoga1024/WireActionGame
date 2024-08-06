@@ -1,4 +1,5 @@
 
+let isPressedUp = false;
 let isPressedLeft = false;
 let isPressedRight = false;
 let isPressedX = false;
@@ -6,7 +7,8 @@ let isPressedZ = false;
 
 addEventListener("keydown", e => {
     switch (e.key) {
-        case "ArrowLeft":  isPressedLeft = true;  break;
+        case "ArrowUp":    isPressedUp    = true; break;
+        case "ArrowLeft":  isPressedLeft  = true; break;
         case "ArrowRight": isPressedRight = true; break;
         case "x": isPressedX = true; break;
         case "z": isPressedZ = true; break;
@@ -15,7 +17,8 @@ addEventListener("keydown", e => {
 
 addEventListener("keyup", e => {
     switch (e.key) {
-        case "ArrowLeft":  isPressedLeft = false;  break;
+        case "ArrowUp":    isPressedUp    = false; break;
+        case "ArrowLeft":  isPressedLeft  = false; break;
         case "ArrowRight": isPressedRight = false; break;
         case "x": isPressedX = false; break;
         case "z": isPressedZ = false; break;
@@ -44,7 +47,22 @@ const staticObjList = [staticObj1, staticObj2, staticObj3, staticObj4, staticObj
 
 function update() {
     if (isPressedZ) {
-        if (player.direction === "right") {
+        if (isPressedUp && !isPressedLeft && !isPressedRight) {
+            player.fireHook(Math.PI / 2);
+        }
+        else if (isPressedUp && isPressedLeft && !isPressedRight) {
+            player.fireHook(Math.PI * 3 / 4);
+        }
+        else if (isPressedUp && !isPressedLeft && isPressedRight) {
+            player.fireHook(Math.PI / 4);
+        }
+        else if (!isPressedUp && isPressedLeft && !isPressedRight) {
+            player.fireHook(Math.PI);
+        }
+        else if (!isPressedUp && !isPressedLeft && isPressedRight) {
+            player.fireHook(0);
+        }
+        else if (player.direction === "right") {
             player.fireHook(Math.PI / 4);
         }
         else if (player.direction === "left") {
