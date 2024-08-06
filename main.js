@@ -51,7 +51,6 @@ function update() {
             player.fireHook(Math.PI * 3 / 4);
         }
     }
-    player.hookMove();
 
     if (player.actStatus === "falling") {
         player.fall();
@@ -76,6 +75,8 @@ function update() {
 
     // 衝突処理
     player.resolveCollision(staticObjList);
+
+    player.hookMove();
 
     // 描画する
     staticObjList.forEach(staticObj => {

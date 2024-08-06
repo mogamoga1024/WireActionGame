@@ -1,6 +1,7 @@
 
 class Hook {
-    // #baseX = 0; #baseY = 0;
+    #baseX = 0; #baseY = 0;
+    #relativeX = 0; #relativeY = 0;
     #x = 0;
     get x() { return this.#x }
     #y = 0;
@@ -11,8 +12,8 @@ class Hook {
     get height() { return this.#height }
     get centerX() { return this.#x + this.#width / 2; }
     get centerY() { return this.#y + this.#height / 2; }
-    // get baseCenterX() { return this.#baseX + this.#width / 2; }
-    // get baseCenterY() { return this.#baseY + this.#height / 2; }
+    get baseCenterX() { return this.#baseX + this.#width / 2; }
+    get baseCenterY() { return this.#baseY + this.#height / 2; }
 
     #player = null;
     #v = 10;
@@ -25,8 +26,8 @@ class Hook {
         this.#player = player;
         this.#x = player.x + player.width / 2 - this.width / 2;
         this.#y = player.y + player.height / 2 - this.height / 2;
-        // this.#baseX = this.#x
-        // this.#baseY = this.#y
+        this.#baseX = this.#x
+        this.#baseY = this.#y
         this.#vx = this.#v * Math.cos(radian);
         this.#vy = -1 * this.#v * Math.sin(radian);
     }
