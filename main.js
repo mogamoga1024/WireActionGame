@@ -94,7 +94,7 @@ function update() {
     // 衝突処理
     player.resolveCollision(staticObjList);
 
-    player.hookMove();
+    player.hookMove(staticObjList);
 
     // 描画する
     staticObjList.forEach(staticObj => {

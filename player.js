@@ -106,13 +106,15 @@ class Player {
         }
         this.#hook = new Hook(this, radian);
     }
-    hookMove() {
+    hookMove(staticObjList) {
         if (this.#hook === null) {
             return;
         }
         if (this.#hook.move()) {
             this.#hook = null;
+            return;
         }
+        this.#hook.resolveCollision(staticObjList);
     }
 
     resolveCollision(staticObjList) {
