@@ -45,8 +45,19 @@ const player = new Player(100, 360);
 
 const staticObjList = [staticObj1, staticObj2, staticObj3, staticObj4, staticObj5];
 
+let fireHookWaitFrame = 0;
+let fireHookWaitFrameMax = 10;
+
 function update() {
-    if (isPressedZ) {
+    if (fireHookWaitFrame !== 0) {
+        fireHookWaitFrame++;
+        if (fireHookWaitFrame >= fireHookWaitFrameMax) {
+            fireHookWaitFrame = 0;
+        }
+    }
+
+    if (isPressedZ && fireHookWaitFrame === 0) {
+        fireHookWaitFrame++;
         if (isPressedUp && !isPressedLeft && !isPressedRight) {
             player.fireHook(Math.PI / 2);
         }

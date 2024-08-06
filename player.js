@@ -102,6 +102,9 @@ class Player {
 
     fireHook(radian) {
         if (this.#hook !== null) {
+            if (this.#hook.actStatus === "stuck") {
+                this.#hook.return();
+            }
             return;
         }
         this.#hook = new Hook(this, radian);

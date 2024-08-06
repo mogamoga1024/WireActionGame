@@ -2,13 +2,13 @@
 class Hook {
     #relativeX = 0; #relativeY = 0;
     #x = 0;
-    get x() { return this.#x }
+    get x() { return this.#x; }
     #y = 0;
-    get y() { return this.#y }
+    get y() { return this.#y; }
     #width = 14;
-    get width() { return this.#width }
+    get width() { return this.#width; }
     #height = 14;
-    get height() { return this.#height }
+    get height() { return this.#height; }
     get centerX() { return this.#x + this.#width / 2; }
     get centerY() { return this.#y + this.#height / 2; }
 
@@ -19,6 +19,7 @@ class Hook {
     #maxWireLength = 200;
     #isShrinking = false;
     #actStatus = "moving";
+    get actStatus() { return this.#actStatus; } 
     
     constructor(player, radian) {
         this.#player = player;
@@ -67,8 +68,13 @@ class Hook {
         return false;
     }
 
+    return() {
+        this.#actStatus = "moving";
+        this.#isShrinking = true;
+    }
+
     resolveCollision(staticObjList) {
-        if (this.#actStatus === "stuck") {
+        if (this.#isShrinking || this.#actStatus === "stuck") {
             return;
         }
         for (const staticObj of staticObjList) {
