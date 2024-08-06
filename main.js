@@ -46,7 +46,7 @@ const player = new Player(100, 360);
 const staticObjList = [staticObj1, staticObj2, staticObj3, staticObj4, staticObj5];
 
 let fireHookWaitFrame = 0;
-let fireHookWaitFrameMax = 10;
+const fireHookWaitFrameMax = 10;
 
 function update() {
     if (fireHookWaitFrame !== 0) {
