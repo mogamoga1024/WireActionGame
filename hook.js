@@ -18,6 +18,7 @@ class Hook {
     #vy = 0;
     #maxWireLength = 200;
     #isShrinking = false;
+    #actStatus = "moving";
     
     constructor(player, radian) {
         this.#player = player;
@@ -36,6 +37,9 @@ class Hook {
 
     // 戻り値：フックを消去するべきか
     move() {
+        if (this.#actStatus === "stuck") {
+            return false;
+        }
         if (this.#isShrinking) {
             const vecX = this.centerX - this.#player.centerX;
             const vecY = this.centerY - this.#player.centerY;
@@ -64,14 +68,28 @@ class Hook {
     }
 
     resolveCollision(staticObjList) {
+        if (this.#actStatus === "stuck") {
+            return;
+        }
         for (const staticObj of staticObjList) {
-            if (this.#resolveCollision(staticObj)) {
+            if (this.#resolveCollision(staticObj) === "stuck") {
+                this.#actStatus = "stuck";
                 return;
             }
         }
     }
 
     #resolveCollision(staticObj) {
-        // todo
+        if (
+            this.x + this.width <= staticObj.x ||
+            this.x >= staticObj.x + staticObj.width ||
+            this.y + this.height <= staticObj.y ||
+            this.y >= staticObj.y + staticObj.height
+        ) {
+            return "moving";
+        }
+        else {
+            return "stuck";
+        }
     }
 }
