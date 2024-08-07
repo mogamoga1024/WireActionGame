@@ -1,7 +1,7 @@
 
 class Player {
     #vx = 0;
-    #vxMax = 7;
+    #vxMax = 3;
     #vy = 0;
     #vyMax = 10;
     #hook = null;
