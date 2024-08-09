@@ -79,6 +79,13 @@ class Hook {
         this.#isShrinking = true;
     }
 
+    canExtendWire(playerCenterX, playerCenterY) {
+        const diffX = this.centerX - playerCenterX;
+        const diffY = this.centerY - playerCenterY;
+        const wireLength = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+        return wireLength < this.#maxWireLength;
+    }
+
     resolveCollision(staticObjList) {
         if (this.#isShrinking || this.#actStatus === "stuck") {
             return;

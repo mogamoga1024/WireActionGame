@@ -21,6 +21,9 @@ class Player {
     get centerX() { return this.#x + this.#width / 2; }
     get centerY() { return this.#y + this.#height / 2; }
 
+    #centerX(x) { return x + this.#width / 2; }
+    #centerY(y) { return y + this.#height / 2; }
+
     constructor(x, y) {
         this.#prevX = this.#x = x;
         this.#prevY = this.#y = y;
@@ -70,8 +73,13 @@ class Player {
                 }
             }
         }
-        this.#prevX = this.#x;
-        this.#x += this.#vx;
+        if (this.#canExtendWire(this.#centerX(this.#x + this.#vx), this.centerY)) {
+            this.#prevX = this.#x;
+            this.#x += this.#vx;
+        }
+        else {
+            this.#vx = 0;
+        }
     }
 
     jumpStart() {
@@ -118,6 +126,15 @@ class Player {
             return;
         }
         this.#hook.resolveCollision(staticObjList);
+    }
+
+    // フックが引っかかっているときにプレイヤーが動けるかどうかの判定
+    // todo 伸ばせるようにしたいが、とりあえず固定しとく
+    #canExtendWire(playerCenterX, playerCenterY) {
+        if (this.#hook === null) {
+            return true;
+        }
+        return this.#hook.canExtendWire(playerCenterX, playerCenterY);
     }
 
     resolveCollision(staticObjList) {
