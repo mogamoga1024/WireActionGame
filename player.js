@@ -89,8 +89,13 @@ class Player {
     }
     jump() {
         this.#vy += dt * g;
-        this.#prevY = this.#y;
-        this.#y += this.#vy;
+        if (this.#canExtendWire(this.centerX, this.#centerY(this.#y + this.#vy))) {
+            this.#prevY = this.#y;
+            this.#y += this.#vy;
+        }
+        else {
+            this.#vy = 0;
+        }
     }
     fallStart() {
         this.#actStatus = "falling";
@@ -100,8 +105,13 @@ class Player {
     fall() {
         this.#actStatus = "falling";
         this.#vy += dt * g;
-        this.#prevY = this.#y;
-        this.#y += this.#vy;
+        if (this.#canExtendWire(this.centerX, this.#centerY(this.#y + this.#vy))) {
+            this.#prevY = this.#y;
+            this.#y += this.#vy;
+        }
+        else {
+            this.#vy = 0;
+        }
     }
     #fallEnd() {
         this.#vy = 0;
