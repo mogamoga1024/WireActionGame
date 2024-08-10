@@ -59,6 +59,7 @@ class Player {
                 this.#vx = this.#vxMax;
             }
         }
+        // 慣性 & 摩擦による減速
         else if (direction === "none" && this.#actStatus === "ground") {
             if (this.#vx > 0) {
                 this.#vx -= 0.2;

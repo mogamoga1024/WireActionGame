@@ -80,6 +80,9 @@ class Hook {
     }
 
     canExtendWire(playerCenterX, playerCenterY) {
+        if (this.actStatus !== "stuck") {
+            return true;
+        }
         const diffX = this.centerX - playerCenterX;
         const diffY = this.centerY - playerCenterY;
         const wireLength = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
