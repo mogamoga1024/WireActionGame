@@ -44,6 +44,10 @@ class Player {
         context.fill();
     }
 
+    applyForce(direction) {
+        
+    }
+
     move(direction) {
         if (direction === "left") {
             this.#direction = direction;
