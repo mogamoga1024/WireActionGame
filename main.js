@@ -59,27 +59,8 @@ function update() {
 
     if (isPressedZ && fireHookWaitFrame === 0) {
         fireHookWaitFrame++;
-        if (isPressedUp && !isPressedLeft && !isPressedRight) {
-            player.fireHook(Math.PI / 2);
-        }
-        else if (isPressedUp && isPressedLeft && !isPressedRight) {
-            player.fireHook(Math.PI * 3 / 4);
-        }
-        else if (isPressedUp && !isPressedLeft && isPressedRight) {
-            player.fireHook(Math.PI / 4);
-        }
-        else if (!isPressedUp && isPressedLeft && !isPressedRight) {
-            player.fireHook(Math.PI);
-        }
-        else if (!isPressedUp && !isPressedLeft && isPressedRight) {
-            player.fireHook(0);
-        }
-        else if (player.direction === "right") {
-            player.fireHook(Math.PI / 4);
-        }
-        else if (player.direction === "left") {
-            player.fireHook(Math.PI * 3 / 4);
-        }
+        const radian = fireHookRadian();
+        player.fireHook(radian);
     }
 
     if (isPressedX) {
@@ -106,3 +87,26 @@ function update() {
     player.draw(context);
 }
 
+function fireHookRadian() {
+    if (isPressedUp && !isPressedLeft && !isPressedRight) {
+        return Math.PI / 2;
+    }
+    else if (isPressedUp && isPressedLeft && !isPressedRight) {
+        return Math.PI * 3 / 4;
+    }
+    else if (isPressedUp && !isPressedLeft && isPressedRight) {
+        return Math.PI / 4;
+    }
+    else if (!isPressedUp && isPressedLeft && !isPressedRight) {
+        return Math.PI;
+    }
+    else if (!isPressedUp && !isPressedLeft && isPressedRight) {
+        return 0;
+    }
+    else if (player.direction === "right") {
+        return Math.PI / 4;
+    }
+    else if (player.direction === "left") {
+        return Math.PI * 3 / 4;
+    }
+}
