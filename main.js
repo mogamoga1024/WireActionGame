@@ -93,15 +93,17 @@ function update() {
     }
 
     if (isPressedLeft && !isPressedRight) {
-        player.move("left");
+        player.applyForce("left");
     }
     else if (!isPressedLeft && isPressedRight) {
-        player.move("right");
+        player.applyForce("right");
     }
     else {
         // 慣性
-        player.move("none");
+        player.applyForce("none");
     }
+
+    player.move();
 
     // 衝突処理
     player.resolveCollision(staticObjList);

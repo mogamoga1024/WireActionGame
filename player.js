@@ -45,10 +45,6 @@ class Player {
     }
 
     applyForce(direction) {
-        
-    }
-
-    move(direction) {
         if (direction === "left") {
             this.#direction = direction;
             this.#vx -= 0.3;
@@ -77,6 +73,9 @@ class Player {
                 }
             }
         }
+    }
+
+    move() {
         if (this.#canExtendWire(this.#centerX(this.#x + this.#vx), this.centerY)) {
             this.#prevX = this.#x;
             this.#x += this.#vx;
