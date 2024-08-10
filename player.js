@@ -75,7 +75,18 @@ class Player {
         }
     }
 
-    move() {
+    move(staticObjList) {
+        if (this.#actStatus === "jumping" || this.#actStatus === "falling") {
+            this.#vy += dt * g;
+            if (this.#canExtendWire(this.centerX, this.#centerY(this.#y + this.#vy))) {
+                this.#prevY = this.#y;
+                this.#y += this.#vy;
+            }
+            else {
+                this.#vy = 0;
+            }
+        }
+
         if (this.#canExtendWire(this.#centerX(this.#x + this.#vx), this.centerY)) {
             this.#prevX = this.#x;
             this.#x += this.#vx;
@@ -83,38 +94,24 @@ class Player {
         else {
             this.#vx = 0;
         }
+
+        this.#resolveCollisionList(staticObjList);
+        this.#hookMove(staticObjList);
     }
 
     jumpStart() {
+        if (this.#actStatus !== "ground") {
+            return;
+        }
         this.#actStatus = "jumping";
         this.#vy = -this.#vyMax;
-        this.jump();
-    }
-    jump() {
-        this.#vy += dt * g;
-        if (this.#canExtendWire(this.centerX, this.#centerY(this.#y + this.#vy))) {
-            this.#prevY = this.#y;
-            this.#y += this.#vy;
-        }
-        else {
-            this.#vy = 0;
-        }
     }
     fallStart() {
+        if (this.#actStatus !== "ground") {
+            return;
+        }
         this.#actStatus = "falling";
         this.#vy = 0;
-        this.fall();
-    }
-    fall() {
-        this.#actStatus = "falling";
-        this.#vy += dt * g;
-        if (this.#canExtendWire(this.centerX, this.#centerY(this.#y + this.#vy))) {
-            this.#prevY = this.#y;
-            this.#y += this.#vy;
-        }
-        else {
-            this.#vy = 0;
-        }
     }
     #fallEnd() {
         this.#vy = 0;
@@ -130,7 +127,7 @@ class Player {
         }
         this.#hook = new Hook(this, radian);
     }
-    hookMove(staticObjList) {
+    #hookMove(staticObjList) {
         if (this.#hook === null) {
             return;
         }
@@ -150,7 +147,7 @@ class Player {
         return this.#hook.canExtendWire(playerCenterX, playerCenterY);
     }
 
-    resolveCollision(staticObjList) {
+    #resolveCollisionList(staticObjList) {
         if (this.#hook !== null) {
             this.#hook.resolveCollision(staticObjList);
         }
@@ -163,7 +160,7 @@ class Player {
         }
         if (isFall) {
             this.fallStart();
-            this.resolveCollision(staticObjList);
+            this.#resolveCollisionList(staticObjList);
         }
     }
 

@@ -82,13 +82,7 @@ function update() {
         }
     }
 
-    if (player.actStatus === "falling") {
-        player.fall();
-    }
-    else if (player.actStatus === "jumping") {
-        player.jump();
-    }
-    else if (isPressedX) {
+    if (isPressedX) {
         player.jumpStart();
     }
 
@@ -103,12 +97,7 @@ function update() {
         player.applyForce("none");
     }
 
-    player.move();
-
-    // 衝突処理
-    player.resolveCollision(staticObjList);
-
-    player.hookMove(staticObjList);
+    player.move(staticObjList);
 
     // 描画する
     staticObjList.forEach(staticObj => {
