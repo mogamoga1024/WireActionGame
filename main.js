@@ -59,24 +59,14 @@ function update() {
 
     if (isPressedZ && fireHookWaitFrame === 0) {
         fireHookWaitFrame++;
-        const radian = fireHookRadian();
-        player.fireHook(radian);
+        player.fireHook(fireHookRadian());
     }
 
     if (isPressedX) {
         player.jumpStart();
     }
 
-    if (isPressedLeft && !isPressedRight) {
-        player.applyForce("left");
-    }
-    else if (!isPressedLeft && isPressedRight) {
-        player.applyForce("right");
-    }
-    else {
-        // 慣性
-        player.applyForce("none");
-    }
+    player.applyForce(forceDirection());
 
     player.move(staticObjList);
 
@@ -108,5 +98,17 @@ function fireHookRadian() {
     }
     else if (player.direction === "left") {
         return Math.PI * 3 / 4;
+    }
+}
+
+function forceDirection() {
+    if (isPressedLeft && !isPressedRight) {
+        return "left";
+    }
+    else if (!isPressedLeft && isPressedRight) {
+        return "right";
+    }
+    else {
+        return "none";
     }
 }
