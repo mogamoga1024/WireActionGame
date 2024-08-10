@@ -76,7 +76,7 @@ class Player {
     }
 
     move(staticObjList) {
-        if (this.#actStatus === "jumping" || this.#actStatus === "falling") {
+        if (this.#actStatus !== "ground") {
             this.#vy += dt * g;
             if (this.#canExtendWire(this.centerX, this.#centerY(this.#y + this.#vy))) {
                 this.#prevY = this.#y;
@@ -213,7 +213,7 @@ class Player {
 
         // 落下中に床に衝突
         if (
-            (this.#actStatus === "jumping" || this.#actStatus === "falling") &&
+            (this.#actStatus !== "ground") &&
             this.#vy > 0 &&
             !(this.#prevX + this.width <= staticObj.x || this.#prevX >= staticObj.x + staticObj.width) &&
             this.x + this.width > staticObj.x &&
@@ -229,7 +229,7 @@ class Player {
 
         // 空中で左の壁に衝突
         if (
-            (this.#actStatus === "jumping" || this.#actStatus === "falling") &&
+            (this.#actStatus !== "ground") &&
             this.#vx < 0 &&
             this.#prevY + this.height > staticObj.y &&
             this.y + this.height > staticObj.y &&
@@ -244,7 +244,7 @@ class Player {
         }
         // 空中で右の壁に衝突
         if (
-            (this.#actStatus === "jumping" || this.#actStatus === "falling") &&
+            (this.#actStatus !== "ground") &&
             this.#vx > 0 &&
             this.#prevY + this.height > staticObj.y &&
             this.y + this.height > staticObj.y &&
