@@ -10,6 +10,7 @@ class Player {
     #actStatus = "ground";
     get actStatus() { return this.#actStatus; }
     #maxRadian = 0;
+    #furikoLength = 0;
     #angularFrequency = 0;
     #furikoParam = 0;
 
@@ -80,12 +81,17 @@ class Player {
     }
 
     move(staticObjList) {
-        if (this.#hook?.actStatus === "stuck" && this.#actStatus !== "ground") {
+        if (this.#hook?.actStatus === "stuck" && this.#actStatus !== "furiko") {
             this.#furikoStart();
         }
 
         if (this.#actStatus === "furiko") {
-            
+            this.#furikoParam += dt * 10;
+            const radian = this.#maxRadian * Math.cos(this.#angularFrequency * this.#furikoParam);
+            this.#prevX = this.#x;
+            this.#prevY = this.#y;
+            this.#x = this.#hook.centerX + this.#furikoLength * Math.sin(radian) - this.#width / 2;
+            this.#y = this.#hook.centerY + this.#furikoLength * Math.cos(radian) - this.#height / 2;
             return; // todo 仮 後で外す
         }
 
@@ -139,7 +145,8 @@ class Player {
         const vecX = this.centerX - this.#hook.centerX;
         const vecY = this.centerY - this.#hook.centerY;
         this.#maxRadian = Math.PI / 2 - Math.atan2(vecY, vecX);
-        this.#angularFrequency = Math.sqrt(gravity / Math.sqrt(vecX * vecX, vecY * vecY));
+        this.#furikoLength = Math.sqrt(vecX * vecX, vecY * vecY);
+        this.#angularFrequency = Math.sqrt(gravity / this.#furikoLength);
         this.#furikoParam = 0;
     }
 
