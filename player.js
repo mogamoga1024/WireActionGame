@@ -92,26 +92,28 @@ class Player {
             this.#prevY = this.#y;
             this.#x = this.#hook.centerX + this.#furikoLength * Math.sin(radian) - this.#width / 2;
             this.#y = this.#hook.centerY + this.#furikoLength * Math.cos(radian) - this.#height / 2;
-            return; // todo 仮 後で外す
-        }
-
-        if (this.#actStatus !== "ground") {
-            this.#vy += dt * gravity;
-            if (this.#canExtendWire(this.centerX, this.#centerY(this.#y + this.#vy))) {
-                this.#prevY = this.#y;
-                this.#y += this.#vy;
-            }
-            else {
-                this.#vy = 0;
-            }
-        }
-
-        if (this.#canExtendWire(this.#centerX(this.#x + this.#vx), this.centerY)) {
-            this.#prevX = this.#x;
-            this.#x += this.#vx;
+            this.#vx = this.#x - this.#prevX;
+            this.#vy = this.#y - this.#prevY; // todo 必要性
         }
         else {
-            this.#vx = 0;
+            if (this.#actStatus !== "ground") {
+                this.#vy += dt * gravity;
+                if (this.#canExtendWire(this.centerX, this.#centerY(this.#y + this.#vy))) {
+                    this.#prevY = this.#y;
+                    this.#y += this.#vy;
+                }
+                else {
+                    this.#vy = 0;
+                }
+            }
+    
+            if (this.#canExtendWire(this.#centerX(this.#x + this.#vx), this.centerY)) {
+                this.#prevX = this.#x;
+                this.#x += this.#vx;
+            }
+            else {
+                this.#vx = 0;
+            }
         }
 
         this.#resolveCollisionList(staticObjList);
@@ -150,6 +152,7 @@ class Player {
     fireHook(radian) {
         if (this.#hook !== null) {
             if (this.#hook.actStatus === "stuck") {
+                this.#actStatus = "falling";
                 this.#hook.return();
             }
             return;
