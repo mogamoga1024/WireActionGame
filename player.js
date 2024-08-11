@@ -242,13 +242,17 @@ class Player {
             this.x <= staticObj.x + staticObj.width &&
             this.x + this.width > staticObj.x + staticObj.width
         ) {
-            // todo
-            console.log("ddd");
-            // this.#x = staticObj.x + staticObj.width;
-            // this.#prevX = this.x;
-            // this.#vx = 0;
-            // this.#vy = 0;
-            this.#furikoStart(true);
+            if (this.#centerX(this.#prevX) > this.#hook.centerX) {
+                // 振り子的に座標が厳密には違うが…
+                this.#x = staticObj.x + staticObj.width;
+                this.#y = this.#prevY;
+                this.#prevX = this.x;
+                this.#furikoStart(true);
+            }
+            else {
+                // めり込んでいるが… 気にしない
+                this.#furikoStart(true);
+            }
             return this.#actStatus;
         }
         // 振り子中に右の壁に衝突 todo
