@@ -9,6 +9,9 @@ class Player {
     get direction() { return this.#direction; }
     #actStatus = "ground";
     get actStatus() { return this.#actStatus; }
+    #maxRadian = 0;
+    #angularFrequency = 0;
+    #furikoParam = 0;
 
     #x = 0; #prevX = 0;
     get x() { return this.#x; }
@@ -81,8 +84,13 @@ class Player {
             this.#furikoStart();
         }
 
+        if (this.#actStatus === "furiko") {
+            
+            return; // todo 仮 後で外す
+        }
+
         if (this.#actStatus !== "ground") {
-            this.#vy += dt * g;
+            this.#vy += dt * gravity;
             if (this.#canExtendWire(this.centerX, this.#centerY(this.#y + this.#vy))) {
                 this.#prevY = this.#y;
                 this.#y += this.#vy;
@@ -125,12 +133,14 @@ class Player {
 
     #furikoStart() {
         // todo
+        this.#actStatus = "furiko";
         // const vecX = this.#hook.centerX - this.centerX;
         // const vecY = this.#hook.centerY - this.centerY;
         const vecX = this.centerX - this.#hook.centerX;
         const vecY = this.centerY - this.#hook.centerY;
-        const radian = Math.PI / 2 - Math.atan2(vecY, vecX);
-        console.log(radian);
+        this.#maxRadian = Math.PI / 2 - Math.atan2(vecY, vecX);
+        this.#angularFrequency = Math.sqrt(gravity / Math.sqrt(vecX * vecX, vecY * vecY));
+        this.#furikoParam = 0;
     }
 
     fireHook(radian) {
