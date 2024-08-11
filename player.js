@@ -139,8 +139,11 @@ class Player {
         this.#actStatus = "ground";
     }
 
-    #furikoStart() {
-        if (this.#actStatus === "ground" || this.#actStatus === "furiko") {
+    #furikoStart(force = false) {
+        if (
+            !force &&
+            (this.#actStatus === "ground" || this.#actStatus === "furiko")
+        ) {
             return;
         }
         this.#actStatus = "furiko";
@@ -230,7 +233,24 @@ class Player {
             return this.#actStatus;
         }
 
-        // 振り子中に左の壁に衝突 todo
+        // 振り子中に左の壁に衝突
+        if (
+            this.#actStatus === "furiko" &&
+            this.#vx < 0 &&
+            this.y + this.height > staticObj.y &&
+            this.y < staticObj.y + staticObj.height &&
+            this.x <= staticObj.x + staticObj.width &&
+            this.x + this.width > staticObj.x + staticObj.width
+        ) {
+            // todo
+            console.log("ddd");
+            // this.#x = staticObj.x + staticObj.width;
+            // this.#prevX = this.x;
+            // this.#vx = 0;
+            // this.#vy = 0;
+            this.#furikoStart(true);
+            return this.#actStatus;
+        }
         // 振り子中に右の壁に衝突 todo
         // 振り子中に地面に衝突 todo
         // 振り子中に天井に衝突 todo
