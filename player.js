@@ -125,6 +125,12 @@ class Player {
 
     #furikoStart() {
         // todo
+        // const vecX = this.#hook.centerX - this.centerX;
+        // const vecY = this.#hook.centerY - this.centerY;
+        const vecX = this.centerX - this.#hook.centerX;
+        const vecY = this.centerY - this.#hook.centerY;
+        const radian = Math.PI / 2 - Math.atan2(vecY, vecX);
+        console.log(radian);
     }
 
     fireHook(radian) {
