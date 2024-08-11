@@ -138,10 +138,7 @@ class Player {
     }
 
     #furikoStart() {
-        // todo
         this.#actStatus = "furiko";
-        // const vecX = this.#hook.centerX - this.centerX;
-        // const vecY = this.#hook.centerY - this.centerY;
         const vecX = this.centerX - this.#hook.centerX;
         const vecY = this.centerY - this.#hook.centerY;
         this.#maxRadian = Math.PI / 2 - Math.atan2(vecY, vecX);
