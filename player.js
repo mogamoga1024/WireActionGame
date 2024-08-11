@@ -230,6 +230,11 @@ class Player {
             return this.#actStatus;
         }
 
+        // 振り子中に左の壁に衝突 todo
+        // 振り子中に右の壁に衝突 todo
+        // 振り子中に地面に衝突 todo
+        // 振り子中に天井に衝突 todo
+
         // ジャンプ中に天井に衝突
         if (
             this.#actStatus !== "ground" &&
