@@ -78,7 +78,7 @@ class Player {
 
     move(staticObjList) {
         if (this.#hook?.actStatus === "stuck" && this.#actStatus !== "ground") {
-            this.#furiko();
+            this.#furikoStart();
         }
 
         if (this.#actStatus !== "ground") {
@@ -123,7 +123,7 @@ class Player {
         this.#actStatus = "ground";
     }
 
-    #furiko() {
+    #furikoStart() {
         // todo
     }
 
