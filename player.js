@@ -145,7 +145,7 @@ class Player {
         const vecX = this.centerX - this.#hook.centerX;
         const vecY = this.centerY - this.#hook.centerY;
         this.#maxRadian = Math.PI / 2 - Math.atan2(vecY, vecX);
-        this.#furikoLength = Math.sqrt(vecX * vecX, vecY * vecY);
+        this.#furikoLength = Math.sqrt(vecX * vecX + vecY * vecY);
         this.#angularFrequency = Math.sqrt(gravity / this.#furikoLength);
         this.#furikoParam = 0;
     }
