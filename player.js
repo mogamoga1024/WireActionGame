@@ -127,7 +127,7 @@ class Player {
         this.#actStatus = "jumping";
         this.#vy = -this.#vyMax;
     }
-    fallStart() {
+    #fallStart() {
         if (this.#actStatus !== "ground") {
             return;
         }
@@ -140,6 +140,9 @@ class Player {
     }
 
     #furikoStart() {
+        if (this.#actStatus === "ground" || this.#actStatus === "furiko") {
+            return;
+        }
         this.#actStatus = "furiko";
         const vecX = this.centerX - this.#hook.centerX;
         const vecY = this.centerY - this.#hook.centerY;
@@ -191,7 +194,7 @@ class Player {
             }
         }
         if (isFall) {
-            this.fallStart();
+            this.#fallStart();
             this.#resolveCollisionList(staticObjList);
         }
     }
