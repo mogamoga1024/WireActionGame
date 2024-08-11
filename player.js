@@ -93,7 +93,7 @@ class Player {
             this.#x = this.#hook.centerX + this.#furikoLength * Math.sin(radian) - this.#width / 2;
             this.#y = this.#hook.centerY + this.#furikoLength * Math.cos(radian) - this.#height / 2;
             this.#vx = this.#x - this.#prevX;
-            this.#vy = this.#y - this.#prevY; // todo 必要性
+            this.#vy = this.#y - this.#prevY;
         }
         else {
             if (this.#actStatus !== "ground") {
