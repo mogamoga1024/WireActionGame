@@ -46,6 +46,16 @@ class Player {
         context.rect(this.x, this.y, this.width, this.height);
         context.fillStyle = "blue";
         context.fill();
+
+        context.beginPath();
+        if (this.direction === "left") {
+            context.rect(this.x, this.y + 10, 10, 10);
+        }
+        else if (this.direction === "right") {
+            context.rect(this.x + this.width - 10, this.y + 10, 10, 10);
+        }
+        context.fillStyle = "yellow";
+        context.fill();
     }
 
     applyForce(direction) {
