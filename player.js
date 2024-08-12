@@ -382,7 +382,7 @@ class Player {
         ) {
             this.#y = staticObj.y + staticObj.height;
             this.#prevY = this.y;
-            this.#vy *= -0.8;
+            this.#vy = 0;
             return this.#actStatus;
         }
 
