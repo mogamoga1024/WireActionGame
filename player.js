@@ -13,6 +13,7 @@ class Player {
     #furikoLength = 0;
     #angularFrequency = 0;
     #furikoParam = 0;
+    #furikoForceMode = "none"; // none, accelerate, decelerate
 
     #x = 0; #prevX = 0;
     get x() { return this.#x; }
@@ -59,6 +60,22 @@ class Player {
     }
 
     applyForce(direction) {
+        if (this.#actStatus === "furiko") {
+            if (
+                direction === "left" && this.#vx > 0 ||
+                direction === "right" && this.#vx < 0
+            ) {
+                this.#furikoForceMode = "accelerate";
+            }
+            else if (
+                direction === "left" && this.#vx < 0 ||
+                direction === "right" && this.#vx > 0
+            ) {
+                this.#furikoForceMode = "decelerate";
+            }
+            return;
+        }
+
         if (direction === "left") {
             this.#direction = direction;
             this.#vx -= 0.3;
@@ -175,6 +192,7 @@ class Player {
         this.#furikoLength = Math.sqrt(vecX * vecX + vecY * vecY);
         this.#angularFrequency = Math.sqrt(gravity / this.#furikoLength);
         this.#furikoParam = 0;
+        this.#furikoForceMode = "none";
     }
 
     fireHook(radian) {
