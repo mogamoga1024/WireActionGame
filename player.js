@@ -305,7 +305,7 @@ class Player {
             this.x <= staticObj.x + staticObj.width &&
             this.x + this.width > staticObj.x + staticObj.width
         ) {
-            // // TODO 振り子 接触点の厳密な計算
+            // TODO 振り子 接触点の厳密な計算
             if (this.#centerX(this.#prevX) > this.#hook.centerX) {
                 this.#x = staticObj.x + staticObj.width;
                 this.#y = this.#prevY;
@@ -329,7 +329,7 @@ class Player {
             this.x + this.width >= staticObj.x &&
             this.x < staticObj.x
         ) {
-            // // TODO 振り子 接触点の厳密な計算
+            // TODO 振り子 接触点の厳密な計算
             if (this.#centerX(this.#prevX) > this.#hook.centerX) {
                 this.#x = staticObj.x - this.width;
                 this.#y = this.#prevY;
@@ -343,8 +343,23 @@ class Player {
             }
             return this.#actStatus;
         }
+        // 振り子中に天井に衝突
+        if (
+            this.#actStatus === "furiko" &&
+            this.#vy < 0 &&
+            !(this.#prevX + this.width <= staticObj.x || this.#prevX >= staticObj.x + staticObj.width) &&
+            this.x + this.width > staticObj.x &&
+            this.x < staticObj.x + staticObj.width &&
+            this.y <= staticObj.y + staticObj.height &&
+            this.y + this.height > staticObj.y + staticObj.height
+        ) {
+            // TODO 振り子 接触点の厳密な計算
+            this.#x = this.#prevX;
+            this.#y = this.#prevY;
+            this.#furikoStart(true);
+            return this.#actStatus;
+        }
         // 振り子中に地面に衝突 todo
-        // 振り子中に天井に衝突 todo
 
         // ジャンプ中に天井に衝突
         if (
