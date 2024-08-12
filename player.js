@@ -60,16 +60,20 @@ class Player {
     }
 
     applyForce(direction) {
+        if (direction !== "none") {
+            this.#direction = direction;
+        }
+
         if (this.#actStatus === "furiko") {
             if (
-                direction === "left" && this.#vx > 0 ||
-                direction === "right" && this.#vx < 0
+                direction === "left" && this.#vx <= 0 ||
+                direction === "right" && this.#vx >= 0
             ) {
                 this.#furikoForceMode = "accelerate";
             }
             else if (
-                direction === "left" && this.#vx < 0 ||
-                direction === "right" && this.#vx > 0
+                direction === "left" && this.#vx > 0 ||
+                direction === "right" && this.#vx < 0
             ) {
                 this.#furikoForceMode = "decelerate";
             }
@@ -77,14 +81,12 @@ class Player {
         }
 
         if (direction === "left") {
-            this.#direction = direction;
             this.#vx -= 0.3;
             if (this.#vx < -this.#vxMax) {
                 this.#vx = -this.#vxMax;
             }
         }
         else if (direction === "right") {
-            this.#direction = direction;
             this.#vx += 0.3;
             if (this.#vx > this.#vxMax) {
                 this.#vx = this.#vxMax;
@@ -123,14 +125,35 @@ class Player {
             const prevVy = this.#vy;
             this.#vx = this.#x - this.#prevX;
             this.#vy = this.#y - this.#prevY;
+
             if (
                 this.#furikoParam > dt * 10 &&
                 Math.sign(prevVx) * Math.sign(this.#vx) === 1 &&
                 Math.sign(prevVy) * Math.sign(this.#vy) === -1
             ) {
-                this.#maxRadian *= 0.9;
-                if (Math.abs(this.#maxRadian) < 0.04) {
-                    this.#maxRadian = 0;
+                if (this.#furikoForceMode === "accelerate") {
+                    this.#furikoForceMode = "none";
+                    this.#maxRadian *= 1.1;
+                }
+                else if (this.#furikoForceMode === "decelerate") {
+                    this.#furikoForceMode = "none";
+                    this.#maxRadian *= 0.8;
+                }
+                else {
+                    this.#maxRadian *= 0.9;
+                    if (Math.abs(this.#maxRadian) < 0.04) {
+                        this.#maxRadian = 0;
+                    }
+                }
+            }
+            else if (this.#furikoForceMode === "accelerate" && this.#maxRadian === 0) {
+                if (this.#direction === "left") {
+                    this.#furikoParam = (Math.PI / 2) / this.#angularFrequency;
+                    this.#maxRadian = Math.PI / 8;
+                }
+                else if (this.#direction === "right") {
+                    this.#furikoParam = (Math.PI / 2) / this.#angularFrequency;
+                    this.#maxRadian = -Math.PI / 8;
                 }
             }
         }
