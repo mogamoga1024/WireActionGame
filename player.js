@@ -250,7 +250,8 @@ class Player {
                 this.#furikoStart(true);
             }
             else {
-                // めり込んでいるが… 気にしない
+                this.#x = this.#prevX;
+                this.#y = this.#prevY;
                 this.#furikoStart(true);
             }
             return this.#actStatus;
