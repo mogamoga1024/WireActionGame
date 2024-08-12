@@ -110,7 +110,7 @@ class Player {
     }
 
     move(staticObjList) {
-        if (this.#hook?.actStatus === "stuck" && this.#actStatus !== "furiko") {
+        if (this.#hook?.canFuriko() && this.#actStatus !== "furiko") {
             this.#furikoStart();
         }
 

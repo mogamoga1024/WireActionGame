@@ -16,6 +16,7 @@ class Hook {
     #v = 20;
     #vx = 0;
     #vy = 0;
+    #minWireLength = 80;
     #maxWireLength = 230;
     #isShrinking = false;
     #actStatus = "moving";
@@ -77,6 +78,16 @@ class Hook {
     return() {
         this.#actStatus = "moving";
         this.#isShrinking = true;
+    }
+
+    canFuriko() {
+        if (this.actStatus !== "stuck") {
+            return false;
+        }
+        const diffX = this.centerX - this.#player.centerX;
+        const diffY = this.centerY - this.#player.centerY;
+        const wireLength = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+        return wireLength >= this.#minWireLength;
     }
 
     canExtendWire(playerCenterX, playerCenterY) {
