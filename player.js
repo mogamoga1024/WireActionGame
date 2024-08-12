@@ -183,7 +183,12 @@ class Player {
     }
 
     jumpStart() {
-        if (this.#actStatus !== "ground") {
+        if (this.#actStatus === "furiko") {
+            this.#actStatus = "jumping";
+            this.#vy += -this.#vyMax;
+            this.#hook.return();
+        }
+        else if (this.#actStatus !== "ground") {
             return;
         }
         this.#actStatus = "jumping";
