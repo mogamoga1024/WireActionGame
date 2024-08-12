@@ -242,8 +242,8 @@ class Player {
             this.x <= staticObj.x + staticObj.width &&
             this.x + this.width > staticObj.x + staticObj.width
         ) {
+            // // TODO 振り子 接触点の厳密な計算
             if (this.#centerX(this.#prevX) > this.#hook.centerX) {
-                // 振り子的に座標が厳密には違うが…
                 this.#x = staticObj.x + staticObj.width;
                 this.#y = this.#prevY;
                 this.#prevX = this.x;
