@@ -44,6 +44,7 @@ const staticObj5 = new StaticObject(70, 200, 250, 30);
 const staticObj6 = new StaticObject(300, 100, 400, 30);
 const staticObj7 = new StaticObject(770, 100, 50, 300);
 const player = new Player(100, 360);
+// const player = new Player(100, 100);
 
 const staticObjList = [staticObj1, staticObj2, staticObj3, staticObj4, staticObj5, staticObj6, staticObj7];
 

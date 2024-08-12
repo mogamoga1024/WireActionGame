@@ -183,16 +183,20 @@ class Player {
     }
 
     jumpStart() {
-        if (this.#actStatus === "furiko") {
-            this.#actStatus = "jumping";
-            this.#vy += -this.#vyMax;
-            this.#hook.return();
-        }
-        else if (this.#actStatus !== "ground") {
+        if (this.#actStatus === "jumping" || this.#actStatus === "falling") {
             return;
         }
+
         this.#actStatus = "jumping";
-        this.#vy = -this.#vyMax;
+
+        if (this.#actStatus === "furiko") {
+            this.#vy += -this.#vyMax;
+        }
+        else {
+            this.#vy = -this.#vyMax;
+        }
+        
+        this.#hook?.return();
     }
     #fallStart() {
         if (this.#actStatus !== "ground") {
