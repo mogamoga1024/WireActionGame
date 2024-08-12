@@ -160,15 +160,9 @@ class Player {
         else {
             if (this.#actStatus !== "ground") {
                 this.#vy += dt * gravity;
-                if (this.#canExtendWire(this.centerX, this.#centerY(this.#y + this.#vy))) {
-                    this.#prevY = this.#y;
-                    this.#y += this.#vy;
-                }
-                else {
-                    this.#vy = 0;
-                }
+                this.#prevY = this.#y;
+                this.#y += this.#vy;
             }
-    
             if (this.#canExtendWire(this.#centerX(this.#x + this.#vx), this.centerY)) {
                 this.#prevX = this.#x;
                 this.#x += this.#vx;
