@@ -107,6 +107,7 @@ class Player {
             this.#vx = this.#x - this.#prevX;
             this.#vy = this.#y - this.#prevY;
             if (
+                this.#furikoParam > dt * 10 &&
                 Math.sign(prevVx) * Math.sign(this.#vx) === 1 &&
                 Math.sign(prevVy) * Math.sign(this.#vy) === -1
             ) {
