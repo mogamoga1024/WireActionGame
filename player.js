@@ -146,7 +146,7 @@ class Player {
                     }
                 }
             }
-            else if (this.#furikoForceMode === "accelerate" && this.#maxRadian === 0) {
+            else if (this.#maxRadian === 0 && this.#furikoForceMode === "accelerate") {
                 if (this.#direction === "left") {
                     this.#furikoParam = (Math.PI / 2) / this.#angularFrequency;
                     this.#maxRadian = Math.PI / 8;
