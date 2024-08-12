@@ -102,8 +102,19 @@ class Player {
             this.#prevY = this.#y;
             this.#x = this.#hook.centerX + this.#furikoLength * Math.sin(radian) - this.#width / 2;
             this.#y = this.#hook.centerY + this.#furikoLength * Math.cos(radian) - this.#height / 2;
+            const prevVx = this.#vx;
+            const prevVy = this.#vy;
             this.#vx = this.#x - this.#prevX;
             this.#vy = this.#y - this.#prevY;
+            if (
+                Math.sign(prevVx) * Math.sign(this.#vx) === 1 &&
+                Math.sign(prevVy) * Math.sign(this.#vy) === -1
+            ) {
+                this.#maxRadian *= 0.9;
+                if (Math.abs(this.#maxRadian) < 0.04) {
+                    this.#maxRadian = 0;
+                }
+            }
         }
         else {
             if (this.#actStatus !== "ground") {
