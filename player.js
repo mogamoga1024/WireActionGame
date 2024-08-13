@@ -7,6 +7,7 @@ class Player {
     #hook = null;
     #direction = "right";
     get direction() { return this.#direction; }
+    #prevActStatus = "ground";
     #actStatus = "ground";
     get actStatus() { return this.#actStatus; }
     #maxRadian = 0;
@@ -181,6 +182,7 @@ class Player {
             return;
         }
 
+        this.#prevActStatus = this.#actStatus;
         this.#actStatus = "jumping";
 
         if (this.#actStatus === "furiko") {
@@ -196,11 +198,13 @@ class Player {
         if (this.#actStatus !== "ground") {
             return;
         }
+        this.#prevActStatus = this.#actStatus;
         this.#actStatus = "falling";
         this.#vy = 0;
     }
     #fallEnd() {
         this.#vy = 0;
+        this.#prevActStatus = this.#actStatus;
         this.#actStatus = "ground";
     }
 
@@ -211,19 +215,36 @@ class Player {
         ) {
             return;
         }
-        this.#actStatus = "furiko";
         const vecX = this.centerX - this.#hook.centerX;
         const vecY = this.centerY - this.#hook.centerY;
-        this.#maxRadian = Math.PI / 2 - Math.atan2(vecY, vecX);
+        const radian = Math.PI / 2 - Math.atan2(vecY, vecX);
         this.#furikoLength = Math.sqrt(vecX * vecX + vecY * vecY);
         this.#angularFrequency = Math.sqrt(gravity / this.#furikoLength);
-        this.#furikoParam = 0;
         this.#furikoForceMode = "none";
+        if (
+            !force &&
+            this.#prevActStatus !== "ground" &&
+            Math.abs(radian) < Math.abs(this.#maxRadian)
+        ) {
+            // todo
+            // const radian = this.#maxRadian * Math.cos(this.#angularFrequency * this.#furikoParam);
+            // Math.cos(this.#angularFrequency * this.#furikoParam) = radian / this.#maxRadian
+            // this.#angularFrequency * this.#furikoParam = Math.acos(radian / this.#maxRadian)
+            // this.#furikoParam = Math.acos(radian / this.#maxRadian) / this.#angularFrequency
+            this.#furikoParam = Math.acos(radian / this.#maxRadian) / this.#angularFrequency;
+        }
+        else {
+            this.#maxRadian = radian;
+            this.#furikoParam = 0;
+        }
+        this.#prevActStatus = this.#actStatus;
+        this.#actStatus = "furiko";
     }
 
     fireHook(radian) {
         if (this.#hook !== null) {
             if (this.#hook.actStatus === "stuck") {
+                this.#prevActStatus = this.#actStatus;
                 this.#actStatus = "falling";
                 this.#hook.return();
             }
