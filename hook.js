@@ -126,6 +126,7 @@ class Hook {
             return "moving";
         }
 
+        // フックを接させる
         while (true) {
             const tmpX = this.x - this.#vx / this.#v;;
             const tmpY = this.y - this.#vy / this.#v;;
