@@ -35,6 +35,8 @@ const context = canvas.getContext("2d");
 
 canvas.width = 800;
 canvas.height = 500;
+const globalWidth = canvas.width * 2;
+const globalHeight = canvas.height;
 
 const staticObj1 = new StaticObject(0, 400, 500, 100);
 const staticObj2 = new StaticObject(600, 400, 400, 100);
@@ -47,6 +49,8 @@ const player = new Player(100, 360);
 // const player = new Player(100, 100);
 
 const staticObjList = [staticObj1, staticObj2, staticObj3, staticObj4, staticObj5, staticObj6, staticObj7];
+
+const viewport = new Viewport(0, 0, canvas.width, canvas.height, globalWidth, globalHeight, player);
 
 let fireHookWaitFrame = 0;
 const fireHookWaitFrameMax = 10;
