@@ -41,7 +41,7 @@ class Hook {
     }
 
     // 戻り値：フックを消去するべきか
-    move() {
+    move(staticObjList) {
         if (this.#actStatus === "stuck") {
             return false;
         }
@@ -62,6 +62,9 @@ class Hook {
             this.#x = this.#player.centerX + this.#relativeX - this.#width / 2;
             this.#y = this.#player.centerY + this.#relativeY - this.#height / 2;
         }
+
+        this.#resolveCollisionList(staticObjList);
+
         const diffX = this.centerX - this.#player.centerX;
         const diffY = this.centerY - this.#player.centerY;
         const wireLength = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
@@ -103,7 +106,7 @@ class Hook {
         return wireLength < this.#maxWireLength;
     }
 
-    resolveCollision(staticObjList) {
+    #resolveCollisionList(staticObjList) {
         if (this.#isShrinking || this.#actStatus === "stuck") {
             return;
         }
@@ -141,6 +144,8 @@ class Hook {
             this.#x = tmpX;
             this.#y = tmpY;
         }
+
+        console.log("接した");
 
         return "stuck";
     }

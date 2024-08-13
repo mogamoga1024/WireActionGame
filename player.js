@@ -264,11 +264,10 @@ class Player {
         if (this.#hook === null) {
             return;
         }
-        if (this.#hook.move()) {
+        if (this.#hook.move(staticObjList)) {
             this.#hook = null;
             return;
         }
-        this.#hook.resolveCollision(staticObjList);
     }
 
     // フックが引っかかっているときにプレイヤーが動けるかどうかの判定
@@ -281,10 +280,6 @@ class Player {
     }
 
     #resolveCollisionList(staticObjList) {
-        if (this.#hook !== null) {
-            this.#hook.resolveCollision(staticObjList);
-        }
-
         let isFall = this.#actStatus === "ground";
         for (const staticObj of staticObjList) {
             if (this.#resolveCollision(staticObj) !== "falling") {
