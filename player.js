@@ -35,26 +35,29 @@ class Player {
         this.#prevY = this.#y = y;
     }
 
-    draw(context) {
+    draw(context, viewport) {
+        const ox =  viewport.offsetX;
+        const oy =  viewport.offsetY;
+
         if (this.#hook !== null) {
             context.beginPath();
-            context.moveTo(this.centerX, this.centerY);
-            context.lineTo(this.#hook.centerX, this.#hook.centerY);
+            context.moveTo(this.centerX + ox, this.centerY + oy);
+            context.lineTo(this.#hook.centerX + ox, this.#hook.centerY + oy);
             context.stroke();
-            this.#hook.draw(context);
+            this.#hook.draw(context, viewport);
         }
 
         context.beginPath();
-        context.rect(this.x, this.y, this.width, this.height);
+        context.rect(this.x + ox, this.y + oy, this.width, this.height);
         context.fillStyle = "blue";
         context.fill();
 
         context.beginPath();
         if (this.direction === "left") {
-            context.rect(this.x, this.y + 10, 10, 10);
+            context.rect(this.x + ox, this.y + 10 + oy, 10, 10);
         }
         else if (this.direction === "right") {
-            context.rect(this.x + this.width - 10, this.y + 10, 10, 10);
+            context.rect(this.x + this.width - 10 + ox, this.y + 10 + oy, 10, 10);
         }
         context.fillStyle = "yellow";
         context.fill();
