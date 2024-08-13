@@ -145,8 +145,6 @@ class Hook {
             this.#y = tmpY;
         }
 
-        console.log("接した");
-
         return "stuck";
     }
 }
