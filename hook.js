@@ -122,10 +122,25 @@ class Hook {
             this.y + this.height <= staticObj.y ||
             this.y >= staticObj.y + staticObj.height
         ) {
+            // 衝突していない
             return "moving";
         }
-        else {
-            return "stuck";
+
+        while (true) {
+            const tmpX = this.x - this.#vx / this.#v;;
+            const tmpY = this.y - this.#vy / this.#v;;
+            if (
+                this.x + this.width <= staticObj.x ||
+                this.x >= staticObj.x + staticObj.width ||
+                this.y + this.height <= staticObj.y ||
+                this.y >= staticObj.y + staticObj.height
+            ) {
+                break;
+            }
+            this.#x = tmpX;
+            this.#y = tmpY;
         }
+
+        return "stuck";
     }
 }
