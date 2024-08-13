@@ -60,7 +60,7 @@ const staticObjList = [staticObj1, staticObj2, staticObj3, staticObj4, staticObj
 const viewport = new Viewport(0, 0, canvas.width, canvas.height, globalWidth, globalHeight, player);
 
 let fireHookWaitFrame = 0;
-const fireHookWaitFrameMax = 10;
+const fireHookWaitFrameMax = 15;
 
 function update() {
     if (fireHookWaitFrame !== 0) {

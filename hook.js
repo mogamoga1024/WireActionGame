@@ -13,10 +13,10 @@ class Hook {
     get centerY() { return this.#y + this.#height / 2; }
 
     #player = null;
-    #v = 20;
+    #v = 30;
     #vx = 0;
     #vy = 0;
-    #minWireLength = 80;
+    #minWireLength = 110;
     #maxWireLength = 230;
     #isShrinking = false;
     #actStatus = "moving";
