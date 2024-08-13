@@ -226,7 +226,6 @@ class Player {
             this.#prevActStatus !== "ground" &&
             Math.abs(radian) < Math.abs(this.#maxRadian)
         ) {
-            // todo
             // const radian = this.#maxRadian * Math.cos(this.#angularFrequency * this.#furikoParam);
             // Math.cos(this.#angularFrequency * this.#furikoParam) = radian / this.#maxRadian
             // this.#angularFrequency * this.#furikoParam = Math.acos(radian / this.#maxRadian)
