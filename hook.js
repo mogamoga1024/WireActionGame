@@ -18,9 +18,10 @@ class Hook {
     #vy = 0;
     #minWireLength = 110;
     #maxWireLength = 280;
+    get maxWireLength() { return this.#maxWireLength; }
     #isShrinking = false;
     #actStatus = "moving";
-    get actStatus() { return this.#actStatus; } 
+    get actStatus() { return this.#actStatus; }
     
     constructor(player, radian) {
         this.#player = player;
@@ -94,6 +95,12 @@ class Hook {
         const diffY = this.centerY - this.#player.centerY;
         const wireLength = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
         return wireLength >= this.#minWireLength;
+    }
+
+    wireLength(playerCenterX, playerCenterY) {
+        const diffX = this.centerX - playerCenterX;
+        const diffY = this.centerY - playerCenterY;
+        return Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
     }
 
     canExtendWire(playerCenterX, playerCenterY) {

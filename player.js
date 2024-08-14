@@ -402,6 +402,19 @@ class Player {
             // TODO 振り子 接触点の厳密な計算
             this.#y = staticObj.y - this.height;
             this.#prevY = this.y;
+
+            let tmpX = this.x;
+            while (this.#hook.wireLength(this.#centerX(tmpX), this.centerY) > this.#hook.maxWireLength) {
+                if (this.#vx > 0) {
+                    tmpX += 0.01;
+                }
+                else {
+                    tmpX -= 0.01;
+                }
+            }
+            this.#prevX = this.x;
+            this.#x = tmpX;
+
             this.#vx = this.#vy = 0;
             this.#prevActStatus = this.#actStatus;
             this.#actStatus = "ground";
