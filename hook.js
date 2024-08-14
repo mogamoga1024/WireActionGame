@@ -17,7 +17,7 @@ class Hook {
     #vx = 0;
     #vy = 0;
     #minWireLength = 110;
-    #maxWireLength = 230;
+    #maxWireLength = 280;
     #isShrinking = false;
     #actStatus = "moving";
     get actStatus() { return this.#actStatus; } 
