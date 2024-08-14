@@ -9,7 +9,6 @@ class Player {
     get direction() { return this.#direction; }
     #prevActStatus = "ground";
     #actStatus = "ground";
-    get actStatus() { return this.#actStatus; }
     #maxRadian = 0;
     #furikoLength = 0;
     #angularFrequency = 0;
