@@ -113,7 +113,11 @@ class Player {
     }
 
     move(staticObjList) {
-        if (this.#vy >= 0 && this.#hook?.canFuriko() && this.#actStatus !== "furiko") {
+        if (
+            this.#vy >= 0 &&
+            this.#hook?.canFuriko() &&
+            (this.#actStatus === "jumping" || this.#actStatus === "falling")
+        ) {
             this.#furikoStart();
         }
 
@@ -385,7 +389,24 @@ class Player {
             this.#furikoStart(true);
             return this.#actStatus;
         }
-        // 振り子中に地面に衝突 todo
+        // 振り子中に地面に衝突
+        if (
+            this.#actStatus === "furiko" &&
+            this.#vy > 0 &&
+            !(this.#prevX + this.width <= staticObj.x || this.#prevX >= staticObj.x + staticObj.width) &&
+            this.x + this.width > staticObj.x &&
+            this.x < staticObj.x + staticObj.width &&
+            this.y + this.height >= staticObj.y &&
+            this.y < staticObj.y
+        ) {
+            // TODO 振り子 接触点の厳密な計算
+            this.#y = staticObj.y - this.height;
+            this.#prevY = this.y;
+            this.#vx = this.#vy = 0;
+            this.#prevActStatus = this.#actStatus;
+            this.#actStatus = "ground";
+            return this.#actStatus;
+        }
 
         // ジャンプ中に天井に衝突
         if (
