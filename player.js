@@ -113,6 +113,16 @@ class Player {
     }
 
     move(staticObjList) {
+        this.#hookMove(staticObjList);
+
+        if (!this.#canExtendWire(this.centerX, this.centerY)) {
+            // todo ここが実行されないようにしたい
+            const diffX = this.centerX - this.#hook.centerX;
+            const diffY = this.centerY - this.#hook.centerY;
+            const wireLength = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+            console.log(wireLength);
+        }
+
         if (
             this.#vy >= 0 &&
             this.#hook?.canFuriko() &&
@@ -170,41 +180,18 @@ class Player {
                 this.#vy += dt * gravity;
                 this.#prevY = this.#y;
                 this.#y += this.#vy;
-                // if (this.#canExtendWire(this.centerX, this.#centerY(this.#y + this.#vy))) {
-                //     // todo りふぁ
-                //     this.#prevY = this.#y;
-                //     this.#y += this.#vy;
-                // }
-                // else {
-                //     this.#prevY = this.#y;
-                //     this.#y += this.#vy;
-                //     do {
-                //         this.#y += this.#vy >= 0 ? -0.01 : 0.01;
-                //     }
-                //     while (!this.#canExtendWire(this.centerX, this.centerY));
-                //     this.#vy = 0;
-                // }
             }
-            if (this.#canExtendWire(this.#centerX(this.#x + this.#vx), this.centerY)) {
-                // todo りふぁ
-                this.#prevX = this.#x;
-                this.#x += this.#vx;
+            this.#prevX = this.#x;
+            this.#x += this.#vx;
+            while (!this.#canExtendWire(this.centerX, this.centerY)) {
+                this.#x += this.#x > this.#hook.x ? -0.01 : 0.01;
             }
-            else {
-                this.#prevX = this.#x;
-                this.#x += this.#vx;
-                do {
-                    this.#x += this.#x > this.#hook.x ? -0.01 : 0.01;
-                }
-                while (!this.#canExtendWire(this.centerX, this.centerY));
-                if (this.#actStatus === "ground") {
-                    this.#vx = 0;
-                }
+            if (this.#x != this.#prevX + this.#vx) {
+                this.#vx = 0;
             }
         }
 
         this.#resolveCollisionList(staticObjList);
-        this.#hookMove(staticObjList);
     }
 
     jumpStart() {
