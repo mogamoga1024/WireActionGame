@@ -25,8 +25,8 @@ class Hook {
     
     constructor(player, radian) {
         this.#player = player;
-        this.#x = player.x + player.width / 2 - this.width / 2;
-        this.#y = player.y + player.height / 2 - this.height / 2;
+        this.#x = player.x + player.width / 2 - this.#width / 2;
+        this.#y = player.y + player.height / 2 - this.#height / 2;
         this.#vx = this.#v * Math.cos(radian);
         this.#vy = -1 * this.#v * Math.sin(radian);
     }
@@ -36,7 +36,7 @@ class Hook {
         const oy =  viewport.offsetY;
 
         context.beginPath();
-        context.rect(this.x + ox, this.y + oy, this.width, this.height);
+        context.rect(this.#x + ox, this.#y + oy, this.#width, this.#height);
         context.fillStyle = "black";
         context.fill();
     }
@@ -99,7 +99,7 @@ class Hook {
     }
 
     canFuriko() {
-        if (this.actStatus !== "stuck") {
+        if (this.#actStatus !== "stuck") {
             return false;
         }
         const diffX = this.centerX - this.#player.centerX;
@@ -110,7 +110,7 @@ class Hook {
 
     // ワイヤーの長さが最大以内かどうか
     canExtendWire(playerCenterX, playerCenterY) {
-        if (this.actStatus !== "stuck") {
+        if (this.#actStatus !== "stuck") {
             return true;
         }
         const diffX = this.centerX - playerCenterX;
@@ -133,10 +133,10 @@ class Hook {
 
     #resolveCollision(staticObj) {
         if (
-            this.x + this.width <= staticObj.x ||
-            this.x >= staticObj.x + staticObj.width ||
-            this.y + this.height <= staticObj.y ||
-            this.y >= staticObj.y + staticObj.height
+            this.#x + this.#width <= staticObj.x ||
+            this.#x >= staticObj.x + staticObj.width ||
+            this.#y + this.#height <= staticObj.y ||
+            this.#y >= staticObj.y + staticObj.height
         ) {
             // 衝突していない
             return "moving";
@@ -144,13 +144,13 @@ class Hook {
 
         // フックを接させる
         while (true) {
-            const tmpX = this.x - this.#vx / this.#v;;
-            const tmpY = this.y - this.#vy / this.#v;;
+            const tmpX = this.#x - this.#vx / this.#v;;
+            const tmpY = this.#y - this.#vy / this.#v;;
             if (
-                this.x + this.width <= staticObj.x ||
-                this.x >= staticObj.x + staticObj.width ||
-                this.y + this.height <= staticObj.y ||
-                this.y >= staticObj.y + staticObj.height
+                this.#x + this.#width <= staticObj.x ||
+                this.#x >= staticObj.x + staticObj.width ||
+                this.#y + this.#height <= staticObj.y ||
+                this.#y >= staticObj.y + staticObj.height
             ) {
                 break;
             }
