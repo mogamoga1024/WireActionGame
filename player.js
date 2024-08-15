@@ -55,6 +55,12 @@ class Player {
         context.fill();
 
         context.beginPath();
+        if (this.direction === "up") {
+            context.rect(this.#x + this.#width / 2 - 5 + ox, this.#y + oy, 10, 10);
+        }
+        else if (this.direction === "down") {
+            context.rect(this.#x + this.#width / 2 - 5 + ox, this.#y + this.#height - 10 + oy, 10, 10);
+        }
         if (this.direction === "left") {
             context.rect(this.#x + ox, this.#y + 10 + oy, 10, 10);
         }
