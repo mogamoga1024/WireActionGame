@@ -238,7 +238,11 @@ class Player {
         }
         const vecX = this.centerX - this.#hook.centerX;
         const vecY = this.centerY - this.#hook.centerY;
-        const radian = Math.PI / 2 - Math.atan2(vecY, vecX);
+        const radianA = Math.atan2(vecY, vecX);
+        let radian = Math.PI / 2 - radianA;
+        if (radianA <= -1 * Math.PI / 2) {
+            radian = -1 * Math.PI / 2 - (Math.PI + radianA);
+        }
         this.#furikoLength = Math.sqrt(Math.pow(vecX, 2) + Math.pow(vecY, 2));
         if (this.#furikoLength > this.#hook.maxWireLength) {
             console.error("ワイヤーが長い");
