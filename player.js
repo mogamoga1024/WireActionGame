@@ -85,13 +85,19 @@ class Player {
 
         if (direction === "left") {
             this.#vx -= 0.3;
-            if (this.#vx < -this.#vxMax) {
+            if (
+                !(this.#prevActStatus === "furiko" && this.#actStatus !== "ground") &&
+                this.#vx < -this.#vxMax
+            ) {
                 this.#vx = -this.#vxMax;
             }
         }
         else if (direction === "right") {
             this.#vx += 0.3;
-            if (this.#vx > this.#vxMax) {
+            if (
+                !(this.#prevActStatus === "furiko" && this.#actStatus !== "ground") &&
+                this.#vx > this.#vxMax
+            ) {
                 this.#vx = this.#vxMax;
             }
         }
