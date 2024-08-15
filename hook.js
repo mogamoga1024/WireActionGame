@@ -18,6 +18,7 @@ class Hook {
     #vy = 0;
     #minWireLength = 110;
     #maxWireLength = 280;
+    get maxWireLength() { return this.#maxWireLength; }
     #isShrinking = false;
     #actStatus = "moving";
     get actStatus() { return this.#actStatus; }
@@ -52,10 +53,12 @@ class Hook {
             this.#vx = -1 * this.#v * 1.5 * Math.cos(radian);
             this.#vy = -1 * this.#v * 1.5 * Math.sin(radian);
         }
+        // 縮む場合
         if (this.#isShrinking) {
             this.#x += this.#vx;
             this.#y += this.#vy;
         }
+        // 伸びる場合
         else {
             this.#relativeX += this.#vx;
             this.#relativeY += this.#vy;
@@ -63,17 +66,26 @@ class Hook {
             this.#y = this.#player.centerY + this.#relativeY - this.#height / 2;
         }
 
-        this.#resolveCollisionList(staticObjList);
-
         const diffX = this.centerX - this.#player.centerX;
         const diffY = this.centerY - this.#player.centerY;
-        const wireLength = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+        let wireLength = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
         if (!this.#isShrinking) {
             if (wireLength >= this.#maxWireLength) {
+                do {
+                    this.#x -= this.#vx / 100;
+                    this.#y -= this.#vy / 100;
+                    const diffX = this.centerX - this.#player.centerX;
+                    const diffY = this.centerY - this.#player.centerY;
+                    wireLength = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+                }
+                while (wireLength >= this.#maxWireLength)
                 this.#isShrinking = true;
             }
         }
-        else {
+
+        this.#resolveCollisionList(staticObjList);
+
+        if (this.#isShrinking) {
             if (wireLength <= this.#v * 1.1) {
                 return true;
             }

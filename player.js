@@ -121,8 +121,6 @@ class Player {
             this.#furikoStart();
         }
 
-        this.#hookMove(staticObjList);
-
         if (this.#actStatus === "furiko") {
             this.#furikoParam += dt * 10;
             const radian = this.#maxRadian * Math.cos(this.#angularFrequency * this.#furikoParam);
@@ -172,9 +170,9 @@ class Player {
                 this.#vy += dt * gravity;
                 this.#prevY = this.#y;
                 this.#y += this.#vy;
-                if (!this.#canExtendWire(this.centerX, this.centerY)) {
-                    debugger
-                }
+                // while (!this.#canExtendWire(this.centerX, this.centerY)) {
+                //     this.#y += this.#y > this.#hook.y ? -0.01 : 0.01;
+                // }
             }
             this.#prevX = this.#x;
             this.#x += this.#vx;
@@ -185,6 +183,8 @@ class Player {
                 this.#vx = 0;
             }
         }
+
+        this.#hookMove(staticObjList);
 
         this.#resolveCollisionList(staticObjList);
     }
@@ -231,10 +231,9 @@ class Player {
         const vecY = this.centerY - this.#hook.centerY;
         const radian = Math.PI / 2 - Math.atan2(vecY, vecX);
         this.#furikoLength = Math.sqrt(Math.pow(vecX, 2) + Math.pow(vecY, 2));
-        if (this.#furikoLength > 280) {
-            // TODO バグ
-            console.log(this.#furikoLength);
-            debugger;
+        if (this.#furikoLength > this.#hook.maxWireLength) {
+            console.error("ワイヤーが長い");
+            console.error(this.#furikoLength);
         }
         this.#angularFrequency = Math.sqrt(gravity / this.#furikoLength);
         this.#furikoForceMode = "none";
