@@ -4,6 +4,8 @@ class Player {
     #vxMax = 3;
     #vy = 0;
     #vyMax = 10;
+    #acceleration = 0.3;
+    #deceleration = 0.2;
     #hook = null;
     #direction = "right";
     get direction() { return this.#direction; }
@@ -84,13 +86,13 @@ class Player {
         }
 
         if (direction === "left") {
-            this.#vx -= 0.3;
+            this.#vx -= this.#acceleration;
             if (
                 !(this.#prevActStatus === "furiko" && this.#actStatus !== "ground") &&
                 this.#vx < -this.#vxMax
             ) {
-                if (this.#vx + 0.3 < this.#vxMax) {
-                    this.#vx += 0.2;
+                if (this.#vx + this.#acceleration < this.#vxMax) {
+                    this.#vx += this.#deceleration;
                 }
                 else {
                     this.#vx = -this.#vxMax;
@@ -98,13 +100,13 @@ class Player {
             }
         }
         else if (direction === "right") {
-            this.#vx += 0.3;
+            this.#vx += this.#acceleration;
             if (
                 !(this.#prevActStatus === "furiko" && this.#actStatus !== "ground") &&
                 this.#vx > this.#vxMax
             ) {
-                if (this.#vx - 0.3 > this.#vxMax) {
-                    this.#vx -= 0.2;
+                if (this.#vx - this.#acceleration > this.#vxMax) {
+                    this.#vx -= this.#deceleration;
                 }
                 else {
                     this.#vx = this.#vxMax;
@@ -114,13 +116,13 @@ class Player {
         // 慣性 & 摩擦による減速
         else if (direction === "none" && this.#actStatus === "ground") {
             if (this.#vx > 0) {
-                this.#vx -= 0.2;
+                this.#vx -= this.#deceleration;
                 if (this.#vx < 0) {
                     this.#vx = 0;
                 }
             }
             else if (this.#vx < 0) {
-                this.#vx += 0.2;
+                this.#vx += this.#deceleration;
                 if (this.#vx > 0) {
                     this.#vx = 0;
                 }
