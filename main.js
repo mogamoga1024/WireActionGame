@@ -94,20 +94,29 @@ function update() {
 }
 
 function fireHookRadian() {
-    if (isPressedUp && !isPressedLeft && !isPressedRight) {
+    if (isPressedUp && !isPressedDown && !isPressedLeft && !isPressedRight) {
         return Math.PI / 2;
     }
-    else if (isPressedUp && isPressedLeft && !isPressedRight) {
+    else if (isPressedUp && !isPressedDown && isPressedLeft && !isPressedRight) {
         return Math.PI * 3 / 4;
     }
-    else if (isPressedUp && !isPressedLeft && isPressedRight) {
+    else if (isPressedUp && !isPressedDown && !isPressedLeft && isPressedRight) {
         return Math.PI / 4;
     }
-    else if (!isPressedUp && isPressedLeft && !isPressedRight) {
+    else if (!isPressedUp && !isPressedDown && isPressedLeft && !isPressedRight) {
         return Math.PI;
     }
-    else if (!isPressedUp && !isPressedLeft && isPressedRight) {
+    else if (!isPressedUp && !isPressedDown && !isPressedLeft && isPressedRight) {
         return 0;
+    }
+    else if (!isPressedUp && isPressedDown && !isPressedLeft && !isPressedRight) {
+        return -1 * Math.PI / 2;
+    }
+    else if (player.direction === "up") {
+        return Math.PI / 2;
+    }
+    else if (player.direction === "down") {
+        return -1 * Math.PI / 2;
     }
     else if (player.direction === "right") {
         return Math.PI / 4;
@@ -115,6 +124,7 @@ function fireHookRadian() {
     else if (player.direction === "left") {
         return Math.PI * 3 / 4;
     }
+    throw new Error("想定外の入力");
 }
 
 function forceDirection() {
