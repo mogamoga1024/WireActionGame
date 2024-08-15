@@ -166,9 +166,20 @@ class Player {
         }
         else {
             if (this.#actStatus !== "ground") {
-                this.#vy += dt * gravity;
-                this.#prevY = this.#y;
-                this.#y += this.#vy;
+                if (this.#canExtendWire(this.centerX, this.#centerY(this.#y + this.#vy))) {
+                    this.#vy += dt * gravity;
+                    this.#prevY = this.#y;
+                    this.#y += this.#vy;
+                }
+                else {
+                    this.#prevY = this.#y;
+                    this.#y += this.#vy;
+                    do {
+                        this.#y += this.#vy > 0 ? -0.01 : 0.01;
+                    }
+                    while (!this.#canExtendWire(this.centerX, this.centerY));
+                    this.#vy = 0;
+                }
             }
             if (this.#canExtendWire(this.#centerX(this.#x + this.#vx), this.centerY)) {
                 this.#prevX = this.#x;
@@ -403,12 +414,10 @@ class Player {
             this.#y = staticObj.y - this.height;
             this.#prevY = this.y;
 
-            let tmpX = this.x;
-            while (!this.#canExtendWire(this.#centerX(tmpX), this.centerY)) {
-                tmpX += this.#vx > 0 ? 0.01 : -0.01;
-            }
             this.#prevX = this.x;
-            this.#x = tmpX;
+            while (!this.#canExtendWire(this.centerX, this.centerY)) {
+                this.#x += this.#vx > 0 ? 0.01 : -0.01;
+            }
 
             this.#vx = this.#vy = 0;
             this.#prevActStatus = this.#actStatus;
