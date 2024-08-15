@@ -87,30 +87,14 @@ class Player {
 
         if (direction === "left") {
             this.#vx -= this.#acceleration;
-            if (
-                !(this.#prevActStatus === "furiko" && this.#actStatus !== "ground") &&
-                this.#vx < -this.#vxMax
-            ) {
-                if (this.#vx + this.#acceleration < this.#vxMax) {
-                    this.#vx += this.#deceleration;
-                }
-                else {
-                    this.#vx = -this.#vxMax;
-                }
+            if (this.#vx < -this.#vxMax) {
+                this.#vx = -this.#vxMax;
             }
         }
         else if (direction === "right") {
             this.#vx += this.#acceleration;
-            if (
-                !(this.#prevActStatus === "furiko" && this.#actStatus !== "ground") &&
-                this.#vx > this.#vxMax
-            ) {
-                if (this.#vx - this.#acceleration > this.#vxMax) {
-                    this.#vx -= this.#deceleration;
-                }
-                else {
-                    this.#vx = this.#vxMax;
-                }
+            if (this.#vx > this.#vxMax) {
+                this.#vx = this.#vxMax;
             }
         }
         // 慣性 & 摩擦による減速
