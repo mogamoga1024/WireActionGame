@@ -404,7 +404,7 @@ class Player {
             this.#prevY = this.y;
 
             let tmpX = this.x;
-            while (this.#hook.wireLength(this.#centerX(tmpX), this.centerY) > this.#hook.maxWireLength) {
+            while (!this.#canExtendWire(this.#centerX(tmpX), this.centerY)) {
                 tmpX += this.#vx > 0 ? 0.01 : -0.01;
             }
             this.#prevX = this.x;

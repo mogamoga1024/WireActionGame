@@ -18,7 +18,6 @@ class Hook {
     #vy = 0;
     #minWireLength = 110;
     #maxWireLength = 280;
-    get maxWireLength() { return this.#maxWireLength; }
     #isShrinking = false;
     #actStatus = "moving";
     get actStatus() { return this.#actStatus; }
@@ -97,12 +96,7 @@ class Hook {
         return wireLength >= this.#minWireLength;
     }
 
-    wireLength(playerCenterX, playerCenterY) {
-        const diffX = this.centerX - playerCenterX;
-        const diffY = this.centerY - playerCenterY;
-        return Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
-    }
-
+    // ワイヤーの長さが最大以内かどうか
     canExtendWire(playerCenterX, playerCenterY) {
         if (this.actStatus !== "stuck") {
             return true;
@@ -110,7 +104,7 @@ class Hook {
         const diffX = this.centerX - playerCenterX;
         const diffY = this.centerY - playerCenterY;
         const wireLength = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
-        return wireLength < this.#maxWireLength;
+        return wireLength <= this.#maxWireLength;
     }
 
     #resolveCollisionList(staticObjList) {
