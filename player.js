@@ -164,25 +164,29 @@ class Player {
                 }
             }
         }
+        // 振り子以外
         else {
             if (this.#actStatus !== "ground") {
                 this.#vy += dt * gravity;
-                if (this.#canExtendWire(this.centerX, this.#centerY(this.#y + this.#vy))) {
-                    // todo りふぁ
-                    this.#prevY = this.#y;
-                    this.#y += this.#vy;
-                }
-                else {
-                    this.#prevY = this.#y;
-                    this.#y += this.#vy;
-                    do {
-                        this.#y += this.#vy > 0 ? -0.01 : 0.01;
-                    }
-                    while (!this.#canExtendWire(this.centerX, this.centerY));
-                    this.#vy = 0;
-                }
+                this.#prevY = this.#y;
+                this.#y += this.#vy;
+                // if (this.#canExtendWire(this.centerX, this.#centerY(this.#y + this.#vy))) {
+                //     // todo りふぁ
+                //     this.#prevY = this.#y;
+                //     this.#y += this.#vy;
+                // }
+                // else {
+                //     this.#prevY = this.#y;
+                //     this.#y += this.#vy;
+                //     do {
+                //         this.#y += this.#vy >= 0 ? -0.01 : 0.01;
+                //     }
+                //     while (!this.#canExtendWire(this.centerX, this.centerY));
+                //     this.#vy = 0;
+                // }
             }
             if (this.#canExtendWire(this.#centerX(this.#x + this.#vx), this.centerY)) {
+                // todo りふぁ
                 this.#prevX = this.#x;
                 this.#x += this.#vx;
             }
@@ -193,7 +197,9 @@ class Player {
                     this.#x += this.#x > this.#hook.x ? -0.01 : 0.01;
                 }
                 while (!this.#canExtendWire(this.centerX, this.centerY));
-                this.#vx = 0;
+                if (this.#actStatus === "ground") {
+                    this.#vx = 0;
+                }
             }
         }
 
