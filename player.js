@@ -115,14 +115,6 @@ class Player {
     move(staticObjList) {
         this.#hookMove(staticObjList);
 
-        if (!this.#canExtendWire(this.centerX, this.centerY)) {
-            // todo ここが実行されないようにしたい
-            const diffX = this.centerX - this.#hook.centerX;
-            const diffY = this.centerY - this.#hook.centerY;
-            const wireLength = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
-            console.log(wireLength);
-        }
-
         if (
             this.#vy >= 0 &&
             this.#hook?.canFuriko() &&
@@ -236,6 +228,11 @@ class Player {
         const vecY = this.centerY - this.#hook.centerY;
         const radian = Math.PI / 2 - Math.atan2(vecY, vecX);
         this.#furikoLength = Math.sqrt(vecX * vecX + vecY * vecY);
+        if (this.#furikoLength > 280) {
+            // TODO バグ
+            console.log(this.#furikoLength);
+            debugger;
+        }
         this.#angularFrequency = Math.sqrt(gravity / this.#furikoLength);
         this.#furikoForceMode = "none";
         if (
