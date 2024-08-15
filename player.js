@@ -170,9 +170,6 @@ class Player {
                 this.#vy += dt * gravity;
                 this.#prevY = this.#y;
                 this.#y += this.#vy;
-                // while (!this.#canExtendWire(this.centerX, this.centerY)) {
-                //     this.#y += this.#y > this.#hook.y ? -0.01 : 0.01;
-                // }
             }
             this.#prevX = this.#x;
             this.#x += this.#vx;
