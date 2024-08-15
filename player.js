@@ -166,8 +166,9 @@ class Player {
         }
         else {
             if (this.#actStatus !== "ground") {
+                this.#vy += dt * gravity;
                 if (this.#canExtendWire(this.centerX, this.#centerY(this.#y + this.#vy))) {
-                    this.#vy += dt * gravity;
+                    // todo りふぁ
                     this.#prevY = this.#y;
                     this.#y += this.#vy;
                 }
@@ -186,6 +187,12 @@ class Player {
                 this.#x += this.#vx;
             }
             else {
+                this.#prevX = this.#x;
+                this.#x += this.#vx;
+                do {
+                    this.#x += this.#x > this.#hook.x ? -0.01 : 0.01;
+                }
+                while (!this.#canExtendWire(this.centerX, this.centerY));
                 this.#vx = 0;
             }
         }
