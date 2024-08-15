@@ -113,8 +113,6 @@ class Player {
     }
 
     move(staticObjList) {
-        this.#hookMove(staticObjList);
-
         if (
             this.#vy >= 0 &&
             this.#hook?.canFuriko() &&
@@ -122,6 +120,8 @@ class Player {
         ) {
             this.#furikoStart();
         }
+
+        this.#hookMove(staticObjList);
 
         if (this.#actStatus === "furiko") {
             this.#furikoParam += dt * 10;
@@ -172,6 +172,9 @@ class Player {
                 this.#vy += dt * gravity;
                 this.#prevY = this.#y;
                 this.#y += this.#vy;
+                if (!this.#canExtendWire(this.centerX, this.centerY)) {
+                    debugger
+                }
             }
             this.#prevX = this.#x;
             this.#x += this.#vx;
@@ -227,7 +230,7 @@ class Player {
         const vecX = this.centerX - this.#hook.centerX;
         const vecY = this.centerY - this.#hook.centerY;
         const radian = Math.PI / 2 - Math.atan2(vecY, vecX);
-        this.#furikoLength = Math.sqrt(vecX * vecX + vecY * vecY);
+        this.#furikoLength = Math.sqrt(Math.pow(vecX, 2) + Math.pow(vecY, 2));
         if (this.#furikoLength > 280) {
             // TODO バグ
             console.log(this.#furikoLength);
