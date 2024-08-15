@@ -1,13 +1,16 @@
 
 let isPressedUp = false;
+let isPressedDown = false;
 let isPressedLeft = false;
 let isPressedRight = false;
 let isPressedX = false;
 let isPressedZ = false;
 
 addEventListener("keydown", e => {
+    console.log(e.key);
     switch (e.key) {
         case "ArrowUp":    isPressedUp    = true; break;
+        case "ArrowDown":  isPressedDown  = true; break;
         case "ArrowLeft":  isPressedLeft  = true; break;
         case "ArrowRight": isPressedRight = true; break;
         case "x": isPressedX = true; break;
@@ -18,6 +21,7 @@ addEventListener("keydown", e => {
 addEventListener("keyup", e => {
     switch (e.key) {
         case "ArrowUp":    isPressedUp    = false; break;
+        case "ArrowDown":  isPressedDown  = false; break;
         case "ArrowLeft":  isPressedLeft  = false; break;
         case "ArrowRight": isPressedRight = false; break;
         case "x": isPressedX = false; break;
@@ -120,6 +124,12 @@ function forceDirection() {
     }
     else if (!isPressedLeft && isPressedRight) {
         return "right";
+    }
+    else if (isPressedUp && !isPressedDown) {
+        return "up";
+    }
+    else if (isPressedUp && !isPressedDown) {
+        return "down";
     }
     else {
         return "none";
