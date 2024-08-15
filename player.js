@@ -88,13 +88,23 @@ class Player {
         if (direction === "left") {
             this.#vx -= this.#accelerationX;
             if (this.#vx < -this.#vxMax) {
-                this.#vx = -this.#vxMax;
+                if (this.#vx + this.#accelerationX >= -this.#vxMax) {
+                    this.#vx = -this.#vxMax;
+                }
+                else {
+                    this.#vx += this.#decelerationX;
+                }
             }
         }
         else if (direction === "right") {
             this.#vx += this.#accelerationX;
             if (this.#vx > this.#vxMax) {
-                this.#vx = this.#vxMax;
+                if (this.#vx - this.#accelerationX <= this.#vxMax) {
+                    this.#vx = this.#vxMax;
+                }
+                else {
+                    this.#vx -= this.#decelerationX;
+                }
             }
         }
         // 慣性 & 摩擦による減速
