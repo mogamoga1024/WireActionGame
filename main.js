@@ -7,7 +7,6 @@ let isPressedX = false;
 let isPressedZ = false;
 
 addEventListener("keydown", e => {
-    console.log(e.key);
     switch (e.key) {
         case "ArrowUp":    isPressedUp    = true; break;
         case "ArrowDown":  isPressedDown  = true; break;
