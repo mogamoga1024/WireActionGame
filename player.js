@@ -77,11 +77,23 @@ class Player {
         }
 
         if (direction === "up") {
-            this.#wireVerticalState = "climbing";
+            if (
+                this.#hook?.actStatus === "stuck" &&
+                this.#prevX === this.#x &&
+                this.#prevY === this.#y
+            ) {
+                this.#wireVerticalState = "climbing";
+            }
             return;
         }
         else if (direction === "down") {
-            this.#wireVerticalState = "descending";
+            if (
+                this.#hook?.actStatus === "stuck" &&
+                this.#prevX === this.#x &&
+                this.#prevY === this.#y
+            ) {
+                this.#wireVerticalState = "descending";
+            }
             return;
         }
         else {
