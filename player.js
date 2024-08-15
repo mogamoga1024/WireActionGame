@@ -4,8 +4,8 @@ class Player {
     #vxMax = 3;
     #vy = 0;
     #vyMax = 10;
-    #acceleration = 0.3;
-    #deceleration = 0.2;
+    #accelerationX = 0.3;
+    #decelerationX = 0.2;
     #hook = null;
     #direction = "right";
     get direction() { return this.#direction; }
@@ -86,13 +86,13 @@ class Player {
         }
 
         if (direction === "left") {
-            this.#vx -= this.#acceleration;
+            this.#vx -= this.#accelerationX;
             if (this.#vx < -this.#vxMax) {
                 this.#vx = -this.#vxMax;
             }
         }
         else if (direction === "right") {
-            this.#vx += this.#acceleration;
+            this.#vx += this.#accelerationX;
             if (this.#vx > this.#vxMax) {
                 this.#vx = this.#vxMax;
             }
@@ -100,13 +100,13 @@ class Player {
         // 慣性 & 摩擦による減速
         else if (direction === "none" && this.#actStatus === "ground") {
             if (this.#vx > 0) {
-                this.#vx -= this.#deceleration;
+                this.#vx -= this.#decelerationX;
                 if (this.#vx < 0) {
                     this.#vx = 0;
                 }
             }
             else if (this.#vx < 0) {
-                this.#vx += this.#deceleration;
+                this.#vx += this.#decelerationX;
                 if (this.#vx > 0) {
                     this.#vx = 0;
                 }
