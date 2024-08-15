@@ -16,6 +16,7 @@ class Player {
     #angularFrequency = 0;
     #furikoParam = 0;
     #furikoForceMode = "none"; // none, accelerate, decelerate
+    #wireVerticalState = "none"; // none, climbing, descending
 
     #x = 0; #prevX = 0;
     get x() { return this.#x; }
@@ -69,6 +70,18 @@ class Player {
             this.#direction = direction;
         }
 
+        if (direction === "up") {
+            this.#wireVerticalState = "climbing";
+            return;
+        }
+        else if (direction === "down") {
+            this.#wireVerticalState = "descending";
+            return;
+        }
+        else {
+            this.#wireVerticalState = "none";
+        }
+
         if (this.#actStatus === "furiko") {
             if (
                 direction === "left" && this.#vx <= 0 ||
@@ -81,6 +94,9 @@ class Player {
                 direction === "right" && this.#vx < 0
             ) {
                 this.#furikoForceMode = "decelerate";
+            }
+            else {
+                this.#furikoForceMode = "none";
             }
             return;
         }
