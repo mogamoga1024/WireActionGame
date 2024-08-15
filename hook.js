@@ -66,17 +66,13 @@ class Hook {
             this.#y = this.#player.centerY + this.#relativeY - this.#height / 2;
         }
 
-        const diffX = this.centerX - this.#player.centerX;
-        const diffY = this.centerY - this.#player.centerY;
-        let wireLength = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+        let wireLength = this.#calcWireLength(this.#player.centerX, this.#player.centerY);
         if (!this.#isShrinking) {
             if (wireLength >= this.#maxWireLength) {
                 do {
                     this.#x -= this.#vx / 100;
                     this.#y -= this.#vy / 100;
-                    const diffX = this.centerX - this.#player.centerX;
-                    const diffY = this.centerY - this.#player.centerY;
-                    wireLength = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+                    wireLength = this.#calcWireLength(this.#player.centerX, this.#player.centerY);
                 }
                 while (wireLength >= this.#maxWireLength)
                 this.#isShrinking = true;
@@ -102,10 +98,14 @@ class Hook {
         if (this.#actStatus !== "stuck") {
             return false;
         }
-        const diffX = this.centerX - this.#player.centerX;
-        const diffY = this.centerY - this.#player.centerY;
-        const wireLength = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+        const wireLength = this.#calcWireLength(this.#player.centerX, this.#player.centerY);
         return wireLength >= this.#minWireLength;
+    }
+
+    #calcWireLength(playerCenterX, playerCenterY) {
+        const diffX = this.centerX - playerCenterX;
+        const diffY = this.centerY - playerCenterY;
+        return Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
     }
 
     // ワイヤーの長さが最大以内かどうか
@@ -113,9 +113,7 @@ class Hook {
         if (this.#actStatus !== "stuck") {
             return true;
         }
-        const diffX = this.centerX - playerCenterX;
-        const diffY = this.centerY - playerCenterY;
-        const wireLength = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+        const wireLength = this.#calcWireLength(playerCenterX, playerCenterY);
         return wireLength <= this.#maxWireLength;
     }
 
