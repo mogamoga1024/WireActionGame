@@ -154,7 +154,9 @@ class Player {
 
     move(staticObjList) {
         if (
+            this.#hook !== null &&
             this.#vy >= 0 &&
+            this.centerY >= this.#hook.centerY &&
             this.#hook?.canFuriko() &&
             (this.#actStatus === "jumping" || this.#actStatus === "falling")
         ) {
