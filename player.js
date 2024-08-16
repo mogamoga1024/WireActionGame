@@ -16,6 +16,7 @@ class Player {
     #angularFrequency = 0;
     #furikoParam = 0;
     #furikoForceMode = "none"; // none, accelerate, decelerate
+    #canChangeWireVerticalState = true;
     #wireVerticalState = "none"; // none, climbing, descending
 
     #x = 0; #prevX = 0;
@@ -72,12 +73,19 @@ class Player {
     }
 
     applyForce(direction) {
+        if (!this.#canChangeWireVerticalState && direction !== "up") {
+            this.#canChangeWireVerticalState = true;
+        }
+
         if (direction !== "none") {
             this.#direction = direction;
         }
 
         if (direction === "up") {
-            this.#wireVerticalState = "climbing";
+            if (this.#canChangeWireVerticalState) {
+                this.#wireVerticalState = "climbing";
+            }
+            this.#canChangeWireVerticalState = false;
             return;
         }
         else if (direction === "down") {
@@ -156,10 +164,11 @@ class Player {
         }
 
         if (this.#hook?.actStatus === "stuck" && this.#actStatus !== "jumping" && this.#wireVerticalState === "climbing") {
+            this.#wireVerticalState = "none";
             this.jumpStart(false);
         }
 
-        if (this.#actStatus === "furiko" && this.#wireVerticalState !== "climbing") {
+        if (this.#actStatus === "furiko") {
             this.#furikoParam += dt * 10;
             const radian = this.#maxRadian * Math.cos(this.#angularFrequency * this.#furikoParam);
             this.#prevX = this.#x;
