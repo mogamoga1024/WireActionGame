@@ -85,6 +85,9 @@ class Player {
             if (this.#canChangeWireVerticalState) {
                 this.#wireVerticalState = "climbing";
             }
+            else {
+                this.#wireVerticalState = "none";
+            }
             this.#canChangeWireVerticalState = false;
             return;
         }
