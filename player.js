@@ -305,6 +305,18 @@ class Player {
             this.#maxRadian = radian;
             this.#furikoParam = 0;
         }
+
+        if (this.#maxRadian === 0) {
+            if (this.#vx < 0) {
+                this.#furikoParam = (Math.PI / 2) / this.#angularFrequency;
+                this.#maxRadian = Math.PI / 8;
+            }
+            else if (this.#vx > 0) {
+                this.#furikoParam = (Math.PI / 2) / this.#angularFrequency;
+                this.#maxRadian = -Math.PI / 8;
+            }
+        }
+
         this.#prevActStatus = this.#actStatus;
         this.#actStatus = "furiko";
     }
