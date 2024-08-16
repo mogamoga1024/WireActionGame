@@ -12,6 +12,7 @@ class Player {
     #prevActStatus = "ground";
     #actStatus = "ground";
     #maxRadian = 0;
+    #radianEpsilon = 0.04;
     #furikoLength = 0;
     #angularFrequency = 0;
     #furikoParam = 0;
@@ -192,7 +193,7 @@ class Player {
                 }
                 else {
                     this.#maxRadian *= 0.9;
-                    if (Math.abs(this.#maxRadian) < 0.04) {
+                    if (Math.abs(this.#maxRadian) < this.#radianEpsilon) {
                         this.#maxRadian = 0;
                     }
                 }
@@ -277,6 +278,11 @@ class Player {
         if (radianA <= -1 * Math.PI / 2) {
             radian = -1 * Math.PI / 2 - (Math.PI + radianA);
         }
+
+        if (Math.abs(radian) < this.#radianEpsilon) {
+            radian = 0;
+        }
+
         this.#furikoLength = Math.sqrt(Math.pow(vecX, 2) + Math.pow(vecY, 2));
         if (this.#furikoLength > this.#hook.maxWireLength) {
             console.error("ワイヤーが長い");
