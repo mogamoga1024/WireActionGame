@@ -155,7 +155,11 @@ class Player {
             this.#furikoStart();
         }
 
-        if (this.#actStatus === "furiko") {
+        if (this.#hook?.actStatus === "stuck" && this.#actStatus !== "jumping" && this.#wireVerticalState === "climbing") {
+            this.jumpStart(false);
+        }
+
+        if (this.#actStatus === "furiko" && this.#wireVerticalState !== "climbing") {
             this.#furikoParam += dt * 10;
             const radian = this.#maxRadian * Math.cos(this.#angularFrequency * this.#furikoParam);
             this.#prevX = this.#x;
@@ -220,7 +224,7 @@ class Player {
         this.#resolveCollisionList(staticObjList);
     }
 
-    jumpStart() {
+    jumpStart(shouldHookReturn = true) {
         if (this.#actStatus === "jumping" || this.#actStatus === "falling") {
             return;
         }
@@ -235,7 +239,9 @@ class Player {
             this.#vy = -this.#vyMax;
         }
         
-        this.#hook?.return();
+        if (shouldHookReturn) {
+            this.#hook?.return();
+        }
     }
     #fallStart() {
         if (this.#actStatus !== "ground") {
