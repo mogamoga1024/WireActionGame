@@ -241,8 +241,8 @@ class Player {
                 this.#vy += dt * gravity;
                 this.#prevY = this.#y;
                 this.#y += this.#vy;
-                const tmpCenterY = this.centerY;
                 if (this.#hook !== null && this.#y !== this.#hook.y) {
+                    const tmpCenterY = this.centerY;
                     while (!this.#canExtendWire(this.centerX, this.centerY)) {
                         const prevY = this.#y;
                         this.#y += this.centerY > this.#hook.centerY ? -0.01 : 0.01;
@@ -250,7 +250,6 @@ class Player {
                             (tmpCenterY > this.#hook.centerY && this.centerY <= this.#hook.centerY) ||
                             (tmpCenterY < this.#hook.centerY && this.centerY >= this.#hook.centerY)
                         ) {
-                            console.log("aa");
                             this.#y = prevY;
                             break;
                         }
@@ -263,8 +262,17 @@ class Player {
             this.#prevX = this.#x;
             this.#x += this.#vx;
             if (this.#hook !== null && this.#x !== this.#hook.x) {
+                const tmpCenterX = this.centerX;
                 while (!this.#canExtendWire(this.centerX, this.centerY)) {
+                    const prevX = this.#x;
                     this.#x += this.centerX > this.#hook.centerX ? -0.01 : 0.01;
+                    if (
+                        (tmpCenterX > this.#hook.centerX && this.centerX <= this.#hook.centerX) ||
+                        (tmpCenterX < this.#hook.centerX && this.centerX >= this.#hook.centerX)
+                    ) {
+                        this.#x = prevX;
+                        break;
+                    }
                 }
             }
             if (this.#x != this.#prevX + this.#vx) {
