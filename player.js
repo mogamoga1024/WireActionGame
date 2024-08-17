@@ -12,7 +12,7 @@ class Player {
     #prevActStatus = "ground";
     #actStatus = "ground";
     #maxRadian = 0;
-    #radianEpsilon = 0.04;
+    #radianEpsilon = 0.02;
     #furikoLength = 0;
     #angularFrequency = 0;
     #furikoParam = 0;
