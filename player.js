@@ -241,14 +241,31 @@ class Player {
                 this.#vy += dt * gravity;
                 this.#prevY = this.#y;
                 this.#y += this.#vy;
-                while (!this.#canExtendWire(this.centerX, this.centerY)) {
-                    this.#y += this.#y > this.#hook.y ? -0.01 : 0.01;
+                const tmpCenterY = this.centerY;
+                if (this.#hook !== null && this.#y !== this.#hook.y) {
+                    while (!this.#canExtendWire(this.centerX, this.centerY)) {
+                        const prevY = this.#y;
+                        this.#y += this.centerY > this.#hook.centerY ? -0.01 : 0.01;
+                        if (
+                            (tmpCenterY > this.#hook.centerY && this.centerY <= this.#hook.centerY) ||
+                            (tmpCenterY < this.#hook.centerY && this.centerY >= this.#hook.centerY)
+                        ) {
+                            console.log("aa");
+                            this.#y = prevY;
+                            break;
+                        }
+                    }
+                }
+                if (this.#y !== this.#prevY + this.#vy) {
+                    this.#vy = 0;
                 }
             }
             this.#prevX = this.#x;
             this.#x += this.#vx;
-            while (!this.#canExtendWire(this.centerX, this.centerY)) {
-                this.#x += this.#x > this.#hook.x ? -0.01 : 0.01;
+            if (this.#hook !== null && this.#x !== this.#hook.x) {
+                while (!this.#canExtendWire(this.centerX, this.centerY)) {
+                    this.#x += this.centerX > this.#hook.centerX ? -0.01 : 0.01;
+                }
             }
             if (this.#x != this.#prevX + this.#vx) {
                 this.#vx = 0;
@@ -512,8 +529,10 @@ class Player {
             this.#prevY = this.#y;
 
             this.#prevX = this.#x;
-            while (!this.#canExtendWire(this.centerX, this.centerY)) {
-                this.#x += this.#vx > 0 ? 0.01 : -0.01;
+            if (this.#vx !== 0) {
+                while (!this.#canExtendWire(this.centerX, this.centerY)) {
+                    this.#x += this.#vx > 0 ? 0.01 : -0.01;
+                }
             }
 
             this.#vx = this.#vy = 0;
