@@ -199,7 +199,13 @@ class Player {
             ) {
                 if (this.#furikoForceMode === "accelerate") {
                     this.#furikoForceMode = "none";
-                    this.#maxRadian *= 1.1;
+                    const nextMaxRadian = this.#maxRadian * 1.2;
+                    if (
+                        nextMaxRadian >= -Math.PI * 3 / 8 &&
+                        nextMaxRadian <= Math.PI * 3 / 8
+                    ) {
+                        this.#maxRadian = nextMaxRadian;
+                    }
                 }
                 else if (this.#furikoForceMode === "decelerate") {
                     this.#furikoForceMode = "none";
