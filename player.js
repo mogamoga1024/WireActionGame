@@ -377,8 +377,7 @@ class Player {
         }
     }
 
-    // フックが引っかかっているときにプレイヤーが動けるかどうかの判定
-    // todo 伸ばせるようにしたいが、とりあえず固定しとく
+    // フックが引っかかっているときにワイヤーを伸ばせるかどうかの判定
     #canExtendWire(playerCenterX, playerCenterY) {
         if (this.#hook === null) {
             return true;
