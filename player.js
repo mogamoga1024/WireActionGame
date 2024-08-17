@@ -173,12 +173,11 @@ class Player {
             this.#wireVerticalState !== "descending" &&
             (this.#actStatus === "jumping" || this.#actStatus === "falling")
         ) {
-            this.#furikoStart();
+            this.#furikoStart(!this.#canDescending);
         }
 
         if (this.#hook?.actStatus === "stuck") {
             if (this.#actStatus !== "jumping" && this.#wireVerticalState === "climbing") {
-                this.#canDescending = true;
                 this.#wireVerticalState = "none";
                 this.jumpStart(false);
             }
@@ -301,6 +300,7 @@ class Player {
             return;
         }
 
+        this.#canDescending = true;
         this.#prevActStatus = this.#actStatus;
         this.#actStatus = "jumping";
 
