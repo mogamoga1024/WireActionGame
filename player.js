@@ -164,6 +164,7 @@ class Player {
             this.#vy >= 0 &&
             this.centerY >= this.#hook.centerY &&
             this.#hook?.canFuriko() &&
+            this.#wireVerticalState !== "descending" &&
             (this.#actStatus === "jumping" || this.#actStatus === "falling")
         ) {
             this.#furikoStart();
@@ -175,7 +176,6 @@ class Player {
                 this.jumpStart(false);
             }
             else if (this.#actStatus === "furiko" && this.#wireVerticalState === "descending") {
-                this.#wireVerticalState = "none";
                 this.#fallStart(true);
             }
         }
