@@ -164,6 +164,9 @@ class Player {
         if (this.#actStatus !== "furiko") {
             this.#canBigJump = false;
         }
+        if (this.#actStatus !== "furiko" && this.#actStatus !== "falling") {
+            this.#canDescending = true;
+        }
         
         if (
             this.#hook !== null &&
@@ -264,7 +267,7 @@ class Player {
                 if (this.#y !== this.#prevY + this.#vy) {
                     this.#vy = 0;
                     this.#canDescending = false;
-                    console.log("aaa");
+                    this.#wireVerticalState = "none";
                 }
             }
             this.#prevX = this.#x;
@@ -335,11 +338,6 @@ class Player {
             (this.#actStatus === "ground" || this.#actStatus === "furiko")
         ) {
             return;
-        }
-
-        if (!this.#canDescending) {
-            this.#canDescending = true;
-            this.#wireVerticalState = "none";
         }
 
         const vecX = this.centerX - this.#hook.centerX;
