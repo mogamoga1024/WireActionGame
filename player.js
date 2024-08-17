@@ -4,6 +4,8 @@ class Player {
     #vxMax = 3;
     #vy = 0;
     #vyMax = 10;
+    #canBigJump = false;
+    #vyMax2 = 12.3;
     #accelerationX = 0.3;
     #decelerationX = 0.2;
     #hook = null;
@@ -153,6 +155,10 @@ class Player {
     }
 
     move(staticObjList) {
+        if (this.#actStatus !== "furiko") {
+            this.#canBigJump = false;
+        }
+        
         if (
             this.#hook !== null &&
             this.#vy >= 0 &&
@@ -247,8 +253,11 @@ class Player {
         this.#prevActStatus = this.#actStatus;
         this.#actStatus = "jumping";
 
-        if (this.#actStatus === "furiko") {
-            this.#vy += -this.#vyMax;
+        if (
+            this.#canBigJump ||
+            (this.#prevActStatus === "ground" && this.#hook?.actStatus === "stuck")
+        ) {
+            this.#vy = -this.#vyMax2;
         }
         else {
             this.#vy = -this.#vyMax;
@@ -418,6 +427,7 @@ class Player {
             this.#x <= staticObj.x + staticObj.width &&
             this.#x + this.#width > staticObj.x + staticObj.width
         ) {
+            this.#canBigJump = true;
             // TODO 振り子 接触点の厳密な計算
             if (this.#centerX(this.#prevX) > this.#hook.centerX) {
                 this.#x = staticObj.x + staticObj.width;
@@ -442,6 +452,7 @@ class Player {
             this.#x + this.#width >= staticObj.x &&
             this.#x < staticObj.x
         ) {
+            this.#canBigJump = true;
             // TODO 振り子 接触点の厳密な計算
             if (this.#centerX(this.#prevX) > this.#hook.centerX) {
                 this.#x = staticObj.x - this.#width;
