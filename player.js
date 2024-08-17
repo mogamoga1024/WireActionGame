@@ -19,7 +19,8 @@ class Player {
     #angularFrequency = 0;
     #furikoParam = 0;
     #furikoForceMode = "none"; // none, accelerate, decelerate
-    #canChangeWireVerticalState = true;
+    #canClimbing = true;
+    #canDescending = true;
     #wireVerticalState = "none"; // none, climbing, descending
 
     #x = 0; #prevX = 0;
@@ -70,8 +71,8 @@ class Player {
     }
 
     applyForce(direction) {
-        if (!this.#canChangeWireVerticalState && direction !== "up") {
-            this.#canChangeWireVerticalState = true;
+        if (!this.#canClimbing && direction !== "up") {
+            this.#canClimbing = true;
         }
 
         if (direction === "left" || direction === "right") {
@@ -79,17 +80,22 @@ class Player {
         }
 
         if (direction === "up") {
-            if (this.#canChangeWireVerticalState) {
+            if (this.#canClimbing) {
                 this.#wireVerticalState = "climbing";
             }
             else {
                 this.#wireVerticalState = "none";
             }
-            this.#canChangeWireVerticalState = false;
+            this.#canClimbing = false;
             return;
         }
         else if (direction === "down") {
-            this.#wireVerticalState = "descending";
+            if (this.#canDescending) {
+                this.#wireVerticalState = "descending";
+            }
+            else {
+                this.#wireVerticalState = "none";
+            }
             return;
         }
         else {
@@ -257,6 +263,8 @@ class Player {
                 }
                 if (this.#y !== this.#prevY + this.#vy) {
                     this.#vy = 0;
+                    this.#canDescending = false;
+                    console.log("aaa");
                 }
             }
             this.#prevX = this.#x;
@@ -328,6 +336,12 @@ class Player {
         ) {
             return;
         }
+
+        if (!this.#canDescending) {
+            this.#canDescending = true;
+            this.#wireVerticalState = "none";
+        }
+
         const vecX = this.centerX - this.#hook.centerX;
         const vecY = this.centerY - this.#hook.centerY;
         const radianA = Math.atan2(vecY, vecX);
