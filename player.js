@@ -329,9 +329,9 @@ class Player {
         this.#actStatus = "ground";
     }
 
-    #furikoStart(force = false) {
+    #furikoStart(shouldStopInertia = false) {
         if (
-            !force &&
+            !shouldStopInertia &&
             (this.#actStatus === "ground" || this.#actStatus === "furiko")
         ) {
             return;
@@ -357,7 +357,7 @@ class Player {
         this.#angularFrequency = Math.sqrt(gravity / this.#furikoLength);
         this.#furikoForceMode = "none";
         if (
-            !force &&
+            !shouldStopInertia &&
             this.#prevActStatus !== "ground" &&
             Math.abs(radian) < Math.abs(this.#maxRadian)
         ) {
