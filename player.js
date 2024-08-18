@@ -542,11 +542,11 @@ class Player {
             this.#y + this.#height >= staticObj.y &&
             this.#y < staticObj.y
         ) {
-            // TODO 振り子 接触点の厳密な計算
             this.#y = staticObj.y - this.#height;
             this.#prevY = this.#y;
 
             this.#prevX = this.#x;
+            this.#x = this.#prevX;
             if (this.#vx !== 0) {
                 const tmpCenterX = this.centerX;
                 while (!this.#canExtendWire(this.centerX, this.centerY)) {
