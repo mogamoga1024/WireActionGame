@@ -1,13 +1,13 @@
 
 class Block {
     #x = 0;
-    get x() { return this.#x }
+    get x() { return this.#x; }
     #y = 0;
-    get y() { return this.#y }
+    get y() { return this.#y; }
     #width = 0;
-    get width() { return this.#width }
+    get width() { return this.#width; }
     #height = 0;
-    get height() { return this.#height }
+    get height() { return this.#height; }
     
     constructor(x, y, width, height) {
         if (width < 30 || height < 30) {
