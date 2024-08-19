@@ -10,6 +10,9 @@ class Block {
     get height() { return this.#height }
     
     constructor(x, y, width, height) {
+        if (width < 30 || height < 30) {
+            throw new Error("一辺は30以上必要");
+        }
         this.#x = x;
         this.#y = y;
         this.#width = width;
