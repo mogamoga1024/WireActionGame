@@ -8,6 +8,7 @@ class Block {
     get width() { return this.#width; }
     #height = 0;
     get height() { return this.#height; }
+    canStick = true;
     
     constructor(x, y, width, height) {
         if (width < 30 || height < 30) {

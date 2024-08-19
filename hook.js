@@ -122,8 +122,12 @@ class Hook {
             return;
         }
         for (const block of blockList) {
-            if (this.#resolveCollision(block) === "stuck") {
+            const result = this.#resolveCollision(block);
+            if (result === "stuck") {
                 this.#actStatus = "stuck";
+                return;
+            }
+            else if (result === "unstuck") {
                 return;
             }
         }
@@ -156,6 +160,11 @@ class Hook {
             this.#y = tmpY;
         }
 
-        return "stuck";
+        if (block.canStick) {
+            return "stuck";
+        }
+        
+        this.return();
+        return "unstuck";
     }
 }

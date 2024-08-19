@@ -25,9 +25,9 @@ function createMap(name) {
             return {player, blockList};
         }
         case "debug3": {
-            const block1 = new Block(100, 400, 300, 100);
-            const block2 = new Block(500, 400, 300, 100);
-            const block3 = new Block(300, 150, 250, 50);
+            const block1 = new UnstickableBlock(100, 400, 300, 100);
+            const block2 = new UnstickableBlock(500, 400, 300, 100);
+            const block3 = new UnstickableBlock(300, 150, 250, 50);
             const blockList = [block1, block2, block3];
             const player = new Player(100, 360);
             return {player, blockList};
