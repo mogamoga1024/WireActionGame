@@ -24,6 +24,12 @@ function createMap(name) {
             const player = new Player(100, 360);
             return {player, blockList};
         }
+        case "debug3": {
+            const block1 = new Block(0, 400, 500, 100);
+            const blockList = [block1];
+            const player = new Player(100, 360);
+            return {player, blockList};
+        }
         default:
             throw new Error(`マップがない：${name}`);
     }

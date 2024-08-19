@@ -42,7 +42,7 @@ canvas.height = 500;
 const globalWidth = canvas.width * 2;
 const globalHeight = canvas.height;
 
-const {player, blockList} = createMap("debug2");
+const {player, blockList} = createMap("debug3");
 const viewport = new Viewport(0, 0, canvas.width, canvas.height, globalWidth, globalHeight, player);
 
 let fireHookWaitFrame = 0;
