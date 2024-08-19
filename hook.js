@@ -42,7 +42,7 @@ class Hook {
     }
 
     // 戻り値：フックを消去するべきか
-    move(staticObjList) {
+    move(blockList) {
         if (this.#actStatus === "stuck") {
             return false;
         }
@@ -79,7 +79,7 @@ class Hook {
             }
         }
 
-        this.#resolveCollisionList(staticObjList);
+        this.#resolveCollisionList(blockList);
 
         if (this.#isShrinking) {
             if (wireLength <= this.#v * 1.1) {
@@ -117,24 +117,24 @@ class Hook {
         return wireLength <= this.#maxWireLength;
     }
 
-    #resolveCollisionList(staticObjList) {
+    #resolveCollisionList(blockList) {
         if (this.#isShrinking || this.#actStatus === "stuck") {
             return;
         }
-        for (const staticObj of staticObjList) {
-            if (this.#resolveCollision(staticObj) === "stuck") {
+        for (const block of blockList) {
+            if (this.#resolveCollision(block) === "stuck") {
                 this.#actStatus = "stuck";
                 return;
             }
         }
     }
 
-    #resolveCollision(staticObj) {
+    #resolveCollision(block) {
         if (
-            this.#x + this.#width <= staticObj.x ||
-            this.#x >= staticObj.x + staticObj.width ||
-            this.#y + this.#height <= staticObj.y ||
-            this.#y >= staticObj.y + staticObj.height
+            this.#x + this.#width <= block.x ||
+            this.#x >= block.x + block.width ||
+            this.#y + this.#height <= block.y ||
+            this.#y >= block.y + block.height
         ) {
             // 衝突していない
             return "moving";
@@ -145,10 +145,10 @@ class Hook {
             const tmpX = this.#x - this.#vx / this.#v;;
             const tmpY = this.#y - this.#vy / this.#v;;
             if (
-                this.#x + this.#width <= staticObj.x ||
-                this.#x >= staticObj.x + staticObj.width ||
-                this.#y + this.#height <= staticObj.y ||
-                this.#y >= staticObj.y + staticObj.height
+                this.#x + this.#width <= block.x ||
+                this.#x >= block.x + block.width ||
+                this.#y + this.#height <= block.y ||
+                this.#y >= block.y + block.height
             ) {
                 break;
             }

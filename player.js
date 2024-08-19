@@ -158,7 +158,7 @@ class Player {
         }
     }
 
-    move(staticObjList) {
+    move(blockList) {
         if (this.#actStatus !== "furiko") {
             this.#canBigJump = false;
         }
@@ -285,9 +285,9 @@ class Player {
             }
         }
 
-        this.#hookMove(staticObjList);
+        this.#hookMove(blockList);
 
-        this.#resolveCollisionList(staticObjList);
+        this.#resolveCollisionList(blockList);
     }
 
     jumpStart(shouldHookReturn = true) {
@@ -403,11 +403,11 @@ class Player {
         }
         this.#hook = new Hook(this, radian);
     }
-    #hookMove(staticObjList) {
+    #hookMove(blockList) {
         if (this.#hook === null) {
             return;
         }
-        if (this.#hook.move(staticObjList)) {
+        if (this.#hook.move(blockList)) {
             this.#hook = null;
             return;
         }
@@ -421,31 +421,31 @@ class Player {
         return this.#hook.canExtendWire(playerCenterX, playerCenterY);
     }
 
-    #resolveCollisionList(staticObjList) {
+    #resolveCollisionList(blockList) {
         let isFall = this.#actStatus === "ground";
-        for (const staticObj of staticObjList) {
-            if (this.#resolveCollision(staticObj) !== "falling") {
+        for (const block of blockList) {
+            if (this.#resolveCollision(block) !== "falling") {
                 isFall = false;
             }
         }
         if (isFall) {
             this.#fallStart();
-            this.#resolveCollisionList(staticObjList);
+            this.#resolveCollisionList(blockList);
         }
     }
 
     // 戻り値：次のactStatus
-    #resolveCollision(staticObj) {
+    #resolveCollision(block) {
         // 地面で左の壁に衝突
         if (
             this.#actStatus === "ground" &&
             this.#vx < 0 &&
-            this.#y + this.#height > staticObj.y &&
-            this.#y < staticObj.y + staticObj.height &&
-            this.#x <= staticObj.x + staticObj.width &&
-            this.#x + this.#width > staticObj.x + staticObj.width
+            this.#y + this.#height > block.y &&
+            this.#y < block.y + block.height &&
+            this.#x <= block.x + block.width &&
+            this.#x + this.#width > block.x + block.width
         ) {
-            this.#x = staticObj.x + staticObj.width;
+            this.#x = block.x + block.width;
             this.#prevX = this.#x;
             this.#vx = 0;
             return this.#actStatus;
@@ -454,12 +454,12 @@ class Player {
         if (
             this.#actStatus === "ground" &&
             this.#vx > 0 &&
-            this.#y + this.#height > staticObj.y &&
-            this.#y < staticObj.y + staticObj.height &&
-            this.#x + this.#width >= staticObj.x &&
-            this.#x < staticObj.x
+            this.#y + this.#height > block.y &&
+            this.#y < block.y + block.height &&
+            this.#x + this.#width >= block.x &&
+            this.#x < block.x
         ) {
-            this.#x = staticObj.x - this.#width;
+            this.#x = block.x - this.#width;
             this.#prevX = this.#x;
             this.#vx = 0;
             return this.#actStatus;
@@ -469,14 +469,14 @@ class Player {
         if (
             this.#actStatus === "furiko" &&
             this.#vx < 0 &&
-            this.#y + this.#height > staticObj.y &&
-            this.#y < staticObj.y + staticObj.height &&
-            this.#x <= staticObj.x + staticObj.width &&
-            this.#x + this.#width > staticObj.x + staticObj.width
+            this.#y + this.#height > block.y &&
+            this.#y < block.y + block.height &&
+            this.#x <= block.x + block.width &&
+            this.#x + this.#width > block.x + block.width
         ) {
             this.#canBigJump = true;
             
-            this.#x = staticObj.x + staticObj.width;
+            this.#x = block.x + block.width;
             this.#prevX = this.#x;
 
             this.#prevY = this.#y;
@@ -504,15 +504,15 @@ class Player {
         if (
             this.#actStatus === "furiko" &&
             this.#vx > 0 &&
-            this.#prevY + this.#height > staticObj.y &&
-            this.#y + this.#height > staticObj.y &&
-            this.#y < staticObj.y + staticObj.height &&
-            this.#x + this.#width >= staticObj.x &&
-            this.#x < staticObj.x
+            this.#prevY + this.#height > block.y &&
+            this.#y + this.#height > block.y &&
+            this.#y < block.y + block.height &&
+            this.#x + this.#width >= block.x &&
+            this.#x < block.x
         ) {
             this.#canBigJump = true;
             
-            this.#x = staticObj.x - this.#width;
+            this.#x = block.x - this.#width;
             this.#prevX = this.#x;
 
             this.#prevY = this.#y;
@@ -540,13 +540,13 @@ class Player {
         if (
             this.#actStatus === "furiko" &&
             this.#vy < 0 &&
-            !(this.#prevX + this.#width <= staticObj.x || this.#prevX >= staticObj.x + staticObj.width) &&
-            this.#x + this.#width > staticObj.x &&
-            this.#x < staticObj.x + staticObj.width &&
-            this.#y <= staticObj.y + staticObj.height &&
-            this.#y + this.#height > staticObj.y + staticObj.height
+            !(this.#prevX + this.#width <= block.x || this.#prevX >= block.x + block.width) &&
+            this.#x + this.#width > block.x &&
+            this.#x < block.x + block.width &&
+            this.#y <= block.y + block.height &&
+            this.#y + this.#height > block.y + block.height
         ) {
-            this.#y = staticObj.y + staticObj.height;
+            this.#y = block.y + block.height;
             this.#prevY = this.#y;
 
             this.#prevX = this.#x;
@@ -574,13 +574,13 @@ class Player {
         if (
             this.#actStatus === "furiko" &&
             this.#vy > 0 &&
-            !(this.#prevX + this.#width <= staticObj.x || this.#prevX >= staticObj.x + staticObj.width) &&
-            this.#x + this.#width > staticObj.x &&
-            this.#x < staticObj.x + staticObj.width &&
-            this.#y + this.#height >= staticObj.y &&
-            this.#y < staticObj.y
+            !(this.#prevX + this.#width <= block.x || this.#prevX >= block.x + block.width) &&
+            this.#x + this.#width > block.x &&
+            this.#x < block.x + block.width &&
+            this.#y + this.#height >= block.y &&
+            this.#y < block.y
         ) {
-            this.#y = staticObj.y - this.#height;
+            this.#y = block.y - this.#height;
             this.#prevY = this.#y;
 
             this.#prevX = this.#x;
@@ -610,13 +610,13 @@ class Player {
         if (
             this.#actStatus !== "ground" &&
             this.#vy < 0 &&
-            !(this.#prevX + this.#width <= staticObj.x || this.#prevX >= staticObj.x + staticObj.width) &&
-            this.#x + this.#width > staticObj.x &&
-            this.#x < staticObj.x + staticObj.width &&
-            this.#y <= staticObj.y + staticObj.height &&
-            this.#y + this.#height > staticObj.y + staticObj.height
+            !(this.#prevX + this.#width <= block.x || this.#prevX >= block.x + block.width) &&
+            this.#x + this.#width > block.x &&
+            this.#x < block.x + block.width &&
+            this.#y <= block.y + block.height &&
+            this.#y + this.#height > block.y + block.height
         ) {
-            this.#y = staticObj.y + staticObj.height;
+            this.#y = block.y + block.height;
             this.#prevY = this.#y;
             this.#vy = 0;
             return this.#actStatus;
@@ -626,13 +626,13 @@ class Player {
         if (
             this.#actStatus !== "ground" &&
             this.#vy > 0 &&
-            !(this.#prevX + this.#width <= staticObj.x || this.#prevX >= staticObj.x + staticObj.width) &&
-            this.#x + this.#width > staticObj.x &&
-            this.#x < staticObj.x + staticObj.width &&
-            this.#y + this.#height >= staticObj.y &&
-            this.#y < staticObj.y
+            !(this.#prevX + this.#width <= block.x || this.#prevX >= block.x + block.width) &&
+            this.#x + this.#width > block.x &&
+            this.#x < block.x + block.width &&
+            this.#y + this.#height >= block.y &&
+            this.#y < block.y
         ) {
-            this.#y = staticObj.y - this.#height;
+            this.#y = block.y - this.#height;
             this.#prevY = this.#y;
             this.#fallEnd();
             return this.#actStatus;
@@ -642,13 +642,13 @@ class Player {
         if (
             this.#actStatus !== "ground" &&
             this.#vx < 0 &&
-            this.#prevY + this.#height > staticObj.y &&
-            this.#y + this.#height > staticObj.y &&
-            this.#y < staticObj.y + staticObj.height &&
-            this.#x <= staticObj.x + staticObj.width &&
-            this.#x + this.#width > staticObj.x + staticObj.width
+            this.#prevY + this.#height > block.y &&
+            this.#y + this.#height > block.y &&
+            this.#y < block.y + block.height &&
+            this.#x <= block.x + block.width &&
+            this.#x + this.#width > block.x + block.width
         ) {
-            this.#x = staticObj.x + staticObj.width;
+            this.#x = block.x + block.width;
             this.#prevX = this.#x;
             this.#vx *= -0.8;
             return this.#actStatus;
@@ -657,13 +657,13 @@ class Player {
         if (
             this.#actStatus !== "ground" &&
             this.#vx > 0 &&
-            this.#prevY + this.#height > staticObj.y &&
-            this.#y + this.#height > staticObj.y &&
-            this.#y < staticObj.y + staticObj.height &&
-            this.#x + this.#width >= staticObj.x &&
-            this.#x < staticObj.x
+            this.#prevY + this.#height > block.y &&
+            this.#y + this.#height > block.y &&
+            this.#y < block.y + block.height &&
+            this.#x + this.#width >= block.x &&
+            this.#x < block.x
         ) {
-            this.#x = staticObj.x - this.#width;
+            this.#x = block.x - this.#width;
             this.#prevX = this.#x;
             this.#vx *= -0.8;
             return this.#actStatus;
@@ -672,9 +672,9 @@ class Player {
         // 床に接しているか？
         if (
             this.#vy === 0 &&
-            this.#x + this.#width >= staticObj.x &&
-            this.#x <= staticObj.x + staticObj.width &&
-            this.#y + this.#height === staticObj.y
+            this.#x + this.#width >= block.x &&
+            this.#x <= block.x + block.width &&
+            this.#y + this.#height === block.y
         ) {
             return this.#actStatus;
         }

@@ -42,7 +42,7 @@ canvas.height = 500;
 const globalWidth = canvas.width * 2;
 const globalHeight = canvas.height;
 
-const {player, staticObjList} = createMap("debug2");
+const {player, blockList} = createMap("debug2");
 const viewport = new Viewport(0, 0, canvas.width, canvas.height, globalWidth, globalHeight, player);
 
 let fireHookWaitFrame = 0;
@@ -67,11 +67,11 @@ function update() {
 
     player.applyForce(forceDirection());
 
-    player.move(staticObjList);
+    player.move(blockList);
 
     // 描画する
-    staticObjList.forEach(staticObj => {
-        staticObj.draw(context, viewport);
+    blockList.forEach(block => {
+        block.draw(context, viewport);
     });
     player.draw(context, viewport);
 }

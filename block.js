@@ -1,5 +1,5 @@
 
-class StaticObject {
+class Block {
     #x = 0;
     get x() { return this.#x }
     #y = 0;
