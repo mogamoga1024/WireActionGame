@@ -13,6 +13,7 @@ class MapFactory {
                 const blockList = [block1, block2, block3, block4, block5, block6, block7];
                 const player = new Player(100, 360);
                 const world = this.#createWorld(blockList);
+                this.#addGuardBlock(blockList, world);
                 return {player, blockList, world};
             }
             case "debug2": {
@@ -25,6 +26,7 @@ class MapFactory {
                 const blockList = [block1, block2, block3, block4, block5, block6];
                 const player = new Player(100, 360);
                 const world = this.#createWorld(blockList);
+                this.#addGuardBlock(blockList, world);
                 return {player, blockList, world};
             }
             case "debug3": {
@@ -34,6 +36,7 @@ class MapFactory {
                 const blockList = [block1, block2, block3];
                 const player = new Player(100, 360);
                 const world = this.#createWorld(blockList);
+                this.#addGuardBlock(blockList, world);
                 return {player, blockList, world};
             }
             default:
@@ -48,10 +51,15 @@ class MapFactory {
                 width = block.x + block.width;
             }
         }
-        return {width, height: 5000};
+        return {width, height: 500};
     }
 
-    static #addGuardBlock(blockList) {
-        // blockList.push(new InvisibleBlock(0, ));
+    static #addGuardBlock(blockList, world) {
+        // 床
+        blockList.push(new InvisibleBlock(0, world.height, world.width, 30));
+        // 左
+        blockList.push(new InvisibleBlock(-30, 0, 30, world.height));
+        // 右
+        blockList.push(new InvisibleBlock(world.width, 0, 30, world.height));
     }
 }
