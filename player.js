@@ -477,18 +477,29 @@ class Player {
             this.#x + this.#width > staticObj.x + staticObj.width
         ) {
             this.#canBigJump = true;
-            // TODO 振り子 接触点の厳密な計算
-            if (this.#centerX(this.#prevX) > this.#hook.centerX) {
-                this.#x = staticObj.x + staticObj.width;
-                this.#y = this.#prevY;
-                this.#prevX = this.#x;
-                this.#furikoStart(true);
+            
+            this.#x = staticObj.x + staticObj.width;
+            this.#prevX = this.#x;
+
+            this.#prevY = this.#y;
+            this.#y = this.#prevY;
+            if (this.#vy !== 0) {
+                const tmpCenterY = this.centerY;
+                while (!this.#canExtendWire(this.centerX, this.centerY)) {
+                    const prevY = this.#y;
+                    this.#y += this.#vy > 0 ? 0.01 : -0.01;
+                    if (
+                        (tmpCenterY > this.#hook.centerY && this.centerY <= this.#hook.centerY) ||
+                        (tmpCenterY < this.#hook.centerY && this.centerY >= this.#hook.centerY)
+                    ) {
+                        this.#y = prevY;
+                        break;
+                    }
+                }
             }
-            else {
-                this.#x = this.#prevX;
-                this.#y = this.#prevY;
-                this.#furikoStart(true);
-            }
+
+            this.#vx = this.#vy = 0;
+            this.#furikoStart(true);
             return this.#actStatus;
         }
         // 振り子中に右の壁に衝突
@@ -502,20 +513,29 @@ class Player {
             this.#x < staticObj.x
         ) {
             this.#canBigJump = true;
-            // TODO 振り子 接触点の厳密な計算
+            
+            this.#x = staticObj.x - this.#width;
+            this.#prevX = this.#x;
 
-            // todo 分けなくていい
-            if (this.#centerX(this.#prevX) > this.#hook.centerX) {
-                this.#x = staticObj.x - this.#width;
-                this.#y = this.#prevY;
-                this.#prevX = this.#x;
-                this.#furikoStart(true);
+            this.#prevY = this.#y;
+            this.#y = this.#prevY;
+            if (this.#vy !== 0) {
+                const tmpCenterY = this.centerY;
+                while (!this.#canExtendWire(this.centerX, this.centerY)) {
+                    const prevY = this.#y;
+                    this.#y += this.#vy > 0 ? 0.01 : -0.01;
+                    if (
+                        (tmpCenterY > this.#hook.centerY && this.centerY <= this.#hook.centerY) ||
+                        (tmpCenterY < this.#hook.centerY && this.centerY >= this.#hook.centerY)
+                    ) {
+                        this.#y = prevY;
+                        break;
+                    }
+                }
             }
-            else {
-                this.#x = this.#prevX;
-                this.#y = this.#prevY;
-                this.#furikoStart(true);
-            }
+
+            this.#vx = this.#vy = 0;
+            this.#furikoStart(true);
             return this.#actStatus;
         }
         // 振り子中に天井に衝突
