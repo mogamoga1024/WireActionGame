@@ -39,8 +39,8 @@ const context = canvas.getContext("2d");
 
 canvas.width = 800;
 canvas.height = 500;
-const {player, blockList, worldWidth} = MapFactory.create("debug1");
-const viewport = new Viewport(canvas, worldWidth, player);
+const {player, blockList, world} = MapFactory.create("debug1");
+const viewport = new Viewport(canvas, world, player);
 
 let fireHookWaitFrame = 0;
 const fireHookWaitFrameMax = 15;

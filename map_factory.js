@@ -12,8 +12,8 @@ class MapFactory {
                 const block7 = new Block(770, 100, 50, 300);
                 const blockList = [block1, block2, block3, block4, block5, block6, block7];
                 const player = new Player(100, 360);
-                const worldWidth = this.#calcWorldWidth(blockList);
-                return {player, blockList, worldWidth};
+                const world = this.#createWorld(blockList);
+                return {player, blockList, world};
             }
             case "debug2": {
                 const block1 = new Block(0, 400, 1600, 100);
@@ -24,8 +24,8 @@ class MapFactory {
                 const block6 = new Block(1600 - 200 - 100, 320, 100, 80);
                 const blockList = [block1, block2, block3, block4, block5, block6];
                 const player = new Player(100, 360);
-                const worldWidth = this.#calcWorldWidth(blockList);
-                return {player, blockList, worldWidth};
+                const world = this.#createWorld(blockList);
+                return {player, blockList, world};
             }
             case "debug3": {
                 const block1 = new UnstickableBlock(100, 400, 300, 100);
@@ -33,21 +33,25 @@ class MapFactory {
                 const block3 = new UnstickableBlock(300, 150, 250, 50);
                 const blockList = [block1, block2, block3];
                 const player = new Player(100, 360);
-                const worldWidth = this.#calcWorldWidth(blockList);
-                return {player, blockList, worldWidth};
+                const world = this.#createWorld(blockList);
+                return {player, blockList, world};
             }
             default:
                 throw new Error(`マップがない：${name}`);
         }
     }
 
-    static #calcWorldWidth(blockList) {
-        let worldWidth = 0;
+    static #createWorld(blockList) {
+        let width = 0;
         for (const block of blockList) {
-            if (worldWidth < block.x + block.width) {
-                worldWidth = block.x + block.width;
+            if (width < block.x + block.width) {
+                width = block.x + block.width;
             }
         }
-        return worldWidth;
+        return {width, height: 5000};
+    }
+
+    static #addGuardBlock(blockList) {
+        // blockList.push(new InvisibleBlock(0, ));
     }
 }
