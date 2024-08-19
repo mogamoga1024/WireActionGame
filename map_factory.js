@@ -39,6 +39,18 @@ class MapFactory {
                 this.#addGuardBlock(blockList, world);
                 return {player, blockList, world};
             }
+            case "debug4": {
+                const block1 = new Block(100, 400, 300, 100);
+                const block2 = new Block(500, 400, 300, 100);
+                const block3 = new Block(700, 300, 250, 200);
+                const block4 = new Block(300, 150, 250, 50);
+                const block5 = new Block(600, 50, 300, 50);
+                const blockList = [block1, block2, block3, block4, block5];
+                const player = new Player(100, 360);
+                const world = this.#createWorld(blockList);
+                this.#addGuardBlock(blockList, world);
+                return {player, blockList, world};
+            }
             default:
                 throw new Error(`マップがない：${name}`);
         }
