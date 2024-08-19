@@ -40,14 +40,15 @@ class MapFactory {
                 return {player, blockList, world};
             }
             case "debug4": {
-                const block1 = new Block(100, 400, 300, 100);
-                const block2 = new Block(500, 400, 300, 100);
-                const block3 = new Block(700, 300, 250, 200);
-                const block4 = new Block(300, 150, 250, 50);
-                const block5 = new Block(600, 50, 300, 50);
+                const height = 5000;
+                const block1 = new Block(100, height - 100, 300, 100);
+                const block2 = new Block(500, height - 100, 300, 100);
+                const block3 = new Block(700, height - 200, 250, 200);
+                const block4 = new Block(300, height - 350, 250, 50);
+                const block5 = new Block(600, height - 700, 300, 250);
                 const blockList = [block1, block2, block3, block4, block5];
-                const player = new Player(100, 360);
-                const world = this.#createWorld(blockList);
+                const player = new Player(300, height - 500);
+                const world = this.#createWorld(blockList, height);
                 this.#addGuardBlock(blockList, world);
                 return {player, blockList, world};
             }
@@ -56,14 +57,14 @@ class MapFactory {
         }
     }
 
-    static #createWorld(blockList) {
+    static #createWorld(blockList, height = 500) {
         let width = 0;
         for (const block of blockList) {
             if (width < block.x + block.width) {
                 width = block.x + block.width;
             }
         }
-        return {width, height: 500};
+        return {width, height};
     }
 
     static #addGuardBlock(blockList, world) {

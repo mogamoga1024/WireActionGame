@@ -25,6 +25,13 @@ class Viewport {
     }
 
     get offsetY() {
-        return 0; // todo 仮
+        const baseOffsetY = this.#height - this.#world.height;
+        const baseY = this.#height * 2 / 3 - baseOffsetY;
+        if (this.#player.centerY >= baseY) {
+            return baseOffsetY;
+        }
+        else {
+            return baseOffsetY + baseY - this.#player.centerY;
+        }
     }
 }
