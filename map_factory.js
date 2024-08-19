@@ -49,7 +49,8 @@ class MapFactory {
                 const block3 = new Block(700, height - 200, 250, 200);
                 const block4 = new Block(300, height - 350, 250, 50);
                 const block5 = new Block(600, height - 700, 300, 250);
-                const blockList = [block1, block2, block3, block4, block5];
+                const block6 = new Trampoline(0, height - 100, 100, 100);
+                const blockList = [block1, block2, block3, block4, block5, block6];
                 // const player = new Player(700, height - 800);
                 const player = new Player(120, height - 200);
                 const world = this.#createWorld(blockList, height);

@@ -5,7 +5,8 @@ class Player {
     #vy = 0;
     #vyMax = 10;
     #canBigJump = false;
-    #vyMax2 = 12.3;
+    #wireJumpVyMax = 12.3;
+    #trampolineJumpVyMax = 30;
     #accelerationX = 0.3;
     #decelerationX = 0.2;
     #hook = null;
@@ -22,6 +23,7 @@ class Player {
     #canClimbing = true;
     #canDescending = true;
     #wireVerticalState = "none"; // none, climbing, descending
+    #shouldJumpOnTrampoline = false;
 
     #x = 0; #prevX = 0;
     get x() { return this.#x; }
@@ -162,6 +164,10 @@ class Player {
         if (this.#actStatus !== "furiko") {
             this.#canBigJump = false;
         }
+
+        if (this.#shouldJumpOnTrampoline) {
+            this.jumpStart();
+        }
         
         if (
             this.#hook !== null &&
@@ -299,11 +305,15 @@ class Player {
         this.#prevActStatus = this.#actStatus;
         this.#actStatus = "jumping";
 
-        if (
+        if (this.#shouldJumpOnTrampoline) {
+            this.#shouldJumpOnTrampoline = false;
+            this.#vy = -this.#trampolineJumpVyMax;
+        }
+        else if (
             this.#canBigJump ||
             (this.#prevActStatus === "ground" && this.#hook?.actStatus === "stuck")
         ) {
-            this.#vy = -this.#vyMax2;
+            this.#vy = -this.#wireJumpVyMax;
         }
         else {
             this.#vy = -this.#vyMax;
@@ -637,6 +647,11 @@ class Player {
             this.#y = block.y - this.#height;
             this.#prevY = this.#y;
             this.#fallEnd();
+
+            if (block.constructor.name === "Trampoline") {
+                this.#shouldJumpOnTrampoline = true;
+            }
+
             return this.#actStatus;
         }
 
