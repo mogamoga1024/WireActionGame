@@ -88,7 +88,7 @@ class Player {
             }
             this.#canClimbing = false;
         }
-        else if (vertical === "vertical") {
+        else if (vertical === "down") {
             if (this.#canDescending) {
                 this.#wireVerticalState = "descending";
             }
