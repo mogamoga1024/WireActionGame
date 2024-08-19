@@ -43,7 +43,7 @@ const world = {
     width: canvas.width * 2,
     height: canvas.height
 };
-const {player, blockList} = createMap("debug1");
+const {player, blockList} = createMap("debug3");
 const viewport = new Viewport(canvas, world, player);
 
 let fireHookWaitFrame = 0;
