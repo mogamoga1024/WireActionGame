@@ -39,11 +39,12 @@ const context = canvas.getContext("2d");
 
 canvas.width = 800;
 canvas.height = 500;
-const globalWidth = canvas.width * 2;
-const globalHeight = canvas.height;
-
-const {player, blockList} = createMap("debug3");
-const viewport = new Viewport(0, 0, canvas.width, canvas.height, globalWidth, globalHeight, player);
+const world = {
+    width: canvas.width * 2,
+    height: canvas.height
+};
+const {player, blockList} = createMap("debug1");
+const viewport = new Viewport(canvas, world, player);
 
 let fireHookWaitFrame = 0;
 const fireHookWaitFrameMax = 15;

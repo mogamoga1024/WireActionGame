@@ -1,20 +1,14 @@
 
 class Viewport {
-    #globalX = 0;
-    #globalY = 0;
     #width = 0;
     #height = 0;
-    #globalWidth = 0;
-    #globalHeight = 0;
+    #world = null;
     #player = null;
 
-    constructor(globalX, globalY, viewportWidth, viewportHeight, globalWidth, globalHeight, player) {
-        this.#globalX = globalX;
-        this.#globalY = globalY;
-        this.#width = viewportWidth;
-        this.#height = viewportHeight;
-        this.#globalWidth = globalWidth;
-        this.#globalHeight = globalHeight;
+    constructor(canvas, world, player) {
+        this.#width = canvas.width;
+        this.#height = canvas.height;
+        this.#world = world;
         this.#player = player;
     }
 
@@ -22,8 +16,8 @@ class Viewport {
         if (this.#player.centerX <= this.#width / 2) {
             return 0;
         }
-        else if (this.#player.centerX >= this.#globalWidth - this.#width / 2) {
-            return this.#width - this.#globalWidth;
+        else if (this.#player.centerX >= this.#world.width - this.#width / 2) {
+            return this.#width - this.#world.width;
         }
         else {
             return this.#width / 2 - this.#player.centerX;
