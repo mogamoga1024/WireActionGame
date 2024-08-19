@@ -210,6 +210,7 @@ class Player {
                         this.#maxRadian = Math.sign(nextMaxRadian) * Math.PI / 8;
                     }
                     else if (
+                        true || // todo debug
                         nextMaxRadian >= -Math.PI * 3 / 8 &&
                         nextMaxRadian <= Math.PI * 3 / 8
                     ) {
@@ -527,8 +528,12 @@ class Player {
             this.#y + this.#height > staticObj.y + staticObj.height
         ) {
             // TODO 振り子 接触点の厳密な計算
+            console.log("aaa");
             this.#x = this.#prevX;
             this.#y = this.#prevY;
+
+
+            
             this.#furikoStart(true);
             return this.#actStatus;
         }

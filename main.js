@@ -32,6 +32,7 @@ setInterval(() => {
     context.clearRect(0, 0, canvas.width, canvas.height);
     update();
 }, dt * 1000);
+// }, 50);
 
 const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
