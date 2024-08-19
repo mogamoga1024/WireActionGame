@@ -503,6 +503,8 @@ class Player {
         ) {
             this.#canBigJump = true;
             // TODO 振り子 接触点の厳密な計算
+
+            // todo 分けなくていい
             if (this.#centerX(this.#prevX) > this.#hook.centerX) {
                 this.#x = staticObj.x - this.#width;
                 this.#y = this.#prevY;
@@ -546,6 +548,7 @@ class Player {
                 }
             }
 
+            this.#vx = this.#vy = 0;
             this.#furikoStart(true);
             return this.#actStatus;
         }
