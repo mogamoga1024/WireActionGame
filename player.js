@@ -210,7 +210,6 @@ class Player {
                         this.#maxRadian = Math.sign(nextMaxRadian) * Math.PI / 8;
                     }
                     else if (
-                        true || // todo debug
                         nextMaxRadian >= -Math.PI * 3 / 8 &&
                         nextMaxRadian <= Math.PI * 3 / 8
                     ) {
@@ -527,13 +526,26 @@ class Player {
             this.#y <= staticObj.y + staticObj.height &&
             this.#y + this.#height > staticObj.y + staticObj.height
         ) {
-            // TODO 振り子 接触点の厳密な計算
-            console.log("aaa");
+            this.#y = staticObj.y + staticObj.height;
+            this.#prevY = this.#y;
+
+            this.#prevX = this.#x;
             this.#x = this.#prevX;
-            this.#y = this.#prevY;
+            if (this.#vx !== 0) {
+                const tmpCenterX = this.centerX;
+                while (!this.#canExtendWire(this.centerX, this.centerY)) {
+                    const prevX = this.#x;
+                    this.#x += this.#vx > 0 ? 0.01 : -0.01;
+                    if (
+                        (tmpCenterX > this.#hook.centerX && this.centerX <= this.#hook.centerX) ||
+                        (tmpCenterX < this.#hook.centerX && this.centerX >= this.#hook.centerX)
+                    ) {
+                        this.#x = prevX;
+                        break;
+                    }
+                }
+            }
 
-
-            
             this.#furikoStart(true);
             return this.#actStatus;
         }
