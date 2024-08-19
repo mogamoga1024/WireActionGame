@@ -359,10 +359,11 @@ class Player {
             this.#prevActStatus !== "ground" &&
             Math.abs(radian) < Math.abs(this.#maxRadian)
         ) {
-            if (this.#vx <= 0) {
+            // 慣性を残す
+            if (this.#vx < 0) {
                 this.#maxRadian = Math.abs(this.#maxRadian);
             }
-            else {
+            else if (this.#vx > 0) {
                 this.#maxRadian = -1 * Math.abs(this.#maxRadian);
             }
             // const radian = this.#maxRadian * Math.cos(this.#angularFrequency * this.#furikoParam);
@@ -372,6 +373,7 @@ class Player {
             this.#furikoParam = Math.acos(radian / this.#maxRadian) / this.#angularFrequency;
         }
         else {
+            // 慣性を殺す
             this.#maxRadian = radian;
             this.#furikoParam = 0;
         }

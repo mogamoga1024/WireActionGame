@@ -16,6 +16,7 @@ class MapFactory {
                 this.#addGuardBlock(blockList, world);
                 return {player, blockList, world};
             }
+            // ぴょいーん ぴょいーん
             case "debug2": {
                 const block1 = new Block(0, 400, 1600, 100);
                 const block2 = new Block(0, 0, 50, 500);
@@ -29,6 +30,7 @@ class MapFactory {
                 this.#addGuardBlock(blockList, world);
                 return {player, blockList, world};
             }
+            // くっつかず
             case "debug3": {
                 const block1 = new UnstickableBlock(100, 400, 300, 100);
                 const block2 = new UnstickableBlock(500, 400, 300, 100);
@@ -39,6 +41,7 @@ class MapFactory {
                 this.#addGuardBlock(blockList, world);
                 return {player, blockList, world};
             }
+            // 高い
             case "debug4": {
                 const height = 5000;
                 const block1 = new Block(100, height - 100, 300, 100);
