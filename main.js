@@ -111,19 +111,22 @@ function fireHookRadian() {
 }
 
 function forceDirection() {
+    let horizontal = "none";
+    let vertical = "none";
+
     if (isPressedLeft && !isPressedRight) {
-        return "left";
+        horizontal = "left";
     }
     else if (!isPressedLeft && isPressedRight) {
-        return "right";
+        horizontal = "right";
     }
-    else if (isPressedUp && !isPressedDown) {
-        return "up";
+
+    if (isPressedUp && !isPressedDown) {
+        vertical = "up";
     }
     else if (!isPressedUp && isPressedDown) {
-        return "down";
+        vertical = "down";
     }
-    else {
-        return "none";
-    }
+    
+    return {horizontal, vertical};
 }

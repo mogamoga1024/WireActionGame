@@ -70,16 +70,16 @@ class Player {
         context.fill();
     }
 
-    applyForce(direction) {
-        if (!this.#canClimbing && direction !== "up") {
+    applyForce({horizontal, vertical}) {
+        if (!this.#canClimbing && vertical !== "up") {
             this.#canClimbing = true;
         }
 
-        if (direction === "left" || direction === "right") {
-            this.#direction = direction;
+        if (horizontal === "left" || horizontal === "right") {
+            this.#direction = horizontal;
         }
 
-        if (direction === "up") {
+        if (vertical === "up") {
             if (this.#canClimbing) {
                 this.#wireVerticalState = "climbing";
             }
@@ -87,16 +87,14 @@ class Player {
                 this.#wireVerticalState = "none";
             }
             this.#canClimbing = false;
-            return;
         }
-        else if (direction === "down") {
+        else if (vertical === "vertical") {
             if (this.#canDescending) {
                 this.#wireVerticalState = "descending";
             }
             else {
                 this.#wireVerticalState = "none";
             }
-            return;
         }
         else {
             this.#wireVerticalState = "none";
@@ -104,14 +102,14 @@ class Player {
 
         if (this.#actStatus === "furiko") {
             if (
-                direction === "left" && this.#vx <= 0 ||
-                direction === "right" && this.#vx >= 0
+                horizontal === "left" && this.#vx <= 0 ||
+                horizontal === "right" && this.#vx >= 0
             ) {
                 this.#furikoForceMode = "accelerate";
             }
             else if (
-                direction === "left" && this.#vx > 0 ||
-                direction === "right" && this.#vx < 0
+                horizontal === "left" && this.#vx > 0 ||
+                horizontal === "right" && this.#vx < 0
             ) {
                 this.#furikoForceMode = "decelerate";
             }
@@ -121,7 +119,7 @@ class Player {
             return;
         }
 
-        if (direction === "left") {
+        if (horizontal === "left") {
             this.#vx -= this.#accelerationX;
             if (this.#vx < -this.#vxMax) {
                 if (this.#vx + this.#accelerationX >= -this.#vxMax) {
@@ -132,7 +130,7 @@ class Player {
                 }
             }
         }
-        else if (direction === "right") {
+        else if (horizontal === "right") {
             this.#vx += this.#accelerationX;
             if (this.#vx > this.#vxMax) {
                 if (this.#vx - this.#accelerationX <= this.#vxMax) {
@@ -144,7 +142,7 @@ class Player {
             }
         }
         // 慣性 & 摩擦による減速
-        else if (direction === "none" && this.#actStatus === "ground") {
+        else if (horizontal === "none" && this.#actStatus === "ground") {
             if (this.#vx > 0) {
                 this.#vx -= this.#decelerationX;
                 if (this.#vx < 0) {
