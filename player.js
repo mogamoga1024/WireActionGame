@@ -473,6 +473,7 @@ class Player {
             this.#x <= block.x + block.width &&
             this.#x + this.#width > block.x + block.width
         ) {
+            console.log("地面で左の壁に衝突");
             this.#x = block.x + block.width;
             this.#prevX = this.#x;
             this.#vx = 0;
@@ -487,6 +488,7 @@ class Player {
             this.#x + this.#width >= block.x &&
             this.#x < block.x
         ) {
+            console.log("地面で右の壁に衝突");
             this.#x = block.x - this.#width;
             this.#prevX = this.#x;
             this.#vx = 0;
@@ -502,6 +504,7 @@ class Player {
             this.#x <= block.x + block.width &&
             this.#x + this.#width > block.x + block.width
         ) {
+            console.log("振り子中に左の壁に衝突");
             this.#canBigJump = true;
             
             this.#x = block.x + block.width;
@@ -538,6 +541,7 @@ class Player {
             this.#x + this.#width >= block.x &&
             this.#x < block.x
         ) {
+            console.log("振り子中に右の壁に衝突");
             this.#canBigJump = true;
             
             this.#x = block.x - this.#width;
@@ -574,6 +578,7 @@ class Player {
             this.#y <= block.y + block.height &&
             this.#y + this.#height > block.y + block.height
         ) {
+            console.log("振り子中に天井に衝突");
             this.#y = block.y + block.height;
             this.#prevY = this.#y;
 
@@ -608,6 +613,7 @@ class Player {
             this.#y + this.#height >= block.y &&
             this.#y < block.y
         ) {
+            console.log("振り子中に地面に衝突");
             this.#y = block.y - this.#height;
             this.#prevY = this.#y;
 
@@ -644,6 +650,7 @@ class Player {
             this.#y <= block.y + block.height &&
             this.#y + this.#height > block.y + block.height
         ) {
+            console.log("ジャンプ中に天井に衝突");
             this.#y = block.y + block.height;
             this.#prevY = this.#y;
             this.#vy = 0;
@@ -660,6 +667,7 @@ class Player {
             this.#y + this.#height >= block.y &&
             this.#y < block.y
         ) {
+            console.log("落下中に床に衝突");
             this.#y = block.y - this.#height;
             this.#prevY = this.#y;
             this.#fallEnd();
@@ -681,6 +689,7 @@ class Player {
             this.#x <= block.x + block.width &&
             this.#x + this.#width > block.x + block.width
         ) {
+            console.log("空中で左の壁に衝突");
             this.#x = block.x + block.width;
             this.#prevX = this.#x;
             this.#vx *= -0.8;
@@ -696,6 +705,7 @@ class Player {
             this.#x + this.#width >= block.x &&
             this.#x < block.x
         ) {
+            console.log("空中で右の壁に衝突");
             this.#x = block.x - this.#width;
             this.#prevX = this.#x;
             this.#vx *= -0.8;
