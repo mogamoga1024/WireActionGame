@@ -364,12 +364,13 @@ class Player {
         }
         this.#angularFrequency = Math.sqrt(gravity / this.#furikoLength);
         this.#furikoForceMode = "none";
+
+        // 慣性を残す
         if (
             !shouldStopInertia &&
             this.#prevActStatus !== "ground" &&
             Math.abs(radian) < Math.abs(this.#maxRadian)
         ) {
-            // 慣性を残す
             if (this.#vx < 0) {
                 this.#maxRadian = Math.abs(this.#maxRadian);
             }
@@ -382,8 +383,8 @@ class Player {
             // this.#furikoParam = Math.acos(radian / this.#maxRadian) / this.#angularFrequency
             this.#furikoParam = Math.acos(radian / this.#maxRadian) / this.#angularFrequency;
         }
+        // 慣性を殺す
         else {
-            // 慣性を殺す
             this.#maxRadian = radian;
             this.#furikoParam = 0;
         }
