@@ -6,7 +6,7 @@ class Trampoline extends UnstickableBlock {
 
         context.beginPath();
         context.rect(this.x + ox, this.y + oy, this.width, this.height);
-        context.fillStyle = "#98FB98";
+        context.fillStyle = "#006400";
         context.fill();
     }
 }

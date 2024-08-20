@@ -1,65 +1,66 @@
 
 class MapFactory {
     static create(name) {
+        let worldHeight = 500;
+        const blockList = [];
+        let player = null;
+
+        const bp = block => {
+            blockList.push(block);
+        }
+
         switch (name) {
             case "debug1": {
-                const block1 = new Block(0, 400, 500, 100);
-                const block2 = new Block(600, 400, 400, 100);
-                const block3 = new Block(0, 200, 80, 200);
-                const block4 = new Block(200, 350, 80, 50);
-                const block5 = new Block(70, 200, 250, 30);
-                const block6 = new Block(300, 100, 400, 30);
-                const block7 = new Block(770, 100, 50, 300);
-                const blockList = [block1, block2, block3, block4, block5, block6, block7];
-                const player = new Player(100, 360);
-                const world = this.#createWorld(blockList);
-                this.#addGuardBlock(blockList, world);
-                return {player, blockList, world};
+                bp(new Block(0, 400, 500, 100));
+                bp(new Block(600, 400, 400, 100));
+                bp(new Block(0, 200, 80, 200));
+                bp(new Block(200, 350, 80, 50));
+                bp(new Block(70, 200, 250, 30));
+                bp(new Block(300, 100, 400, 30));
+                bp(new Block(770, 100, 50, 300));
+                player = new Player(100, 360);
+                break;
             }
             // ぴょいーん ぴょいーん
             case "debug2": {
-                const block1 = new Block(0, 400, 1600, 100);
-                const block2 = new Block(0, 0, 50, 500);
-                const block3 = new Block(1600 - 50, 0, 50, 500);
-                const block4 = new Block(300, 0, 1000, 50);
-                const block5 = new Block(200, 320, 100, 80);
-                const block6 = new Block(1600 - 200 - 100, 320, 100, 80);
-                const blockList = [block1, block2, block3, block4, block5, block6];
-                const player = new Player(100, 360);
-                const world = this.#createWorld(blockList);
-                this.#addGuardBlock(blockList, world);
-                return {player, blockList, world};
+                bp(new Block(0, 400, 1600, 100));
+                bp(new Block(0, 0, 50, 500));
+                bp(new Block(1600 - 50, 0, 50, 500));
+                bp(new Block(300, 0, 1000, 50));
+                bp(new Block(200, 320, 100, 80));
+                bp(new Block(1600 - 200 - 100, 320, 100, 80));
+                player = new Player(100, 360);
+                break;
             }
             // くっつかず
             case "debug3": {
-                const block1 = new UnstickableBlock(100, 400, 300, 100);
-                const block2 = new UnstickableBlock(500, 400, 300, 100);
-                const block3 = new UnstickableBlock(300, 150, 250, 50);
-                const blockList = [block1, block2, block3];
-                const player = new Player(100, 360);
-                const world = this.#createWorld(blockList);
-                this.#addGuardBlock(blockList, world);
-                return {player, blockList, world};
+                bp(new UnstickableBlock(100, 400, 300, 100));
+                bp(new UnstickableBlock(500, 400, 300, 100));
+                bp(new UnstickableBlock(300, 150, 250, 50));
+                player = new Player(100, 360);
+                break;
             }
             // 高い
             case "debug4": {
-                const height = 5000;
-                const block1 = new Block(100, height - 100, 300, 100);
-                const block2 = new Block(500, height - 100, 300, 100);
-                const block3 = new Block(700, height - 200, 250, 200);
-                const block4 = new Block(300, height - 350, 250, 50);
-                const block5 = new Block(600, height - 700, 300, 250);
-                const block6 = new Trampoline(0, height - 100, 100, 100);
-                const blockList = [block1, block2, block3, block4, block5, block6];
-                // const player = new Player(700, height - 800);
-                const player = new Player(120, height - 200);
-                const world = this.#createWorld(blockList, height);
-                this.#addGuardBlock(blockList, world);
-                return {player, blockList, world};
+                worldHeight = 5000;
+                const h = worldHeight;
+                bp(new Block(100, h - 100, 300, 100));
+                bp(new Block(500, h - 100, 300, 100));
+                bp(new Block(700, h - 200, 250, 200));
+                bp(new Block(300, h - 350, 250, 50));
+                bp(new Block(600, h - 700, 300, 250));
+                bp(new Trampoline(0, h - 100, 100, 100));
+                player = new Player(120, h - 200);
+                break;
             }
             default:
                 throw new Error(`マップがない：${name}`);
         }
+
+        this.#sortBlockList(blockList);
+        const world = this.#createWorld(blockList, worldHeight);
+        this.#addGuardBlock(blockList, world);
+        return {player, blockList, world};
     }
 
     static #createWorld(blockList, height = 500) {
@@ -79,5 +80,17 @@ class MapFactory {
         blockList.push(new InvisibleBlock(-30, 0, 30, world.height));
         // 右
         blockList.push(new InvisibleBlock(world.width, 0, 30, world.height));
+    }
+
+    static #sortBlockList(blockList) {
+        blockList.sort((a, b) => {
+            if (a.constructor.name === "Trampoline") {
+                return -1;
+            }
+            else if (b.constructor.name === "Trampoline") {
+                return 1;
+            }
+            return 0;
+        });
     }
 }
