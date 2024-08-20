@@ -495,6 +495,78 @@ class Player {
             return this.#actStatus;
         }
 
+        // 振り子中に天井に衝突
+        if (
+            this.#actStatus === "furiko" &&
+            this.#vy < 0 &&
+            !(this.#prevX + this.#width <= block.x || this.#prevX >= block.x + block.width) &&
+            this.#x + this.#width > block.x &&
+            this.#x < block.x + block.width &&
+            this.#y <= block.y + block.height &&
+            this.#y + this.#height > block.y + block.height
+        ) {
+            console.log("振り子中に天井に衝突");
+            this.#y = block.y + block.height;
+            this.#prevY = this.#y;
+
+            this.#prevX = this.#x;
+            this.#x = this.#prevX;
+            if (this.#vx !== 0) {
+                const tmpCenterX = this.centerX;
+                while (!this.#canExtendWire(this.centerX, this.centerY)) {
+                    const prevX = this.#x;
+                    this.#x += this.#vx > 0 ? 0.01 : -0.01;
+                    if (
+                        (tmpCenterX > this.#hook.centerX && this.centerX <= this.#hook.centerX) ||
+                        (tmpCenterX < this.#hook.centerX && this.centerX >= this.#hook.centerX)
+                    ) {
+                        this.#x = prevX;
+                        break;
+                    }
+                }
+            }
+
+            this.#vx = this.#vy = 0;
+            this.#furikoStart(true);
+            return this.#actStatus;
+        }
+        // 振り子中に地面に衝突
+        if (
+            this.#actStatus === "furiko" &&
+            this.#vy > 0 &&
+            !(this.#prevX + this.#width <= block.x || this.#prevX >= block.x + block.width) &&
+            this.#x + this.#width > block.x &&
+            this.#x < block.x + block.width &&
+            this.#y + this.#height >= block.y &&
+            this.#y < block.y
+        ) {
+            console.log("振り子中に地面に衝突");
+            this.#y = block.y - this.#height;
+            this.#prevY = this.#y;
+
+            this.#prevX = this.#x;
+            this.#x = this.#prevX;
+            if (this.#vx !== 0) {
+                const tmpCenterX = this.centerX;
+                while (!this.#canExtendWire(this.centerX, this.centerY)) {
+                    const prevX = this.#x;
+                    this.#x += this.#vx > 0 ? 0.01 : -0.01;
+                    if (
+                        (tmpCenterX > this.#hook.centerX && this.centerX <= this.#hook.centerX) ||
+                        (tmpCenterX < this.#hook.centerX && this.centerX >= this.#hook.centerX)
+                    ) {
+                        this.#x = prevX;
+                        break;
+                    }
+                }
+            }
+
+            this.#vx = this.#vy = 0;
+            this.#prevActStatus = this.#actStatus;
+            this.#actStatus = "ground";
+            return this.#actStatus;
+        }
+
         // 振り子中に左の壁に衝突
         if (
             this.#actStatus === "furiko" &&
@@ -566,77 +638,6 @@ class Player {
 
             this.#vx = this.#vy = 0;
             this.#furikoStart(true);
-            return this.#actStatus;
-        }
-        // 振り子中に天井に衝突
-        if (
-            this.#actStatus === "furiko" &&
-            this.#vy < 0 &&
-            !(this.#prevX + this.#width <= block.x || this.#prevX >= block.x + block.width) &&
-            this.#x + this.#width > block.x &&
-            this.#x < block.x + block.width &&
-            this.#y <= block.y + block.height &&
-            this.#y + this.#height > block.y + block.height
-        ) {
-            console.log("振り子中に天井に衝突");
-            this.#y = block.y + block.height;
-            this.#prevY = this.#y;
-
-            this.#prevX = this.#x;
-            this.#x = this.#prevX;
-            if (this.#vx !== 0) {
-                const tmpCenterX = this.centerX;
-                while (!this.#canExtendWire(this.centerX, this.centerY)) {
-                    const prevX = this.#x;
-                    this.#x += this.#vx > 0 ? 0.01 : -0.01;
-                    if (
-                        (tmpCenterX > this.#hook.centerX && this.centerX <= this.#hook.centerX) ||
-                        (tmpCenterX < this.#hook.centerX && this.centerX >= this.#hook.centerX)
-                    ) {
-                        this.#x = prevX;
-                        break;
-                    }
-                }
-            }
-
-            this.#vx = this.#vy = 0;
-            this.#furikoStart(true);
-            return this.#actStatus;
-        }
-        // 振り子中に地面に衝突
-        if (
-            this.#actStatus === "furiko" &&
-            this.#vy > 0 &&
-            !(this.#prevX + this.#width <= block.x || this.#prevX >= block.x + block.width) &&
-            this.#x + this.#width > block.x &&
-            this.#x < block.x + block.width &&
-            this.#y + this.#height >= block.y &&
-            this.#y < block.y
-        ) {
-            console.log("振り子中に地面に衝突");
-            this.#y = block.y - this.#height;
-            this.#prevY = this.#y;
-
-            this.#prevX = this.#x;
-            this.#x = this.#prevX;
-            if (this.#vx !== 0) {
-                const tmpCenterX = this.centerX;
-                while (!this.#canExtendWire(this.centerX, this.centerY)) {
-                    const prevX = this.#x;
-                    this.#x += this.#vx > 0 ? 0.01 : -0.01;
-                    if (
-                        (tmpCenterX > this.#hook.centerX && this.centerX <= this.#hook.centerX) ||
-                        (tmpCenterX < this.#hook.centerX && this.centerX >= this.#hook.centerX)
-                    ) {
-                        this.#x = prevX;
-                        break;
-                    }
-                }
-            }
-
-            this.#vx = this.#vy = 0;
-            this.#prevActStatus = this.#actStatus;
-            this.#actStatus = "ground";
             return this.#actStatus;
         }
 
