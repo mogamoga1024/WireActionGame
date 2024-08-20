@@ -396,7 +396,7 @@ class Player {
             }
         }
         else if (Math.abs(this.#maxRadian) < Math.PI / 8) {
-            this.#maxRadian = Math.sign(this.#vx) * Math.PI / 8;
+            this.#maxRadian = -1 * Math.sign(this.#vx) * Math.PI / 8;
             this.#furikoParam = Math.acos(radian / this.#maxRadian) / this.#angularFrequency;
         }
 
