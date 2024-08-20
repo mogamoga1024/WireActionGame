@@ -79,6 +79,8 @@ class MapFactory {
     static #addGuardBlock(blockList, world) {
         // 床
         blockList.push(new InvisibleBlock(0, world.height, world.width, 30));
+        // 天井
+        blockList.push(new InvisibleBlock(0, -30, world.width, 30));
         // 左
         blockList.push(new InvisibleBlock(-30, 0, 30, world.height));
         // 右
