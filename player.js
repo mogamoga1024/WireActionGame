@@ -390,14 +390,14 @@ class Player {
         }
 
         if (this.#maxRadian === 0) {
-            if (this.#vx < 0) {
+            if (this.#vx !== 0) {
                 this.#furikoParam = (Math.PI / 2) / this.#angularFrequency;
-                this.#maxRadian = Math.PI / 8;
+                this.#maxRadian = -1 * Math.sign(this.#vx) * Math.PI / 8;
             }
-            else if (this.#vx > 0) {
-                this.#furikoParam = (Math.PI / 2) / this.#angularFrequency;
-                this.#maxRadian = -Math.PI / 8;
-            }
+        }
+        else if (Math.abs(this.#maxRadian) < Math.PI / 8) {
+            this.#maxRadian = Math.sign(this.#vx) * Math.PI / 8;
+            this.#furikoParam = Math.acos(radian / this.#maxRadian) / this.#angularFrequency;
         }
 
         this.#prevActStatus = this.#actStatus;
