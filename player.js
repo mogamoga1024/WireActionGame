@@ -177,7 +177,18 @@ class Player {
             this.#wireVerticalState !== "descending" &&
             (this.#actStatus === "jumping" || this.#actStatus === "falling")
         ) {
-            this.#furikoStart(!this.#canDescending);
+            // 横移動がないなら慣性を殺す
+            if (this.#vx === 0) {
+                this.#furikoStart(true);
+            }
+            // 振り子を伸ばせるなら慣性を残す
+            else if (this.#canDescending) {
+                this.#furikoStart(false);
+            }
+            // 振り子を伸ばせないなら慣性を殺す
+            else {
+                this.#furikoStart(true);
+            }
         }
 
         if (this.#hook?.actStatus === "stuck") {
@@ -395,7 +406,11 @@ class Player {
                 this.#maxRadian = -1 * Math.sign(this.#vx) * Math.PI / 8;
             }
         }
-        else if (!shouldStopInertia && Math.abs(this.#maxRadian) < Math.PI / 8) {
+        else if (
+            !shouldStopInertia &&
+            this.#vx !== 0 &&
+            Math.abs(this.#maxRadian) < Math.PI / 8
+        ) {
             this.#maxRadian = -1 * Math.sign(this.#vx) * Math.PI / 8;
             this.#furikoParam = Math.acos(radian / this.#maxRadian) / this.#angularFrequency;
         }
