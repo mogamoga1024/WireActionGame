@@ -224,10 +224,7 @@ class Player {
                     if (Math.abs(nextMaxRadian) < Math.PI / 8) {
                         this.#maxRadian = Math.sign(nextMaxRadian) * Math.PI / 8;
                     }
-                    else if (
-                        nextMaxRadian >= -Math.PI * 3 / 8 &&
-                        nextMaxRadian <= Math.PI * 3 / 8
-                    ) {
+                    else if (Math.abs(nextMaxRadian) <= Math.PI * 3 / 8) {
                         this.#maxRadian = nextMaxRadian;
                     }
                 }
