@@ -115,9 +115,6 @@ class Player {
             ) {
                 this.#furikoForceMode = "decelerate";
             }
-            else {
-                this.#furikoForceMode = "none";
-            }
             return;
         }
 
