@@ -78,8 +78,7 @@ class Hook {
         let wireLength = this.#calcWireLength(this.#player.centerX, this.#player.centerY);
         if (!this.#isShrinking) {
             if (wireLength >= this.#maxWireLength) {
-                this.#prevX = this.#x;
-                this.#prevY = this.#y;
+                // prevは更新しなくてよい
                 do {
                     this.#x -= this.#vx / 100;
                     this.#y -= this.#vy / 100;

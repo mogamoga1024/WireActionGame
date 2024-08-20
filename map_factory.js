@@ -51,7 +51,8 @@ class MapFactory {
                 bp(new Block(600, h - 700, 300, 250));
                 bp(new Trampoline(0, h - 100, 100, 100));
                 // player = new Player(120, h - 200);
-                player = new Player(400, h - 500);
+                // player = new Player(400, h - 500);
+                player = new Player(400, h - 200);
                 break;
             }
             default:
