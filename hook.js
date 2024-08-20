@@ -160,8 +160,8 @@ class Hook {
         const vx = this.#x - this.#prevX;
         const vy = this.#y - this.#prevY;
         while (true) {
-            const tmpX = this.#x - vx / this.#v;;
-            const tmpY = this.#y - vy / this.#v;;
+            const tmpX = this.#x - vx / this.#v;
+            const tmpY = this.#y - vy / this.#v;
             if (
                 this.#x + this.#width <= block.x ||
                 this.#x >= block.x + block.width ||
