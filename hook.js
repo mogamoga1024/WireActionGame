@@ -1,8 +1,10 @@
 
 class Hook {
     #relativeX = 0; #relativeY = 0;
+    #prevX = 0;
     #x = 0;
     get x() { return this.#x; }
+    #prevY = 0;
     #y = 0;
     get y() { return this.#y; }
     #width = 14;
@@ -27,6 +29,8 @@ class Hook {
         this.#player = player;
         this.#x = player.x + player.width / 2 - this.#width / 2;
         this.#y = player.y + player.height / 2 - this.#height / 2;
+        this.#prevX = this.#x;
+        this.#prevY = this.#y;
         this.#vx = this.#v * Math.cos(radian);
         this.#vy = -1 * this.#v * Math.sin(radian);
     }
@@ -55,6 +59,8 @@ class Hook {
         }
         // 縮む場合
         if (this.#isShrinking) {
+            this.#prevX = this.#x;
+            this.#prevY = this.#y;
             this.#x += this.#vx;
             this.#y += this.#vy;
         }
@@ -62,6 +68,8 @@ class Hook {
         else {
             this.#relativeX += this.#vx;
             this.#relativeY += this.#vy;
+            this.#prevX = this.#x;
+            this.#prevY = this.#y;
             this.#x = this.#player.centerX + this.#relativeX - this.#width / 2;
             this.#y = this.#player.centerY + this.#relativeY - this.#height / 2;
         }
@@ -69,6 +77,8 @@ class Hook {
         let wireLength = this.#calcWireLength(this.#player.centerX, this.#player.centerY);
         if (!this.#isShrinking) {
             if (wireLength >= this.#maxWireLength) {
+                this.#prevX = this.#x;
+                this.#prevY = this.#y;
                 do {
                     this.#x -= this.#vx / 100;
                     this.#y -= this.#vy / 100;
@@ -159,6 +169,8 @@ class Hook {
             this.#x = tmpX;
             this.#y = tmpY;
         }
+        this.#prevX = this.#x;
+        this.#prevY = this.#y;
 
         if (block.canStick) {
             return "stuck";
