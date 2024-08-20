@@ -6,8 +6,7 @@ class Player {
     #vyMax = 10;
     #canBigJump = false;
     #wireJumpVyMax = 12.3;
-    // #trampolineJumpVyMax = 30; // todo バグ直しにつき、一旦コメアウ
-    #trampolineJumpVyMax = 20;
+    #trampolineJumpVyMax = 30;
     #accelerationX = 0.3;
     #decelerationX = 0.2;
     #hook = null;
