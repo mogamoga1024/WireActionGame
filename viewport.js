@@ -27,7 +27,10 @@ class Viewport {
     get offsetY() {
         const baseOffsetY = this.#height - this.#world.height;
         const baseY = this.#height * 2 / 3 - baseOffsetY;
-        if (this.#player.centerY >= baseY) {
+        if (this.#height * 2 / 3 - this.#player.centerY >= 0) {
+            return 0;
+        }
+        else if (this.#player.centerY >= baseY) {
             return baseOffsetY;
         }
         else {

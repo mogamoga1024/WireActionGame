@@ -24,12 +24,14 @@ class MapFactory {
             // 横に長い
             // ぴょいーん ぴょいーん
             case "debug2": {
-                bp(new Block(0, 400, 1600, 100));
-                bp(new Block(0, 0, 50, 500));
-                bp(new Block(1600 - 50, 0, 50, 500));
-                bp(new Block(300, 0, 1000, 50));
-                bp(new Block(200, 320, 100, 80));
-                bp(new Block(1600 - 200 - 100, 320, 100, 80));
+                worldHeight = 800;
+                const h = worldHeight;
+                bp(new Block(0, h - 100, 1600, 100));
+                bp(new Block(0, h - 500, 50, h));
+                bp(new Block(1600 - 50, h - 500, 50, h));
+                bp(new Block(300, h - 500, 1000, 50));
+                bp(new Block(200, h - 180, 100, 80));
+                bp(new Block(1600 - 200 - 100, h - 180, 100, 80));
                 player = new Player(100, 360);
                 break;
             }
@@ -43,7 +45,7 @@ class MapFactory {
             }
             // 高い
             case "debug4": {
-                worldHeight = 5000;
+                worldHeight = 800;
                 const h = worldHeight;
                 bp(new Block(100, h - 100, 300, 100));
                 bp(new Block(500, h - 100, 300, 100));
