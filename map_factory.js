@@ -21,6 +21,7 @@ class MapFactory {
                 player = new Player(100, 360);
                 break;
             }
+            // 横に長い
             // ぴょいーん ぴょいーん
             case "debug2": {
                 bp(new Block(0, 400, 1600, 100));

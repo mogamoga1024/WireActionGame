@@ -509,13 +509,11 @@ class Player {
             this.#y = block.y + block.height;
             this.#prevY = this.#y;
 
-            this.#prevX = this.#x;
-            this.#x = this.#prevX;
             if (this.#vx !== 0) {
                 const tmpCenterX = this.centerX;
                 while (!this.#canExtendWire(this.centerX, this.centerY)) {
                     const prevX = this.#x;
-                    this.#x += this.#vx > 0 ? 0.01 : -0.01;
+                    this.#x += this.#vx > 0 ? -0.01 : 0.01;
                     if (
                         (tmpCenterX > this.#hook.centerX && this.centerX <= this.#hook.centerX) ||
                         (tmpCenterX < this.#hook.centerX && this.centerX >= this.#hook.centerX)
