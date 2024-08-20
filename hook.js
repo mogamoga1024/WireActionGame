@@ -22,6 +22,7 @@ class Hook {
     #maxWireLength = 300;
     get maxWireLength() { return this.#maxWireLength; }
     #isShrinking = false;
+    #isStuckOnce = false;
     #actStatus = "moving";
     get actStatus() { return this.#actStatus; }
     
@@ -128,12 +129,13 @@ class Hook {
     }
 
     #resolveCollisionList(blockList) {
-        if (this.#isShrinking || this.#actStatus === "stuck") {
+        if (this.#isStuckOnce || this.#actStatus === "stuck") {
             return;
         }
         for (const block of blockList) {
             const result = this.#resolveCollision(block);
             if (result === "stuck") {
+                this.#isStuckOnce = true;
                 this.#actStatus = "stuck";
                 return;
             }
