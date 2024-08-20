@@ -58,6 +58,15 @@ class MapFactory {
                 // player = new Player(400, h - 200);
                 break;
             }
+            // フック貫通させたくない
+            case "debug5": {
+                const h = worldHeight;
+                bp(new Block(0, h - 100, 800, 100));
+                bp(new Block(0, h - 310, 200, 1));
+                bp(new Block(300, h - 400, 1, 400));
+                player = new Player(118.5, 360);
+                break;
+            }
             default:
                 throw new Error(`マップがない：${name}`);
         }

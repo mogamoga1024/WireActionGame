@@ -11,10 +11,6 @@ class Block {
     canStick = true;
     
     constructor(x, y, width, height) {
-        if (width < 30 || height < 30) {
-            // hookの速度以上の長さが必要
-            throw new Error("一辺は30以上必要");
-        }
         this.#x = x;
         this.#y = y;
         this.#width = width;

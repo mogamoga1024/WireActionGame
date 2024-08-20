@@ -39,7 +39,7 @@ const context = canvas.getContext("2d");
 
 canvas.width = 800;
 canvas.height = 500;
-const {player, blockList, world} = MapFactory.create("debug4");
+const {player, blockList, world} = MapFactory.create("debug5");
 const viewport = new Viewport(canvas, world, player);
 
 let fireHookWaitFrame = 0;
