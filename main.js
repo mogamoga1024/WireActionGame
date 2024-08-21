@@ -4,7 +4,7 @@ let isPressedDown = false;
 let isPressedLeft = false;
 let isPressedRight = false;
 let isPressedX = false;
-let isPressedZ = true;
+let isPressedZ = false;
 
 addEventListener("keydown", e => {
     switch (e.key) {

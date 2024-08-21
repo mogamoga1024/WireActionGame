@@ -159,7 +159,15 @@ class Hook {
         const bh = block.height;
         const bcx = (bx + bw) / 2;
         const bcy = (by + bh) / 2;
+        
+        // if (this.#isShrinking) {
+        //     debugger
+        // }
 
+        if (
+            this.#x + w <= bx || this.#x >= bx + bw ||
+            this.#y + h <= by || this.#y >= by + bh
+        )
         while (true) {
             if (
                 x1 + w <= bx && x2 + w <= bx ||
