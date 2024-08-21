@@ -13,6 +13,8 @@ class Hook {
     get height() { return this.#height; }
     get centerX() { return this.#x + this.#width / 2; }
     get centerY() { return this.#y + this.#height / 2; }
+    #centerX(x) { return x + this.#width / 2; }
+    #centerY(y) { return y + this.#height / 2; }
 
     #player = null;
     #v = 30;
@@ -155,6 +157,8 @@ class Hook {
         const by = block.y;
         const bw = block.width;
         const bh = block.height;
+        const bcx = (bx + bw) / 2;
+        const bcy = (by + bh) / 2;
 
         while (true) {
             if (
@@ -173,13 +177,24 @@ class Hook {
                 cx + w <= bx || cx >= bx + bw ||
                 cy + h <= by || cy >= by + bh
             ) {
-                // 衝突していない
-                return "moving";
+                // 衝突していない可能性がある
+            }
+            else {
+                // 衝突している
+                break;
             }
 
-            // todo
+            const d1 = Math.abs(this.#centerX(x1) - bcx) + Math.abs(this.#centerY(y1) - bcy);
+            const d2 = Math.abs(this.#centerX(x2) - bcx) + Math.abs(this.#centerY(y2) - bcy);
 
-            break;
+            if (d1 < d2) {
+                x1 = cx;
+                y1 = cy;
+            }
+            else {
+                x2 = cx;
+                y2 = cy;
+            }
         }
 
         // フックを接させる
