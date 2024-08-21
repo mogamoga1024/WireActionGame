@@ -145,15 +145,39 @@ class Hook {
     }
 
     #resolveCollision(block) {
-        if (
-            this.#x + this.#width <= block.x ||
-            this.#x >= block.x + block.width ||
-            this.#y + this.#height <= block.y ||
-            this.#y >= block.y + block.height
-        ) {
-            // 衝突していない
-            return "moving";
+        let x1 = this.#prevX;
+        let y1 = this.#prevY;
+        let x2 = this.#x;
+        let y2 = this.#y;
+        const w = this.#width;
+        const h = this.#height;
+        const bx = block.x;
+        const by = block.y;
+        const bw = block.width;
+        const bh = block.height;
+
+        while (true) {
+            if (
+                x1 + w <= bx && x2 + w <= bx ||
+                x1 >= bx + bw && x2 >= bx + bw ||
+                y1 + h <= by && y2 + h <= by ||
+                y1 >= by + bh && y2 >= by + bh
+            ) {
+                // 衝突していない
+                return "moving";
+            }
+            break;
         }
+
+        // if (
+        //     this.#x + this.#width <= block.x ||
+        //     this.#x >= block.x + block.width ||
+        //     this.#y + this.#height <= block.y ||
+        //     this.#y >= block.y + block.height
+        // ) {
+        //     // 衝突していない
+        //     return "moving";
+        // }
 
         // フックを接させる
         const vx = this.#x - this.#prevX;
