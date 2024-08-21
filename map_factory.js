@@ -63,7 +63,8 @@ class MapFactory {
                 const h = worldHeight;
                 bp(new Block(0, h - 100, 800, 100));
                 bp(new Block(0, h - 310, 200, 1));
-                bp(new Block(300, h - 400, 1, 400));
+                // bp(new Block(300, h - 400, 1, 400));
+                bp(new Block(300, h - 261.3, 1, 400));
                 player = new Player(118.5, 360);
                 break;
             }
