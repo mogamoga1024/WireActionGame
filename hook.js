@@ -166,7 +166,19 @@ class Hook {
                 // 衝突していない
                 return "moving";
             }
-            // todo 二分探索
+            // 二分探索
+            const cx = (x1 + x2) / 2;
+            const cy = (y1 + y2) / 2;
+            if (
+                cx + w <= bx || cx >= bx + bw ||
+                cy + h <= by || cy >= by + bh
+            ) {
+                // 衝突していない
+                return "moving";
+            }
+
+            // todo
+
             break;
         }
 
