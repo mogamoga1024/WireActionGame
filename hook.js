@@ -166,30 +166,21 @@ class Hook {
                 // 衝突していない
                 return "moving";
             }
+            // todo 二分探索
             break;
         }
-
-        // if (
-        //     this.#x + this.#width <= block.x ||
-        //     this.#x >= block.x + block.width ||
-        //     this.#y + this.#height <= block.y ||
-        //     this.#y >= block.y + block.height
-        // ) {
-        //     // 衝突していない
-        //     return "moving";
-        // }
 
         // フックを接させる
         const vx = this.#x - this.#prevX;
         const vy = this.#y - this.#prevY;
         while (true) {
-            const tmpX = this.#x - vx / this.#v;
-            const tmpY = this.#y - vy / this.#v;
+            const tmpX = this.#x - vx / 100;
+            const tmpY = this.#y - vy / 100;
             if (
-                this.#x + this.#width <= block.x ||
-                this.#x >= block.x + block.width ||
-                this.#y + this.#height <= block.y ||
-                this.#y >= block.y + block.height
+                vx > 0 && this.#x + w <= bx ||
+                vx < 0 && this.#x >= bx + bw ||
+                vy > 0 && this.#y + h <= by ||
+                vy < 0 && this.#y >= by + bh
             ) {
                 break;
             }
