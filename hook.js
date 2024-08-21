@@ -188,12 +188,12 @@ class Hook {
             const d2 = Math.abs(this.#centerX(x2) - bcx) + Math.abs(this.#centerY(y2) - bcy);
 
             if (d1 < d2) {
-                x1 = cx;
-                y1 = cy;
-            }
-            else {
                 x2 = cx;
                 y2 = cy;
+            }
+            else {
+                x1 = cx;
+                y1 = cy;
             }
         }
 
