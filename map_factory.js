@@ -65,7 +65,8 @@ class MapFactory {
                 // bp(new Block(0, h - 310, 200, 1));
                 bp(new Block(0, h - 323, 200, 1));
                 // bp(new Block(300, h - 400, 1, 400));
-                bp(new Block(300, h - 261.3, 1, 400));
+                // bp(new Block(300, h - 261.3, 1, 400));
+                bp(new Block(350, h - 400, 50, 400));
                 player = new Player(118.5, 360);
                 break;
             }
