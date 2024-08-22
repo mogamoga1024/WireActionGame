@@ -312,6 +312,9 @@ class Player {
     }
 
     jumpStart(shouldHookReturn = true) {
+        if (this.#actStatus === "death") {
+            return;
+        }
         if (this.#actStatus === "jumping" || this.#actStatus === "falling") {
             return;
         }
@@ -424,6 +427,9 @@ class Player {
     }
 
     fireHook(radian) {
+        if (this.#actStatus === "death") {
+            return;
+        }
         if (this.#hook !== null) {
             if (this.#hook.actStatus === "stuck") {
                 this.#prevActStatus = this.#actStatus;
