@@ -417,7 +417,9 @@ class Player {
         if (this.#hook !== null) {
             if (this.#hook.actStatus === "stuck") {
                 this.#prevActStatus = this.#actStatus;
-                this.#actStatus = "falling";
+                if (this.#actStatus !== "ground") {
+                    this.#actStatus = "falling";
+                }
                 this.#canDescending = true;
                 this.#hook.return();
             }
