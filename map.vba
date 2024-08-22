@@ -49,9 +49,11 @@ Sub ColorToObjectId()
         
         ' 行が変わったら改行を追加
         If currentRow <> previousRow Then
-            output = output & vbCrLf & cellId
+            output = output & "]," & vbCrLf & "    [" & cellId
         Else
-            If output = "" Or Right(output, 2) = vbCrLf Then
+            If output = "" Then
+                output = "const map = [" & vbCrLf & "    [" & cellId
+            ElseIf Right(output, 2) = vbCrLf Then
                 output = output & cellId
             Else
                 output = output & "," & cellId
@@ -61,7 +63,11 @@ Sub ColorToObjectId()
         previousRow = currentRow
     Next cell
     
+    output = output & "]" & vbCrLf & "];"
+    
     ' イミディエイトウィンドウに出力
     Debug.Print output
 
 End Sub
+
+
