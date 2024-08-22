@@ -104,6 +104,17 @@ class MapFactory {
                 player = new Player(40, 440);
                 break;
             }
+            // 死のブロック 動確
+            case "debug8": {
+                worldHeight = 520;
+                bp(new Block(120, 280, 200, 40));
+                bp(new DeathBlock(440, 360, 40, 40));
+                bp(new Block(0, 480, 160, 40));
+                bp(new DeathBlock(160, 480, 120, 40));
+                bp(new Block(280, 480, 280, 40));
+                player = new Player(40, 440);
+                break;
+            }
             default:
                 throw new Error(`マップがない：${name}`);
         }
