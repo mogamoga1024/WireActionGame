@@ -70,6 +70,29 @@ class MapFactory {
                 player = new Player(118.5, 360);
                 break;
             }
+            case "debug6": {
+                worldHeight = 520;
+                bp(new Block(200, 160, 80, 40));
+                bp(new Block(360, 160, 80, 40));
+                bp(new Block(520, 160, 80, 40));
+                bp(new Block(680, 160, 80, 40));
+                bp(new Block(840, 160, 80, 40));
+                bp(new Block(120, 280, 80, 40));
+                bp(new Block(280, 280, 80, 40));
+                bp(new Block(440, 280, 80, 40));
+                bp(new Block(600, 280, 80, 40));
+                bp(new Block(760, 280, 80, 40));
+                bp(new Block(1000, 320, 40, 200));
+                bp(new Block(960, 360, 40, 160));
+                bp(new Block(0, 400, 40, 120));
+                bp(new Block(880, 400, 40, 80));
+                bp(new Block(920, 400, 40, 120));
+                bp(new Block(40, 440, 40, 80));
+                bp(new Block(80, 440, 40, 40));
+                bp(new Block(80, 480, 840, 40));
+                player = new Player(160, 440);
+                break;
+            }
             default:
                 throw new Error(`マップがない：${name}`);
         }

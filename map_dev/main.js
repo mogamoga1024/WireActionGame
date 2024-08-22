@@ -21,7 +21,7 @@ const BLOCK = 2;
 const TRAMPOLINE = 3;
 const DEATH = 4;
 
-const unitSideLength = 30;
+const unitSideLength = 40;
 
 const worldHeight = unitSideLength * map.length;
 
@@ -60,10 +60,15 @@ for (let row = 0; row < rowMax; row++) {
         let height = unitSideLength;
         let nextRow = row + 1;
         while (nextRow < rowMax) {
+            let shouldBreak = false;
             for (let c = col; c < nextCol; c++) {
                 if (map[nextRow][c] !== type) {
+                    shouldBreak = true;
                     break;
                 }
+            }
+            if (shouldBreak) {
+                break;
             }
             for (let c = col; c < nextCol; c++) {
                 map[nextRow][c] = NONE;
@@ -76,12 +81,12 @@ for (let row = 0; row < rowMax; row++) {
     }
 }
 
-let result = `worldHeight = ${worldHeight};\nconst h = worldHeight;\n`;
+let result = `worldHeight = ${worldHeight};\n`;
 
 for (const code of blockList) {
     result += code + "\n";
 }
 
-result += playerCode + "\n";
+result += playerCode + "\nbreak;\n";
 
 console.log(result);
