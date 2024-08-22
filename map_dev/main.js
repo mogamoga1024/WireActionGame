@@ -1,13 +1,6 @@
 
 const map = [
     [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
     [5,5,5,2,2,2,5,5,5],
     [0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0],
@@ -25,7 +18,12 @@ const RESPAWN = 6
 
 const unitSideLength = 40;
 
-const worldHeight = unitSideLength * map.length;
+let worldHeight = unitSideLength * map.length;
+const worldHeightMin = 500;
+while (worldHeight < worldHeightMin) {
+    map.unshift(Array(map[0].length).fill(0));
+    worldHeight = unitSideLength * map.length;
+}
 
 const blockList = [];
 let playerCode = "";
