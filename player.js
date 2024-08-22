@@ -74,6 +74,10 @@ class Player {
     }
 
     applyForce({horizontal, vertical}) {
+        if (this.#actStatus === "death") {
+            return;
+        }
+
         if (!this.#canClimbing && vertical !== "up") {
             this.#canClimbing = true;
         }
@@ -159,6 +163,11 @@ class Player {
     }
 
     move(blockList) {
+        if (this.#actStatus === "death") {
+            this.#hookMove(blockList);
+            return;
+        }
+
         if (this.#actStatus !== "furiko") {
             this.#canBigJump = false;
         }
