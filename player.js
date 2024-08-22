@@ -25,6 +25,7 @@ class Player {
     #wireVerticalState = "none"; // none, climbing, descending
     #shouldJumpOnTrampoline = false;
     get isDead() { return this.#actStatus === "death"; }
+    #opacity = 1;
 
     #x = 0; #prevX = 0;
     get x() { return this.#x; }
@@ -46,8 +47,14 @@ class Player {
     }
 
     draw(context, viewport) {
+        if (this.#actStatus === "death") {
+            this.#opacity = Math.max(this.#opacity - 0.02, 0)
+        }
+
         const ox =  viewport.offsetX;
         const oy =  viewport.offsetY;
+
+        context.globalAlpha = this.#opacity;
 
         if (this.#hook !== null) {
             context.beginPath();
@@ -71,6 +78,8 @@ class Player {
         }
         context.fillStyle = "yellow";
         context.fill();
+
+        context.globalAlpha = 1;
     }
 
     applyForce({horizontal, vertical}) {
