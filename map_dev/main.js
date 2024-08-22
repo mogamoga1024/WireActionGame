@@ -24,14 +24,28 @@ const unitSideLength = 30;
 
 const worldHeight = unitSideLength * map.length;
 
+const codeList = [];
+let playerCode = "";
+
 for (let row = 0; row < map.length; row++) {
     for (let col = 0; col < map[0].length; col++) {
         const x = unitSideLength * col;
         const y = unitSideLength * row;
 
-        // todo
+        const type = map[row][col];
+
+        if (type === PLAYER) {
+            playerCode = `player = new Player(${x}, ${y});`;
+        }
     }
 }
 
+let result = `worldHeight = ${worldHeight};\nconst h = worldHeight;\n`;
 
+for (const code of codeList) {
+    result += code + "\n";
+}
 
+result += playerCode + "\n";
+
+console.log(result);
