@@ -13,7 +13,7 @@ class Viewport {
     }
 
     get offsetX() {
-        if (this.#player.centerX <= this.#width / 2) {
+        if (this.#player.centerX <= this.#width / 2 || this.#world.width <= this.#width) {
             return 0;
         }
         else if (this.#player.centerX >= this.#world.width - this.#width / 2) {
