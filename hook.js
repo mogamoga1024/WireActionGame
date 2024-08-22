@@ -192,8 +192,12 @@ class Hook {
                 break;
             }
 
-            const d1 = Math.abs(this.#centerX(x1) - bcx) + Math.abs(this.#centerY(y1) - bcy);
-            const d2 = Math.abs(this.#centerX(x2) - bcx) + Math.abs(this.#centerY(y2) - bcy);
+            const d1a = this.#centerX(x1) - bcx;
+            const d1b = this.#centerY(y1) - bcy;
+            const d2a = this.#centerX(x2) - bcx;
+            const d2b = this.#centerY(y2) - bcy;
+            const d1 = d1a * d1a + d1b + d1b;
+            const d2 = d2a * d2a + d2b + d2b;
 
             if (d1 < d2) {
                 x2 = cx;
