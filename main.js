@@ -66,6 +66,11 @@ function update() {
 
     player.move(blockList);
 
+    if (player.isDead) {
+        console.log("死亡");
+        // todo リスポーン
+    }
+
     // 描画する
     blockList.forEach(block => {
         block.draw(context, viewport);

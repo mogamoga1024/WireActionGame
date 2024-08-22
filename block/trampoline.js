@@ -9,4 +9,11 @@ class Trampoline extends UnstickableBlock {
         context.fillStyle = "#006400";
         context.fill();
     }
+
+    onCollision(player, status) {
+        super.onCollision(player, status);
+        if (status === "落下中に床に衝突") {
+            player.setupTrampolineJump();
+        }
+    }
 }

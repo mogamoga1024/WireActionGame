@@ -24,6 +24,7 @@ class Player {
     #canDescending = true;
     #wireVerticalState = "none"; // none, climbing, descending
     #shouldJumpOnTrampoline = false;
+    get isDead() { return this.#actStatus === "death"; }
 
     #x = 0; #prevX = 0;
     get x() { return this.#x; }
@@ -448,7 +449,11 @@ class Player {
     #resolveCollisionList(blockList) {
         let isFall = this.#actStatus === "ground";
         for (const block of blockList) {
-            if (this.#resolveCollision(block) !== "falling") {
+            const nextActStatus = this.#resolveCollision(block);
+            if (nextActStatus === "death") {
+                return;
+            }
+            if (nextActStatus !== "falling") {
                 isFall = false;
             }
         }
@@ -456,6 +461,14 @@ class Player {
             this.#fallStart();
             this.#resolveCollisionList(blockList);
         }
+    }
+
+    setupTrampolineJump() {
+        this.#shouldJumpOnTrampoline = true;
+    }
+
+    die() {
+        this.#actStatus = "death";
     }
 
     // 戻り値：次のactStatus
@@ -469,10 +482,10 @@ class Player {
             this.#x <= block.x + block.width &&
             this.#x + this.#width > block.x + block.width
         ) {
-            console.log("地面で左の壁に衝突");
             this.#x = block.x + block.width;
             this.#prevX = this.#x;
             this.#vx = 0;
+            block.onCollision(this, "地面で左の壁に衝突");
             return this.#actStatus;
         }
         // 地面で右の壁に衝突
@@ -484,10 +497,10 @@ class Player {
             this.#x + this.#width >= block.x &&
             this.#x < block.x
         ) {
-            console.log("地面で右の壁に衝突");
             this.#x = block.x - this.#width;
             this.#prevX = this.#x;
             this.#vx = 0;
+            block.onCollision(this, "地面で右の壁に衝突");
             return this.#actStatus;
         }
 
@@ -501,7 +514,6 @@ class Player {
             this.#y <= block.y + block.height &&
             this.#y + this.#height > block.y + block.height
         ) {
-            console.log("振り子中に天井に衝突");
             this.#y = block.y + block.height;
             this.#prevY = this.#y;
 
@@ -522,6 +534,7 @@ class Player {
 
             this.#vx = this.#vy = 0;
             this.#furikoStart(true);
+            block.onCollision(this, "振り子中に天井に衝突");
             return this.#actStatus;
         }
         // 振り子中に地面に衝突
@@ -534,7 +547,6 @@ class Player {
             this.#y + this.#height >= block.y &&
             this.#y < block.y
         ) {
-            console.log("振り子中に地面に衝突");
             this.#y = block.y - this.#height;
             this.#prevY = this.#y;
 
@@ -558,6 +570,7 @@ class Player {
             this.#vx = this.#vy = 0;
             this.#prevActStatus = this.#actStatus;
             this.#actStatus = "ground";
+            block.onCollision(this, "振り子中に地面に衝突");
             return this.#actStatus;
         }
 
@@ -570,7 +583,6 @@ class Player {
             this.#x <= block.x + block.width &&
             this.#x + this.#width > block.x + block.width
         ) {
-            console.log("振り子中に左の壁に衝突");
             this.#canBigJump = true;
             
             this.#x = block.x + block.width;
@@ -595,6 +607,7 @@ class Player {
 
             this.#vx = this.#vy = 0;
             this.#furikoStart(true);
+            block.onCollision(this, "振り子中に左の壁に衝突");
             return this.#actStatus;
         }
         // 振り子中に右の壁に衝突
@@ -607,7 +620,6 @@ class Player {
             this.#x + this.#width >= block.x &&
             this.#x < block.x
         ) {
-            console.log("振り子中に右の壁に衝突");
             this.#canBigJump = true;
             
             this.#x = block.x - this.#width;
@@ -632,6 +644,7 @@ class Player {
 
             this.#vx = this.#vy = 0;
             this.#furikoStart(true);
+            block.onCollision(this, "振り子中に右の壁に衝突");
             return this.#actStatus;
         }
 
@@ -645,10 +658,10 @@ class Player {
             this.#y <= block.y + block.height &&
             this.#y + this.#height > block.y + block.height
         ) {
-            console.log("ジャンプ中に天井に衝突");
             this.#y = block.y + block.height;
             this.#prevY = this.#y;
             this.#vy = 0;
+            block.onCollision(this, "ジャンプ中に天井に衝突");
             return this.#actStatus;
         }
 
@@ -662,15 +675,10 @@ class Player {
             this.#y + this.#height >= block.y &&
             this.#y < block.y
         ) {
-            console.log("落下中に床に衝突");
             this.#y = block.y - this.#height;
             this.#prevY = this.#y;
             this.#fallEnd();
-
-            if (block.constructor.name === "Trampoline") {
-                this.#shouldJumpOnTrampoline = true;
-            }
-
+            block.onCollision(this, "落下中に床に衝突");
             return this.#actStatus;
         }
 
@@ -684,10 +692,10 @@ class Player {
             this.#x <= block.x + block.width &&
             this.#x + this.#width > block.x + block.width
         ) {
-            console.log("空中で左の壁に衝突");
             this.#x = block.x + block.width;
             this.#prevX = this.#x;
             this.#vx *= -0.8;
+            block.onCollision(this, "空中で左の壁に衝突");
             return this.#actStatus;
         }
         // 空中で右の壁に衝突
@@ -700,10 +708,10 @@ class Player {
             this.#x + this.#width >= block.x &&
             this.#x < block.x
         ) {
-            console.log("空中で右の壁に衝突");
             this.#x = block.x - this.#width;
             this.#prevX = this.#x;
             this.#vx *= -0.8;
+            block.onCollision(this, "空中で右の壁に衝突");
             return this.#actStatus;
         }
 
@@ -714,6 +722,7 @@ class Player {
             this.#x <= block.x + block.width &&
             this.#y + this.#height === block.y
         ) {
+            block.onCollision(this, "床に接している");
             return this.#actStatus;
         }
         else {

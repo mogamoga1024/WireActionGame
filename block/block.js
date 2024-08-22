@@ -26,4 +26,10 @@ class Block {
         context.fillStyle = "skyblue";
         context.fill();
     }
+
+    onCollision(player, status) {
+        if (status !== "床に接している") {
+            console.log(status);
+        }
+    }
 }

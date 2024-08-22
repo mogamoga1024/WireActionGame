@@ -9,4 +9,9 @@ class DeathBlock extends UnstickableBlock {
         context.fillStyle = "#4B0082";
         context.fill();
     }
+
+    onCollision(player, status) {
+        super.onCollision(player, status);
+        player.die();
+    }
 }
