@@ -86,7 +86,7 @@ for (let row = 0; row < rowMax; row++) {
             case TRAMPOLINE: className = "Trampoline"; break;
             case DEATH: className = "DeathBlock"; break;
             case UNSTICKABLE: className = "UnstickableBlock"; break;
-            case RESPAWN: className = "RespawnBlock"; break;
+            case RESPAWN: className = "RespawnArea"; break;
         }
         blockList.push(`bp(new ${className}(${x}, ${y}, ${width}, ${height}));`);
     }
