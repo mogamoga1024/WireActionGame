@@ -70,6 +70,7 @@ class MapFactory {
                 player = new Player(118.5, 360);
                 break;
             }
+            // 自動生成のテスト
             case "debug6": {
                 worldHeight = 520;
                 bp(new Block(200, 160, 80, 40));
@@ -91,6 +92,16 @@ class MapFactory {
                 bp(new Trampoline(80, 440, 40, 40));
                 bp(new Block(80, 480, 840, 40));
                 player = new Player(160, 440);
+                break;
+            }
+            // くっつかずの動確
+            case "debug7": {
+                worldHeight = 520;
+                bp(new UnstickableBlock(0, 320, 120, 40));
+                bp(new Block(120, 320, 120, 40));
+                bp(new UnstickableBlock(240, 320, 120, 40));
+                bp(new Block(0, 480, 360, 40));
+                player = new Player(40, 440);
                 break;
             }
             default:
@@ -125,11 +136,19 @@ class MapFactory {
     }
 
     static #sortBlockList(blockList) {
+        // Trampolineは先頭
+        // くっつかない系のブロックは後ろ
         blockList.sort((a, b) => {
             if (a.constructor.name === "Trampoline") {
                 return -1;
             }
-            else if (b.constructor.name === "Trampoline") {
+            if (b.constructor.name === "Trampoline") {
+                return 1;
+            }
+            if (a.canStick) {
+                return -1;
+            }
+            if (b.canStick) {
                 return 1;
             }
             return 0;
