@@ -4,19 +4,23 @@ Sub ColorToObjectId()
     Dim ws As Worksheet
     Set ws = ActiveSheet
     
+    Dim playerColor As Long
     Dim blockColor As Long
     Dim trampolineColor As Long
     Dim deathColor As Long
-    blockColor = ws.Range("B2").Interior.Color
-    trampolineColor = ws.Range("B3").Interior.Color
-    deathColor = ws.Range("B4").Interior.Color
+    playerColor = ws.Range("B2").Interior.Color
+    blockColor = ws.Range("B3").Interior.Color
+    trampolineColor = ws.Range("B4").Interior.Color
+    deathColor = ws.Range("B5").Interior.Color
     
+    Dim playerId As Long
     Dim blockId As Long
     Dim trampolineId As Long
     Dim deathId As Long
-    blockId = 1
-    trampolineId = 2
-    deathId = 3
+    playerId = 1
+    blockId = 2
+    trampolineId = 3
+    deathId = 4
     
     ' 選択した範囲を取得
     Dim selectedRange As Range
@@ -37,7 +41,9 @@ Sub ColorToObjectId()
         currentRow = cell.Row
         
         ' セルの色に対応するIDを決定
-        If cellColor = blockColor Then
+        If cellColor = playerColor Then
+            cellId = playerId
+        ElseIf cellColor = blockColor Then
             cellId = blockId
         ElseIf cellColor = trampolineColor Then
             cellId = trampolineId
