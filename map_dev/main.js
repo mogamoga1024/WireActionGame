@@ -77,7 +77,13 @@ for (let row = 0; row < rowMax; row++) {
             nextRow++;
         }
 
-        blockList.push(`bp(new Block(${x}, ${y}, ${width}, ${height}));`);
+        let className = "";
+        switch (type) {
+            case BLOCK: className = "Block"; break;
+            case TRAMPOLINE: className = "Trampoline"; break;
+            case DEATH: className = "DeathBlock"; break;
+        }
+        blockList.push(`bp(new ${className}(${x}, ${y}, ${width}, ${height}));`);
     }
 }
 

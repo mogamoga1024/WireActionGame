@@ -85,10 +85,10 @@ class MapFactory {
                 bp(new Block(1000, 320, 40, 200));
                 bp(new Block(960, 360, 40, 160));
                 bp(new Block(0, 400, 40, 120));
-                bp(new Block(880, 400, 40, 80));
+                bp(new DeathBlock(880, 400, 40, 80));
                 bp(new Block(920, 400, 40, 120));
                 bp(new Block(40, 440, 40, 80));
-                bp(new Block(80, 440, 40, 40));
+                bp(new Trampoline(80, 440, 40, 40));
                 bp(new Block(80, 480, 840, 40));
                 player = new Player(160, 440);
                 break;
