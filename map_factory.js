@@ -119,19 +119,18 @@ class MapFactory {
             // ジャンプの高さ確認
             case "debug9": {
                 worldHeight = 500;
-                bp(new Block(2440, 290, 30, 210));
-                bp(new Block(2310, 300, 30, 200));
-                bp(new Block(2180, 310, 30, 190));
-                bp(new Block(2050, 320, 30, 180));
-                bp(new Block(1920, 330, 30, 170));
-                bp(new Block(1790, 340, 30, 160));
-                bp(new Block(1660, 350, 30, 150));
-                bp(new Block(1530, 360, 30, 140));
-                bp(new Block(1400, 370, 30, 130));
-                bp(new Block(1270, 380, 30, 120));
-                bp(new Block(1140, 390, 30, 110));
+                bp(new Block(2310, 290, 30, 210));
+                bp(new Block(2180, 300, 30, 200));
+                bp(new Block(2050, 310, 30, 190));
+                bp(new Block(1920, 320, 30, 180));
+                bp(new Block(1790, 330, 30, 170));
+                bp(new Block(1660, 340, 30, 160));
+                bp(new Block(1530, 350, 30, 150));
+                bp(new Block(1400, 360, 30, 140));
+                bp(new Block(1270, 370, 30, 130));
+                bp(new Block(1140, 380, 30, 120));
+                bp(new Block(1010, 390, 30, 110));
                 bp(new Block(880, 400, 30, 100));
-                bp(new Block(1010, 400, 30, 100));
                 bp(new Block(750, 410, 30, 90));
                 bp(new Block(620, 420, 30, 80));
                 bp(new Block(490, 430, 30, 70));
@@ -156,8 +155,7 @@ class MapFactory {
                 bp(new Block(1950, 470, 100, 30));
                 bp(new Block(2080, 470, 100, 30));
                 bp(new Block(2210, 470, 100, 30));
-                bp(new Block(2340, 470, 100, 30));
-                bp(new Block(2470, 470, 350, 30));
+                bp(new Block(2340, 470, 350, 30));
                 player = new Player(20, 430);
                 break;
             }
