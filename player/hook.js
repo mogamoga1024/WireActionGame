@@ -147,6 +147,10 @@ class Hook {
     }
 
     #resolveCollision(block) {
+        if (!(block instanceof Block)) {
+            return "moving";
+        }
+
         let x1 = this.#prevX;
         let y1 = this.#prevY;
         let x2 = this.#x;

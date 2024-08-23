@@ -267,10 +267,10 @@ class MapFactory {
             if (b.constructor.name === "Trampoline") {
                 return 1;
             }
-            if (a.canStick) {
+            if (a instanceof Block && a.canStick) {
                 return 1;
             }
-            if (b.canStick) {
+            if (b instanceof Block && b.canStick) {
                 return -1;
             }
             return 0;
