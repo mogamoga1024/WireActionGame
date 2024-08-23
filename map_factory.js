@@ -204,6 +204,28 @@ class MapFactory {
                 player = new Player(40, 440);
                 break;
             }
+            // 壁ジャンもどき
+            case "debug11": {
+                worldHeight = 660;
+                bp(new Block(0, 0, 20, 660));
+                bp(new UnstickableBlock(20, 0, 10, 110));
+                bp(new Block(20, 110, 10, 150));
+                bp(new Block(150, 110, 340, 30));
+                bp(new Block(150, 140, 30, 50));
+                bp(new UnstickableBlock(150, 190, 10, 70));
+                bp(new Block(160, 190, 20, 350));
+                bp(new UnstickableBlock(20, 260, 10, 70));
+                bp(new Block(150, 260, 10, 70));
+                bp(new Block(20, 330, 10, 70));
+                bp(new UnstickableBlock(150, 330, 10, 70));
+                bp(new UnstickableBlock(20, 400, 10, 70));
+                bp(new Block(150, 400, 10, 70));
+                bp(new Block(20, 470, 10, 190));
+                bp(new UnstickableBlock(150, 470, 10, 70));
+                bp(new Block(30, 630, 750, 30));
+                player = new Player(70, 590);
+                break;
+            }
             default:
                 throw new Error(`マップがない：${name}`);
         }
