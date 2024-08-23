@@ -259,7 +259,7 @@ class MapFactory {
 
     static #sortBlockList(blockList) {
         // Trampolineは先頭
-        // くっつかない系のブロックは後ろ
+        // くっつかない系のブロックも先に判定させるために優先的に前
         blockList.sort((a, b) => {
             if (a.constructor.name === "Trampoline") {
                 return -1;
@@ -268,10 +268,10 @@ class MapFactory {
                 return 1;
             }
             if (a.canStick) {
-                return -1;
+                return 1;
             }
             if (b.canStick) {
-                return 1;
+                return -1;
             }
             return 0;
         });
