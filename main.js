@@ -37,9 +37,14 @@ setInterval(() => {
 const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
 
+let stateName = (new URL(window.location.href)).searchParams.keys().next().value;
+if (stateName === undefined) {
+    stateName = "debug9";
+}
+
 canvas.width = 800;
 canvas.height = 500;
-let {player, blockList, world} = MapFactory.create("debug9");
+let {player, blockList, world} = MapFactory.create(stateName);
 const viewport = new Viewport(canvas, world, player);
 
 let fireHookWaitFrame = 0;
