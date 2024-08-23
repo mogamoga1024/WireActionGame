@@ -39,7 +39,7 @@ const context = canvas.getContext("2d");
 
 let stateName = (new URL(window.location.href)).searchParams.keys().next().value;
 if (stateName === undefined) {
-    stateName = "debug9";
+    stateName = "debug10";
 }
 
 canvas.width = 800;
