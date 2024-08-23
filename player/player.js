@@ -648,7 +648,7 @@ class Player {
                     const tmpCenterY = this.centerY;
                     while (!this.#canExtendWire(this.centerX, this.centerY)) {
                         const prevY = this.#y;
-                        this.#y += this.#vy > 0 ? -0.01 : 0.01;
+                        this.#y += tmpCenterY > this.#hook.centerY ? -0.01 : 0.01;
                         if (
                             (tmpCenterY > this.#hook.centerY && this.centerY <= this.#hook.centerY) ||
                             (tmpCenterY < this.#hook.centerY && this.centerY >= this.#hook.centerY)
@@ -691,7 +691,7 @@ class Player {
                     const tmpCenterY = this.centerY;
                     while (!this.#canExtendWire(this.centerX, this.centerY)) {
                         const prevY = this.#y;
-                        this.#y += this.#vy > 0 ? -0.01 : 0.01;
+                        this.#y += tmpCenterY > this.#hook.centerY ? -0.01 : 0.01;
                         if (
                             (tmpCenterY > this.#hook.centerY && this.centerY <= this.#hook.centerY) ||
                             (tmpCenterY < this.#hook.centerY && this.centerY >= this.#hook.centerY)
