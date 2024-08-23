@@ -126,14 +126,14 @@ class Player {
 
         if (this.#actStatus === "furiko") {
             if (
-                horizontal === "left" && this.#vx <= 0 ||
-                horizontal === "right" && this.#vx >= 0
+                this.#vy >= 0 &&
+                (horizontal === "left" && this.#vx <= 0 || horizontal === "right" && this.#vx >= 0)
             ) {
                 this.#furikoForceMode = "accelerate";
             }
             else if (
-                horizontal === "left" && this.#vx > 0 ||
-                horizontal === "right" && this.#vx < 0
+                this.#vy <= 0 &&
+                horizontal === "left" && this.#vx > 0 || horizontal === "right" && this.#vx < 0
             ) {
                 this.#furikoForceMode = "decelerate";
             }
