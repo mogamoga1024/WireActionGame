@@ -61,7 +61,9 @@ for (let row = 0; row < rowMax; row++) {
         const type = map[row][col];
 
         if (type === PLAYER) {
-            playerCode = `player = new Player(${x}, ${y});`;
+            if (playerCode === "") {
+                playerCode = `player = new Player(${x}, ${y});`;
+            }
             continue;
         }
         else if (type === NONE) {
