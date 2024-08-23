@@ -42,9 +42,16 @@ class Player {
     #centerX(x) { return x + this.#width / 2; }
     #centerY(y) { return y + this.#height / 2; }
 
-    constructor(x, y) {
+    constructor(x, y, respawnArea) {
         this.#prevX = this.#x = x;
         this.#prevY = this.#y = y;
+
+        if (respawnArea != null) {
+            this.#respawnArea = respawnArea;
+        }
+        else {
+            this.#respawnArea = new RespawnArea(this.#x, this.#y, this.#width, this.#height);
+        }
     }
 
     draw(context, viewport) {
@@ -497,9 +504,9 @@ class Player {
     }
 
     nextPlayer() {
-        const rcx = this.#respawnArea.centerX; 
-        const rcy = this.#respawnArea.centerY; 
-        return new Player(rcx - this.#width / 2, rcy - this.#height / 2);
+        const rcx = this.#respawnArea.centerX;
+        const rcy = this.#respawnArea.centerY;
+        return new Player(rcx - this.#width / 2, rcy - this.#height / 2, this.#respawnArea);
     }
 
     // 戻り値：次のactStatus
