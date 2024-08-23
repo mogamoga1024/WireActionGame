@@ -24,8 +24,9 @@ class Player {
     #canDescending = true;
     #wireVerticalState = "none"; // none, climbing, descending
     #shouldJumpOnTrampoline = false;
-    get isDead() { return this.#actStatus === "death"; }
     #opacity = 1;
+    get opacity() { return this.#opacity; }
+    #respawnArea = null;
 
     #x = 0; #prevX = 0;
     get x() { return this.#x; }
@@ -477,7 +478,7 @@ class Player {
             if (nextActStatus === "death") {
                 return;
             }
-            if (nextActStatus !== "falling") {
+            if (nextActStatus !== "unknown" && nextActStatus !== "falling") {
                 isFall = false;
             }
         }
@@ -495,8 +496,29 @@ class Player {
         this.#actStatus = "death";
     }
 
+    nextPlayer() {
+        const rcx = this.#respawnArea.centerX; 
+        const rcy = this.#respawnArea.centerY; 
+        return new Player(rcx - this.#width / 2, rcy - this.#height / 2);
+    }
+
     // 戻り値：次のactStatus
     #resolveCollision(block) {
+        if (block.constructor.name === "RespawnArea") {
+            if (
+                this.#respawnArea === block ||
+                this.#x + this.#width <= block.x || this.#x >= block.x + block.width ||
+                this.#y + this.#height <= block.y || this.#y >= block.y + block.height
+            ) {
+                // 何もしない
+            }
+            else {
+                // エリア内
+                this.#respawnArea = block;
+            }
+            return "unknown";
+        }
+        
         // 地面で左の壁に衝突
         if (
             this.#actStatus === "ground" &&

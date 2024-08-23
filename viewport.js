@@ -37,4 +37,8 @@ class Viewport {
             return baseOffsetY + baseY - this.#player.centerY;
         }
     }
+
+    setPlayer(player) {
+        this.#player = player;
+    }
 }

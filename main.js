@@ -39,7 +39,7 @@ const context = canvas.getContext("2d");
 
 canvas.width = 800;
 canvas.height = 500;
-const {player, blockList, world} = MapFactory.create("debug8");
+let {player, blockList, world} = MapFactory.create("debug8");
 const viewport = new Viewport(canvas, world, player);
 
 let fireHookWaitFrame = 0;
@@ -51,6 +51,11 @@ function update() {
         if (fireHookWaitFrame >= fireHookWaitFrameMax) {
             fireHookWaitFrame = 0;
         }
+    }
+
+    if (player.opacity === 0) {
+        player = player.nextPlayer();
+        viewport.setPlayer(player);
     }
 
     if (isPressedZ && fireHookWaitFrame === 0) {
@@ -65,11 +70,6 @@ function update() {
     player.applyForce(forceDirection());
 
     player.move(blockList);
-
-    if (player.isDead) {
-        console.log("死亡");
-        // todo リスポーン
-    }
 
     // 描画する
     blockList.forEach(block => {

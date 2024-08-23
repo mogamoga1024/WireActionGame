@@ -112,6 +112,7 @@ class MapFactory {
                 bp(new Block(0, 480, 160, 40));
                 bp(new DeathBlock(160, 480, 120, 40));
                 bp(new Block(280, 480, 280, 40));
+                bp(new RespawnArea(40, 360, 40, 40));
                 player = new Player(40, 440);
                 break;
             }
