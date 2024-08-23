@@ -133,22 +133,50 @@ class Hook {
         if (this.#isStuckOnce || this.#actStatus === "stuck") {
             return;
         }
+        
+        const vx = this.#x - this.#prevX;
+        const vy = this.#y - this.#prevY;
+        let resultList = [];
+        let baseDistance = -1;
         for (const block of blockList) {
-            const result = this.#resolveCollision(block);
-            if (result === "stuck") {
-                this.#isStuckOnce = true;
-                this.#actStatus = "stuck";
-                return;
+            const result = this.#resolveCollision(block, vx, vy);
+            if (result.actStatus !== "moving") {
+                if (
+                    baseDistance === -1 ||
+                    this.#isShrinking && baseDistance < result.distance ||
+                    !this.#isShrinking && baseDistance > result.distance
+                ) {
+                    resultList = [];
+                    baseDistance = result.distance;
+                    resultList.push(result);
+                }
+                else if (baseDistance === result.distance) {
+                    resultList.push(result);
+                }
             }
-            else if (result === "unstuck") {
-                return;
-            }
+        }
+
+        if (resultList.length === 0) {
+            return;
+        }
+
+        this.#x = resultList[0].x;
+        this.#y = resultList[0].y;
+        this.#prevX = this.#x;
+        this.#prevY = this.#y;
+
+        if (resultList.every(result => result.actStatus === "stuck")) {
+            this.#isStuckOnce = true;
+            this.#actStatus = "stuck";
+        }
+        else {
+            this.return();
         }
     }
 
-    #resolveCollision(block) {
+    #resolveCollision(block, vx, vy) {
         if (!(block instanceof Block)) {
-            return "moving";
+            return {actStatus: "moving"};
         }
 
         let x1 = this.#prevX;
@@ -176,7 +204,7 @@ class Hook {
                 y1 >= by + bh && y2 >= by + bh
             ) {
                 // 衝突していない
-                return "moving";
+                return {actStatus: "moving"};
             }
             // 二分探索
             const cx = (x1 + x2) / 2;
@@ -210,30 +238,31 @@ class Hook {
         }
 
         // フックを接させる
-        const vx = this.#x - this.#prevX;
-        const vy = this.#y - this.#prevY;
+        let x = this.#x;
+        let y = this.#y;
         while (true) {
-            const tmpX = this.#x - vx / 100;
-            const tmpY = this.#y - vy / 100;
+            const tmpX = x - vx / 100;
+            const tmpY = y - vy / 100;
             if (
-                vx > 0 && this.#x + w <= bx ||
-                vx < 0 && this.#x >= bx + bw ||
-                vy > 0 && this.#y + h <= by ||
-                vy < 0 && this.#y >= by + bh
+                vx > 0 && x + w <= bx ||
+                vx < 0 && x >= bx + bw ||
+                vy > 0 && y + h <= by ||
+                vy < 0 && y >= by + bh
             ) {
                 break;
             }
-            this.#x = tmpX;
-            this.#y = tmpY;
+            x = tmpX;
+            y = tmpY;
         }
-        this.#prevX = this.#x;
-        this.#prevY = this.#y;
+
+        const diffX = this.#centerX(x) - this.#player.centerX;
+        const diffY = this.#centerY(y) - this.#player.centerY;
+        const distance = diffX * diffX + diffY * diffY;
 
         if (block.canStick) {
-            return "stuck";
+            return {actStatus: "stuck", x, y, distance};
         }
         
-        this.return();
-        return "unstuck";
+        return {actStatus: "unstuck", x, y, distance};
     }
 }
