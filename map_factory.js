@@ -116,6 +116,51 @@ class MapFactory {
                 player = new Player(40, 440);
                 break;
             }
+            // ジャンプの高さ確認
+            case "debug9": {
+                worldHeight = 500;
+                bp(new Block(2440, 290, 30, 210));
+                bp(new Block(2310, 300, 30, 200));
+                bp(new Block(2180, 310, 30, 190));
+                bp(new Block(2050, 320, 30, 180));
+                bp(new Block(1920, 330, 30, 170));
+                bp(new Block(1790, 340, 30, 160));
+                bp(new Block(1660, 350, 30, 150));
+                bp(new Block(1530, 360, 30, 140));
+                bp(new Block(1400, 370, 30, 130));
+                bp(new Block(1270, 380, 30, 120));
+                bp(new Block(1140, 390, 30, 110));
+                bp(new Block(880, 400, 30, 100));
+                bp(new Block(1010, 400, 30, 100));
+                bp(new Block(750, 410, 30, 90));
+                bp(new Block(620, 420, 30, 80));
+                bp(new Block(490, 430, 30, 70));
+                bp(new Block(360, 440, 30, 60));
+                bp(new Block(230, 450, 30, 50));
+                bp(new Block(100, 460, 30, 40));
+                bp(new Block(0, 470, 100, 30));
+                bp(new Block(130, 470, 100, 30));
+                bp(new Block(260, 470, 100, 30));
+                bp(new Block(390, 470, 100, 30));
+                bp(new Block(520, 470, 100, 30));
+                bp(new Block(650, 470, 100, 30));
+                bp(new Block(780, 470, 100, 30));
+                bp(new Block(910, 470, 100, 30));
+                bp(new Block(1040, 470, 100, 30));
+                bp(new Block(1170, 470, 100, 30));
+                bp(new Block(1300, 470, 100, 30));
+                bp(new Block(1430, 470, 100, 30));
+                bp(new Block(1560, 470, 100, 30));
+                bp(new Block(1690, 470, 100, 30));
+                bp(new Block(1820, 470, 100, 30));
+                bp(new Block(1950, 470, 100, 30));
+                bp(new Block(2080, 470, 100, 30));
+                bp(new Block(2210, 470, 100, 30));
+                bp(new Block(2340, 470, 100, 30));
+                bp(new Block(2470, 470, 350, 30));
+                player = new Player(20, 430);
+                break;
+            }
             default:
                 throw new Error(`マップがない：${name}`);
         }
