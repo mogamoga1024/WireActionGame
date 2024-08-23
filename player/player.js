@@ -638,24 +638,30 @@ class Player {
         ) {
             this.#canBigJump = true;
             
-            this.#x = block.x + block.width;
-            this.#prevX = this.#x;
-
-            this.#prevY = this.#y;
-            this.#y = this.#prevY;
-            if (this.#vy !== 0) {
-                const tmpCenterY = this.centerY;
-                while (!this.#canExtendWire(this.centerX, this.centerY)) {
-                    const prevY = this.#y;
-                    this.#y += this.#vy > 0 ? -0.01 : 0.01;
-                    if (
-                        (tmpCenterY > this.#hook.centerY && this.centerY <= this.#hook.centerY) ||
-                        (tmpCenterY < this.#hook.centerY && this.centerY >= this.#hook.centerY)
-                    ) {
-                        this.#y = prevY;
-                        break;
+            if (this.#prevX !== block.x + block.width) {
+                this.#x = block.x + block.width;
+                this.#prevX = this.#x;
+    
+                this.#prevY = this.#y;
+                this.#y = this.#prevY;
+                if (this.#vy !== 0) {
+                    const tmpCenterY = this.centerY;
+                    while (!this.#canExtendWire(this.centerX, this.centerY)) {
+                        const prevY = this.#y;
+                        this.#y += this.#vy > 0 ? -0.01 : 0.01;
+                        if (
+                            (tmpCenterY > this.#hook.centerY && this.centerY <= this.#hook.centerY) ||
+                            (tmpCenterY < this.#hook.centerY && this.centerY >= this.#hook.centerY)
+                        ) {
+                            this.#y = prevY;
+                            break;
+                        }
                     }
                 }
+            }
+            else {
+                this.#x = this.#prevX;
+                this.#y = this.#prevY;
             }
 
             this.#vx = this.#vy = 0;
@@ -675,26 +681,32 @@ class Player {
         ) {
             this.#canBigJump = true;
             
-            this.#x = block.x - this.#width;
-            this.#prevX = this.#x;
-
-            this.#prevY = this.#y;
-            this.#y = this.#prevY;
-            if (this.#vy !== 0) {
-                const tmpCenterY = this.centerY;
-                while (!this.#canExtendWire(this.centerX, this.centerY)) {
-                    const prevY = this.#y;
-                    this.#y += this.#vy > 0 ? -0.01 : 0.01;
-                    if (
-                        (tmpCenterY > this.#hook.centerY && this.centerY <= this.#hook.centerY) ||
-                        (tmpCenterY < this.#hook.centerY && this.centerY >= this.#hook.centerY)
-                    ) {
-                        this.#y = prevY;
-                        break;
+            if (this.#prevX !== block.x - this.#width) {
+                this.#x = block.x - this.#width;
+                this.#prevX = this.#x;
+    
+                this.#prevY = this.#y;
+                this.#y = this.#prevY;
+                if (this.#vy !== 0) {
+                    const tmpCenterY = this.centerY;
+                    while (!this.#canExtendWire(this.centerX, this.centerY)) {
+                        const prevY = this.#y;
+                        this.#y += this.#vy > 0 ? -0.01 : 0.01;
+                        if (
+                            (tmpCenterY > this.#hook.centerY && this.centerY <= this.#hook.centerY) ||
+                            (tmpCenterY < this.#hook.centerY && this.centerY >= this.#hook.centerY)
+                        ) {
+                            this.#y = prevY;
+                            break;
+                        }
                     }
                 }
             }
-
+            else {
+                this.#x = this.#prevX;
+                this.#y = this.#prevY;
+            }
+            
             this.#vx = this.#vy = 0;
             this.#furikoStart(true);
             block.onCollision(this, "振り子中に右の壁に衝突");

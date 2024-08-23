@@ -259,19 +259,12 @@ class MapFactory {
 
     static #sortBlockList(blockList) {
         // Trampolineは先頭
-        // くっつかない系のブロックも先に判定させるために優先的に前 // todo いらんかも
         blockList.sort((a, b) => {
             if (a.constructor.name === "Trampoline") {
                 return -1;
             }
             if (b.constructor.name === "Trampoline") {
                 return 1;
-            }
-            if (a instanceof Block && a.canStick) {
-                return 1;
-            }
-            if (b instanceof Block && b.canStick) {
-                return -1;
             }
             return 0;
         });
