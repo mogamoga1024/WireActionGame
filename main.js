@@ -6,6 +6,10 @@ let isPressedRight = false;
 let isPressedX = false;
 let isPressedZ = false;
 
+const controlsDescriptionDom = document.querySelector("#controls-description");
+const showControlsDescriptionDom = document.querySelector("#show-controls-description");
+let showControlsDescription = true;
+
 addEventListener("keydown", e => {
     switch (e.key) {
         case "ArrowUp":    isPressedUp    = true; break;
@@ -14,6 +18,17 @@ addEventListener("keydown", e => {
         case "ArrowRight": isPressedRight = true; break;
         case "x": isPressedX = true; break;
         case "z": isPressedZ = true; break;
+        case "h": {
+            showControlsDescription = !showControlsDescription;
+            if (showControlsDescription) {
+                showControlsDescriptionDom.innerText = "H:操作説明を隠す";
+                controlsDescriptionDom.style.display = "";
+            }
+            else {
+                showControlsDescriptionDom.innerText = "H:操作説明";
+                controlsDescriptionDom.style.display = "none";
+            }
+        }
     }
 });
 
@@ -34,7 +49,6 @@ setInterval(() => {
 }, dt * 1000);
 // }, 50);
 
-const controlsDescriptionDom = document.querySelector("#controls-description");
 const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
 
@@ -85,14 +99,16 @@ function update() {
 
     switch (player.actStatus) {
         case "ground":
-            controlsDescriptionDom.innerText = "X:ジャンプ Z:フックショット ←→:移動";
+            controlsDescriptionDom.innerText =  "X:ジャンプ Z:フックショット ←→:移動\n";
+            controlsDescriptionDom.innerText += "フックは↑↓←→で方向が決められる";
             break;
         case "furiko":
             controlsDescriptionDom.innerText = "X:ジャンプ Z:フックを外す ↑:ワイヤージャンプ ↓:ワイヤーを伸ばす ←→:揺らす";
             break;
         case "jumping":
         case "falling":
-            controlsDescriptionDom.innerText = "Z:フックショット ←→:移動";
+            controlsDescriptionDom.innerText = "Z:フックショット ←→:移動\n";
+            controlsDescriptionDom.innerText += "フックは↑↓←→で方向が決められる";
             break;
         case "furiko-ground":
             controlsDescriptionDom.innerText = "X:ジャンプ Z:フックを外す ↑:ワイヤージャンプ ←→:移動";
