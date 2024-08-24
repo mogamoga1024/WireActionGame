@@ -295,7 +295,7 @@ class Player {
                     const tmpCenterY = this.centerY;
                     while (!this.#canExtendWire(this.centerX, this.centerY)) {
                         const prevY = this.#y;
-                        this.#y += this.centerY > this.#hook.centerY ? -0.01 : 0.01;
+                        this.#y += tmpCenterY > this.#hook.centerY ? -0.01 : 0.01;
                         if (
                             (tmpCenterY > this.#hook.centerY && this.centerY <= this.#hook.centerY) ||
                             (tmpCenterY < this.#hook.centerY && this.centerY >= this.#hook.centerY)
@@ -319,7 +319,7 @@ class Player {
                 const tmpCenterX = this.centerX;
                 while (!this.#canExtendWire(this.centerX, this.centerY)) {
                     const prevX = this.#x;
-                    this.#x += this.centerX > this.#hook.centerX ? -0.01 : 0.01;
+                    this.#x += tmpCenterX > this.#hook.centerX ? -0.01 : 0.01;
                     if (
                         (tmpCenterX > this.#hook.centerX && this.centerX <= this.#hook.centerX) ||
                         (tmpCenterX < this.#hook.centerX && this.centerX >= this.#hook.centerX)
@@ -585,7 +585,7 @@ class Player {
                 const tmpCenterX = this.centerX;
                 while (!this.#canExtendWire(this.centerX, this.centerY)) {
                     const prevX = this.#x;
-                    this.#x += this.#vx > 0 ? -0.01 : 0.01;
+                    this.#x += tmpCenterX > this.#hook.centerX ? -0.01 : 0.01;
                     if (
                         (tmpCenterX > this.#hook.centerX && this.centerX <= this.#hook.centerX) ||
                         (tmpCenterX < this.#hook.centerX && this.centerX >= this.#hook.centerX)
@@ -620,7 +620,7 @@ class Player {
                 const tmpCenterX = this.centerX;
                 while (!this.#canExtendWire(this.centerX, this.centerY)) {
                     const prevX = this.#x;
-                    this.#x += this.#vx > 0 ? 0.01 : -0.01;
+                    this.#x += tmpCenterX > this.#hook.centerX ? -0.01 : 0.01;
                     if (
                         (tmpCenterX > this.#hook.centerX && this.centerX <= this.#hook.centerX) ||
                         (tmpCenterX < this.#hook.centerX && this.centerX >= this.#hook.centerX)
