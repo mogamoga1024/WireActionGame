@@ -237,8 +237,22 @@ class Player {
         }
         
         if (this.#actStatus === "furiko") {
+            const prevRad = this.#angularFrequency * this.#furikoParam % (Math.PI * 2);
             this.#furikoParam += dt * 10;
-            const radian = this.#maxRadian * Math.cos(this.#angularFrequency * this.#furikoParam);
+            let rad = this.#angularFrequency * this.#furikoParam % (Math.PI * 2);
+            if (
+                prevRad > Math.PI * 3 / 2 && prevRad < Math.PI * 2 &&
+                rad > 0 && rad < Math.PI / 2
+            ) {
+                rad = 0;
+            }
+            else if (
+                prevRad > Math.PI / 2 && prevRad < Math.PI &&
+                rad > Math.PI && rad < Math.PI * 3 / 2
+            ) {
+                rad = Math.PI;
+            }
+            const radian = this.#maxRadian * Math.cos(rad);
             this.#prevX = this.#x;
             this.#prevY = this.#y;
             this.#x = this.#hook.centerX + this.#furikoLength * Math.sin(radian) - this.#width / 2;
