@@ -34,6 +34,7 @@ setInterval(() => {
 }, dt * 1000);
 // }, 50);
 
+const controlsDescriptionDom = document.querySelector("#controls-description");
 const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
 
@@ -81,6 +82,26 @@ function update() {
         block.draw(context, viewport);
     });
     player.draw(context, viewport);
+
+    switch (player.actStatus) {
+        case "ground":
+            controlsDescriptionDom.innerText = "X:ジャンプ Z:フックショット ←→:移動";
+            break;
+        case "furiko":
+            controlsDescriptionDom.innerText = "X:ジャンプ Z:フックを外す ↑:ワイヤージャンプ ↓:ワイヤーを伸ばす ←→:揺らす";
+            break;
+        case "jumping":
+        case "falling":
+            controlsDescriptionDom.innerText = "Z:フックショット ←→:移動";
+            break;
+        case "furiko-ground":
+            controlsDescriptionDom.innerText = "X:ジャンプ Z:フックを外す ↑:ワイヤージャンプ ←→:移動";
+            break;
+        case "furiko-jumping":
+        case "furiko-falling":
+            controlsDescriptionDom.innerText = "Z:フックを外す ←→:移動";
+            break;
+    }
 }
 
 function fireHookRadian() {

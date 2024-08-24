@@ -14,6 +14,17 @@ class Player {
     get direction() { return this.#direction; }
     #prevActStatus = "ground";
     #actStatus = "ground";
+    get actStatus() {
+        if (
+            this.#actStatus !== "furiko" &&
+            this.#hook?.actStatus === "stuck"
+        ) {
+            return "furiko-" + this.#actStatus;
+        }
+        else {
+            return this.#actStatus;
+        }
+    }
     #maxRadian = 0;
     #radianEpsilon = 0.02;
     #furikoLength = 0;
