@@ -226,6 +226,49 @@ class MapFactory {
                 player = new Player(70, 590);
                 break;
             }
+            // 難しい
+            case "hard": {
+                worldHeight = 1050;
+                bp(new Block(0, 0, 1990, 30));
+                bp(new Block(0, 30, 30, 1020));
+                bp(new Block(170, 30, 70, 220));
+                bp(new Block(460, 30, 50, 220));
+                bp(new Block(1960, 30, 30, 1020));
+                bp(new Block(330, 100, 40, 250));
+                bp(new RespawnArea(180, 260, 50, 50));
+                bp(new Block(170, 320, 160, 30));
+                bp(new DeathBlock(370, 320, 90, 30));
+                bp(new Block(460, 320, 1500, 30));
+                bp(new UnstickableBlock(170, 350, 70, 30));
+                bp(new Block(240, 350, 80, 30));
+                bp(new UnstickableBlock(320, 350, 160, 30));
+                bp(new Block(480, 350, 90, 30));
+                bp(new UnstickableBlock(570, 350, 180, 30));
+                bp(new Block(750, 350, 170, 30));
+                bp(new UnstickableBlock(920, 350, 180, 30));
+                bp(new Block(1100, 350, 270, 30));
+                bp(new UnstickableBlock(1370, 350, 180, 30));
+                bp(new Block(1550, 350, 410, 30));
+                bp(new Block(1670, 380, 40, 220));
+                bp(new UnstickableBlock(170, 460, 40, 210));
+                bp(new Block(1780, 500, 40, 230));
+                bp(new RespawnArea(1720, 610, 50, 50));
+                bp(new Trampoline(30, 670, 140, 30));
+                bp(new Block(170, 670, 40, 60));
+                bp(new DeathBlock(210, 670, 1340, 30));
+                bp(new Block(1550, 670, 230, 60));
+                bp(new Block(30, 700, 140, 30));
+                bp(new Block(210, 700, 1340, 30));
+                bp(new Block(1780, 880, 40, 170));
+                bp(new Block(220, 980, 130, 70));
+                bp(new Block(600, 980, 190, 70));
+                bp(new Block(30, 1020, 190, 30));
+                bp(new DeathBlock(350, 1020, 250, 30));
+                bp(new DeathBlock(790, 1020, 990, 30));
+                bp(new Trampoline(1820, 1020, 140, 30));
+                player = new Player(70, 980);
+                break;
+            }
             default:
                 throw new Error(`マップがない：${name}`);
         }
