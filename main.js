@@ -9,6 +9,7 @@ let isPressedZ = false;
 const controlsDescriptionDom = document.querySelector("#controls-description");
 const showControlsDescriptionDom = document.querySelector("#show-controls-description");
 let showControlsDescription = true;
+let isGhost = false;
 
 addEventListener("keydown", e => {
     switch (e.key) {
@@ -28,6 +29,9 @@ addEventListener("keydown", e => {
                 showControlsDescriptionDom.innerText = "H:操作説明";
                 controlsDescriptionDom.style.display = "none";
             }
+        }
+        case "g": {
+            isGhost = !isGhost;
         }
     }
 });
@@ -73,23 +77,12 @@ function update() {
         }
     }
 
-    if (player.opacity === 0) {
-        player = player.nextPlayer();
-        viewport.setPlayer(player);
+    if (isGhost) {
+        player.ghostMove(forceDirection());
     }
-
-    if (isPressedZ && fireHookWaitFrame === 0) {
-        fireHookWaitFrame++;
-        player.fireHook(fireHookRadian());
+    else {
+        playerMove();
     }
-
-    if (isPressedX) {
-        player.jumpStart();
-    }
-
-    player.applyForce(forceDirection());
-
-    player.move(blockList);
 
     // 描画する
     blockList.forEach(block => {
@@ -118,6 +111,26 @@ function update() {
             controlsDescriptionDom.innerText = "Z:フックを外す ←→:移動";
             break;
     }
+}
+
+function playerMove() {
+    if (player.opacity === 0) {
+        player = player.nextPlayer();
+        viewport.setPlayer(player);
+    }
+
+    if (isPressedZ && fireHookWaitFrame === 0) {
+        fireHookWaitFrame++;
+        player.fireHook(fireHookRadian());
+    }
+
+    if (isPressedX) {
+        player.jumpStart();
+    }
+
+    player.applyForce(forceDirection());
+
+    player.move(blockList);
 }
 
 function fireHookRadian() {

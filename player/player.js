@@ -101,6 +101,25 @@ class Player {
         context.globalAlpha = 1;
     }
 
+    // debug用
+    ghostMove({horizontal, vertical}) {
+        this.#actStatus = "ground";
+        this.#vx = 0;
+        this.#vy = 0;
+        if (horizontal === "left") {
+            this.#x -= 10;
+        }
+        else if (horizontal === "right") {
+            this.#x += 10;
+        }
+        if (vertical === "up") {
+            this.#y -= 10;
+        }
+        else if (vertical === "down") {
+            this.#y += 10;
+        }
+    }
+
     applyForce({horizontal, vertical}) {
         if (this.#actStatus === "death") {
             return;
