@@ -77,6 +77,11 @@ function update() {
         }
     }
 
+    if (player.opacity === 0) {
+        player = player.nextPlayer();
+        viewport.setPlayer(player);
+    }
+
     if (isGhost) {
         player.ghostMove(forceDirection());
     }
@@ -114,11 +119,6 @@ function update() {
 }
 
 function playerMove() {
-    if (player.opacity === 0) {
-        player = player.nextPlayer();
-        viewport.setPlayer(player);
-    }
-
     if (isPressedZ && fireHookWaitFrame === 0) {
         fireHookWaitFrame++;
         player.fireHook(fireHookRadian());
