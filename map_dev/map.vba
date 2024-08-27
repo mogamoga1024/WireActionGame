@@ -1,4 +1,3 @@
-
 Sub ColorToObjectId()
 
     Dim ws As Worksheet
@@ -65,27 +64,26 @@ Sub ColorToObjectId()
             cellId = 0 ' 未知の色の場合はID 0とする
         End If
         
-        ' 行が変わったら改行を追加
         If currentRow <> previousRow Then
-            output = output & "]," & vbCrLf & "    [" & cellId
+            output = output & "],["
         Else
             If output = "" Then
-                output = "const map = [" & vbCrLf & "    [" & cellId
-            ElseIf Right(output, 2) = vbCrLf Then
-                output = output & cellId
+                output = "const map = [["
             Else
-                output = output & "," & cellId
+                output = output & ","
             End If
         End If
         
+        output = output & cellId
         previousRow = currentRow
     Next cell
     
-    output = output & "]" & vbCrLf & "];"
+    output = output & "]];"
     
-    ' イミディエイトウィンドウに出力
-    Debug.Print output
+    ' クリップボードに出力
+    Dim dataObj As New MSForms.DataObject
+    dataObj.SetText output
+    dataObj.PutInClipboard
 
 End Sub
-
 
