@@ -24,7 +24,7 @@ class Hook {
     #maxWireLength = 300;
     get maxWireLength() { return this.#maxWireLength; }
     #isShrinking = false;
-    #isStuckOnce = false;
+    #canStuck = true;
     #actStatus = "moving";
     get actStatus() { return this.#actStatus; }
     
@@ -130,7 +130,7 @@ class Hook {
     }
 
     #resolveCollisionList(blockList) {
-        if (this.#isStuckOnce || this.#actStatus === "stuck") {
+        if (!this.#canStuck || this.#actStatus === "stuck") {
             return;
         }
         
@@ -160,13 +160,13 @@ class Hook {
             return;
         }
 
+        this.#canStuck = false;
         this.#x = resultList[0].x;
         this.#y = resultList[0].y;
         this.#prevX = this.#x;
         this.#prevY = this.#y;
 
         if (resultList.every(result => result.actStatus === "stuck")) {
-            this.#isStuckOnce = true;
             this.#actStatus = "stuck";
         }
         else {

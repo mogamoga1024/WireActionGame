@@ -226,6 +226,21 @@ class MapFactory {
                 player = new Player(70, 590);
                 break;
             }
+            // フックバグ 調査
+            case "debug12": {
+                worldHeight = 500;
+                bp(new Block(50, 280, 120, 20));
+                bp(new DeathBlock(240, 280, 120, 20));
+                bp(new Block(470, 280, 40, 20));
+                bp(new DeathBlock(50, 300, 120, 20));
+                bp(new Block(240, 300, 120, 20));
+                bp(new DeathBlock(470, 300, 20, 180));
+                bp(new Block(490, 300, 20, 200));
+                bp(new Block(0, 480, 490, 20));
+                bp(new Block(510, 480, 200, 20));
+                player = new Player(20, 430);
+                break;
+            }
             // 難しい
             case "hard": {
                 worldHeight = 1700;
