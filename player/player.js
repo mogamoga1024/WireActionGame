@@ -59,6 +59,7 @@ class Player {
 
         if (respawnArea != null) {
             this.#respawnArea = respawnArea;
+            this.#direction = respawnArea.direction;
         }
         else {
             this.#respawnArea = new RespawnArea(this.#x, this.#y, this.#width, this.#height);

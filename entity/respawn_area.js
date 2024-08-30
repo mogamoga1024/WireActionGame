@@ -10,12 +10,15 @@ class RespawnArea {
     get height() { return this.#height; }
     get centerX() { return this.#x + this.#width / 2; }
     get centerY() { return this.#y + this.#height / 2; }
+    #direction = "right";
+    get direction() { return this.#direction; }
 
-    constructor(x, y, width, height) {
+    constructor(x, y, width, height, direction = "right") {
         this.#x = x;
         this.#y = y;
         this.#width = width;
         this.#height = height;
+        this.#direction = direction;
     }
 
     draw(context, viewport) {
