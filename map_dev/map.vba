@@ -8,26 +8,34 @@ Sub ColorToObjectId()
     Dim trampolineColor As Long
     Dim deathColor As Long
     Dim unstickableColor As Long
-    Dim respawnColor As Long
+    Dim respawnRColor As Long
+    Dim respawnLColor As Long
+    Dim goalColor As Long
     playerColor = ws.Range("B2").Interior.Color
     blockColor = ws.Range("B3").Interior.Color
     trampolineColor = ws.Range("B4").Interior.Color
     deathColor = ws.Range("B5").Interior.Color
     unstickableColor = ws.Range("B6").Interior.Color
-    respawnColor = ws.Range("B7").Interior.Color
+    respawnRColor = ws.Range("B7").Interior.Color
+    respawnLColor = ws.Range("B8").Interior.Color
+    goalColor = ws.Range("B9").Interior.Color
     
     Dim playerId As Long
     Dim blockId As Long
     Dim trampolineId As Long
     Dim deathId As Long
     Dim unstickableId As Long
-    Dim respawnId As Long
+    Dim respawnRId As Long
+    Dim respawnLId As Long
+    Dim goalId As Long
     playerId = 1
     blockId = 2
     trampolineId = 3
     deathId = 4
     unstickableId = 5
-    respawnId = 6
+    respawnRId = 6
+    respawnLId = 7
+    goalId = 8
     
     ' 選択した範囲を取得
     Dim selectedRange As Range
@@ -58,8 +66,12 @@ Sub ColorToObjectId()
             cellId = deathId
         ElseIf cellColor = unstickableColor Then
             cellId = unstickableId
-        ElseIf cellColor = respawnColor Then
-            cellId = respawnId
+        ElseIf cellColor = respawnRColor Then
+            cellId = respawnRId
+        ElseIf cellColor = respawnLColor Then
+            cellId = respawnLId
+        ElseIf cellColor = goalColor Then
+            cellId = goalId
         Else
             cellId = 0 ' 未知の色の場合はID 0とする
         End If

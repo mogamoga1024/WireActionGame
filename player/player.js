@@ -841,4 +841,19 @@ class Player {
         }
         return "unknown";
     }
+
+    resolveGoalCollision(entity) {
+        if (
+            this.#respawnArea === entity ||
+            this.#x + this.#width <= entity.x || this.#x >= entity.x + entity.width ||
+            this.#y + this.#height <= entity.y || this.#y >= entity.y + entity.height
+        ) {
+            // 何もしない
+        }
+        else {
+            // ゴール！
+            entity.onCollision();
+        }
+        return "unknown";
+    }
 }
