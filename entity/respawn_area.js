@@ -32,7 +32,11 @@ class RespawnArea {
         context.globalAlpha = 1;
     }
 
+    resolveCollision(player) {
+        return player.resolveRespawnAreaCollision(this);
+    }
+
     onCollision() {
-        // todo
+        console.log("リスポーン更新");
     }
 }

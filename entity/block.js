@@ -27,6 +27,10 @@ class Block {
         context.fill();
     }
 
+    resolveCollision(player) {
+        return player.resolveBlockCollision(this);
+    }
+
     onCollision(player, status) {
         if (status !== "床に接している") {
             console.log(status);

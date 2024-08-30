@@ -525,7 +525,7 @@ class Player {
     #resolveCollisionList(blockList) {
         let isFall = this.#actStatus === "ground";
         for (const block of blockList) {
-            const nextActStatus = this.#resolveCollision(block);
+            const nextActStatus = block.resolveCollision(this);
             if (nextActStatus === "death") {
                 return;
             }
@@ -554,22 +554,7 @@ class Player {
     }
 
     // 戻り値：次のactStatus
-    #resolveCollision(block) {
-        if (block.constructor.name === "RespawnArea") {
-            if (
-                this.#respawnArea === block ||
-                this.#x + this.#width <= block.x || this.#x >= block.x + block.width ||
-                this.#y + this.#height <= block.y || this.#y >= block.y + block.height
-            ) {
-                // 何もしない
-            }
-            else {
-                // エリア内
-                this.#respawnArea = block;
-            }
-            return "unknown";
-        }
-        
+    resolveBlockCollision(block) {
         // 地面で左の壁に衝突
         if (
             this.#actStatus === "ground" &&
@@ -685,7 +670,7 @@ class Player {
             if (this.#prevX !== block.x + block.width) {
                 this.#x = block.x + block.width;
                 this.#prevX = this.#x;
-    
+
                 this.#prevY = this.#y;
                 this.#y = this.#prevY;
                 if (this.#vy !== 0) {
@@ -728,7 +713,7 @@ class Player {
             if (this.#prevX !== block.x - this.#width) {
                 this.#x = block.x - this.#width;
                 this.#prevX = this.#x;
-    
+
                 this.#prevY = this.#y;
                 this.#y = this.#prevY;
                 if (this.#vy !== 0) {
@@ -837,5 +822,22 @@ class Player {
         else {
             return "falling";
         }
+    }
+
+    // 戻り値：次のactStatus
+    resolveRespawnAreaCollision(block) {
+        if (
+            this.#respawnArea === block ||
+            this.#x + this.#width <= block.x || this.#x >= block.x + block.width ||
+            this.#y + this.#height <= block.y || this.#y >= block.y + block.height
+        ) {
+            // 何もしない
+        }
+        else {
+            // エリア内
+            this.#respawnArea = block;
+            block.onCollision();
+        }
+        return "unknown";
     }
 }
