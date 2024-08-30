@@ -2,11 +2,11 @@
 class MapFactory {
     static create(name) {
         let worldHeight = 500;
-        const blockList = [];
+        const entityList = [];
         let player = null;
 
-        const bp = block => {
-            blockList.push(block);
+        const bp = entity => {
+            entityList.push(entity);
         }
 
         switch (name) {
@@ -634,36 +634,36 @@ class MapFactory {
                 throw new Error(`マップがない：${name}`);
         }
 
-        this.#sortBlockList(blockList);
-        const world = this.#createWorld(blockList, worldHeight);
-        this.#addGuardBlock(blockList, world);
-        return {player, blockList, world};
+        this.#sortBlockList(entityList);
+        const world = this.#createWorld(entityList, worldHeight);
+        this.#addGuardBlock(entityList, world);
+        return {player, entityList, world};
     }
 
-    static #createWorld(blockList, height = 500) {
+    static #createWorld(entityList, height = 500) {
         let width = 0;
-        for (const block of blockList) {
-            if (width < block.x + block.width) {
-                width = block.x + block.width;
+        for (const entity of entityList) {
+            if (width < entity.x + entity.width) {
+                width = entity.x + entity.width;
             }
         }
         return {width, height};
     }
 
-    static #addGuardBlock(blockList, world) {
+    static #addGuardBlock(entityList, world) {
         // 床
-        blockList.push(new InvisibleBlock(0, world.height, world.width, 30));
+        entityList.push(new InvisibleBlock(0, world.height, world.width, 30));
         // 天井
-        blockList.push(new InvisibleBlock(0, -30, world.width, 30));
+        entityList.push(new InvisibleBlock(0, -30, world.width, 30));
         // 左
-        blockList.push(new InvisibleBlock(-30, 0, 30, world.height));
+        entityList.push(new InvisibleBlock(-30, 0, 30, world.height));
         // 右
-        blockList.push(new InvisibleBlock(world.width, 0, 30, world.height));
+        entityList.push(new InvisibleBlock(world.width, 0, 30, world.height));
     }
 
-    static #sortBlockList(blockList) {
+    static #sortBlockList(entityList) {
         // Trampolineは先頭
-        blockList.sort((a, b) => {
+        entityList.sort((a, b) => {
             if (a.constructor.name === "Trampoline") {
                 return -1;
             }

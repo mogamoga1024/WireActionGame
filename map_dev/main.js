@@ -19,7 +19,7 @@ while (worldHeight < worldHeightMin) {
     worldHeight = unitSideLength * map.length;
 }
 
-const blockList = [];
+const entityList = [];
 let playerCode = "";
 
 const rowMax = map.length;
@@ -81,13 +81,13 @@ for (let row = 0; row < rowMax; row++) {
             case UNSTICKABLE: className = "UnstickableBlock"; break;
             case RESPAWN: className = "RespawnArea"; break;
         }
-        blockList.push(`bp(new ${className}(${x}, ${y}, ${width}, ${height}));`);
+        entityList.push(`bp(new ${className}(${x}, ${y}, ${width}, ${height}));`);
     }
 }
 
 let result = `worldHeight = ${worldHeight};\n`;
 
-for (const code of blockList) {
+for (const code of entityList) {
     result += code + "\n";
 }
 

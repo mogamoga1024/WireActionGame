@@ -49,7 +49,7 @@ class Hook {
     }
 
     // 戻り値：フックを消去するべきか
-    move(blockList) {
+    move(entityList) {
         if (this.#actStatus === "stuck") {
             return false;
         }
@@ -91,7 +91,7 @@ class Hook {
             }
         }
 
-        this.#resolveCollisionList(blockList);
+        this.#resolveCollisionList(entityList);
 
         if (this.#isShrinking) {
             if (wireLength <= this.#v * 1.1) {
@@ -129,7 +129,7 @@ class Hook {
         return wireLength <= this.#maxWireLength;
     }
 
-    #resolveCollisionList(blockList) {
+    #resolveCollisionList(entityList) {
         if (!this.#canStuck || this.#actStatus === "stuck") {
             return;
         }
@@ -138,8 +138,8 @@ class Hook {
         const vy = this.#y - this.#prevY;
         let resultList = [];
         let baseDistance = -1;
-        for (const block of blockList) {
-            const result = this.#resolveCollision(block, vx, vy);
+        for (const entity of entityList) {
+            const result = this.#resolveCollision(entity, vx, vy);
             if (result.actStatus !== "moving") {
                 if (
                     baseDistance === -1 ||
@@ -174,8 +174,8 @@ class Hook {
         }
     }
 
-    #resolveCollision(block, vx, vy) {
-        if (!(block instanceof Block)) {
+    #resolveCollision(entity, vx, vy) {
+        if (!(entity instanceof Block)) {
             return {actStatus: "moving"};
         }
 
@@ -185,10 +185,10 @@ class Hook {
         let y2 = this.#y;
         const w = this.#width;
         const h = this.#height;
-        const bx = block.x;
-        const by = block.y;
-        const bw = block.width;
-        const bh = block.height;
+        const bx = entity.x;
+        const by = entity.y;
+        const bw = entity.width;
+        const bh = entity.height;
         const bcx = (bx + bw) / 2;
         const bcy = (by + bh) / 2;
         
@@ -259,7 +259,7 @@ class Hook {
         const diffY = this.#centerY(y) - this.#player.centerY;
         const distance = diffX * diffX + diffY * diffY;
 
-        if (block.canStick) {
+        if (entity.canStick) {
             return {actStatus: "stuck", x, y, distance};
         }
         

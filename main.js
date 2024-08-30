@@ -63,7 +63,7 @@ if (stateName === undefined) {
 
 canvas.width = 800;
 canvas.height = 500;
-let {player, blockList, world} = MapFactory.create(stateName);
+let {player, entityList, world} = MapFactory.create(stateName);
 const viewport = new Viewport(canvas, world, player);
 
 let fireHookWaitFrame = 0;
@@ -90,8 +90,8 @@ function update() {
     }
 
     // 描画する
-    blockList.forEach(block => {
-        block.draw(context, viewport);
+    entityList.forEach(entity => {
+        entity.draw(context, viewport);
     });
     player.draw(context, viewport);
 
@@ -130,7 +130,7 @@ function playerMove() {
 
     player.applyForce(forceDirection());
 
-    player.move(blockList);
+    player.move(entityList);
 }
 
 function fireHookRadian() {

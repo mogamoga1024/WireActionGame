@@ -209,9 +209,9 @@ class Player {
         }
     }
 
-    move(blockList) {
+    move(entityList) {
         if (this.#actStatus === "death") {
-            this.#hookMove(blockList);
+            this.#hookMove(entityList);
             return;
         }
 
@@ -367,9 +367,9 @@ class Player {
             }
         }
 
-        this.#hookMove(blockList);
+        this.#hookMove(entityList);
 
-        this.#resolveCollisionList(blockList);
+        this.#resolveCollisionList(entityList);
     }
 
     jumpStart(shouldHookReturn = true) {
@@ -504,11 +504,11 @@ class Player {
         }
         this.#hook = new Hook(this, radian);
     }
-    #hookMove(blockList) {
+    #hookMove(entityList) {
         if (this.#hook === null) {
             return;
         }
-        if (this.#hook.move(blockList)) {
+        if (this.#hook.move(entityList)) {
             this.#hook = null;
             return;
         }
@@ -522,10 +522,10 @@ class Player {
         return this.#hook.canExtendWire(playerCenterX, playerCenterY);
     }
 
-    #resolveCollisionList(blockList) {
+    #resolveCollisionList(entityList) {
         let isFall = this.#actStatus === "ground";
-        for (const block of blockList) {
-            const nextActStatus = block.resolveCollision(this);
+        for (const entity of entityList) {
+            const nextActStatus = entity.resolveCollision(this);
             if (nextActStatus === "death") {
                 return;
             }
@@ -535,7 +535,7 @@ class Player {
         }
         if (isFall) {
             this.#fallStart();
-            this.#resolveCollisionList(blockList);
+            this.#resolveCollisionList(entityList);
         }
     }
 
@@ -554,35 +554,35 @@ class Player {
     }
 
     // 戻り値：次のactStatus
-    resolveBlockCollision(block) {
+    resolveBlockCollision(entity) {
         // 地面で左の壁に衝突
         if (
             this.#actStatus === "ground" &&
             this.#vx < 0 &&
-            this.#y + this.#height > block.y &&
-            this.#y < block.y + block.height &&
-            this.#x <= block.x + block.width &&
-            this.#x + this.#width > block.x + block.width
+            this.#y + this.#height > entity.y &&
+            this.#y < entity.y + entity.height &&
+            this.#x <= entity.x + entity.width &&
+            this.#x + this.#width > entity.x + entity.width
         ) {
-            this.#x = block.x + block.width;
+            this.#x = entity.x + entity.width;
             this.#prevX = this.#x;
             this.#vx = 0;
-            block.onCollision(this, "地面で左の壁に衝突");
+            entity.onCollision(this, "地面で左の壁に衝突");
             return this.#actStatus;
         }
         // 地面で右の壁に衝突
         if (
             this.#actStatus === "ground" &&
             this.#vx > 0 &&
-            this.#y + this.#height > block.y &&
-            this.#y < block.y + block.height &&
-            this.#x + this.#width >= block.x &&
-            this.#x < block.x
+            this.#y + this.#height > entity.y &&
+            this.#y < entity.y + entity.height &&
+            this.#x + this.#width >= entity.x &&
+            this.#x < entity.x
         ) {
-            this.#x = block.x - this.#width;
+            this.#x = entity.x - this.#width;
             this.#prevX = this.#x;
             this.#vx = 0;
-            block.onCollision(this, "地面で右の壁に衝突");
+            entity.onCollision(this, "地面で右の壁に衝突");
             return this.#actStatus;
         }
 
@@ -590,13 +590,13 @@ class Player {
         if (
             this.#actStatus === "furiko" &&
             this.#vy < 0 &&
-            !(this.#prevX + this.#width <= block.x || this.#prevX >= block.x + block.width) &&
-            this.#x + this.#width > block.x &&
-            this.#x < block.x + block.width &&
-            this.#y <= block.y + block.height &&
-            this.#y + this.#height > block.y + block.height
+            !(this.#prevX + this.#width <= entity.x || this.#prevX >= entity.x + entity.width) &&
+            this.#x + this.#width > entity.x &&
+            this.#x < entity.x + entity.width &&
+            this.#y <= entity.y + entity.height &&
+            this.#y + this.#height > entity.y + entity.height
         ) {
-            this.#y = block.y + block.height;
+            this.#y = entity.y + entity.height;
             this.#prevY = this.#y;
 
             if (this.#vx !== 0) {
@@ -616,20 +616,20 @@ class Player {
 
             this.#vx = this.#vy = 0;
             this.#furikoStart(true);
-            block.onCollision(this, "振り子中に天井に衝突");
+            entity.onCollision(this, "振り子中に天井に衝突");
             return this.#actStatus;
         }
         // 振り子中に地面に衝突
         if (
             this.#actStatus === "furiko" &&
             this.#vy > 0 &&
-            !(this.#prevX + this.#width <= block.x || this.#prevX >= block.x + block.width) &&
-            this.#x + this.#width > block.x &&
-            this.#x < block.x + block.width &&
-            this.#y + this.#height >= block.y &&
-            this.#y < block.y
+            !(this.#prevX + this.#width <= entity.x || this.#prevX >= entity.x + entity.width) &&
+            this.#x + this.#width > entity.x &&
+            this.#x < entity.x + entity.width &&
+            this.#y + this.#height >= entity.y &&
+            this.#y < entity.y
         ) {
-            this.#y = block.y - this.#height;
+            this.#y = entity.y - this.#height;
             this.#prevY = this.#y;
 
             this.#prevX = this.#x;
@@ -652,7 +652,7 @@ class Player {
             this.#vx = this.#vy = 0;
             this.#prevActStatus = this.#actStatus;
             this.#actStatus = "ground";
-            block.onCollision(this, "振り子中に地面に衝突");
+            entity.onCollision(this, "振り子中に地面に衝突");
             return this.#actStatus;
         }
 
@@ -660,15 +660,15 @@ class Player {
         if (
             this.#actStatus === "furiko" &&
             this.#vx < 0 &&
-            this.#y + this.#height > block.y &&
-            this.#y < block.y + block.height &&
-            this.#x <= block.x + block.width &&
-            this.#x + this.#width > block.x + block.width
+            this.#y + this.#height > entity.y &&
+            this.#y < entity.y + entity.height &&
+            this.#x <= entity.x + entity.width &&
+            this.#x + this.#width > entity.x + entity.width
         ) {
             this.#canBigJump = true;
             
-            if (this.#prevX !== block.x + block.width) {
-                this.#x = block.x + block.width;
+            if (this.#prevX !== entity.x + entity.width) {
+                this.#x = entity.x + entity.width;
                 this.#prevX = this.#x;
 
                 this.#prevY = this.#y;
@@ -695,23 +695,23 @@ class Player {
 
             this.#vx = this.#vy = 0;
             this.#furikoStart(true);
-            block.onCollision(this, "振り子中に左の壁に衝突");
+            entity.onCollision(this, "振り子中に左の壁に衝突");
             return this.#actStatus;
         }
         // 振り子中に右の壁に衝突
         if (
             this.#actStatus === "furiko" &&
             this.#vx > 0 &&
-            this.#prevY + this.#height > block.y &&
-            this.#y + this.#height > block.y &&
-            this.#y < block.y + block.height &&
-            this.#x + this.#width >= block.x &&
-            this.#x < block.x
+            this.#prevY + this.#height > entity.y &&
+            this.#y + this.#height > entity.y &&
+            this.#y < entity.y + entity.height &&
+            this.#x + this.#width >= entity.x &&
+            this.#x < entity.x
         ) {
             this.#canBigJump = true;
             
-            if (this.#prevX !== block.x - this.#width) {
-                this.#x = block.x - this.#width;
+            if (this.#prevX !== entity.x - this.#width) {
+                this.#x = entity.x - this.#width;
                 this.#prevX = this.#x;
 
                 this.#prevY = this.#y;
@@ -738,7 +738,7 @@ class Player {
             
             this.#vx = this.#vy = 0;
             this.#furikoStart(true);
-            block.onCollision(this, "振り子中に右の壁に衝突");
+            entity.onCollision(this, "振り子中に右の壁に衝突");
             return this.#actStatus;
         }
 
@@ -746,16 +746,16 @@ class Player {
         if (
             this.#actStatus !== "ground" &&
             this.#vy < 0 &&
-            !(this.#prevX + this.#width <= block.x || this.#prevX >= block.x + block.width) &&
-            this.#x + this.#width > block.x &&
-            this.#x < block.x + block.width &&
-            this.#y <= block.y + block.height &&
-            this.#y + this.#height > block.y + block.height
+            !(this.#prevX + this.#width <= entity.x || this.#prevX >= entity.x + entity.width) &&
+            this.#x + this.#width > entity.x &&
+            this.#x < entity.x + entity.width &&
+            this.#y <= entity.y + entity.height &&
+            this.#y + this.#height > entity.y + entity.height
         ) {
-            this.#y = block.y + block.height;
+            this.#y = entity.y + entity.height;
             this.#prevY = this.#y;
             this.#vy = 0;
-            block.onCollision(this, "ジャンプ中に天井に衝突");
+            entity.onCollision(this, "ジャンプ中に天井に衝突");
             return this.#actStatus;
         }
 
@@ -763,16 +763,16 @@ class Player {
         if (
             this.#actStatus !== "ground" &&
             this.#vy > 0 &&
-            !(this.#prevX + this.#width <= block.x || this.#prevX >= block.x + block.width) &&
-            this.#x + this.#width > block.x &&
-            this.#x < block.x + block.width &&
-            this.#y + this.#height >= block.y &&
-            this.#y < block.y
+            !(this.#prevX + this.#width <= entity.x || this.#prevX >= entity.x + entity.width) &&
+            this.#x + this.#width > entity.x &&
+            this.#x < entity.x + entity.width &&
+            this.#y + this.#height >= entity.y &&
+            this.#y < entity.y
         ) {
-            this.#y = block.y - this.#height;
+            this.#y = entity.y - this.#height;
             this.#prevY = this.#y;
             this.#fallEnd();
-            block.onCollision(this, "落下中に床に衝突");
+            entity.onCollision(this, "落下中に床に衝突");
             return this.#actStatus;
         }
 
@@ -780,43 +780,43 @@ class Player {
         if (
             this.#actStatus !== "ground" &&
             this.#vx < 0 &&
-            this.#prevY + this.#height > block.y &&
-            this.#y + this.#height > block.y &&
-            this.#y < block.y + block.height &&
-            this.#x <= block.x + block.width &&
-            this.#x + this.#width > block.x + block.width
+            this.#prevY + this.#height > entity.y &&
+            this.#y + this.#height > entity.y &&
+            this.#y < entity.y + entity.height &&
+            this.#x <= entity.x + entity.width &&
+            this.#x + this.#width > entity.x + entity.width
         ) {
-            this.#x = block.x + block.width;
+            this.#x = entity.x + entity.width;
             this.#prevX = this.#x;
             this.#vx *= -0.8;
-            block.onCollision(this, "空中で左の壁に衝突");
+            entity.onCollision(this, "空中で左の壁に衝突");
             return this.#actStatus;
         }
         // 空中で右の壁に衝突
         if (
             this.#actStatus !== "ground" &&
             this.#vx > 0 &&
-            this.#prevY + this.#height > block.y &&
-            this.#y + this.#height > block.y &&
-            this.#y < block.y + block.height &&
-            this.#x + this.#width >= block.x &&
-            this.#x < block.x
+            this.#prevY + this.#height > entity.y &&
+            this.#y + this.#height > entity.y &&
+            this.#y < entity.y + entity.height &&
+            this.#x + this.#width >= entity.x &&
+            this.#x < entity.x
         ) {
-            this.#x = block.x - this.#width;
+            this.#x = entity.x - this.#width;
             this.#prevX = this.#x;
             this.#vx *= -0.8;
-            block.onCollision(this, "空中で右の壁に衝突");
+            entity.onCollision(this, "空中で右の壁に衝突");
             return this.#actStatus;
         }
 
         // 床に接しているか？
         if (
             this.#vy === 0 &&
-            this.#x + this.#width >= block.x &&
-            this.#x <= block.x + block.width &&
-            this.#y + this.#height === block.y
+            this.#x + this.#width >= entity.x &&
+            this.#x <= entity.x + entity.width &&
+            this.#y + this.#height === entity.y
         ) {
-            block.onCollision(this, "床に接している");
+            entity.onCollision(this, "床に接している");
             return this.#actStatus;
         }
         else {
@@ -825,18 +825,18 @@ class Player {
     }
 
     // 戻り値：次のactStatus
-    resolveRespawnAreaCollision(block) {
+    resolveRespawnAreaCollision(entity) {
         if (
-            this.#respawnArea === block ||
-            this.#x + this.#width <= block.x || this.#x >= block.x + block.width ||
-            this.#y + this.#height <= block.y || this.#y >= block.y + block.height
+            this.#respawnArea === entity ||
+            this.#x + this.#width <= entity.x || this.#x >= entity.x + entity.width ||
+            this.#y + this.#height <= entity.y || this.#y >= entity.y + entity.height
         ) {
             // 何もしない
         }
         else {
             // エリア内
-            this.#respawnArea = block;
-            block.onCollision();
+            this.#respawnArea = entity;
+            entity.onCollision();
         }
         return "unknown";
     }
