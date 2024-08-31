@@ -70,10 +70,10 @@ const fireHookWaitFrameMax = 15;
 
 function update() {
     if (isPressedControl) {
-        updateMapMode();
+        updateCamera();
     }
     else {
-        updateGameMode();
+        updatePlayer();
     }
 
     // 描画する
@@ -85,7 +85,7 @@ function update() {
     updateDescription();
 }
 
-function updateGameMode() {
+function updatePlayer() {
     if (fireHookWaitFrame !== 0) {
         fireHookWaitFrame++;
         if (fireHookWaitFrame >= fireHookWaitFrameMax) {
@@ -106,7 +106,7 @@ function updateGameMode() {
     }
 }
 
-function updateMapMode() {
+function updateCamera() {
     // todo
 }
 
