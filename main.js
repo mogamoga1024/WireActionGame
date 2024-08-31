@@ -82,30 +82,7 @@ function update() {
     });
     player.draw(context, viewport);
 
-    if (isPressedControl) {
-        controlsDescriptionDom.innerText =  "↑↓←→:マップ移動";
-    }
-    else switch (player.actStatus) {
-        case "ground":
-            controlsDescriptionDom.innerText =  "X:ジャンプ Z:フックショット ←→:移動\n";
-            controlsDescriptionDom.innerText += "フックは↑↓←→で方向が決められる";
-            break;
-        case "furiko":
-            controlsDescriptionDom.innerText = "X:ジャンプ Z:フックを外す ↑:ワイヤージャンプ ↓:ワイヤーを伸ばす ←→:揺らす";
-            break;
-        case "jumping":
-        case "falling":
-            controlsDescriptionDom.innerText = "Z:フックショット ←→:移動\n";
-            controlsDescriptionDom.innerText += "フックは↑↓←→で方向が決められる";
-            break;
-        case "furiko-ground":
-            controlsDescriptionDom.innerText = "X:ジャンプ Z:フックを外す ↑:ワイヤージャンプ ←→:移動";
-            break;
-        case "furiko-jumping":
-        case "furiko-falling":
-            controlsDescriptionDom.innerText = "Z:フックを外す ←→:移動";
-            break;
-    }
+    updateDescription();
 }
 
 function updateGameMode() {
@@ -201,4 +178,31 @@ function forceDirection() {
     }
     
     return {horizontal, vertical};
+}
+
+function updateDescription() {
+    if (isPressedControl) {
+        controlsDescriptionDom.innerText =  "↑↓←→:マップ移動";
+    }
+    else switch (player.actStatus) {
+        case "ground":
+            controlsDescriptionDom.innerText =  "X:ジャンプ Z:フックショット ←→:移動\n";
+            controlsDescriptionDom.innerText += "フックは↑↓←→で方向が決められる";
+            break;
+        case "furiko":
+            controlsDescriptionDom.innerText = "X:ジャンプ Z:フックを外す ↑:ワイヤージャンプ ↓:ワイヤーを伸ばす ←→:揺らす";
+            break;
+        case "jumping":
+        case "falling":
+            controlsDescriptionDom.innerText = "Z:フックショット ←→:移動\n";
+            controlsDescriptionDom.innerText += "フックは↑↓←→で方向が決められる";
+            break;
+        case "furiko-ground":
+            controlsDescriptionDom.innerText = "X:ジャンプ Z:フックを外す ↑:ワイヤージャンプ ←→:移動";
+            break;
+        case "furiko-jumping":
+        case "furiko-falling":
+            controlsDescriptionDom.innerText = "Z:フックを外す ←→:移動";
+            break;
+    }
 }
