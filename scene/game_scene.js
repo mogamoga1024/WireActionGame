@@ -83,7 +83,6 @@ class GameScene extends Scene {
                 break;
             }
         }
-        console.log(this.#isMapMode);
     }
 
     onKeyUp(e) {

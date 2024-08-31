@@ -1,8 +1,15 @@
 
 class SceneManager {
     static #scene = null;
-    static #onKeyDown = null;
-    static #onKeyUp = null;
+
+    static #init() {
+        window.addEventListener("keydown", e => {
+            this.#scene?.onKeyDown(e)
+        });
+        window.addEventListener("keyup", e => {
+            this.#scene?.onKeyUp(e)
+        });
+    }
 
     static start(scene) {
         if (scene === null) {
@@ -10,29 +17,17 @@ class SceneManager {
         }
 
         if (this.#scene !== null) {
-            window.removeEventListener("keydown", this.#onKeyDown);
-            window.removeEventListener("keyup", this.#onKeyUp);
             this.#scene.onEnd();
         }
-
-        const onKeyDown = e => {
-            this.#scene.onKeyDown(e)
-        };
-        const onKeyUp = e => {
-            this.#scene.onKeyUp(e)
-        };
-        
-        this.#onKeyDown = onkeydown;
-        this.#onKeyUp = onKeyUp;
+        else {
+            this.#init();
+        }
 
         const canvas = document.querySelector("canvas");
         const context = canvas.getContext("2d");
         context.clearRect(0, 0, canvas.width, canvas.height);
 
+        scene.onStart();
         this.#scene = scene;
-        this.#scene.onStart();
-
-        window.addEventListener("keydown", onKeyDown);
-        window.addEventListener("keyup", onKeyUp);
     }
 }
