@@ -55,6 +55,10 @@ class GameScene extends Scene {
     }
 
     onKeyDown(e) {
+        if (e.repeat) {
+            return;
+        }
+
         switch (e.key) {
             case "ArrowUp":    this.#isPressedUp    = true; break;
             case "ArrowDown":  this.#isPressedDown  = true; break;
@@ -76,8 +80,10 @@ class GameScene extends Scene {
             }
             case "g": {
                 this.#isGhost = !this.#isGhost;
+                break;
             }
         }
+        console.log(this.#isMapMode);
     }
 
     onKeyUp(e) {
