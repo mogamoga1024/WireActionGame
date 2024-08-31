@@ -8,13 +8,14 @@ class GameScene extends Scene {
     #isPressedZ = false;
     
     #controlsDescriptionDom = null;
-    #mapDescription = null;
+    #mapDescriptionDom = null;
     #isMapMode = false;
     #isGhost = false;
     
     #canvas = null;
     #context = null;
     
+    #timerId = 0;
     #fireHookWaitFrame = 0;
     #fireHookWaitFrameMax = 15;
 
@@ -24,7 +25,7 @@ class GameScene extends Scene {
 
     onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
-        this.#mapDescription = document.querySelector("#map-description");
+        this.#mapDescriptionDom = document.querySelector("#map-description");
         this.#canvas = document.querySelector("canvas");
         this.#context = this.#canvas.getContext("2d");
 
@@ -38,10 +39,19 @@ class GameScene extends Scene {
         this.#entityList = entityList;
         this.#viewport = new Viewport(this.#canvas, world, this.#player);
 
-        setInterval(() => {
+        this.#timerId = setInterval(() => {
             this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
             this.#update();
         }, dt * 1000);
+
+        this.#updateDescription();
+        this.#mapDescriptionDom.innerText = "C:マップ確認モード開始";
+    }
+
+    onEnd() {
+        clearInterval(this.#timerId);
+        this.#controlsDescriptionDom.innerText = "";
+        this.#mapDescriptionDom.innerText = "";
     }
 
     onKeyDown(e) {
@@ -55,12 +65,12 @@ class GameScene extends Scene {
             case "c": {
                 this.#isMapMode = !this.#isMapMode;
                 if (this.#isMapMode) {
-                    this.#mapDescription.innerText = "C:マップ確認モード終了";
+                    this.#mapDescriptionDom.innerText = "C:マップ確認モード終了";
                 }
                 else {
                     this.#viewport.dx = 0;
                     this.#viewport.dy = 0;
-                    this.#mapDescription.innerText = "C:マップ確認モード開始";
+                    this.#mapDescriptionDom.innerText = "C:マップ確認モード開始";
                 }
                 break;
             }

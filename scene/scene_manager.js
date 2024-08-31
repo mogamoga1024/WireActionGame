@@ -12,6 +12,7 @@ class SceneManager {
         if (this.#scene !== null) {
             window.removeEventListener("keydown", this.#onKeyDown);
             window.removeEventListener("keyup", this.#onKeyUp);
+            this.#scene.onEnd();
         }
 
         const onKeyDown = e => {
