@@ -35,6 +35,8 @@ addEventListener("keyup", e => {
         case "Control": {
             isPressedControl = false;
             mapDescription.style.display = "";
+            viewport.dx = 0;
+            viewport.dy = 0;
             break;
         }
         case "ArrowUp":    isPressedUp    = false; break;
@@ -107,7 +109,18 @@ function updatePlayer() {
 }
 
 function updateCamera() {
-    // todo
+    if (isPressedLeft) {
+        viewport.dx -= 20;
+    }
+    else if (isPressedRight) {
+        viewport.dx += 20;
+    }
+    if (isPressedUp) {
+        viewport.dy -= 20;
+    }
+    else if (isPressedDown) {
+        viewport.dy += 20;
+    }
 }
 
 function playerMove() {

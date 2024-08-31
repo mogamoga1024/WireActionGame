@@ -1,5 +1,7 @@
 
 class Viewport {
+    dx = 0;
+    dy = 0;
     #width = 0;
     #height = 0;
     #world = null;
@@ -14,13 +16,13 @@ class Viewport {
 
     get offsetX() {
         if (this.#player.centerX <= this.#width / 2 || this.#world.width <= this.#width) {
-            return 0;
+            return 0 - this.dx;
         }
         else if (this.#player.centerX >= this.#world.width - this.#width / 2) {
-            return this.#width - this.#world.width;
+            return this.#width - this.#world.width - this.dx;
         }
         else {
-            return this.#width / 2 - this.#player.centerX;
+            return this.#width / 2 - this.#player.centerX - this.dx;
         }
     }
 
@@ -28,13 +30,13 @@ class Viewport {
         const baseOffsetY = this.#height - this.#world.height;
         const baseY = this.#height * 2 / 3 - baseOffsetY;
         if (this.#height * 2 / 3 - this.#player.centerY >= 0) {
-            return 0;
+            return 0 - this.dy;
         }
         else if (this.#player.centerY >= baseY) {
-            return baseOffsetY;
+            return baseOffsetY - this.dy;
         }
         else {
-            return baseOffsetY + baseY - this.#player.centerY;
+            return baseOffsetY + baseY - this.#player.centerY - this.dy;
         }
     }
 
