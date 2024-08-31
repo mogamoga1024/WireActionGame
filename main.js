@@ -63,7 +63,7 @@ if (stateName === undefined) {
 canvas.width = 800;
 canvas.height = 500;
 let {player, entityList, world} = MapFactory.create(stateName);
-const viewport = new Viewport(canvas, world);
+const viewport = new Viewport(canvas, world, player);
 
 let fireHookWaitFrame = 0;
 const fireHookWaitFrameMax = 15;
@@ -75,8 +75,6 @@ function update() {
     else {
         updateGameMode();
     }
-
-    viewport.setFocus({x: player.centerX, y: player.centerY});
 
     // 描画する
     entityList.forEach(entity => {
@@ -120,6 +118,7 @@ function updateGameMode() {
 
     if (player.opacity === 0) {
         player = player.nextPlayer();
+        viewport.setPlayer(player);
     }
 
     if (isGhost) {
