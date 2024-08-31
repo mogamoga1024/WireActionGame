@@ -1,4 +1,5 @@
 
+let isPressedControl = false;
 let isPressedUp = false;
 let isPressedDown = false;
 let isPressedLeft = false;
@@ -7,29 +8,22 @@ let isPressedX = false;
 let isPressedZ = false;
 
 const controlsDescriptionDom = document.querySelector("#controls-description");
-const showControlsDescriptionDom = document.querySelector("#show-controls-description");
-let showControlsDescription = true;
+const mapDescription = document.querySelector("#map-description");
 let isGhost = false;
 
 addEventListener("keydown", e => {
     switch (e.key) {
+        case "Control": {
+            isPressedControl = true;
+            mapDescription.style.display = "none";
+            break;
+        }
         case "ArrowUp":    isPressedUp    = true; break;
         case "ArrowDown":  isPressedDown  = true; break;
         case "ArrowLeft":  isPressedLeft  = true; break;
         case "ArrowRight": isPressedRight = true; break;
         case "x": isPressedX = true; break;
         case "z": isPressedZ = true; break;
-        case "h": {
-            showControlsDescription = !showControlsDescription;
-            if (showControlsDescription) {
-                showControlsDescriptionDom.innerText = "H:操作説明を隠す";
-                controlsDescriptionDom.style.display = "";
-            }
-            else {
-                showControlsDescriptionDom.innerText = "H:操作説明";
-                controlsDescriptionDom.style.display = "none";
-            }
-        }
         case "g": {
             isGhost = !isGhost;
         }
@@ -38,6 +32,11 @@ addEventListener("keydown", e => {
 
 addEventListener("keyup", e => {
     switch (e.key) {
+        case "Control": {
+            isPressedControl = false;
+            mapDescription.style.display = "";
+            break;
+        }
         case "ArrowUp":    isPressedUp    = false; break;
         case "ArrowDown":  isPressedDown  = false; break;
         case "ArrowLeft":  isPressedLeft  = false; break;
@@ -70,23 +69,11 @@ let fireHookWaitFrame = 0;
 const fireHookWaitFrameMax = 15;
 
 function update() {
-    if (fireHookWaitFrame !== 0) {
-        fireHookWaitFrame++;
-        if (fireHookWaitFrame >= fireHookWaitFrameMax) {
-            fireHookWaitFrame = 0;
-        }
-    }
-
-    if (player.opacity === 0) {
-        player = player.nextPlayer();
-        viewport.setPlayer(player);
-    }
-
-    if (isGhost) {
-        player.ghostMove(forceDirection());
+    if (isPressedControl) {
+        updateMapMode();
     }
     else {
-        playerMove();
+        updateGameMode();
     }
 
     // 描画する
@@ -95,7 +82,10 @@ function update() {
     });
     player.draw(context, viewport);
 
-    switch (player.actStatus) {
+    if (isPressedControl) {
+        controlsDescriptionDom.innerText =  "↑↓←→:マップ移動";
+    }
+    else switch (player.actStatus) {
         case "ground":
             controlsDescriptionDom.innerText =  "X:ジャンプ Z:フックショット ←→:移動\n";
             controlsDescriptionDom.innerText += "フックは↑↓←→で方向が決められる";
@@ -116,6 +106,31 @@ function update() {
             controlsDescriptionDom.innerText = "Z:フックを外す ←→:移動";
             break;
     }
+}
+
+function updateGameMode() {
+    if (fireHookWaitFrame !== 0) {
+        fireHookWaitFrame++;
+        if (fireHookWaitFrame >= fireHookWaitFrameMax) {
+            fireHookWaitFrame = 0;
+        }
+    }
+
+    if (player.opacity === 0) {
+        player = player.nextPlayer();
+        viewport.setPlayer(player);
+    }
+
+    if (isGhost) {
+        player.ghostMove(forceDirection());
+    }
+    else {
+        playerMove();
+    }
+}
+
+function updateMapMode() {
+    // todo
 }
 
 function playerMove() {
