@@ -1,5 +1,4 @@
 
-let isPressedControl = false;
 let isPressedUp = false;
 let isPressedDown = false;
 let isPressedLeft = false;
@@ -9,21 +8,29 @@ let isPressedZ = false;
 
 const controlsDescriptionDom = document.querySelector("#controls-description");
 const mapDescription = document.querySelector("#map-description");
+let isMapMode = false;
 let isGhost = false;
 
 addEventListener("keydown", e => {
     switch (e.key) {
-        case "Control": {
-            isPressedControl = true;
-            mapDescription.style.display = "none";
-            break;
-        }
         case "ArrowUp":    isPressedUp    = true; break;
         case "ArrowDown":  isPressedDown  = true; break;
         case "ArrowLeft":  isPressedLeft  = true; break;
         case "ArrowRight": isPressedRight = true; break;
         case "x": isPressedX = true; break;
         case "z": isPressedZ = true; break;
+        case "c": {
+            isMapMode = !isMapMode;
+            if (isMapMode) {
+                mapDescription.innerText = "C:マップ確認モード終了";
+            }
+            else {
+                viewport.dx = 0;
+                viewport.dy = 0;
+                mapDescription.innerText = "C:マップ確認モード開始";
+            }
+            break;
+        }
         case "g": {
             isGhost = !isGhost;
         }
@@ -32,13 +39,6 @@ addEventListener("keydown", e => {
 
 addEventListener("keyup", e => {
     switch (e.key) {
-        case "Control": {
-            isPressedControl = false;
-            mapDescription.style.display = "";
-            viewport.dx = 0;
-            viewport.dy = 0;
-            break;
-        }
         case "ArrowUp":    isPressedUp    = false; break;
         case "ArrowDown":  isPressedDown  = false; break;
         case "ArrowLeft":  isPressedLeft  = false; break;
@@ -71,7 +71,7 @@ let fireHookWaitFrame = 0;
 const fireHookWaitFrameMax = 15;
 
 function update() {
-    if (isPressedControl) {
+    if (isMapMode) {
         updateCamera();
     }
     else {
@@ -194,7 +194,7 @@ function forceDirection() {
 }
 
 function updateDescription() {
-    if (isPressedControl) {
+    if (isMapMode) {
         controlsDescriptionDom.innerText =  "↑↓←→:マップ移動";
     }
     else switch (player.actStatus) {
