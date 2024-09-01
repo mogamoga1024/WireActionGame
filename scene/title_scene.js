@@ -1,36 +1,75 @@
 
 class TitleScene extends Scene {
+    #controlsDescriptionDom = null;
+    #currentMode = "saisyo";
+    #canvas = null;
+    #context = null;
+
     onStart() {
-        const canvas = document.querySelector("canvas");
-        const context = canvas.getContext("2d");
+        this.#controlsDescriptionDom = document.querySelector("#controls-description");
+        this.#canvas = document.querySelector("canvas");
+        this.#context = canvas.getContext("2d");
+        
+        this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定"
 
-        const titleText = "苦行系ワイヤーアクション";
-        context.font = "48px sans-serif";
-        const titleTextWidth = this.#textWidth(context, titleText);
-        context.fillText(titleText, (canvas.width - titleTextWidth) / 2, 150);
-
-        const saisyoText = "最初から";
-        context.font = "32px sans-serif";
-        const saisyoTextWidth = this.#textWidth(context, saisyoText);
-        context.fillText(saisyoText, (canvas.width - saisyoTextWidth) / 2, 300);
-
-        const tudukiText = "続きから";
-        context.font = "32px sans-serif";
-        const tudukiTextWidth = this.#textWidth(context, tudukiText);
-        context.fillText(tudukiText, (canvas.width - tudukiTextWidth) / 2, 360);
+        this.#update();
     }
 
-    #textWidth(context, text) {
-        const measure = context.measureText(text);
+    #textWidth(text) {
+        const measure = this.#context.measureText(text);
         return measure.width;
     }
 
+    #update() {
+        this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
+
+        const titleText = "苦行系ワイヤーアクション";
+        this.#context.font = "48px sans-serif";
+        const titleTextWidth = this.#textWidth(titleText);
+        this.#context.fillText(titleText, (canvas.width - titleTextWidth) / 2, 150);
+
+        let saisyoText = "最初から";
+        let tudukiText = "続きから";
+
+        if (this.#currentMode === "saisyo") {
+            saisyoText = `> ${saisyoText} <`;
+        }
+        else if (this.#currentMode === "tuduki") {
+            tudukiText = `> ${tudukiText} <`;
+        }
+        
+        this.#context.font = "32px sans-serif";
+        const saisyoTextWidth = this.#textWidth(saisyoText);
+        const tudukiTextWidth = this.#textWidth(tudukiText);
+        this.#context.fillText(saisyoText, (canvas.width - saisyoTextWidth) / 2, 300);
+        this.#context.fillText(tudukiText, (canvas.width - tudukiTextWidth) / 2, 360);
+    }
+
     onEnd() {
-        // noop
+        this.#controlsDescriptionDom.innerText = "";
     }
     
     onKeyDown(e) {
-        SceneManager.start(new GameScene());
+        if (e.repeat) {
+            return;
+        }
+
+        switch (e.key) {
+            case "ArrowUp": {
+                this.#currentMode = "saisyo";
+                break;
+            }
+            case "ArrowDown": {
+                this.#currentMode = "tuduki";
+                break;
+            }
+            case "x": {
+                SceneManager.start(new GameScene());
+                return;
+            }
+        }
+
+        this.#update();
     }
     
     onKeyUp(e) {
