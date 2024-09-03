@@ -2,6 +2,7 @@
 class TitleScene extends Scene {
     #controlsDescriptionDom = null;
     #currentMode = "saisyo";
+    #saveDataExists = false;
     #canvas = null;
     #context = null;
 
@@ -9,6 +10,8 @@ class TitleScene extends Scene {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
         this.#canvas = document.querySelector("canvas");
         this.#context = canvas.getContext("2d");
+
+        this.#saveDataExists = Cookies.get("respaon_area_id") !== undefined;
         
         this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定"
 
@@ -25,6 +28,7 @@ class TitleScene extends Scene {
 
         const titleText = "苦行系ワイヤーアクション";
         this.#context.font = "48px sans-serif";
+        this.#context.fillStyle = "#000000";
         const titleTextWidth = this.#textWidth(titleText);
         this.#context.fillText(titleText, (canvas.width - titleTextWidth) / 2, 150);
 
@@ -40,8 +44,12 @@ class TitleScene extends Scene {
         
         this.#context.font = "32px sans-serif";
         const saisyoTextWidth = this.#textWidth(saisyoText);
-        const tudukiTextWidth = this.#textWidth(tudukiText);
         this.#context.fillText(saisyoText, (canvas.width - saisyoTextWidth) / 2, 300);
+
+        if (!this.#saveDataExists) {
+            this.#context.fillStyle = "#888888";
+        }
+        const tudukiTextWidth = this.#textWidth(tudukiText);
         this.#context.fillText(tudukiText, (canvas.width - tudukiTextWidth) / 2, 360);
     }
 
@@ -60,7 +68,9 @@ class TitleScene extends Scene {
                 break;
             }
             case "ArrowDown": {
-                this.#currentMode = "tuduki";
+                if (this.#saveDataExists) {
+                    this.#currentMode = "tuduki";
+                }
                 break;
             }
             case "x": {
