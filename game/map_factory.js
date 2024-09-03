@@ -244,26 +244,26 @@ class MapFactory {
             // 難しい
             case "hard": {
                 worldHeight = 1930;
-                bp(new DeathBlock(9810, 20, 70, 10));
-                bp(new DeathBlock(9890, 20, 50, 10));
-                bp(new DeathBlock(9950, 20, 50, 10));
-                bp(new DeathBlock(10010, 20, 10, 80));
-                bp(new DeathBlock(10080, 20, 10, 60));
-                bp(new DeathBlock(10100, 20, 10, 60));
-                bp(new DeathBlock(9810, 30, 10, 70));
-                bp(new DeathBlock(9890, 30, 10, 70));
-                bp(new DeathBlock(9930, 30, 10, 70));
-                bp(new DeathBlock(9950, 30, 10, 70));
-                bp(new DeathBlock(9990, 30, 10, 70));
-                bp(new DeathBlock(9830, 50, 50, 10));
-                bp(new DeathBlock(9960, 50, 30, 10));
-                bp(new DeathBlock(9850, 60, 10, 40));
-                bp(new DeathBlock(9870, 60, 10, 40));
-                bp(new DeathBlock(9820, 90, 30, 10));
-                bp(new DeathBlock(9900, 90, 30, 10));
-                bp(new DeathBlock(10020, 90, 50, 10));
-                bp(new DeathBlock(10080, 90, 10, 10));
-                bp(new DeathBlock(10100, 90, 10, 10));
+                bp(new Block(9810, 20, 70, 10));
+                bp(new Block(9890, 20, 50, 10));
+                bp(new Block(9950, 20, 50, 10));
+                bp(new Block(10010, 20, 10, 80));
+                bp(new Block(10080, 20, 10, 60));
+                bp(new Block(10100, 20, 10, 60));
+                bp(new Block(9810, 30, 10, 70));
+                bp(new Block(9890, 30, 10, 70));
+                bp(new Block(9930, 30, 10, 70));
+                bp(new Block(9950, 30, 10, 70));
+                bp(new Block(9990, 30, 10, 70));
+                bp(new Block(9830, 50, 50, 10));
+                bp(new Block(9960, 50, 30, 10));
+                bp(new Block(9850, 60, 10, 40));
+                bp(new Block(9870, 60, 10, 40));
+                bp(new Block(9820, 90, 30, 10));
+                bp(new Block(9900, 90, 30, 10));
+                bp(new Block(10020, 90, 50, 10));
+                bp(new Block(10080, 90, 10, 10));
+                bp(new Block(10100, 90, 10, 10));
                 bp(new GoalArea(9820, 120, 280, 110));
                 bp(new UnstickableBlock(6280, 230, 370, 40));
                 bp(new DeathBlock(9140, 230, 210, 40));
@@ -626,7 +626,7 @@ class MapFactory {
                 bp(new Trampoline(8750, 1890, 190, 40));
                 bp(new DeathBlock(8980, 1890, 1440, 40));
                 const respawnArea = this.#findRespawnArea(entityList, respawnId);
-                player = new Player(80, 1850, respawnArea);
+                player = new Player(80, 1850);
                 break;
             }
             default:
