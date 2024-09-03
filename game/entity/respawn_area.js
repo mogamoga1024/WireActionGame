@@ -42,5 +42,6 @@ class RespawnArea extends IDObject {
 
     onCollision() {
         console.log("リスポーン更新");
+        Cookies.set("respaon_area_id", String(this.id), {expires: 365});
     }
 }
