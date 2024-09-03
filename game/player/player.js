@@ -552,9 +552,7 @@ class Player {
     }
 
     nextPlayer() {
-        const rcx = this.#respawnArea.centerX;
-        const rcy = this.#respawnArea.centerY;
-        return new Player(rcx - this.#width / 2, rcy - this.#height / 2, this.#respawnArea);
+        return new Player(0, 0, this.#respawnArea);
     }
 
     // 戻り値：次のactStatus
