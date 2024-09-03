@@ -54,14 +54,17 @@ class Player {
     #centerY(y) { return y + this.#height / 2; }
 
     constructor(x, y, respawnArea) {
-        this.#prevX = this.#x = x;
-        this.#prevY = this.#y = y;
-
         if (respawnArea != null) {
+            const x = respawnArea.centerX - this.#width / 2;
+            const y = respawnArea.centerY - this.#height / 2;
+            this.#prevX = this.#x = x;
+            this.#prevY = this.#y = y;
             this.#respawnArea = respawnArea;
             this.#direction = respawnArea.direction;
         }
         else {
+            this.#prevX = this.#x = x;
+            this.#prevY = this.#y = y;
             this.#respawnArea = new RespawnArea(this.#x, this.#y, this.#width, this.#height);
         }
     }

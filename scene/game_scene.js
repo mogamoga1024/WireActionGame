@@ -1,5 +1,7 @@
 
 class GameScene extends Scene {
+    #respawnId = -1;
+
     #isPressedUp = false;
     #isPressedDown = false;
     #isPressedLeft = false;
@@ -23,6 +25,11 @@ class GameScene extends Scene {
     #entityList = [];
     #viewport = null;
 
+    constructor(respawnId) {
+        super();
+        this.#respawnId = respawnId;
+    }
+
     onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
         this.#mapDescriptionDom = document.querySelector("#map-description");
@@ -34,7 +41,7 @@ class GameScene extends Scene {
             stateName = "hard";
         }
         
-        let {player, entityList, world} = MapFactory.create(stateName);
+        let {player, entityList, world} = MapFactory.create(stateName, this.#respawnId);
         this.#player = player;
         this.#entityList = entityList;
         this.#viewport = new Viewport(this.#canvas, world, this.#player);

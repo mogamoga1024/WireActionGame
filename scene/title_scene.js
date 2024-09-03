@@ -2,7 +2,7 @@
 class TitleScene extends Scene {
     #controlsDescriptionDom = null;
     #currentMode = "saisyo";
-    #saveDataExists = false;
+    #respawnId = -1;
     #canvas = null;
     #context = null;
 
@@ -11,7 +11,10 @@ class TitleScene extends Scene {
         this.#canvas = document.querySelector("canvas");
         this.#context = canvas.getContext("2d");
 
-        this.#saveDataExists = Cookies.get("respaon_area_id") !== undefined;
+        const strRespawnId = Cookies.get("respaon_area_id");
+        if (strRespawnId !== undefined) {
+            this.#respawnId = Number(strRespawnId);
+        }
         
         this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定"
 
@@ -46,7 +49,7 @@ class TitleScene extends Scene {
         const saisyoTextWidth = this.#textWidth(saisyoText);
         this.#context.fillText(saisyoText, (canvas.width - saisyoTextWidth) / 2, 300);
 
-        if (!this.#saveDataExists) {
+        if (this.#respawnId === -1) {
             this.#context.fillStyle = "#888888";
         }
         const tudukiTextWidth = this.#textWidth(tudukiText);
@@ -68,13 +71,16 @@ class TitleScene extends Scene {
                 break;
             }
             case "ArrowDown": {
-                if (this.#saveDataExists) {
+                if (this.#respawnId !== -1) {
                     this.#currentMode = "tuduki";
                 }
                 break;
             }
             case "x": {
-                SceneManager.start(new GameScene());
+                if (this.#currentMode === "saisyo") {
+                    this.#respawnId = -1;
+                }
+                SceneManager.start(new GameScene(this.#respawnId));
                 return;
             }
         }

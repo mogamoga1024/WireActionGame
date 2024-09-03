@@ -36,7 +36,8 @@ for (let row = 0; row < rowMax; row++) {
 
         if (type === PLAYER) {
             if (playerCode === "") {
-                playerCode = `player = new Player(${x}, ${y});`;
+                playerCode =  "const respawnArea = this.#findRespawnArea(entityList, respawnId);\n";
+                playerCode += `player = new Player(${x}, ${y});`;
             }
             continue;
         }

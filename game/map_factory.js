@@ -1,6 +1,6 @@
 
 class MapFactory {
-    static create(name) {
+    static create(name, respawnId) {
         let worldHeight = 500;
         const entityList = [];
         let player = null;
@@ -625,7 +625,8 @@ class MapFactory {
                 bp(new Block(8530, 1890, 220, 40));
                 bp(new Trampoline(8750, 1890, 190, 40));
                 bp(new DeathBlock(8980, 1890, 1440, 40));
-                player = new Player(80, 1850);
+                const respawnArea = this.#findRespawnArea(entityList, respawnId);
+                player = new Player(80, 1850, respawnArea);
                 break;
             }
             default:
@@ -670,5 +671,17 @@ class MapFactory {
             }
             return 0;
         });
+    }
+
+    static #findRespawnArea(entityList, respawnId) {
+        if (respawnId === -1) {
+            return null;
+        }
+        for (const entity of entityList) {
+            if (entity.id === respawnId) {
+                return entity;
+            }
+        }
+        return null;
     }
 }
