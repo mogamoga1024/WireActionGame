@@ -1,6 +1,8 @@
 
 class GameScene extends Scene {
     #respawnId = -1;
+    #startTime = null;
+    #totalTime = 0;
 
     #isPressedUp = false;
     #isPressedDown = false;
@@ -25,9 +27,10 @@ class GameScene extends Scene {
     #entityList = [];
     #viewport = null;
 
-    constructor(respawnId) {
+    constructor(respawnId, totalTime = 0) {
         super();
         this.#respawnId = respawnId;
+        this.#totalTime = totalTime;
     }
 
     onStart() {
@@ -46,13 +49,15 @@ class GameScene extends Scene {
         this.#entityList = entityList;
         this.#viewport = new Viewport(this.#canvas, world, this.#player);
 
+        this.#updateDescription();
+        this.#mapDescriptionDom.innerText = "C:マップ確認モード開始";
+
         this.#timerId = setInterval(() => {
             this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
             this.#update();
         }, dt * 1000);
 
-        this.#updateDescription();
-        this.#mapDescriptionDom.innerText = "C:マップ確認モード開始";
+        this.#startTime = new Date();
     }
 
     onEnd() {
@@ -118,6 +123,7 @@ class GameScene extends Scene {
         this.#player.draw(this.#context, this.#viewport);
     
         this.#updateDescription();
+        this.#updateTimer();
     }
     
     #updatePlayer() {
@@ -251,5 +257,21 @@ class GameScene extends Scene {
                 this.#controlsDescriptionDom.innerText = "Z:フックを外す ←→:移動";
                 break;
         }
+    }
+
+    #updateTimer() {
+        this.#context.save();
+
+        const time = new Date() - this.#startTime;
+        const timeText = formatMilliseconds(time);
+        this.#context.font = "30px sans-serif";
+        this.#context.textBaseline = "top";
+        this.#context.fillStyle = "#000000";
+        this.#context.strokeStyle = "#FFFFFF";
+        this.#context.lineWidth = 5;
+        this.#context.strokeText(timeText, 20, 20);
+        this.#context.fillText(timeText, 20, 20);
+
+        this.#context.restore();
     }
 }
