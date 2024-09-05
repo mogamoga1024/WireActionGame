@@ -2,7 +2,7 @@
 class GameScene extends Scene {
     #respawnId = -1;
     #startTime = null;
-    #totalTime = 0; // todo
+    #totalTime = 0;
     #goalTime = -1;
 
     #isPressedUp = false;
