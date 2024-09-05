@@ -77,10 +77,12 @@ class TitleScene extends Scene {
 
         switch (e.key) {
             case "ArrowUp": {
+                e.preventDefault();
                 this.#currentMode = "saisyo";
                 break;
             }
             case "ArrowDown": {
+                e.preventDefault();
                 if (this.#respawnId !== -1) {
                     this.#currentMode = "tuduki";
                 }

@@ -72,10 +72,10 @@ class GameScene extends Scene {
         }
 
         switch (e.key) {
-            case "ArrowUp":    this.#isPressedUp    = true; break;
-            case "ArrowDown":  this.#isPressedDown  = true; break;
-            case "ArrowLeft":  this.#isPressedLeft  = true; break;
-            case "ArrowRight": this.#isPressedRight = true; break;
+            case "ArrowUp":    this.#isPressedUp    = true; e.preventDefault(); break;
+            case "ArrowDown":  this.#isPressedDown  = true; e.preventDefault(); break;
+            case "ArrowLeft":  this.#isPressedLeft  = true; e.preventDefault(); break;
+            case "ArrowRight": this.#isPressedRight = true; e.preventDefault(); break;
             case "x": this.#isPressedX = true; break;
             case "z": this.#isPressedZ = true; break;
             case "c": {
