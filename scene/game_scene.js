@@ -124,6 +124,11 @@ class GameScene extends Scene {
     
         this.#updateDescription();
         this.#updateTimer();
+
+        if (this.#player.isGoal) {
+            // todo
+            console.log("ゴール！おめでとう！");
+        }
     }
     
     #updatePlayer() {

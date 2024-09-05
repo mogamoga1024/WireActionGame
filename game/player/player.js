@@ -38,6 +38,8 @@ class Player {
     #opacity = 1;
     get opacity() { return this.#opacity; }
     #respawnArea = null;
+    #isGoal = false;
+    get isGoal() { return this.#isGoal; }
 
     #x = 0; #prevX = 0;
     get x() { return this.#x; }
@@ -853,6 +855,7 @@ class Player {
         }
         else {
             // ゴール！
+            this.#isGoal = true;
             entity.onCollision();
         }
         return "unknown";
