@@ -72,6 +72,7 @@ class TitleScene extends Scene {
     
     onKeyDown(e) {
         if (e.repeat) {
+            e.preventDefault();
             return;
         }
 

@@ -2,7 +2,8 @@
 class GameScene extends Scene {
     #respawnId = -1;
     #startTime = null;
-    #totalTime = 0;
+    #totalTime = 0; // todo
+    #goalTime = -1;
 
     #isPressedUp = false;
     #isPressedDown = false;
@@ -68,6 +69,7 @@ class GameScene extends Scene {
 
     onKeyDown(e) {
         if (e.repeat) {
+            e.preventDefault();
             return;
         }
 
@@ -272,7 +274,7 @@ class GameScene extends Scene {
     #updateTimer() {
         this.#context.save();
 
-        const time = new Date() - this.#startTime;
+        const time = this.#goalTime === -1 ? new Date() - this.#startTime : this.#goalTime;
         const timeText = formatMilliseconds(time);
         this.#context.font = "30px sans-serif";
         this.#context.textBaseline = "top";
@@ -283,5 +285,9 @@ class GameScene extends Scene {
         this.#context.fillText(timeText, 20, 20);
 
         this.#context.restore();
+
+        if (this.#player.isGoal) {
+            this.#goalTime = time;
+        }
     }
 }
