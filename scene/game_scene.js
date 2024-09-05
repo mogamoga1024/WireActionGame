@@ -233,29 +233,34 @@ class GameScene extends Scene {
     }
     
     #updateDescription() {
+        let text = "";
         if (this.#isMapMode) {
-            this.#controlsDescriptionDom.innerText =  "↑↓←→:マップ移動";
+            text =  "↑↓←→:マップ移動";
         }
         else switch (this.#player.actStatus) {
             case "ground":
-                this.#controlsDescriptionDom.innerText =  "X:ジャンプ Z:フックショット ←→:移動\n";
-                this.#controlsDescriptionDom.innerText += "フックは↑↓←→で方向が決められる";
+                text =  "X:ジャンプ Z:フックショット ←→:移動\n";
+                text += "フックは↑↓←→で方向が決められる";
                 break;
             case "furiko":
-                this.#controlsDescriptionDom.innerText = "X:ジャンプ Z:フックを外す ↑:ワイヤージャンプ ↓:ワイヤーを伸ばす ←→:揺らす";
+                text = "X:ジャンプ Z:フックを外す ↑:ワイヤージャンプ ↓:ワイヤーを伸ばす ←→:揺らす";
                 break;
             case "jumping":
             case "falling":
-                this.#controlsDescriptionDom.innerText = "Z:フックショット ←→:移動\n";
-                this.#controlsDescriptionDom.innerText += "フックは↑↓←→で方向が決められる";
+                text = "Z:フックショット ←→:移動\n";
+                text += "フックは↑↓←→で方向が決められる";
                 break;
             case "furiko-ground":
-                this.#controlsDescriptionDom.innerText = "X:ジャンプ Z:フックを外す ↑:ワイヤージャンプ ←→:移動";
+                text = "X:ジャンプ Z:フックを外す ↑:ワイヤージャンプ ←→:移動";
                 break;
             case "furiko-jumping":
             case "furiko-falling":
-                this.#controlsDescriptionDom.innerText = "Z:フックを外す ←→:移動";
+                text = "Z:フックを外す ←→:移動";
                 break;
+        }
+        // DOMを頻繁に更新したくない ＆ 範囲選択できない
+        if (this.#controlsDescriptionDom.innerText !== text) {
+            this.#controlsDescriptionDom.innerText = text;
         }
     }
 
