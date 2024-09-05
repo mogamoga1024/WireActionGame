@@ -68,6 +68,7 @@ class GameScene extends Scene {
         };
         window.addEventListener("beforeunload", this.#saveFunc);
         window.addEventListener("popstate", this.#saveFunc);
+        emitter.on("respawn-area-collision", this.#saveFunc);
 
         this.#startTime = new Date();
         if (this.#totalTime > 0) {
@@ -81,6 +82,7 @@ class GameScene extends Scene {
         this.#mapDescriptionDom.innerText = "";
         window.removeEventListener("beforeunload", this.#saveFunc);
         window.removeEventListener("popstate", this.#saveFunc);
+        emitter.off("respawn-area-collision", this.#saveFunc);
     }
 
     onKeyDown(e) {
