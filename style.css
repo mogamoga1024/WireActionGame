@@ -1,4 +1,10 @@
 
+#main {
+  width: fit-content;
+  height: 600px;
+  margin: 16px auto;
+}
+
 canvas {
   border: solid 1px black;
 }
