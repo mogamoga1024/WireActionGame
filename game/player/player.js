@@ -89,6 +89,8 @@ class Player {
             this.#hook.draw(context, viewport);
         }
 
+        // todo 画像に置き換え
+
         context.beginPath();
         context.rect(this.#x + ox, this.#y + oy, this.#width, this.#height);
         context.fillStyle = "blue";
