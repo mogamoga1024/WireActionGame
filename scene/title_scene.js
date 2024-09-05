@@ -29,11 +29,21 @@ class TitleScene extends Scene {
     #update() {
         this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
 
-        const titleText = "苦行系ワイヤーアクション";
-        this.#context.font = "48px sans-serif";
-        this.#context.fillStyle = "#000000";
-        const titleTextWidth = this.#textWidth(titleText);
-        this.#context.fillText(titleText, (canvas.width - titleTextWidth) / 2, 150);
+        {
+            const titleText = "植木鉢くんの";
+            this.#context.font = "48px sans-serif";
+            this.#context.fillStyle = "#000000";
+            const titleTextWidth = this.#textWidth(titleText);
+            this.#context.fillText(titleText, (canvas.width - titleTextWidth) / 2, 128);
+        }
+
+        {
+            const titleText = "苦行系ワイヤーアクション";
+            this.#context.font = "48px sans-serif";
+            this.#context.fillStyle = "#000000";
+            const titleTextWidth = this.#textWidth(titleText);
+            this.#context.fillText(titleText, (canvas.width - titleTextWidth) / 2, 192);
+        }
 
         let saisyoText = "最初から";
         let tudukiText = "続きから";
