@@ -626,7 +626,7 @@ class MapFactory {
                 bp(new Trampoline(8750, 1890, 190, 40));
                 bp(new DeathBlock(8980, 1890, 1440, 40));
                 const respawnArea = this.#findRespawnArea(entityList, respawnId);
-                player = new Player(80, 1850);
+                player = new Player(80, 1850, respawnArea);
                 break;
             }
             default:
