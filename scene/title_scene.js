@@ -90,10 +90,18 @@ class TitleScene extends Scene {
                 break;
             }
             case "x": {
+                let totalTime = 0;
                 if (this.#currentMode === "saisyo") {
                     this.#respawnId = -1;
                 }
-                SceneManager.start(new GameScene(this.#respawnId));
+                // 実質、this.#currentMode === "tuduki"と同じ
+                else {
+                    const strTotalTime = Cookies.get("total_time");
+                    if (strTotalTime !== undefined) {
+                        totalTime = Number(strTotalTime);
+                    }
+                }
+                SceneManager.start(new GameScene(this.#respawnId, totalTime));
                 return;
             }
         }

@@ -14,6 +14,7 @@ class GameScene extends Scene {
     
     #controlsDescriptionDom = null;
     #mapDescriptionDom = null;
+    #saveFunc = null;
     #isMapMode = false;
     #isGhost = false;
     
@@ -58,13 +59,28 @@ class GameScene extends Scene {
             this.#update();
         }, dt * 1000);
 
+        this.#saveFunc = () => {
+            if (this.#player.isGoal) {
+                return;
+            }
+            const totalTime = new Date() - this.#startTime;
+            Cookies.set("total_time", String(totalTime), {expires: 365});
+        };
+        window.addEventListener("beforeunload", this.#saveFunc);
+        window.addEventListener("popstate", this.#saveFunc);
+
         this.#startTime = new Date();
+        if (this.#totalTime > 0) {
+            this.#startTime.setTime(this.#startTime.getTime() - this.#totalTime);
+        }
     }
 
     onEnd() {
         clearInterval(this.#timerId);
         this.#controlsDescriptionDom.innerText = "";
         this.#mapDescriptionDom.innerText = "";
+        window.removeEventListener("beforeunload", this.#saveFunc);
+        window.removeEventListener("popstate", this.#saveFunc);
     }
 
     onKeyDown(e) {
