@@ -86,16 +86,20 @@ class TitleScene extends Scene {
 
         let saisyoText = "最初から";
         let tudukiText = "続きから";
+        let saisyoStrokeStyle = "#FFFFFF";
+        let tudukiStrokeStyle = "#FFFFFF";
 
         if (this.#currentMode === "saisyo") {
             saisyoText = `> ${saisyoText} <`;
+            saisyoStrokeStyle = "#FFFF99";
         }
         else if (this.#currentMode === "tuduki") {
             tudukiText = `> ${tudukiText} <`;
+            tudukiStrokeStyle = "#FFFF99";
         }
         
         this.#context.font = "32px sans-serif";
-        this.#context.strokeStyle = "#FFFFFF";
+        this.#context.strokeStyle = saisyoStrokeStyle;
         this.#context.lineWidth = 5;
         const saisyoTextWidth = this.#textWidth(saisyoText);
         this.#context.strokeText(saisyoText, (canvas.width - saisyoTextWidth) / 2, 320);
@@ -104,6 +108,7 @@ class TitleScene extends Scene {
         if (this.#respawnId === -1) {
             this.#context.fillStyle = "#888888";
         }
+        this.#context.strokeStyle = tudukiStrokeStyle;
         const tudukiTextWidth = this.#textWidth(tudukiText);
         this.#context.strokeText(tudukiText, (canvas.width - tudukiTextWidth) / 2, 374);
         this.#context.fillText(tudukiText, (canvas.width - tudukiTextWidth) / 2, 374);
