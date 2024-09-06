@@ -24,5 +24,7 @@ class GoalArea extends RespawnArea {
 
     onCollision() {
         console.log("ゴール！");
+        Cookies.remove("respaon_area_id");
+        Cookies.remove("total_time");
     }
 }
