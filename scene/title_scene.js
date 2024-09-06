@@ -133,6 +133,8 @@ class TitleScene extends Scene {
                 break;
             }
             case "x": {
+                uekibatiBreakSound.play();
+                
                 let totalTime = 0;
                 if (this.#currentMode === "saisyo") {
                     this.#respawnId = -1;
