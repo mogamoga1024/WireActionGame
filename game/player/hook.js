@@ -38,7 +38,7 @@ class Hook {
         this.#vx = this.#v * Math.cos(radian);
         this.#vy = -1 * this.#v * Math.sin(radian);
         this.#ohanaImage = new Image();
-        this.#ohanaImage.src = "images/お花.png";
+        this.#ohanaImage.src = "assets/お花.png";
     }
 
     draw(context, viewport) {

@@ -2,15 +2,15 @@
 // 画像先読み
 {
     const iamge = new Image();
-    iamge.src = "images/植木鉢くんL.png";
+    iamge.src = "assets/植木鉢くんL.png";
 }
 {
     const iamge = new Image();
-    iamge.src = "images/植木鉢くんR.png";
+    iamge.src = "assets/植木鉢くんR.png";
 }
 {
     const iamge = new Image();
-    iamge.src = "images/お花.png";
+    iamge.src = "assets/お花.png";
 }
 
 // Canvas設定

@@ -74,9 +74,9 @@ class Player {
         this.#isGoal = isGoal;
 
         this.#uekibatiLImage = new Image();
-        this.#uekibatiLImage.src = "images/植木鉢くんL.png";
+        this.#uekibatiLImage.src = "assets/植木鉢くんL.png";
         this.#uekibatiRImage = new Image();
-        this.#uekibatiRImage.src = "images/植木鉢くんR.png";
+        this.#uekibatiRImage.src = "assets/植木鉢くんR.png";
     }
 
     draw(context, viewport) {

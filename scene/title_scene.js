@@ -27,7 +27,7 @@ class TitleScene extends Scene {
         this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定"
 
         this.#backgroundImage = new Image();
-        this.#backgroundImage.src = "images/植木鉢くんの悲劇.png";
+        this.#backgroundImage.src = "assets/植木鉢くんの悲劇.png";
         await new Promise(resolve => {
             this.#backgroundImage.onload = () => {
                 resolve();
