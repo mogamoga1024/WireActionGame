@@ -304,8 +304,18 @@ class GameScene extends Scene {
 
         this.#context.restore();
 
-        if (this.#player.isGoal) {
+        if (this.#player.isGoal && this.#goalTime === -1) {
             this.#goalTime = time;
+            const strOldGoalTime = Cookies.get("goal_time");
+            if (strOldGoalTime === undefined) {
+                Cookies.set("goal_time", String(time), {expires: 365});
+            }
+            else {
+                const oldGoalTime = Number(strOldGoalTime);
+                if (time < oldGoalTime) {
+                    Cookies.set("goal_time", String(time), {expires: 365});
+                }
+            }
         }
     }
 }

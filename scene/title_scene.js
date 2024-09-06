@@ -3,6 +3,7 @@ class TitleScene extends Scene {
     #controlsDescriptionDom = null;
     #currentMode = "saisyo";
     #respawnId = -1;
+    #goalTime = -1;
     #canvas = null;
     #context = null;
 
@@ -15,6 +16,11 @@ class TitleScene extends Scene {
         if (strRespawnId !== undefined) {
             this.#respawnId = Number(strRespawnId);
             this.#currentMode = "tuduki";
+        }
+
+        const strGoalTime = Cookies.get("goal_time");
+        if (strGoalTime !== undefined) {
+            this.#goalTime = Number(strGoalTime);
         }
         
         this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定"
@@ -30,12 +36,13 @@ class TitleScene extends Scene {
     #update() {
         this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
 
+        this.#context.textBaseline = "top";
         {
             const titleText = "植木鉢くんの";
             this.#context.font = "48px sans-serif";
             this.#context.fillStyle = "#000000";
             const titleTextWidth = this.#textWidth(titleText);
-            this.#context.fillText(titleText, (canvas.width - titleTextWidth) / 2, 128);
+            this.#context.fillText(titleText, (canvas.width - titleTextWidth) / 2, 114);
         }
 
         {
@@ -43,7 +50,13 @@ class TitleScene extends Scene {
             this.#context.font = "48px sans-serif";
             this.#context.fillStyle = "#000000";
             const titleTextWidth = this.#textWidth(titleText);
-            this.#context.fillText(titleText, (canvas.width - titleTextWidth) / 2, 192);
+            this.#context.fillText(titleText, (canvas.width - titleTextWidth) / 2, 178);
+        }
+
+        if (this.#goalTime !== -1) {
+            const goalTimeText = "クリア時間 " + formatMilliseconds(this.#goalTime);
+            this.#context.font = "30px sans-serif";
+            this.#context.fillText(goalTimeText, 20, 20);
         }
 
         let saisyoText = "最初から";
@@ -58,13 +71,13 @@ class TitleScene extends Scene {
         
         this.#context.font = "32px sans-serif";
         const saisyoTextWidth = this.#textWidth(saisyoText);
-        this.#context.fillText(saisyoText, (canvas.width - saisyoTextWidth) / 2, 300);
+        this.#context.fillText(saisyoText, (canvas.width - saisyoTextWidth) / 2, 320);
 
         if (this.#respawnId === -1) {
             this.#context.fillStyle = "#888888";
         }
         const tudukiTextWidth = this.#textWidth(tudukiText);
-        this.#context.fillText(tudukiText, (canvas.width - tudukiTextWidth) / 2, 360);
+        this.#context.fillText(tudukiText, (canvas.width - tudukiTextWidth) / 2, 374);
     }
 
     onEnd() {
