@@ -40,7 +40,8 @@ class Player {
     #respawnArea = null;
     #isGoal = false;
     get isGoal() { return this.#isGoal; }
-    #uekibatiImage = null;
+    #uekibatiLImage = null;
+    #uekibatiRImage = null;
 
     #x = 0; #prevX = 0;
     get x() { return this.#x; }
@@ -71,8 +72,10 @@ class Player {
             this.#respawnArea = new RespawnArea(this.#x, this.#y, this.#width, this.#height);
         }
 
-        this.#uekibatiImage = new Image();
-        this.#uekibatiImage.src = "images/植木鉢くん.png";
+        this.#uekibatiLImage = new Image();
+        this.#uekibatiLImage.src = "images/植木鉢くんL.png";
+        this.#uekibatiRImage = new Image();
+        this.#uekibatiRImage.src = "images/植木鉢くんR.png";
     }
 
     draw(context, viewport) {
@@ -87,28 +90,23 @@ class Player {
 
         if (this.#hook !== null) {
             context.beginPath();
+            context.strokeStyle = "#0ED145";
+            context.lineWidth = 2;
             context.moveTo(this.centerX + ox, this.centerY + oy);
             context.lineTo(this.#hook.centerX + ox, this.#hook.centerY + oy);
             context.stroke();
             this.#hook.draw(context, viewport);
         }
 
-        // todo 画像に置き換え
-
-        context.beginPath();
-        context.rect(this.#x + ox, this.#y + oy, this.#width, this.#height);
-        context.fillStyle = "blue";
-        context.fill();
-
-        context.beginPath();
+        let uekibatiImage = null;
         if (this.#direction === "left") {
-            context.rect(this.#x + ox, this.#y + 10 + oy, 10, 10);
+            uekibatiImage = this.#uekibatiLImage;
         }
-        else if (this.#direction === "right") {
-            context.rect(this.#x + this.#width - 10 + ox, this.#y + 10 + oy, 10, 10);
+        else {
+            uekibatiImage = this.#uekibatiRImage;
         }
-        context.fillStyle = "yellow";
-        context.fill();
+        const diffY = (uekibatiImage.naturalHeight - uekibatiImage.naturalWidth) * (this.#width / uekibatiImage.naturalWidth);
+        context.drawImage(uekibatiImage, this.#x + ox, this.#y - diffY + oy, this.#width, this.#height + diffY);
 
         context.globalAlpha = 1;
     }

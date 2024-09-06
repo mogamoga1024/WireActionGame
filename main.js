@@ -1,7 +1,17 @@
 
 // 画像先読み
-const iamge = new Image();
-iamge.src = "images/植木鉢くん.png";
+{
+    const iamge = new Image();
+    iamge.src = "images/植木鉢くんL.png";
+}
+{
+    const iamge = new Image();
+    iamge.src = "images/植木鉢くんR.png";
+}
+{
+    const iamge = new Image();
+    iamge.src = "images/お花.png";
+}
 
 // Canvas設定
 const canvas = document.querySelector("canvas");

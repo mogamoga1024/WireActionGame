@@ -27,6 +27,7 @@ class Hook {
     #canStuck = true;
     #actStatus = "moving";
     get actStatus() { return this.#actStatus; }
+    #ohanaImage = null;
     
     constructor(player, radian) {
         this.#player = player;
@@ -36,16 +37,16 @@ class Hook {
         this.#prevY = this.#y;
         this.#vx = this.#v * Math.cos(radian);
         this.#vy = -1 * this.#v * Math.sin(radian);
+        this.#ohanaImage = new Image();
+        this.#ohanaImage.src = "images/お花.png";
     }
 
     draw(context, viewport) {
         const ox =  viewport.offsetX;
         const oy =  viewport.offsetY;
 
-        context.beginPath();
-        context.rect(this.#x + ox, this.#y + oy, this.#width, this.#height);
-        context.fillStyle = "black";
-        context.fill();
+        const d = 10;
+        context.drawImage(this.#ohanaImage, this.#x - d/2 + ox, this.#y - d/2 + oy, this.#width + d, this.#height + d);
     }
 
     // 戻り値：フックを消去するべきか
