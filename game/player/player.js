@@ -57,7 +57,7 @@ class Player {
     #centerX(x) { return x + this.#width / 2; }
     #centerY(y) { return y + this.#height / 2; }
 
-    constructor(x, y, respawnArea) {
+    constructor(x, y, respawnArea, isGoal = false) {
         if (respawnArea != null) {
             const x = respawnArea.centerX - this.#width / 2;
             const y = respawnArea.centerY - this.#height / 2;
@@ -71,6 +71,7 @@ class Player {
             this.#prevY = this.#y = y;
             this.#respawnArea = new RespawnArea(this.#x, this.#y, this.#width, this.#height);
         }
+        this.#isGoal = isGoal;
 
         this.#uekibatiLImage = new Image();
         this.#uekibatiLImage.src = "images/植木鉢くんL.png";
@@ -558,7 +559,7 @@ class Player {
     }
 
     nextPlayer() {
-        return new Player(0, 0, this.#respawnArea);
+        return new Player(0, 0, this.#respawnArea, this.#isGoal);
     }
 
     // 戻り値：次のactStatus
