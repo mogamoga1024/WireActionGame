@@ -1,13 +1,14 @@
 
 class TitleScene extends Scene {
     #controlsDescriptionDom = null;
+    #canvas = null;
+    #context = null;
     #currentMode = "saisyo";
     #respawnId = -1;
     #goalTime = -1;
-    #canvas = null;
-    #context = null;
+    #backgroundImage = null;
 
-    onStart() {
+    async onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
         this.#canvas = document.querySelector("canvas");
         this.#context = canvas.getContext("2d");
@@ -25,6 +26,17 @@ class TitleScene extends Scene {
         
         this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定"
 
+        this.#backgroundImage = new Image();
+        this.#backgroundImage.src = "images/植木鉢くんの悲劇.png";
+        await new Promise(resolve => {
+            this.#backgroundImage.onload = () => {
+                resolve();
+            };
+            this.#backgroundImage.onerror = () => {
+                resolve();
+            };
+        });
+
         this.#update();
     }
 
@@ -36,12 +48,19 @@ class TitleScene extends Scene {
     #update() {
         this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
 
+        this.#context.globalAlpha = 0.8;
+        this.#context.drawImage(this.#backgroundImage, 0, 0, this.#canvas.width, this.#canvas.height);
+        this.#context.globalAlpha = 1;
+
         this.#context.textBaseline = "top";
         {
             const titleText = "植木鉢くんの";
             this.#context.font = "48px sans-serif";
             this.#context.fillStyle = "#000000";
+            this.#context.strokeStyle = "#FFFFFF";
+            this.#context.lineWidth = 5;
             const titleTextWidth = this.#textWidth(titleText);
+            this.#context.strokeText(titleText, (canvas.width - titleTextWidth) / 2, 114);
             this.#context.fillText(titleText, (canvas.width - titleTextWidth) / 2, 114);
         }
 
@@ -49,13 +68,19 @@ class TitleScene extends Scene {
             const titleText = "苦行系ワイヤーアクション";
             this.#context.font = "48px sans-serif";
             this.#context.fillStyle = "#000000";
+            this.#context.strokeStyle = "#FFFFFF";
+            this.#context.lineWidth = 5;
             const titleTextWidth = this.#textWidth(titleText);
+            this.#context.strokeText(titleText, (canvas.width - titleTextWidth) / 2, 178);
             this.#context.fillText(titleText, (canvas.width - titleTextWidth) / 2, 178);
         }
 
         if (this.#goalTime !== -1) {
             const goalTimeText = "クリア時間 " + formatMilliseconds(this.#goalTime);
             this.#context.font = "30px sans-serif";
+            this.#context.strokeStyle = "#FFFFFF";
+            this.#context.lineWidth = 5;
+            this.#context.strokeText(goalTimeText, 20, 20);
             this.#context.fillText(goalTimeText, 20, 20);
         }
 
@@ -70,13 +95,17 @@ class TitleScene extends Scene {
         }
         
         this.#context.font = "32px sans-serif";
+        this.#context.strokeStyle = "#FFFFFF";
+        this.#context.lineWidth = 5;
         const saisyoTextWidth = this.#textWidth(saisyoText);
+        this.#context.strokeText(saisyoText, (canvas.width - saisyoTextWidth) / 2, 320);
         this.#context.fillText(saisyoText, (canvas.width - saisyoTextWidth) / 2, 320);
 
         if (this.#respawnId === -1) {
             this.#context.fillStyle = "#888888";
         }
         const tudukiTextWidth = this.#textWidth(tudukiText);
+        this.#context.strokeText(tudukiText, (canvas.width - tudukiTextWidth) / 2, 374);
         this.#context.fillText(tudukiText, (canvas.width - tudukiTextWidth) / 2, 374);
     }
 
