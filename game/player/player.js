@@ -40,6 +40,7 @@ class Player {
     #respawnArea = null;
     #isGoal = false;
     get isGoal() { return this.#isGoal; }
+    #uekibatiImage = null;
 
     #x = 0; #prevX = 0;
     get x() { return this.#x; }
@@ -69,6 +70,9 @@ class Player {
             this.#prevY = this.#y = y;
             this.#respawnArea = new RespawnArea(this.#x, this.#y, this.#width, this.#height);
         }
+
+        this.#uekibatiImage = new Image();
+        this.#uekibatiImage.src = "images/植木鉢くん.png";
     }
 
     draw(context, viewport) {
