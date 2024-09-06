@@ -14,6 +14,7 @@ class TitleScene extends Scene {
         const strRespawnId = Cookies.get("respaon_area_id");
         if (strRespawnId !== undefined) {
             this.#respawnId = Number(strRespawnId);
+            this.#currentMode = "tuduki";
         }
         
         this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定"
