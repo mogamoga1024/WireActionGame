@@ -860,6 +860,7 @@ class Player {
         else {
             // ゴール！
             this.#isGoal = true;
+            this.#respawnArea = entity;
             entity.onCollision();
         }
         return "unknown";
