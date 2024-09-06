@@ -13,6 +13,9 @@
     iamge.src = "assets/お花.png";
 }
 
+// 音
+const uekibatiBreakSound = new Sound("assets/大破.mp3");
+
 // Canvas設定
 const canvas = document.querySelector("canvas");
 canvas.width = 800;

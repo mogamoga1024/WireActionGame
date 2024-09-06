@@ -11,6 +11,7 @@ class DeathBlock extends UnstickableBlock {
     }
 
     onCollision(player, status) {
+        uekibatiBreakSound.play();
         super.onCollision(player, status);
         player.die();
     }
