@@ -60,8 +60,7 @@ class TitleScene extends Scene {
             this.#context.strokeStyle = "#FFFFFF";
             this.#context.lineWidth = 5;
             const titleTextWidth = this.#textWidth(titleText);
-            this.#context.strokeText(titleText, (canvas.width - titleTextWidth) / 2, 114);
-            this.#context.fillText(titleText, (canvas.width - titleTextWidth) / 2, 114);
+            drawStrokeText(this.#context, titleText, (canvas.width - titleTextWidth) / 2, 114);
         }
 
         {
@@ -71,8 +70,7 @@ class TitleScene extends Scene {
             this.#context.strokeStyle = "#FFFFFF";
             this.#context.lineWidth = 5;
             const titleTextWidth = this.#textWidth(titleText);
-            this.#context.strokeText(titleText, (canvas.width - titleTextWidth) / 2, 178);
-            this.#context.fillText(titleText, (canvas.width - titleTextWidth) / 2, 178);
+            drawStrokeText(this.#context, titleText, (canvas.width - titleTextWidth) / 2, 178);
         }
 
         if (this.#goalTime !== -1) {
@@ -80,8 +78,7 @@ class TitleScene extends Scene {
             this.#context.font = "30px sans-serif";
             this.#context.strokeStyle = "#FFFFFF";
             this.#context.lineWidth = 5;
-            this.#context.strokeText(goalTimeText, 20, 20);
-            this.#context.fillText(goalTimeText, 20, 20);
+            drawStrokeText(this.#context, goalTimeText, 20, 20);
         }
 
         let saisyoText = "最初から";
@@ -102,16 +99,14 @@ class TitleScene extends Scene {
         this.#context.strokeStyle = saisyoStrokeStyle;
         this.#context.lineWidth = 5;
         const saisyoTextWidth = this.#textWidth(saisyoText);
-        this.#context.strokeText(saisyoText, (canvas.width - saisyoTextWidth) / 2, 320);
-        this.#context.fillText(saisyoText, (canvas.width - saisyoTextWidth) / 2, 320);
+        drawStrokeText(this.#context, saisyoText, (canvas.width - saisyoTextWidth) / 2, 320);
 
         if (this.#respawnId === -1) {
             this.#context.fillStyle = "#888888";
         }
         this.#context.strokeStyle = tudukiStrokeStyle;
         const tudukiTextWidth = this.#textWidth(tudukiText);
-        this.#context.strokeText(tudukiText, (canvas.width - tudukiTextWidth) / 2, 374);
-        this.#context.fillText(tudukiText, (canvas.width - tudukiTextWidth) / 2, 374);
+        drawStrokeText(this.#context, tudukiText, (canvas.width - tudukiTextWidth) / 2, 374);
     }
 
     onEnd() {

@@ -299,8 +299,7 @@ class GameScene extends Scene {
         this.#context.fillStyle = "#000000";
         this.#context.strokeStyle = "#FFFFFF";
         this.#context.lineWidth = 5;
-        this.#context.strokeText(timeText, 20, 20);
-        this.#context.fillText(timeText, 20, 20);
+        drawStrokeText(this.#context, timeText, 20, 20);
 
         this.#context.restore();
 

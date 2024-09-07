@@ -3,6 +3,11 @@ function rad2deg(radian) {
     return radian * (180 / Math.PI);
 }
 
+function drawStrokeText(context, text, x, y) {
+    context.strokeText(text, x, y);
+    context.fillText(text, x, y);
+}
+
 function formatMilliseconds(ms) {
     // 時間、分、秒、ミリ秒を計算
     const hours = Math.floor(ms / 3600000);
