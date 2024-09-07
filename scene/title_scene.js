@@ -23,8 +23,6 @@ class TitleScene extends Scene {
         if (strGoalTime !== undefined) {
             this.#goalTime = Number(strGoalTime);
         }
-        
-        this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定"
 
         this.#backgroundImage = new Image();
         this.#backgroundImage.src = "assets/植木鉢くんの悲劇.png";
@@ -87,26 +85,24 @@ class TitleScene extends Scene {
         let tudukiStrokeStyle = "#FFFFFF";
 
         if (this.#currentMode === "saisyo") {
-            saisyoText = `> ${saisyoText} <`;
+            saisyoText += " (Xキー)";
             saisyoStrokeStyle = "#FFFF99";
         }
         else if (this.#currentMode === "tuduki") {
-            tudukiText = `> ${tudukiText} <`;
+            tudukiText += " (Xキー)";
             tudukiStrokeStyle = "#FFFF99";
         }
         
         this.#context.font = "32px sans-serif";
         this.#context.strokeStyle = saisyoStrokeStyle;
         this.#context.lineWidth = 5;
-        const saisyoTextWidth = this.#textWidth(saisyoText);
-        drawStrokeText(this.#context, saisyoText, (canvas.width - saisyoTextWidth) / 2, 320);
+        drawStrokeText(this.#context, saisyoText, 270, 320);
 
         if (this.#respawnId === -1) {
             this.#context.fillStyle = "#888888";
         }
         this.#context.strokeStyle = tudukiStrokeStyle;
-        const tudukiTextWidth = this.#textWidth(tudukiText);
-        drawStrokeText(this.#context, tudukiText, (canvas.width - tudukiTextWidth) / 2, 374);
+        drawStrokeText(this.#context, tudukiText, 270, 374);
     }
 
     onEnd() {
