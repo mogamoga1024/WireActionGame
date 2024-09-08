@@ -24,6 +24,8 @@ class TitleScene extends Scene {
             this.#goalTime = Number(strGoalTime);
         }
 
+        this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定";
+
         this.#backgroundImage = new Image();
         this.#backgroundImage.src = "assets/植木鉢くんの悲劇.png";
         await new Promise(resolve => {
