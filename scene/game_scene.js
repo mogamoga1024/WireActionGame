@@ -15,6 +15,7 @@ class GameScene extends Scene {
     #controlsDescriptionDom = null;
     #mapDescriptionDom = null;
     #helpDescriptionDom = null;
+    #backgroundImage = null;
     #saveFunc = null;
     #isMapMode = false;
     #isGhost = false;
@@ -36,7 +37,7 @@ class GameScene extends Scene {
         this.#totalTime = totalTime;
     }
 
-    onStart() {
+    async onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
         this.#mapDescriptionDom = document.querySelector("#map-description");
         this.#helpDescriptionDom = document.querySelector("#help-description");
@@ -57,9 +58,22 @@ class GameScene extends Scene {
         this.#mapDescriptionDom.innerText = "C:マップ確認モード開始";
         this.#helpDescriptionDom.innerText = "H:ヘルプ";
 
+        this.#backgroundImage = new Image();
+        this.#backgroundImage.src = "assets/虚無.png";
+        await new Promise(resolve => {
+            this.#backgroundImage.onload = () => {
+                resolve();
+            };
+            this.#backgroundImage.onerror = () => {
+                resolve();
+            };
+        });
+
         this.#timerId = setInterval(() => {
-            this.#context.fillStyle = "#EEEEEE";
-            this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
+            this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
+            this.#context.globalAlpha = 0.3;
+            this.#context.drawImage(this.#backgroundImage, 0, 0, this.#canvas.width, this.#canvas.height);
+            this.#context.globalAlpha = 1;
             this.#update();
         }, dt * 1000);
 
