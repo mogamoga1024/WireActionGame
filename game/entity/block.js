@@ -23,7 +23,7 @@ class Block {
 
         context.beginPath();
         context.rect(this.x + ox, this.y + oy, this.width, this.height);
-        context.fillStyle = "skyblue";
+        context.fillStyle = "#00BFFF";
         context.fill();
     }
 

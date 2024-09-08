@@ -92,7 +92,7 @@ class Player {
         if (this.#hook !== null) {
             context.beginPath();
             context.strokeStyle = "#0ED145";
-            context.lineWidth = 2;
+            context.lineWidth = 3;
             context.moveTo(this.centerX + ox, this.centerY + oy);
             context.lineTo(this.#hook.centerX + ox, this.#hook.centerY + oy);
             context.stroke();
