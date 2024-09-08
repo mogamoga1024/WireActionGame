@@ -29,7 +29,7 @@ class RespawnArea extends IDObject {
         context.globalAlpha = 0.4;
 
         context.beginPath();
-        context.rect(this.x + ox, this.y + oy, this.width, this.height);
+        context.roundRect(this.x + ox, this.y + oy, this.width, this.height, 20);
         context.fillStyle = "#32CD32";
         context.fill();
 
