@@ -144,7 +144,7 @@ class GameScene extends Scene {
         this.#player.draw(this.#context, this.#viewport);
     
         this.#updateDescription();
-        this.#updateTimer();
+        this.#updateText();
 
         if (this.#player.isGoal) {
             // todo
@@ -290,7 +290,7 @@ class GameScene extends Scene {
         }
     }
 
-    #updateTimer() {
+    #updateText() {
         this.#context.save();
 
         const time = this.#goalTime === -1 ? new Date() - this.#startTime : this.#goalTime;
@@ -301,6 +301,12 @@ class GameScene extends Scene {
         this.#context.strokeStyle = "#FFFFFF";
         this.#context.lineWidth = 5;
         drawStrokeText(this.#context, timeText, 20, 20);
+
+        const helpText = "HELP! (Hキー)";
+        this.#context.font = "20px sans-serif";
+        this.#context.fillStyle = "#FF0000";
+        this.#context.strokeStyle = "#FFCCCC";
+        drawStrokeText(this.#context, helpText, this.#canvas.width - 160, this.#canvas.height - 40);
 
         this.#context.restore();
 
