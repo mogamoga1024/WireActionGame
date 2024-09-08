@@ -14,6 +14,7 @@ class GameScene extends Scene {
     
     #controlsDescriptionDom = null;
     #mapDescriptionDom = null;
+    #helpDescriptionDom = null;
     #saveFunc = null;
     #isMapMode = false;
     #isGhost = false;
@@ -38,6 +39,7 @@ class GameScene extends Scene {
     onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
         this.#mapDescriptionDom = document.querySelector("#map-description");
+        this.#helpDescriptionDom = document.querySelector("#help-description");
         this.#canvas = document.querySelector("canvas");
         this.#context = this.#canvas.getContext("2d");
 
@@ -53,6 +55,7 @@ class GameScene extends Scene {
 
         this.#updateDescription();
         this.#mapDescriptionDom.innerText = "C:マップ確認モード開始";
+        this.#helpDescriptionDom.innerText = "H:ヘルプ";
 
         this.#timerId = setInterval(() => {
             this.#context.fillStyle = "#EEEEEE";
@@ -81,6 +84,7 @@ class GameScene extends Scene {
         clearInterval(this.#timerId);
         this.#controlsDescriptionDom.innerText = "";
         this.#mapDescriptionDom.innerText = "";
+        this.#helpDescriptionDom.innerText = "";
         window.removeEventListener("beforeunload", this.#saveFunc);
         window.removeEventListener("popstate", this.#saveFunc);
         emitter.off("respawn-area-collision", this.#saveFunc);
