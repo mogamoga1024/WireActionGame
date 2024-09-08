@@ -11,10 +11,12 @@ class SceneManager {
         });
     }
 
-    static start(scene) {
+    static start(scene, rememberCurrentScene = false) {
         if (scene === null) {
             throw new Error("Sceneが未指定");
         }
+
+        // todo rememberCurrentScene
 
         if (this.#scene !== null) {
             this.#scene.onEnd();
@@ -29,5 +31,9 @@ class SceneManager {
 
         scene.onStart();
         this.#scene = scene;
+    }
+
+    static finish() {
+        // todo
     }
 }
