@@ -55,7 +55,8 @@ class GameScene extends Scene {
         this.#mapDescriptionDom.innerText = "C:マップ確認モード開始";
 
         this.#timerId = setInterval(() => {
-            this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
+            this.#context.fillStyle = "#EEEEEE";
+            this.#context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
             this.#update();
         }, dt * 1000);
 

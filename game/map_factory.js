@@ -633,7 +633,7 @@ class MapFactory {
                 throw new Error(`マップがない：${name}`);
         }
 
-        this.#sortBlockList(entityList);
+        this.#sortEntityList(entityList);
         const world = this.#createWorld(entityList, worldHeight);
         this.#addGuardBlock(entityList, world);
         return {player, entityList, world};
@@ -660,14 +660,21 @@ class MapFactory {
         entityList.push(new InvisibleBlock(world.width, 0, 30, world.height));
     }
 
-    static #sortBlockList(entityList) {
-        // Trampolineは先頭
+    static #sortEntityList(entityList) {
+        // Trampolineは先頭 当たり判定を最初にしたいから
+        // GoalAreaは最後 描画処理を最後にしたいから
         entityList.sort((a, b) => {
             if (a.constructor.name === "Trampoline") {
                 return -1;
             }
             if (b.constructor.name === "Trampoline") {
                 return 1;
+            }
+            if (a.constructor.name === "GoalArea") {
+                return 1;
+            }
+            if (b.constructor.name === "GoalArea") {
+                return -1;
             }
             return 0;
         });
