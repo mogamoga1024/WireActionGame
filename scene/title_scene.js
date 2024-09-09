@@ -41,11 +41,6 @@ class TitleScene extends Scene {
         this.#update();
     }
 
-    #textWidth(text) {
-        const measure = this.#context.measureText(text);
-        return measure.width;
-    }
-
     #update() {
         this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
 
@@ -60,12 +55,12 @@ class TitleScene extends Scene {
         this.#context.lineWidth = 5;
         {
             const titleText = "植木鉢くんの";
-            const titleTextWidth = this.#textWidth(titleText);
+            const titleTextWidth = calcTextWidth(this.#context, titleText);
             drawStrokeText(this.#context, titleText, (canvas.width - titleTextWidth) / 2, 114);
         }
         {
             const titleText = "苦行系ワイヤーアクション";
-            const titleTextWidth = this.#textWidth(titleText);
+            const titleTextWidth = calcTextWidth(this.#context, titleText);
             drawStrokeText(this.#context, titleText, (canvas.width - titleTextWidth) / 2, 178);
         }
 
@@ -103,12 +98,13 @@ class TitleScene extends Scene {
         drawStrokeText(this.#context, tudukiText, 270, 374);
 
         if (this.#currentMode === "saisyo" && this.#respawnId !== -1) {
-            const text = "！続きからのデータが消えます！";
+            const bikkuri = "！".repeat(this.#xKeyCount + 1);
+            let text = `${bikkuri}続きからのデータが消えます${bikkuri}`;
             this.#context.font = "32px sans-serif";
             this.#context.fillStyle = "#FF0000";
             this.#context.strokeStyle = "#FFFFFF";
             this.#context.lineWidth = 5;
-            const textWidth = this.#textWidth(text);
+            const textWidth = calcTextWidth(this.#context, text);
             drawStrokeText(this.#context, text, (canvas.width - textWidth) / 2, 266);
         }
     }
@@ -127,7 +123,8 @@ class TitleScene extends Scene {
             case "ArrowUp": {
                 e.preventDefault();
                 this.#currentMode = "saisyo";
-                break;
+                this.#update();
+                return;
             }
             case "ArrowDown": {
                 e.preventDefault();
@@ -135,12 +132,14 @@ class TitleScene extends Scene {
                     this.#currentMode = "tuduki";
                 }
                 this.#xKeyCount = 0;
-                break;
+                this.#update();
+                return;
             }
             case "x": {
-                if (this.#currentMode === "saisyo" && this.#respawnId !== -1 && this.#xKeyCount < 1) {
+                if (this.#currentMode === "saisyo" && this.#respawnId !== -1 && this.#xKeyCount < 5) {
                     this.#xKeyCount++;
                     // todo sound 本当？
+                    this.#update();
                     return;
                 }
 
@@ -162,8 +161,6 @@ class TitleScene extends Scene {
                 return;
             }
         }
-
-        this.#update();
     }
     
     onKeyUp(e) {
