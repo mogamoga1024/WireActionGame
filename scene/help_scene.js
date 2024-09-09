@@ -55,7 +55,7 @@ class HelpScene extends Scene {
         this.#context.drawImage(this.#ballImage, -ballWidth/2, -ballHeight/2, ballWidth, ballHeight);
         this.#context.rotate(-this.#ballRadian);
         this.#context.translate(-ballWidth/2 - imageMarginX, -ballHeight/2 - imageMarginY);
-        this.#ballRadian -= 0.1;
+        this.#ballRadian = (this.#ballRadian - 0.1 + Math.PI*2) % (Math.PI*2);
 
         this.#context.font = "20px sans-serif";
         this.#context.fillStyle = "#000000";
