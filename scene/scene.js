@@ -1,5 +1,6 @@
 
 class Scene {
+    prevScene = null;
     onStart() {}
     onEnd() {}
     onResume() {}

@@ -16,10 +16,17 @@ class SceneManager {
             throw new Error("Sceneが未指定");
         }
 
-        // todo rememberCurrentScene
+        if (rememberCurrentScene) {
+            scene.prevScene = this.#scene;
+        }
 
         if (this.#scene !== null) {
-            this.#scene.onEnd();
+            if (rememberCurrentScene) {
+                this.#scene.onStop();
+            }
+            else {
+                this.#scene.onEnd();
+            }
         }
         else {
             this.#init();
@@ -34,6 +41,8 @@ class SceneManager {
     }
 
     static finish() {
-        // todo
+        this.#scene.onEnd();
+        this.#scene = this.#scene.prevScene;
+        this.#scene.onResume();
     }
 }
