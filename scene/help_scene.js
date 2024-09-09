@@ -7,6 +7,7 @@ class HelpScene extends Scene {
     #ballImage = null;
     #timer = 0;
     #ballRadian = 0;
+    #selectedRow = 0;
 
     async onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
@@ -50,18 +51,18 @@ class HelpScene extends Scene {
         // ボール回転
         const ballWidth = uekbtHeight;
         const ballHeight = uekbtHeight;
-        this.#context.translate(ballWidth/2 + imageMarginX, ballHeight/2 + imageMarginY);
+        this.#context.translate(ballWidth/2 + imageMarginX, ballHeight/2 + this.#canvas.height * this.#selectedRow/3 + imageMarginY);
         this.#context.rotate(this.#ballRadian);
         this.#context.drawImage(this.#ballImage, -ballWidth/2, -ballHeight/2, ballWidth, ballHeight);
         this.#context.rotate(-this.#ballRadian);
-        this.#context.translate(-ballWidth/2 - imageMarginX, -ballHeight/2 - imageMarginY);
+        this.#context.translate(-ballWidth/2 - imageMarginX, -ballHeight/2 - this.#canvas.height * this.#selectedRow/3 - imageMarginY);
         this.#ballRadian = (this.#ballRadian - 0.1 + Math.PI*2) % (Math.PI*2);
 
         this.#context.font = "20px sans-serif";
         this.#context.fillStyle = "#000000";
         this.#context.strokeStyle = "#FFFFFF";
         this.#context.lineWidth = 5;
-        drawStrokeText(this.#context, "決定(Xキー) 戻る(Zキー)", lineHeight, 10);
+        drawStrokeText(this.#context, "決定(Xキー) 戻る(Zキー)", 10, 10);
     }
 
     onKeyDown(e) {
@@ -73,12 +74,16 @@ class HelpScene extends Scene {
         switch (e.key) {
             case "ArrowUp": {
                 e.preventDefault();
-                // todo
+                if (this.#selectedRow > 0) {
+                    this.#selectedRow--;
+                }
                 break;
             }
             case "ArrowDown": {
                 e.preventDefault();
-                // todo
+                if (this.#selectedRow < 2) {
+                    this.#selectedRow++;
+                }
                 break;
             }
             case "x": {
