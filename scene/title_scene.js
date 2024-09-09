@@ -53,22 +53,17 @@ class TitleScene extends Scene {
         this.#context.globalAlpha = 1;
 
         this.#context.textBaseline = "top";
+        this.#context.font = "48px sans-serif";
+        this.#context.fillStyle = "#000000";
+        this.#context.strokeStyle = "#FFFFFF";
+        this.#context.lineWidth = 5;
         {
             const titleText = "植木鉢くんの";
-            this.#context.font = "48px sans-serif";
-            this.#context.fillStyle = "#000000";
-            this.#context.strokeStyle = "#FFFFFF";
-            this.#context.lineWidth = 5;
             const titleTextWidth = this.#textWidth(titleText);
             drawStrokeText(this.#context, titleText, (canvas.width - titleTextWidth) / 2, 114);
         }
-
         {
             const titleText = "苦行系ワイヤーアクション";
-            this.#context.font = "48px sans-serif";
-            this.#context.fillStyle = "#000000";
-            this.#context.strokeStyle = "#FFFFFF";
-            this.#context.lineWidth = 5;
             const titleTextWidth = this.#textWidth(titleText);
             drawStrokeText(this.#context, titleText, (canvas.width - titleTextWidth) / 2, 178);
         }
