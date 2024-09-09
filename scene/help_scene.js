@@ -5,6 +5,8 @@ class HelpScene extends Scene {
     #context = null;
     #uekibatiLImage = null;
     #ballImage = null;
+    #timer = 0;
+    #ballRadian = 0;
 
     async onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
@@ -16,17 +18,18 @@ class HelpScene extends Scene {
         this.#uekibatiLImage = await loadImage("assets/植木鉢くんL.png");
         this.#ballImage = await loadImage("assets/バレーボールくん.png");
 
-        this.#update();
+        this.#timer = setInterval(() => {
+            this.#update();
+        }, 1000 / 60);
     }
 
     onEnd() {
+        clearInterval(this.#timer);
         this.#controlsDescriptionDom.innerText = "";
     }
 
     #update() {
         this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
-
-        // todo
 
         const lineHeight = 3;
         this.#context.fillStyle = "#000000";
@@ -37,16 +40,23 @@ class HelpScene extends Scene {
 
         const uekbtHeight = (this.#canvas.height * 1/3 - lineHeight) * 0.7;
         const uekbtWidth = this.#uekibatiLImage.naturalWidth / this.#uekibatiLImage.naturalHeight * uekbtHeight;
-        const ballWidth = uekbtHeight, ballHeight = uekbtHeight;
         const imageMarginX = 50;
         const imageMarginY = this.#canvas.height * 1/3 - lineHeight - uekbtHeight;
         const leftImageX = this.#canvas.width - uekbtWidth - imageMarginX;
-        this.#context.drawImage(this.#ballImage, imageMarginX, imageMarginY, ballWidth, ballHeight);
-        // this.#context.drawImage(this.#hananasiUekibatiRImage, imageMarginX, this.#canvas.height * 1/3 + imageMarginY, uekbtWidth, uekbtHeight);
-        // this.#context.drawImage(this.#hananasiUekibatiRImage, imageMarginX, this.#canvas.height * 2/3 + imageMarginY, uekbtWidth, uekbtHeight);
         this.#context.drawImage(this.#uekibatiLImage, leftImageX, imageMarginY, uekbtWidth, uekbtHeight);
         this.#context.drawImage(this.#uekibatiLImage, leftImageX, this.#canvas.height * 1/3 + imageMarginY, uekbtWidth, uekbtHeight);
         this.#context.drawImage(this.#uekibatiLImage, leftImageX, this.#canvas.height * 2/3 + imageMarginY, uekbtWidth, uekbtHeight);
+
+        // ボール回転
+        const ballWidth = uekbtHeight;
+        const ballHeight = uekbtHeight;
+        // this.#context.drawImage(this.#ballImage, imageMarginX, imageMarginY, ballWidth, ballHeight);
+        this.#context.translate(ballWidth/2, ballHeight/2);
+        this.#context.rotate(this.#ballRadian);
+        this.#context.drawImage(this.#ballImage, -ballWidth/2, -ballHeight/2, ballWidth, ballHeight);
+        this.#context.rotate(-this.#ballRadian);
+        this.#context.translate(-ballWidth/2, -ballHeight/2);
+        this.#ballRadian -= 0.1;
 
         this.#context.font = "20px sans-serif";
         this.#context.fillStyle = "#000000";
