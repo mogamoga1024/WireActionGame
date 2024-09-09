@@ -131,6 +131,7 @@ class TitleScene extends Scene {
                 let totalTime = 0;
                 if (this.#currentMode === "saisyo") {
                     this.#respawnId = -1;
+                    Cookies.remove("respaon_area_id")
                 }
                 // 実質、this.#currentMode === "tuduki"と同じ
                 else {
