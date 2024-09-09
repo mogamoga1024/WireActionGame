@@ -50,12 +50,11 @@ class HelpScene extends Scene {
         // ボール回転
         const ballWidth = uekbtHeight;
         const ballHeight = uekbtHeight;
-        // this.#context.drawImage(this.#ballImage, imageMarginX, imageMarginY, ballWidth, ballHeight);
-        this.#context.translate(ballWidth/2, ballHeight/2);
+        this.#context.translate(ballWidth/2 + imageMarginX, ballHeight/2 + imageMarginY);
         this.#context.rotate(this.#ballRadian);
         this.#context.drawImage(this.#ballImage, -ballWidth/2, -ballHeight/2, ballWidth, ballHeight);
         this.#context.rotate(-this.#ballRadian);
-        this.#context.translate(-ballWidth/2, -ballHeight/2);
+        this.#context.translate(-ballWidth/2 - imageMarginX, -ballHeight/2 - imageMarginY);
         this.#ballRadian -= 0.1;
 
         this.#context.font = "20px sans-serif";
