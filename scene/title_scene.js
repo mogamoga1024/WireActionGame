@@ -7,6 +7,7 @@ class TitleScene extends Scene {
     #respawnId = -1;
     #goalTime = -1;
     #backgroundImage = null;
+    #xKeyCount = 0;
 
     async onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
@@ -100,6 +101,16 @@ class TitleScene extends Scene {
         }
         this.#context.strokeStyle = tudukiStrokeStyle;
         drawStrokeText(this.#context, tudukiText, 270, 374);
+
+        if (this.#currentMode === "saisyo" && this.#respawnId !== -1) {
+            const text = "！続きからのデータが消えます！";
+            this.#context.font = "32px sans-serif";
+            this.#context.fillStyle = "#FF0000";
+            this.#context.strokeStyle = "#FFFFFF";
+            this.#context.lineWidth = 5;
+            const textWidth = this.#textWidth(text);
+            drawStrokeText(this.#context, text, (canvas.width - textWidth) / 2, 266);
+        }
     }
 
     onEnd() {
@@ -123,9 +134,16 @@ class TitleScene extends Scene {
                 if (this.#respawnId !== -1) {
                     this.#currentMode = "tuduki";
                 }
+                this.#xKeyCount = 0;
                 break;
             }
             case "x": {
+                if (this.#currentMode === "saisyo" && this.#respawnId !== -1 && this.#xKeyCount < 1) {
+                    this.#xKeyCount++;
+                    // todo sound 本当？
+                    return;
+                }
+
                 uekibatiBreakSound.play();
                 
                 let totalTime = 0;
