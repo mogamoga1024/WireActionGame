@@ -14,6 +14,14 @@
 }
 {
     const iamge = new Image();
+    iamge.src = "assets/花無し植木鉢くんL.png";
+}
+{
+    const iamge = new Image();
+    iamge.src = "assets/花無し植木鉢くんR.png";
+}
+{
+    const iamge = new Image();
     iamge.src = "assets/お花.png";
 }
 
