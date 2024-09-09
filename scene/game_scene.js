@@ -69,13 +69,7 @@ class GameScene extends Scene {
             };
         });
 
-        this.#timerId = setInterval(() => {
-            this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
-            this.#context.globalAlpha = 0.3;
-            this.#context.drawImage(this.#backgroundImage, 0, 0, this.#canvas.width, this.#canvas.height);
-            this.#context.globalAlpha = 1;
-            this.#update();
-        }, dt * 1000);
+        this.#timerId = this.#startAnimation();
 
         this.#saveFunc = () => {
             if (this.#player.isGoal) {
@@ -102,6 +96,20 @@ class GameScene extends Scene {
         window.removeEventListener("beforeunload", this.#saveFunc);
         window.removeEventListener("popstate", this.#saveFunc);
         emitter.off("respawn-area-collision", this.#saveFunc);
+    }
+
+    onResume() {
+        this.#updateDescription();
+        this.#mapDescriptionDom.innerText = "C:マップ確認モード開始";
+        this.#helpDescriptionDom.innerText = "H:ヘルプ";
+        this.#timerId = this.#startAnimation();
+    }
+
+    onStop() {
+        clearInterval(this.#timerId);
+        this.#controlsDescriptionDom.innerText = "";
+        this.#mapDescriptionDom.innerText = "";
+        this.#helpDescriptionDom.innerText = "";
     }
 
     onKeyDown(e) {
@@ -133,6 +141,9 @@ class GameScene extends Scene {
                 this.#isGhost = !this.#isGhost;
                 break;
             }
+            case "h": {
+                SceneManager.start(new HelpScene(), true);
+            }
         }
     }
 
@@ -145,6 +156,16 @@ class GameScene extends Scene {
             case "x": this.#isPressedX = false; break;
             case "z": this.#isPressedZ = false; break;
         }
+    }
+
+    #startAnimation() {
+        return setInterval(() => {
+            this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
+            this.#context.globalAlpha = 0.3;
+            this.#context.drawImage(this.#backgroundImage, 0, 0, this.#canvas.width, this.#canvas.height);
+            this.#context.globalAlpha = 1;
+            this.#update();
+        }, dt * 1000);
     }
 
     #update() {
