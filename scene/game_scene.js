@@ -58,16 +58,7 @@ class GameScene extends Scene {
         this.#mapDescriptionDom.innerText = "C:マップ確認モード開始";
         this.#helpDescriptionDom.innerText = "H:ヘルプ";
 
-        this.#backgroundImage = new Image();
-        this.#backgroundImage.src = "assets/虚無.png";
-        await new Promise(resolve => {
-            this.#backgroundImage.onload = () => {
-                resolve();
-            };
-            this.#backgroundImage.onerror = () => {
-                resolve();
-            };
-        });
+        this.#backgroundImage = await loadImage("assets/虚無.png");
 
         this.#timerId = this.#startAnimation();
 
