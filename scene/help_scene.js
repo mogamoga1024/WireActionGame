@@ -59,7 +59,7 @@ class HelpScene extends Scene {
         this.#context.fillStyle = "#000000";
         this.#context.strokeStyle = "#FFFFFF";
         this.#context.lineWidth = 5;
-        drawStrokeText(this.#context, "決定(Xキー) 戻る(Zキー)", 20, 20);
+        drawStrokeText(this.#context, "決定(Xキー) 戻る(Zキー)", 20, 10);
     }
 
     onKeyDown(e) {
