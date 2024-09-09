@@ -4,9 +4,7 @@ class HelpScene extends Scene {
     #canvas = null;
     #context = null;
     #uekibatiLImage = null;
-    #uekibatiRImage = null;
     #hananasiUekibatiLImage = null;
-    #hananasiUekibatiRImage = null;
 
     async onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
@@ -16,9 +14,7 @@ class HelpScene extends Scene {
         this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定 Z:戻る";
 
         this.#uekibatiLImage = await loadImage("assets/植木鉢くんL.png");
-        this.#uekibatiRImage = await loadImage("assets/植木鉢くんR.png");
         this.#hananasiUekibatiLImage = await loadImage("assets/花無し植木鉢くんL.png");
-        this.#hananasiUekibatiRImage = await loadImage("assets/花無し植木鉢くんR.png");
 
         this.#update();
     }
