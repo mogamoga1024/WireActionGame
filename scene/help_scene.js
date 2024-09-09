@@ -4,7 +4,7 @@ class HelpScene extends Scene {
     #canvas = null;
     #context = null;
     #uekibatiLImage = null;
-    #hananasiUekibatiLImage = null;
+    #ballImage = null;
 
     async onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
@@ -14,7 +14,7 @@ class HelpScene extends Scene {
         this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定 Z:戻る";
 
         this.#uekibatiLImage = await loadImage("assets/植木鉢くんL.png");
-        this.#hananasiUekibatiLImage = await loadImage("assets/花無し植木鉢くんL.png");
+        this.#ballImage = await loadImage("assets/バレーボールくん.png");
 
         this.#update();
     }
@@ -35,17 +35,18 @@ class HelpScene extends Scene {
         this.#context.rect(0, this.#canvas.height * 3/3 - lineHeight, this.#canvas.width, lineHeight);
         this.#context.fill();
 
-        const imageHeight = (this.#canvas.height * 1/3 - lineHeight) * 0.7;
-        const imageWidth = this.#uekibatiRImage.naturalWidth / this.#uekibatiRImage.naturalHeight * imageHeight;
+        const uekbtHeight = (this.#canvas.height * 1/3 - lineHeight) * 0.7;
+        const uekbtWidth = this.#uekibatiLImage.naturalWidth / this.#uekibatiLImage.naturalHeight * uekbtHeight;
+        const ballWidth = uekbtHeight, ballHeight = uekbtHeight;
         const imageMarginX = 50;
-        const imageMarginY = this.#canvas.height * 1/3 - lineHeight - imageHeight;
-        const leftImageX = this.#canvas.width - imageWidth - imageMarginX;
-        this.#context.drawImage(this.#uekibatiRImage, imageMarginX, imageMarginY, imageWidth, imageHeight);
-        this.#context.drawImage(this.#hananasiUekibatiRImage, imageMarginX, this.#canvas.height * 1/3 + imageMarginY, imageWidth, imageHeight);
-        this.#context.drawImage(this.#hananasiUekibatiRImage, imageMarginX, this.#canvas.height * 2/3 + imageMarginY, imageWidth, imageHeight);
-        this.#context.drawImage(this.#uekibatiLImage, leftImageX, imageMarginY, imageWidth, imageHeight);
-        this.#context.drawImage(this.#hananasiUekibatiLImage, leftImageX, this.#canvas.height * 1/3 + imageMarginY, imageWidth, imageHeight);
-        this.#context.drawImage(this.#hananasiUekibatiLImage, leftImageX, this.#canvas.height * 2/3 + imageMarginY, imageWidth, imageHeight);
+        const imageMarginY = this.#canvas.height * 1/3 - lineHeight - uekbtHeight;
+        const leftImageX = this.#canvas.width - uekbtWidth - imageMarginX;
+        this.#context.drawImage(this.#ballImage, imageMarginX, imageMarginY, ballWidth, ballHeight);
+        // this.#context.drawImage(this.#hananasiUekibatiRImage, imageMarginX, this.#canvas.height * 1/3 + imageMarginY, uekbtWidth, uekbtHeight);
+        // this.#context.drawImage(this.#hananasiUekibatiRImage, imageMarginX, this.#canvas.height * 2/3 + imageMarginY, uekbtWidth, uekbtHeight);
+        this.#context.drawImage(this.#uekibatiLImage, leftImageX, imageMarginY, uekbtWidth, uekbtHeight);
+        this.#context.drawImage(this.#uekibatiLImage, leftImageX, this.#canvas.height * 1/3 + imageMarginY, uekbtWidth, uekbtHeight);
+        this.#context.drawImage(this.#uekibatiLImage, leftImageX, this.#canvas.height * 2/3 + imageMarginY, uekbtWidth, uekbtHeight);
 
         this.#context.font = "20px sans-serif";
         this.#context.fillStyle = "#000000";
