@@ -32,16 +32,17 @@ class HelpScene extends Scene {
 
         // todo
 
+        const lineHeight = 3;
         this.#context.fillStyle = "#000000";
-        this.#context.rect(0, this.#canvas.height * 1/3 - 20, this.#canvas.width, 20);
-        this.#context.rect(0, this.#canvas.height * 2/3 - 20, this.#canvas.width, 20);
-        this.#context.rect(0, this.#canvas.height * 3/3 - 20, this.#canvas.width, 20);
+        this.#context.rect(0, this.#canvas.height * 1/3 - lineHeight, this.#canvas.width, lineHeight);
+        this.#context.rect(0, this.#canvas.height * 2/3 - lineHeight, this.#canvas.width, lineHeight);
+        this.#context.rect(0, this.#canvas.height * 3/3 - lineHeight, this.#canvas.width, lineHeight);
         this.#context.fill();
 
-        const imageHeight = (this.#canvas.height * 1/3 - 20) * 0.7;
+        const imageHeight = (this.#canvas.height * 1/3 - lineHeight) * 0.7;
         const imageWidth = this.#uekibatiRImage.naturalWidth / this.#uekibatiRImage.naturalHeight * imageHeight;
         const imageMarginX = 50;
-        const imageMarginY = this.#canvas.height * 1/3 - 20 - imageHeight;
+        const imageMarginY = this.#canvas.height * 1/3 - lineHeight - imageHeight;
         const leftImageX = this.#canvas.width - imageWidth - imageMarginX;
         this.#context.drawImage(this.#uekibatiRImage, imageMarginX, imageMarginY, imageWidth, imageHeight);
         this.#context.drawImage(this.#hananasiUekibatiRImage, imageMarginX, this.#canvas.height * 1/3 + imageMarginY, imageWidth, imageHeight);
@@ -54,7 +55,7 @@ class HelpScene extends Scene {
         this.#context.fillStyle = "#000000";
         this.#context.strokeStyle = "#FFFFFF";
         this.#context.lineWidth = 5;
-        drawStrokeText(this.#context, "決定(Xキー) 戻る(Zキー)", 20, 10);
+        drawStrokeText(this.#context, "決定(Xキー) 戻る(Zキー)", lineHeight, 10);
     }
 
     onKeyDown(e) {
