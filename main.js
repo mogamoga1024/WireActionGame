@@ -13,6 +13,10 @@
     const iamge = new Image();
     iamge.src = "assets/お花.png";
 }
+for (let angle = 0; angle <= 330; angle += 30) {
+    const iamge = new Image();
+    iamge.src = `assets/回るバレーボールくん/${angle}.png`;
+}
 
 // 音
 const uekibatiBreakSound = new Sound("assets/大破.mp3");
