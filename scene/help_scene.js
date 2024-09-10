@@ -35,31 +35,8 @@ class HelpScene extends Scene {
     }
 
     #startAnimation() {
-        let fpsErrorCount = 0;
         let time1 = performance.now();
-
-        const animation = () => {
-            const time2 = performance.now();
-
-            this.#update();
-            this.#frameCount++;
-
-            const fps = 1000 / (time2 - time1);
-            time1 = time2;
-            if (fps <= 60/2) {
-                console.error(fps);
-            }
-            else {
-                console.log(fps);
-            }
-
-            requestAnimationFrame(animation);
-        }
-        animation();
-
-        return 0;
-
-        return setInterval(async () => {
+        return setInterval(() => {
             const time2 = performance.now();
 
             this.#update();
@@ -69,22 +46,6 @@ class HelpScene extends Scene {
             time1 = time2;
             if (fps <= 60/2) {
                 console.error(fps);
-                fpsErrorCount++;
-                if (fpsErrorCount > 3) {
-                    // fpsErrorCount = 0;
-                    // clearInterval(this.#timer);
-                    // this.#timer = this.#startAnimation();
-
-                    // this.#uekibatiLImage = await loadImage("assets/植木鉢くんL.png");
-                    // this.#ballImage = await loadImage("assets/回るバレーボールくん/0.png");
-                    // let prevImage = this.#ballImage;
-                    // for (let angle = 330; angle >= 30; angle -= 30) {
-                    //     const image = await loadImage(`assets/回るバレーボールくん/${angle}.png`);
-                    //     prevImage.nextImage = image;
-                    //     prevImage = image;
-                    // }
-                    // prevImage.nextImage = this.#ballImage;
-                }
             }
             else {
                 console.log(fps);
@@ -104,21 +65,19 @@ class HelpScene extends Scene {
         this.#context.rect(0, lineBaseY * 3 - lineHeight, this.#canvas.width, lineHeight);
         this.#context.fill();
 
-        // return;
-
-        const uekbtHeight = (this.#canvas.height * 1/3 - lineHeight) * 0.7;
+        const uekbtHeight = (lineBaseY - lineHeight) * 0.7;
         const uekbtWidth = this.#uekibatiLImage.naturalWidth / this.#uekibatiLImage.naturalHeight * uekbtHeight;
         const imageMarginX = 50;
-        const imageMarginY = this.#canvas.height * 1/3 - lineHeight - uekbtHeight;
+        const imageMarginY = lineBaseY - lineHeight - uekbtHeight;
         const leftImageX = this.#canvas.width - uekbtWidth - imageMarginX;
         this.#context.drawImage(this.#uekibatiLImage, leftImageX, imageMarginY, uekbtWidth, uekbtHeight);
-        this.#context.drawImage(this.#uekibatiLImage, leftImageX, this.#canvas.height * 1/3 + imageMarginY, uekbtWidth, uekbtHeight);
-        this.#context.drawImage(this.#uekibatiLImage, leftImageX, this.#canvas.height * 2/3 + imageMarginY, uekbtWidth, uekbtHeight);
+        this.#context.drawImage(this.#uekibatiLImage, leftImageX, lineBaseY + imageMarginY, uekbtWidth, uekbtHeight);
+        this.#context.drawImage(this.#uekibatiLImage, leftImageX, lineBaseY * 2 + imageMarginY, uekbtWidth, uekbtHeight);
 
         // ボール回転
         const ballWidth = uekbtHeight;
         const ballHeight = uekbtHeight;
-        this.#context.drawImage(this.#ballImage, imageMarginX, this.#canvas.height * this.#selectedRow/3 + imageMarginY, ballWidth, ballHeight);
+        this.#context.drawImage(this.#ballImage, imageMarginX, lineBaseY * this.#selectedRow + imageMarginY, ballWidth, ballHeight);
         if (this.#frameCount % 4 === 0) {
             this.#ballImage = this.#ballImage.nextImage;
         }
