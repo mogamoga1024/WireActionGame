@@ -26,25 +26,48 @@ class HelpScene extends Scene {
         }
         prevImage.nextImage = this.#ballImage;
 
+        this.#timer = this.#startAnimation();
+    }
+
+    onEnd() {
+        clearInterval(this.#timer);
+        this.#controlsDescriptionDom.innerText = "";
+    }
+
+    #startAnimation() {
+        let fpsErrorCount = 0;
         let time1 = performance.now();
-        this.#timer = setInterval(() => {
+        return setInterval(async () => {
             const time2 = performance.now();
+
             this.#update();
             this.#frameCount++;
+            
             const fps = 1000 / (time2 - time1);
             if (fps <= 60/2) {
                 console.error(fps);
+                fpsErrorCount++;
+                if (fpsErrorCount > 3) {
+                    // fpsErrorCount = 0;
+                    // clearInterval(this.#timer);
+                    // this.#timer = this.#startAnimation();
+
+                    // this.#uekibatiLImage = await loadImage("assets/植木鉢くんL.png");
+                    // this.#ballImage = await loadImage("assets/回るバレーボールくん/0.png");
+                    // let prevImage = this.#ballImage;
+                    // for (let angle = 330; angle >= 30; angle -= 30) {
+                    //     const image = await loadImage(`assets/回るバレーボールくん/${angle}.png`);
+                    //     prevImage.nextImage = image;
+                    //     prevImage = image;
+                    // }
+                    // prevImage.nextImage = this.#ballImage;
+                }
             }
             else {
                 console.log(fps);
             }
             time1 = time2;
         }, 1000 / 60);
-    }
-
-    onEnd() {
-        clearInterval(this.#timer);
-        this.#controlsDescriptionDom.innerText = "";
     }
 
     #update() {
@@ -75,6 +98,7 @@ class HelpScene extends Scene {
         }
 
         this.#context.font = "20px sans-serif";
+        this.#context.textBaseline = "top";
         this.#context.fillStyle = "#000000";
         this.#context.strokeStyle = "#FFFFFF";
         this.#context.lineWidth = 5;
