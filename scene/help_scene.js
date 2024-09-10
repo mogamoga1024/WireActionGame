@@ -37,6 +37,28 @@ class HelpScene extends Scene {
     #startAnimation() {
         let fpsErrorCount = 0;
         let time1 = performance.now();
+
+        const animation = () => {
+            const time2 = performance.now();
+
+            this.#update();
+            this.#frameCount++;
+
+            const fps = 1000 / (time2 - time1);
+            time1 = time2;
+            if (fps <= 60/2) {
+                console.error(fps);
+            }
+            else {
+                console.log(fps);
+            }
+
+            requestAnimationFrame(animation);
+        }
+        animation();
+
+        return 0;
+
         return setInterval(async () => {
             const time2 = performance.now();
 
@@ -44,6 +66,7 @@ class HelpScene extends Scene {
             this.#frameCount++;
             
             const fps = 1000 / (time2 - time1);
+            time1 = time2;
             if (fps <= 60/2) {
                 console.error(fps);
                 fpsErrorCount++;
@@ -66,19 +89,22 @@ class HelpScene extends Scene {
             else {
                 console.log(fps);
             }
-            time1 = time2;
         }, 1000 / 60);
     }
 
     #update() {
         this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
 
-        const lineHeight = 3;
         this.#context.fillStyle = "#000000";
-        this.#context.rect(0, this.#canvas.height * 1/3 - lineHeight, this.#canvas.width, lineHeight);
-        this.#context.rect(0, this.#canvas.height * 2/3 - lineHeight, this.#canvas.width, lineHeight);
-        this.#context.rect(0, this.#canvas.height * 3/3 - lineHeight, this.#canvas.width, lineHeight);
+        const lineHeight = 3;
+        const lineBaseY = Math.floor(this.#canvas.height / 3);
+        this.#context.beginPath();
+        this.#context.rect(0, lineBaseY * 1 - lineHeight, this.#canvas.width, lineHeight);
+        this.#context.rect(0, lineBaseY * 2 - lineHeight, this.#canvas.width, lineHeight);
+        this.#context.rect(0, lineBaseY * 3 - lineHeight, this.#canvas.width, lineHeight);
         this.#context.fill();
+
+        // return;
 
         const uekbtHeight = (this.#canvas.height * 1/3 - lineHeight) * 0.7;
         const uekbtWidth = this.#uekibatiLImage.naturalWidth / this.#uekibatiLImage.naturalHeight * uekbtHeight;
