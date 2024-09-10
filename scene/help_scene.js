@@ -19,8 +19,18 @@ class HelpScene extends Scene {
         this.#uekibatiLImage = await loadImage("assets/植木鉢くんL.png");
         this.#ballImage = await loadImage("assets/バレーボールくん.png");
 
+        let time1 = performance.now();
         this.#timer = setInterval(() => {
+            const time2 = performance.now();
             this.#update();
+            const fps = 1000 / (time2 - time1);
+            if (fps <= 30/2) {
+                console.error(fps);
+            }
+            else {
+                console.log(fps);
+            }
+            time1 = time2;
         }, 1000 / 30);
     }
 
@@ -49,14 +59,14 @@ class HelpScene extends Scene {
         this.#context.drawImage(this.#uekibatiLImage, leftImageX, this.#canvas.height * 2/3 + imageMarginY, uekbtWidth, uekbtHeight);
 
         // ボール回転
-        const ballWidth = uekbtHeight;
-        const ballHeight = uekbtHeight;
-        this.#context.translate(ballWidth/2 + imageMarginX, ballHeight/2 + this.#canvas.height * this.#selectedRow/3 + imageMarginY);
-        this.#context.rotate(this.#ballRadian);
-        this.#context.drawImage(this.#ballImage, -ballWidth/2, -ballHeight/2, ballWidth, ballHeight);
-        this.#context.rotate(-this.#ballRadian);
-        this.#context.translate(-ballWidth/2 - imageMarginX, -ballHeight/2 - this.#canvas.height * this.#selectedRow/3 - imageMarginY);
-        this.#ballRadian = (this.#ballRadian - 0.2 + Math.PI*2) % (Math.PI*2);
+        // const ballWidth = uekbtHeight;
+        // const ballHeight = uekbtHeight;
+        // this.#context.save();
+        // this.#context.translate(ballWidth/2 + imageMarginX, ballHeight/2 + this.#canvas.height * this.#selectedRow/3 + imageMarginY);
+        // this.#context.rotate(this.#ballRadian);
+        // this.#context.drawImage(this.#ballImage, -ballWidth/2, -ballHeight/2, ballWidth, ballHeight);
+        // this.#context.restore()
+        // this.#ballRadian = (this.#ballRadian - 0.2 + Math.PI*2) % (Math.PI*2);
 
         this.#context.font = "20px sans-serif";
         this.#context.fillStyle = "#000000";
