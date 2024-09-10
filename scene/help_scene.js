@@ -26,9 +26,19 @@ class HelpScene extends Scene {
         }
         prevImage.nextImage = this.#ballImage;
 
+        let time1 = performance.now();
         this.#timer = setInterval(() => {
+            const time2 = performance.now();
             this.#update();
             this.#frameCount++;
+            const fps = 1000 / (time2 - time1);
+            if (fps <= 60/2) {
+                console.error(fps);
+            }
+            else {
+                console.log(fps);
+            }
+            time1 = time2;
         }, 1000 / 60);
     }
 
