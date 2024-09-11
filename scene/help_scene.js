@@ -7,7 +7,7 @@ class HelpScene extends Scene {
     #ballImage = null;
     #timer = 0;
     #selectedRow = 0;
-    #frameCount = 0;
+    #ballRadian = 0;
 
     async onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
@@ -17,15 +17,7 @@ class HelpScene extends Scene {
         this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定 Z:戻る";
 
         this.#uekibatiLImage = await loadImage("assets/植木鉢くんL.png");
-        this.#ballImage = await loadImage("assets/回るバレーボールくん/0.png");
-        let prevImage = this.#ballImage;
-        for (let angle = 330; angle >= 30; angle -= 30) {
-            const image = await loadImage(`assets/回るバレーボールくん/${angle}.png`);
-            prevImage.nextImage = image;
-            prevImage = image;
-        }
-        prevImage.nextImage = this.#ballImage;
-
+        this.#ballImage = await loadImage("assets/バレーボールくん.png");
         this.#timer = this.#startAnimation();
     }
 
@@ -40,7 +32,6 @@ class HelpScene extends Scene {
             const time2 = performance.now();
 
             this.#update();
-            this.#frameCount++;
             
             const fps = 1000 / (time2 - time1);
             time1 = time2;
@@ -77,10 +68,12 @@ class HelpScene extends Scene {
         // ボール回転
         const ballWidth = uekbtHeight;
         const ballHeight = uekbtHeight;
-        this.#context.drawImage(this.#ballImage, imageMarginX, lineBaseY * this.#selectedRow + imageMarginY, ballWidth, ballHeight);
-        if (this.#frameCount % 4 === 0) {
-            this.#ballImage = this.#ballImage.nextImage;
-        }
+        this.#context.translate(ballWidth/2 + imageMarginX, ballHeight/2 + this.#canvas.height * this.#selectedRow/3 + imageMarginY);
+        this.#context.rotate(this.#ballRadian);
+        this.#context.drawImage(this.#ballImage, -ballWidth/2, -ballHeight/2, ballWidth, ballHeight);
+        this.#context.rotate(-this.#ballRadian);
+        this.#context.translate(-ballWidth/2 - imageMarginX, -ballHeight/2 - this.#canvas.height * this.#selectedRow/3 - imageMarginY);
+        this.#ballRadian = (this.#ballRadian - 0.1 + Math.PI*2) % (Math.PI*2);
 
         this.#context.font = "20px sans-serif";
         this.#context.textBaseline = "top";
