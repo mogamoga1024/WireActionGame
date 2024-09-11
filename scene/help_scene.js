@@ -47,19 +47,20 @@ class HelpScene extends Scene {
     #update() {
         this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
 
-        // 区切り線
-        this.#context.fillStyle = "#000000";
         const lineHeight = 3;
         const lineBaseBottomY = this.#canvas.height / 3;
-        this.#context.beginPath();
-        this.#context.rect(0, lineBaseBottomY * 1 - lineHeight, this.#canvas.width, lineHeight);
-        this.#context.rect(0, lineBaseBottomY * 2 - lineHeight, this.#canvas.width, lineHeight);
-        this.#context.rect(0, lineBaseBottomY * 3 - lineHeight, this.#canvas.width, lineHeight);
-        this.#context.fill();
-
-        // 文字
         const textList = ["操作方法", "ヒント", "プロローグ"];
+        const colorList = ["#3F48CC", "#FFF200", "#FFFFFF"];
         for (let i = 0; i < 3; i++) {
+            // 背景
+            this.#context.beginPath();
+            this.#context.globalAlpha = 0.5;
+            this.#context.fillStyle = colorList[i];
+            this.#context.rect(0, lineBaseBottomY * i, this.#canvas.width, lineBaseBottomY - lineHeight/2);
+            this.#context.fill();
+            this.#context.globalAlpha = 1;
+
+            // 文字
             const text = textList[i];
             this.#context.font = "70px sans-serif";
             this.#context.textBaseline = "top";
@@ -74,9 +75,14 @@ class HelpScene extends Scene {
                 lineBaseBottomY * (i + 1) - lineHeight - textHeight - textMarginBottom
             );
         }
-        // 2段目
         
-        // 3段目
+        // 区切り線
+        this.#context.beginPath();
+        this.#context.fillStyle = "#000000";
+        this.#context.rect(0, lineBaseBottomY * 1 - lineHeight, this.#canvas.width, lineHeight);
+        this.#context.rect(0, lineBaseBottomY * 2 - lineHeight, this.#canvas.width, lineHeight);
+        this.#context.rect(0, lineBaseBottomY * 3 - lineHeight, this.#canvas.width, lineHeight);
+        this.#context.fill();
 
         // 植木鉢くん
         const uekbtHeight = (lineBaseBottomY - lineHeight) * 0.7;
@@ -103,7 +109,7 @@ class HelpScene extends Scene {
         this.#context.fillStyle = "#000000";
         this.#context.strokeStyle = "#FFFFFF";
         this.#context.lineWidth = 5;
-        drawStrokeText(this.#context, "決定(Xキー) 戻る(Zキー)", 10, 10);
+        drawStrokeText(this.#context, "移動(↑↓キー) 決定(Xキー) 戻る(Zキー)", 10, 10);
     }
 
     onKeyDown(e) {
