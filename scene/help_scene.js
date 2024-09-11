@@ -58,7 +58,7 @@ class HelpScene extends Scene {
         const lineBaseBottomY = this.#canvas.height / 3;
         const uekbtIndex = Math.floor(this.#uekibatiTentouFrameCount / 20) % 3;
         const uekbtImage = this.#uekbtImageList[uekbtIndex];
-        const uekbtBaseHeight = (lineBaseBottomY - lineHeight) * 0.7;
+        const uekbtBaseHeight = (lineBaseBottomY - lineHeight) * 0.8;
         let uekbtHeight = uekbtImage.naturalHeight * uekbtBaseHeight / this.#uekbtImageList[0].naturalHeight;
         if (uekbtIndex === 1) {
             uekbtHeight *= 1.3;
@@ -69,7 +69,7 @@ class HelpScene extends Scene {
 
         const uekbtWidth = uekbtImage.naturalWidth / uekbtImage.naturalHeight * uekbtHeight;
         const uekbtMarginTop = lineBaseBottomY - lineHeight - uekbtHeight;
-        const leftImageX = this.#canvas.width - 150;
+        const leftImageX = this.#canvas.width - 170;
         const textList = ["操作方法", "ヒント", "プロローグ"];
         const colorList = ["#3F48CC", "#FFF200", "#FFFFFF"];
         for (let i = 0; i < 3; i++) {
@@ -110,7 +110,7 @@ class HelpScene extends Scene {
         const ballWidth = (lineBaseBottomY - lineHeight) * 0.7;;
         const ballHeight = ballWidth;
         const ballMarginLeft = 50;
-        const ballMarginTop = lineBaseBottomY - lineHeight - uekbtBaseHeight;
+        const ballMarginTop = lineBaseBottomY - lineHeight - ballHeight;
         if (this.#isSelected) {
             this.#ballOffsetX += 30;
         }
