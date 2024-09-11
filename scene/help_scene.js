@@ -4,12 +4,15 @@ class HelpScene extends Scene {
     #canvas = null;
     #context = null;
     #uekibatiLImage = null;
+    #uekibatiTentou1 = null;
+    #uekibatiTentou2 = null;
     #ballImage = null;
     #timer = 0;
     #selectedRow = 0;
     #ballRadian = 0;
     #isSelected = false;
     #ballOffsetX = 0;
+    #uekibatiTentouFrameCount = 0;
 
     async onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
@@ -18,7 +21,10 @@ class HelpScene extends Scene {
 
         this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定 Z:戻る";
 
-        this.#uekibatiLImage = await loadImage("assets/植木鉢くんL.png");
+        // this.#uekibatiLImage = await loadImage("assets/植木鉢くんL.png");
+        // this.#uekibatiTentou1 = await loadImage("assets/植木鉢くんの転倒1.png");
+        // this.#uekibatiTentou2 = await loadImage("assets/植木鉢くんの転倒2.png");
+        this.#uekibatiLImage = await loadImage("assets/植木鉢くんの転倒2.png");
         this.#ballImage = await loadImage("assets/バレーボールくん.png");
         this.#timer = this.#startAnimation();
     }
@@ -53,9 +59,8 @@ class HelpScene extends Scene {
         const lineBaseBottomY = this.#canvas.height / 3;
         const uekbtHeight = (lineBaseBottomY - lineHeight) * 0.7;
         const uekbtWidth = this.#uekibatiLImage.naturalWidth / this.#uekibatiLImage.naturalHeight * uekbtHeight;
-        const imageMarginX = 50;
         const imageMarginTop = lineBaseBottomY - lineHeight - uekbtHeight;
-        const leftImageX = this.#canvas.width - uekbtWidth - imageMarginX;
+        const leftImageX = this.#canvas.width - 240;
         const textList = ["操作方法", "ヒント", "プロローグ"];
         const colorList = ["#3F48CC", "#FFF200", "#FFFFFF"];
         for (let i = 0; i < 3; i++) {
@@ -93,16 +98,17 @@ class HelpScene extends Scene {
         }
         
         // バレーボール君
-        const ballWidth = uekbtHeight;
-        const ballHeight = uekbtHeight;
+        const ballWidth = (lineBaseBottomY - lineHeight) * 0.7;;
+        const ballHeight = ballWidth;
+        const ballMarginLeft = 50;
         if (this.#isSelected) {
             this.#ballOffsetX += 30;
         }
-        this.#context.translate(ballWidth/2 + imageMarginX + this.#ballOffsetX, ballHeight/2 + this.#canvas.height * this.#selectedRow/3 + imageMarginTop);
+        this.#context.translate(ballWidth/2 + ballMarginLeft + this.#ballOffsetX, ballHeight/2 + this.#canvas.height * this.#selectedRow/3 + imageMarginTop);
         this.#context.rotate(this.#ballRadian);
         this.#context.drawImage(this.#ballImage, -ballWidth/2, -ballHeight/2, ballWidth, ballHeight);
         this.#context.rotate(-this.#ballRadian);
-        this.#context.translate(-ballWidth/2 - imageMarginX - this.#ballOffsetX, -ballHeight/2 - this.#canvas.height * this.#selectedRow/3 - imageMarginTop);
+        this.#context.translate(-ballWidth/2 - ballMarginLeft - this.#ballOffsetX, -ballHeight/2 - this.#canvas.height * this.#selectedRow/3 - imageMarginTop);
         this.#ballRadian = (this.#ballRadian - 0.1 + Math.PI*2) % (Math.PI*2);
 
         this.#context.font = "20px sans-serif";

@@ -1,6 +1,5 @@
 
 // 画像先読み
-// Playerクラスで使う
 {
     const iamge = new Image();
     iamge.src = "assets/植木鉢くんL.png";
@@ -12,6 +11,14 @@
 {
     const iamge = new Image();
     iamge.src = "assets/お花.png";
+}
+{
+    const iamge = new Image();
+    iamge.src = "assets/植木鉢くんの転倒1.png";
+}
+{
+    const iamge = new Image();
+    iamge.src = "assets/植木鉢くんの転倒2.png";
 }
 {
     const iamge = new Image();
