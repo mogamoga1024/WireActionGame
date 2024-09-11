@@ -47,23 +47,45 @@ class HelpScene extends Scene {
     #update() {
         this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
 
+        // 区切り線
         this.#context.fillStyle = "#000000";
         const lineHeight = 3;
-        const lineBaseY = Math.floor(this.#canvas.height / 3);
+        const lineBaseBottomY = Math.floor(this.#canvas.height / 3);
         this.#context.beginPath();
-        this.#context.rect(0, lineBaseY * 1 - lineHeight, this.#canvas.width, lineHeight);
-        this.#context.rect(0, lineBaseY * 2 - lineHeight, this.#canvas.width, lineHeight);
-        this.#context.rect(0, lineBaseY * 3 - lineHeight, this.#canvas.width, lineHeight);
+        this.#context.rect(0, lineBaseBottomY * 1 - lineHeight, this.#canvas.width, lineHeight);
+        this.#context.rect(0, lineBaseBottomY * 2 - lineHeight, this.#canvas.width, lineHeight);
+        this.#context.rect(0, lineBaseBottomY * 3 - lineHeight, this.#canvas.width, lineHeight);
         this.#context.fill();
 
-        const uekbtHeight = (lineBaseY - lineHeight) * 0.7;
+        // 文字
+        // 1段目
+        {
+            const text = "操作方法";
+            this.#context.font = "32px sans-serif";
+            this.#context.textBaseline = "top";
+            this.#context.fillStyle = "#000000";
+            this.#context.strokeStyle = "#FFFFFF";
+            this.#context.lineWidth = 5;
+            const {width: textWidth, height: textHeight} = this.#context.measureText(text);
+            drawStrokeText(
+                this.#context, text,
+                (this.#canvas.width - textWidth) / 2,
+                lineBaseBottomY * 1 - lineHeight - textHeight
+            );
+        }
+        // 2段目
+        
+        // 3段目
+
+        // 植木鉢くん
+        const uekbtHeight = (lineBaseBottomY - lineHeight) * 0.7;
         const uekbtWidth = this.#uekibatiLImage.naturalWidth / this.#uekibatiLImage.naturalHeight * uekbtHeight;
         const imageMarginX = 50;
-        const imageMarginY = lineBaseY - lineHeight - uekbtHeight;
+        const imageMarginY = lineBaseBottomY - lineHeight - uekbtHeight;
         const leftImageX = this.#canvas.width - uekbtWidth - imageMarginX;
         this.#context.drawImage(this.#uekibatiLImage, leftImageX, imageMarginY, uekbtWidth, uekbtHeight);
-        this.#context.drawImage(this.#uekibatiLImage, leftImageX, lineBaseY + imageMarginY, uekbtWidth, uekbtHeight);
-        this.#context.drawImage(this.#uekibatiLImage, leftImageX, lineBaseY * 2 + imageMarginY, uekbtWidth, uekbtHeight);
+        this.#context.drawImage(this.#uekibatiLImage, leftImageX, lineBaseBottomY + imageMarginY, uekbtWidth, uekbtHeight);
+        this.#context.drawImage(this.#uekibatiLImage, leftImageX, lineBaseBottomY * 2 + imageMarginY, uekbtWidth, uekbtHeight);
 
         // ボール回転
         const ballWidth = uekbtHeight;

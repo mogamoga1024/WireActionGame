@@ -46,12 +46,12 @@ class TitleScene extends Scene {
         this.#context.lineWidth = 5;
         {
             const titleText = "植木鉢くんの";
-            const titleTextWidth = calcTextWidth(this.#context, titleText);
+            const titleTextWidth = this.#context.measureText(titleText).width;
             drawStrokeText(this.#context, titleText, (canvas.width - titleTextWidth) / 2, 114);
         }
         {
             const titleText = "苦行系ワイヤーアクション";
-            const titleTextWidth = calcTextWidth(this.#context, titleText);
+            const titleTextWidth = this.#context.measureText(titleText).width;
             drawStrokeText(this.#context, titleText, (canvas.width - titleTextWidth) / 2, 178);
         }
 
@@ -95,7 +95,7 @@ class TitleScene extends Scene {
             this.#context.fillStyle = "#FF0000";
             this.#context.strokeStyle = "#FFFFFF";
             this.#context.lineWidth = 5;
-            const textWidth = calcTextWidth(this.#context, text);
+            const textWidth = this.#context.measureText(text).width;
             drawStrokeText(this.#context, text, (canvas.width - textWidth) / 2, 266);
         }
     }

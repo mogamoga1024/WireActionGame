@@ -3,11 +3,6 @@ function rad2deg(radian) {
     return radian * (180 / Math.PI);
 }
 
-function calcTextWidth(context, text) {
-    const measure = context.measureText(text);
-    return measure.width;
-}
-
 function drawStrokeText(context, text, x, y) {
     context.strokeText(text, x, y);
     context.fillText(text, x, y);
