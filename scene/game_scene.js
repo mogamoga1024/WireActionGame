@@ -150,9 +150,9 @@ class GameScene extends Scene {
     }
 
     #startAnimation() {
-        let time1 = performance.now();
+        // let time1 = performance.now();
         return setInterval(() => {
-            const time2 = performance.now();
+            // const time2 = performance.now();
 
             this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
             this.#context.globalAlpha = 0.3;
@@ -160,14 +160,14 @@ class GameScene extends Scene {
             this.#context.globalAlpha = 1;
             this.#update();
 
-            const fps = 1000 / (time2 - time1);
-            time1 = time2;
-            if (fps <= 60/2) {
-                console.error(fps);
-            }
-            else {
-                console.log(fps);
-            }
+            // const fps = 1000 / (time2 - time1);
+            // time1 = time2;
+            // if (fps <= 60/2) {
+            //     console.error(fps);
+            // }
+            // else {
+            //     console.log(fps);
+            // }
         }, dt * 1000);
     }
 
