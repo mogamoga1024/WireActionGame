@@ -3,9 +3,7 @@ class HelpScene extends Scene {
     #controlsDescriptionDom = null;
     #canvas = null;
     #context = null;
-    #uekibatiLImage = null;
-    #uekibatiTentou1 = null;
-    #uekibatiTentou2 = null;
+    #uekbtImageList = [];
     #ballImage = null;
     #timer = 0;
     #selectedRow = 0;
@@ -21,10 +19,9 @@ class HelpScene extends Scene {
 
         this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定 Z:戻る";
 
-        // this.#uekibatiLImage = await loadImage("assets/植木鉢くんL.png");
-        // this.#uekibatiTentou1 = await loadImage("assets/植木鉢くんの転倒1.png");
-        // this.#uekibatiTentou2 = await loadImage("assets/植木鉢くんの転倒2.png");
-        this.#uekibatiLImage = await loadImage("assets/植木鉢くんの転倒2.png");
+        this.#uekbtImageList.push(await loadImage("assets/植木鉢くんL.png"));
+        this.#uekbtImageList.push(await loadImage("assets/植木鉢くんの転倒1.png"));
+        this.#uekbtImageList.push(await loadImage("assets/植木鉢くんの転倒2.png"));
         this.#ballImage = await loadImage("assets/バレーボールくん.png");
         this.#timer = this.#startAnimation();
     }
@@ -38,6 +35,8 @@ class HelpScene extends Scene {
         // let time1 = performance.now();
         return setInterval(() => {
             // const time2 = performance.now();
+
+            this.#uekibatiTentouFrameCount++;
 
             this.#update();
             
@@ -57,10 +56,20 @@ class HelpScene extends Scene {
 
         const lineHeight = 3;
         const lineBaseBottomY = this.#canvas.height / 3;
-        const uekbtHeight = (lineBaseBottomY - lineHeight) * 0.7;
-        const uekbtWidth = this.#uekibatiLImage.naturalWidth / this.#uekibatiLImage.naturalHeight * uekbtHeight;
-        const imageMarginTop = lineBaseBottomY - lineHeight - uekbtHeight;
-        const leftImageX = this.#canvas.width - 240;
+        const uekbtIndex = Math.floor(this.#uekibatiTentouFrameCount / 20) % 3;
+        const uekbtImage = this.#uekbtImageList[uekbtIndex];
+        const uekbtBaseHeight = (lineBaseBottomY - lineHeight) * 0.7;
+        let uekbtHeight = uekbtImage.naturalHeight * uekbtBaseHeight / this.#uekbtImageList[0].naturalHeight;
+        if (uekbtIndex === 1) {
+            uekbtHeight *= 1.3;
+        }
+        else if (uekbtIndex === 2) {
+            uekbtHeight *= 1.3;
+        }
+
+        const uekbtWidth = uekbtImage.naturalWidth / uekbtImage.naturalHeight * uekbtHeight;
+        const uekbtMarginTop = lineBaseBottomY - lineHeight - uekbtHeight;
+        const leftImageX = this.#canvas.width - 150;
         const textList = ["操作方法", "ヒント", "プロローグ"];
         const colorList = ["#3F48CC", "#FFF200", "#FFFFFF"];
         for (let i = 0; i < 3; i++) {
@@ -94,21 +103,22 @@ class HelpScene extends Scene {
             this.#context.fill();
 
             // 植木鉢くん
-            this.#context.drawImage(this.#uekibatiLImage, leftImageX, lineBaseBottomY * i + imageMarginTop, uekbtWidth, uekbtHeight);
+            this.#context.drawImage(uekbtImage, leftImageX, lineBaseBottomY * i + uekbtMarginTop, uekbtWidth, uekbtHeight);
         }
         
         // バレーボール君
         const ballWidth = (lineBaseBottomY - lineHeight) * 0.7;;
         const ballHeight = ballWidth;
         const ballMarginLeft = 50;
+        const ballMarginTop = lineBaseBottomY - lineHeight - uekbtBaseHeight;
         if (this.#isSelected) {
             this.#ballOffsetX += 30;
         }
-        this.#context.translate(ballWidth/2 + ballMarginLeft + this.#ballOffsetX, ballHeight/2 + this.#canvas.height * this.#selectedRow/3 + imageMarginTop);
+        this.#context.translate(ballWidth/2 + ballMarginLeft + this.#ballOffsetX, ballHeight/2 + this.#canvas.height * this.#selectedRow/3 + ballMarginTop);
         this.#context.rotate(this.#ballRadian);
         this.#context.drawImage(this.#ballImage, -ballWidth/2, -ballHeight/2, ballWidth, ballHeight);
         this.#context.rotate(-this.#ballRadian);
-        this.#context.translate(-ballWidth/2 - ballMarginLeft - this.#ballOffsetX, -ballHeight/2 - this.#canvas.height * this.#selectedRow/3 - imageMarginTop);
+        this.#context.translate(-ballWidth/2 - ballMarginLeft - this.#ballOffsetX, -ballHeight/2 - this.#canvas.height * this.#selectedRow/3 - ballMarginTop);
         this.#ballRadian = (this.#ballRadian - 0.1 + Math.PI*2) % (Math.PI*2);
 
         this.#context.font = "20px sans-serif";
