@@ -49,6 +49,11 @@ class HelpScene extends Scene {
 
         const lineHeight = 3;
         const lineBaseBottomY = this.#canvas.height / 3;
+        const uekbtHeight = (lineBaseBottomY - lineHeight) * 0.7;
+        const uekbtWidth = this.#uekibatiLImage.naturalWidth / this.#uekibatiLImage.naturalHeight * uekbtHeight;
+        const imageMarginX = 50;
+        const imageMarginTop = lineBaseBottomY - lineHeight - uekbtHeight;
+        const leftImageX = this.#canvas.width - uekbtWidth - imageMarginX;
         const textList = ["操作方法", "ヒント", "プロローグ"];
         const colorList = ["#3F48CC", "#FFF200", "#FFFFFF"];
         for (let i = 0; i < 3; i++) {
@@ -74,26 +79,17 @@ class HelpScene extends Scene {
                 (this.#canvas.width - textWidth) / 2,
                 lineBaseBottomY * (i + 1) - lineHeight - textHeight - textMarginBottom
             );
+
+            // 区切り線
+            this.#context.beginPath();
+            this.#context.fillStyle = "#000000";
+            this.#context.rect(0, lineBaseBottomY * (i + 1) - lineHeight, this.#canvas.width, lineHeight);
+            this.#context.fill();
+
+            // 植木鉢くん
+            this.#context.drawImage(this.#uekibatiLImage, leftImageX, lineBaseBottomY * i + imageMarginTop, uekbtWidth, uekbtHeight);
         }
         
-        // 区切り線
-        this.#context.beginPath();
-        this.#context.fillStyle = "#000000";
-        this.#context.rect(0, lineBaseBottomY * 1 - lineHeight, this.#canvas.width, lineHeight);
-        this.#context.rect(0, lineBaseBottomY * 2 - lineHeight, this.#canvas.width, lineHeight);
-        this.#context.rect(0, lineBaseBottomY * 3 - lineHeight, this.#canvas.width, lineHeight);
-        this.#context.fill();
-
-        // 植木鉢くん
-        const uekbtHeight = (lineBaseBottomY - lineHeight) * 0.7;
-        const uekbtWidth = this.#uekibatiLImage.naturalWidth / this.#uekibatiLImage.naturalHeight * uekbtHeight;
-        const imageMarginX = 50;
-        const imageMarginTop = lineBaseBottomY - lineHeight - uekbtHeight;
-        const leftImageX = this.#canvas.width - uekbtWidth - imageMarginX;
-        this.#context.drawImage(this.#uekibatiLImage, leftImageX, imageMarginTop, uekbtWidth, uekbtHeight);
-        this.#context.drawImage(this.#uekibatiLImage, leftImageX, lineBaseBottomY + imageMarginTop, uekbtWidth, uekbtHeight);
-        this.#context.drawImage(this.#uekibatiLImage, leftImageX, lineBaseBottomY * 2 + imageMarginTop, uekbtWidth, uekbtHeight);
-
         // ボール回転
         const ballWidth = uekbtHeight;
         const ballHeight = uekbtHeight;
