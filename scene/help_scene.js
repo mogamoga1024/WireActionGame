@@ -8,6 +8,8 @@ class HelpScene extends Scene {
     #timer = 0;
     #selectedRow = 0;
     #ballRadian = 0;
+    #isSelected = false;
+    #ballOffsetX = 0;
 
     async onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
@@ -73,7 +75,7 @@ class HelpScene extends Scene {
             this.#context.strokeStyle = "#FFFFFF";
             this.#context.lineWidth = 5;
             const {width: textWidth, height: textHeight} = measureText(this.#context, text);
-            const textMarginBottom = (lineBaseBottomY - textHeight) / 2;
+            const textMarginBottom = (lineBaseBottomY - textHeight) / 2 - 5;
             drawStrokeText(
                 this.#context, text,
                 (this.#canvas.width - textWidth) / 2,
@@ -90,14 +92,17 @@ class HelpScene extends Scene {
             this.#context.drawImage(this.#uekibatiLImage, leftImageX, lineBaseBottomY * i + imageMarginTop, uekbtWidth, uekbtHeight);
         }
         
-        // ボール回転
+        // バレーボール君
         const ballWidth = uekbtHeight;
         const ballHeight = uekbtHeight;
-        this.#context.translate(ballWidth/2 + imageMarginX, ballHeight/2 + this.#canvas.height * this.#selectedRow/3 + imageMarginTop);
+        if (this.#isSelected) {
+            this.#ballOffsetX += 30;
+        }
+        this.#context.translate(ballWidth/2 + imageMarginX + this.#ballOffsetX, ballHeight/2 + this.#canvas.height * this.#selectedRow/3 + imageMarginTop);
         this.#context.rotate(this.#ballRadian);
         this.#context.drawImage(this.#ballImage, -ballWidth/2, -ballHeight/2, ballWidth, ballHeight);
         this.#context.rotate(-this.#ballRadian);
-        this.#context.translate(-ballWidth/2 - imageMarginX, -ballHeight/2 - this.#canvas.height * this.#selectedRow/3 - imageMarginTop);
+        this.#context.translate(-ballWidth/2 - imageMarginX - this.#ballOffsetX, -ballHeight/2 - this.#canvas.height * this.#selectedRow/3 - imageMarginTop);
         this.#ballRadian = (this.#ballRadian - 0.1 + Math.PI*2) % (Math.PI*2);
 
         this.#context.font = "20px sans-serif";
@@ -117,24 +122,23 @@ class HelpScene extends Scene {
         switch (e.key) {
             case "ArrowUp": {
                 e.preventDefault();
-                if (this.#selectedRow > 0) {
+                if (!this.#isSelected && this.#selectedRow > 0) {
                     this.#selectedRow--;
                 }
                 break;
             }
             case "ArrowDown": {
                 e.preventDefault();
-                if (this.#selectedRow < 2) {
+                if (!this.#isSelected && this.#selectedRow < 2) {
                     this.#selectedRow++;
                 }
                 break;
             }
             case "x": {
-                // todo
+                this.#isSelected = true;
                 return;
             }
             case "z": {
-                // todo
                 SceneManager.finish();
                 return;
             }
