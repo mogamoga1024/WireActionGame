@@ -37,5 +37,5 @@ canvas.height = 500;
 const emitter = new TinyEmitter();
 
 // ゲーム開始
-// SceneManager.start(new TitleScene());
-SceneManager.start(new HelpScene());
+SceneManager.start(new TitleScene());
+// SceneManager.start(new HelpScene());
