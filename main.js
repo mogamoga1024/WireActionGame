@@ -14,11 +14,11 @@
 }
 {
     const iamge = new Image();
-    iamge.src = "assets/植木鉢くんの転倒1.png";
+    iamge.src = "assets/植木鉢くんの最期1.png";
 }
 {
     const iamge = new Image();
-    iamge.src = "assets/植木鉢くんの転倒2.png";
+    iamge.src = "assets/植木鉢くんの最期2.png";
 }
 {
     const iamge = new Image();

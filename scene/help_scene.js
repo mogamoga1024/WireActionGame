@@ -20,8 +20,8 @@ class HelpScene extends Scene {
         this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定 Z:戻る";
 
         this.#uekbtImageList.push(await loadImage("assets/植木鉢くんL.png"));
-        this.#uekbtImageList.push(await loadImage("assets/植木鉢くんの転倒1.png"));
-        this.#uekbtImageList.push(await loadImage("assets/植木鉢くんの転倒2.png"));
+        this.#uekbtImageList.push(await loadImage("assets/植木鉢くんの最期1.png"));
+        this.#uekbtImageList.push(await loadImage("assets/植木鉢くんの最期2.png"));
         this.#ballImage = await loadImage("assets/バレーボールくん.png");
         this.#timer = this.#startAnimation();
     }
