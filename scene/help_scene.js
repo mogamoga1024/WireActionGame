@@ -85,18 +85,18 @@ class HelpScene extends Scene {
 
         // 植木鉢くんの設定
         const uekbtIndex = Math.floor(this.#uekibatiTentouFrameCount / 20) % 3;
+        const defaultUekbtImage = this.#uekbtImageList[0];
         const uekbtImage = this.#uekbtImageList[uekbtIndex];
-        const uekbtBaseHeight = (lineBaseBottomY - lineHeight) * 0.8;
-        let uekbtHeight = uekbtImage.naturalHeight * uekbtBaseHeight / this.#uekbtImageList[0].naturalHeight;
-        if (uekbtIndex === 1) {
+        const defaultUekbtHeihgt = (lineBaseBottomY - lineHeight) * 0.8;
+        let uekbtHeight = uekbtImage.naturalHeight * defaultUekbtHeihgt / defaultUekbtImage.naturalHeight;
+        if (uekbtIndex === 1 || uekbtIndex === 2) {
             uekbtHeight *= 1.3;
         }
-        else if (uekbtIndex === 2) {
-            uekbtHeight *= 1.3;
-        }
-
+        const defaultUekbtWidth = defaultUekbtImage.naturalWidth / defaultUekbtImage.naturalHeight * defaultUekbtHeihgt;
         const uekbtWidth = uekbtImage.naturalWidth / uekbtImage.naturalHeight * uekbtHeight;
+        const defaultUekbtMarginTop = lineBaseBottomY - lineHeight - defaultUekbtHeihgt;
         const uekbtMarginTop = lineBaseBottomY - lineHeight - uekbtHeight;
+        const defaultUekbtX = this.#canvas.width - 120 - defaultUekbtWidth/2;
         const uekbtX = this.#canvas.width - 120 - uekbtWidth/2;
         const textList = ["操作方法", "ヒント", "プロローグ"];
         for (let i = 0; i < 3; i++) {
@@ -122,7 +122,12 @@ class HelpScene extends Scene {
             this.#context.fill();
 
             // 植木鉢くん
-            this.#context.drawImage(uekbtImage, uekbtX, lineBaseBottomY * i + uekbtMarginTop, uekbtWidth, uekbtHeight);
+            if (i === this.#selectedRow) {
+                this.#context.drawImage(uekbtImage, uekbtX, lineBaseBottomY * i + uekbtMarginTop, uekbtWidth, uekbtHeight);
+            }
+            else {
+                this.#context.drawImage(defaultUekbtImage, defaultUekbtX, lineBaseBottomY * i + defaultUekbtMarginTop, defaultUekbtWidth, defaultUekbtHeihgt);
+            }
         }
         
         this.#context.font = "20px sans-serif";
@@ -143,6 +148,7 @@ class HelpScene extends Scene {
             case "ArrowUp": {
                 e.preventDefault();
                 if (!this.#isSelected && this.#selectedRow > 0) {
+                    uekibatiBreakSound.play();
                     this.#selectedRow--;
                 }
                 break;
@@ -150,6 +156,7 @@ class HelpScene extends Scene {
             case "ArrowDown": {
                 e.preventDefault();
                 if (!this.#isSelected && this.#selectedRow < 2) {
+                    uekibatiBreakSound.play();
                     this.#selectedRow++;
                 }
                 break;
