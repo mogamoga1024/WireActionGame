@@ -97,7 +97,7 @@ class HelpScene extends Scene {
 
         const uekbtWidth = uekbtImage.naturalWidth / uekbtImage.naturalHeight * uekbtHeight;
         const uekbtMarginTop = lineBaseBottomY - lineHeight - uekbtHeight;
-        const leftImageX = this.#canvas.width - 170;
+        const leftImageX = this.#canvas.width - 120 - uekbtWidth/2;
         const textList = ["操作方法", "ヒント", "プロローグ"];
         for (let i = 0; i < 3; i++) {
             // 文字
