@@ -56,6 +56,34 @@ class HelpScene extends Scene {
 
         const lineHeight = 3;
         const lineBaseBottomY = this.#canvas.height / 3;
+
+        // 背景
+        const colorList = ["#3F48CC", "#FFF200", "#FFFFFF"];
+        for (let i = 0; i < 3; i++) {
+            this.#context.beginPath();
+            this.#context.globalAlpha = 0.5;
+            this.#context.fillStyle = colorList[i];
+            this.#context.rect(0, lineBaseBottomY * i, this.#canvas.width, lineBaseBottomY - lineHeight/2);
+            this.#context.fill();
+            this.#context.globalAlpha = 1;
+        }
+
+        // バレーボールくん
+        const ballWidth = (lineBaseBottomY - lineHeight) * 0.7;;
+        const ballHeight = ballWidth;
+        const ballMarginLeft = 50;
+        const ballMarginTop = lineBaseBottomY - lineHeight - ballHeight;
+        if (this.#isSelected) {
+            this.#ballOffsetX += 30;
+        }
+        this.#context.translate(ballWidth/2 + ballMarginLeft + this.#ballOffsetX, ballHeight/2 + this.#canvas.height * this.#selectedRow/3 + ballMarginTop);
+        this.#context.rotate(this.#ballRadian);
+        this.#context.drawImage(this.#ballImage, -ballWidth/2, -ballHeight/2, ballWidth, ballHeight);
+        this.#context.rotate(-this.#ballRadian);
+        this.#context.translate(-ballWidth/2 - ballMarginLeft - this.#ballOffsetX, -ballHeight/2 - this.#canvas.height * this.#selectedRow/3 - ballMarginTop);
+        this.#ballRadian = (this.#ballRadian - 0.1 + Math.PI*2) % (Math.PI*2);
+
+        // 植木鉢くんの設定
         const uekbtIndex = Math.floor(this.#uekibatiTentouFrameCount / 20) % 3;
         const uekbtImage = this.#uekbtImageList[uekbtIndex];
         const uekbtBaseHeight = (lineBaseBottomY - lineHeight) * 0.8;
@@ -71,16 +99,7 @@ class HelpScene extends Scene {
         const uekbtMarginTop = lineBaseBottomY - lineHeight - uekbtHeight;
         const leftImageX = this.#canvas.width - 170;
         const textList = ["操作方法", "ヒント", "プロローグ"];
-        const colorList = ["#3F48CC", "#FFF200", "#FFFFFF"];
         for (let i = 0; i < 3; i++) {
-            // 背景
-            this.#context.beginPath();
-            this.#context.globalAlpha = 0.5;
-            this.#context.fillStyle = colorList[i];
-            this.#context.rect(0, lineBaseBottomY * i, this.#canvas.width, lineBaseBottomY - lineHeight/2);
-            this.#context.fill();
-            this.#context.globalAlpha = 1;
-
             // 文字
             const text = textList[i];
             this.#context.font = "70px sans-serif";
@@ -106,21 +125,6 @@ class HelpScene extends Scene {
             this.#context.drawImage(uekbtImage, leftImageX, lineBaseBottomY * i + uekbtMarginTop, uekbtWidth, uekbtHeight);
         }
         
-        // バレーボール君
-        const ballWidth = (lineBaseBottomY - lineHeight) * 0.7;;
-        const ballHeight = ballWidth;
-        const ballMarginLeft = 50;
-        const ballMarginTop = lineBaseBottomY - lineHeight - ballHeight;
-        if (this.#isSelected) {
-            this.#ballOffsetX += 30;
-        }
-        this.#context.translate(ballWidth/2 + ballMarginLeft + this.#ballOffsetX, ballHeight/2 + this.#canvas.height * this.#selectedRow/3 + ballMarginTop);
-        this.#context.rotate(this.#ballRadian);
-        this.#context.drawImage(this.#ballImage, -ballWidth/2, -ballHeight/2, ballWidth, ballHeight);
-        this.#context.rotate(-this.#ballRadian);
-        this.#context.translate(-ballWidth/2 - ballMarginLeft - this.#ballOffsetX, -ballHeight/2 - this.#canvas.height * this.#selectedRow/3 - ballMarginTop);
-        this.#ballRadian = (this.#ballRadian - 0.1 + Math.PI*2) % (Math.PI*2);
-
         this.#context.font = "20px sans-serif";
         this.#context.textBaseline = "top";
         this.#context.fillStyle = "#000000";
