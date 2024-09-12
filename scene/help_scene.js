@@ -97,7 +97,7 @@ class HelpScene extends Scene {
 
         const uekbtWidth = uekbtImage.naturalWidth / uekbtImage.naturalHeight * uekbtHeight;
         const uekbtMarginTop = lineBaseBottomY - lineHeight - uekbtHeight;
-        const leftImageX = this.#canvas.width - 120 - uekbtWidth/2;
+        const uekbtX = this.#canvas.width - 120 - uekbtWidth/2;
         const textList = ["操作方法", "ヒント", "プロローグ"];
         for (let i = 0; i < 3; i++) {
             // 文字
@@ -122,7 +122,7 @@ class HelpScene extends Scene {
             this.#context.fill();
 
             // 植木鉢くん
-            this.#context.drawImage(uekbtImage, leftImageX, lineBaseBottomY * i + uekbtMarginTop, uekbtWidth, uekbtHeight);
+            this.#context.drawImage(uekbtImage, uekbtX, lineBaseBottomY * i + uekbtMarginTop, uekbtWidth, uekbtHeight);
         }
         
         this.#context.font = "20px sans-serif";
