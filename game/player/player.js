@@ -40,8 +40,6 @@ class Player {
     #respawnArea = null;
     #isGoal = false;
     get isGoal() { return this.#isGoal; }
-    #uekibatiLImage = null;
-    #uekibatiRImage = null;
 
     #x = 0; #prevX = 0;
     get x() { return this.#x; }
@@ -72,9 +70,6 @@ class Player {
             this.#respawnArea = new RespawnArea(this.#x, this.#y, this.#width, this.#height);
         }
         this.#isGoal = isGoal;
-
-        this.#uekibatiLImage = ImageStorage.get("植木鉢くんL");
-        this.#uekibatiRImage = ImageStorage.get("植木鉢くんR");
     }
 
     draw(context, viewport) {
@@ -99,10 +94,10 @@ class Player {
 
         let uekibatiImage = null;
         if (this.#direction === "left") {
-            uekibatiImage = this.#uekibatiLImage;
+            uekibatiImage = ImageStorage.get("植木鉢くんL");
         }
         else {
-            uekibatiImage = this.#uekibatiRImage;
+            uekibatiImage = ImageStorage.get("植木鉢くんR");
         }
         const diffY = (uekibatiImage.naturalHeight - uekibatiImage.naturalWidth) * (this.#width / uekibatiImage.naturalWidth);
         context.drawImage(uekibatiImage, this.#x + ox, this.#y - diffY + oy, this.#width, this.#height + diffY);

@@ -4,7 +4,6 @@ class HelpScene extends Scene {
     #canvas = null;
     #context = null;
     #uekibatiImageList = [];
-    #ballImage = null;
     #timer = 0;
     #selectedRow = 0;
     #ballRadian = 0;
@@ -22,7 +21,6 @@ class HelpScene extends Scene {
         this.#uekibatiImageList.push(ImageStorage.get("植木鉢くんL"));
         this.#uekibatiImageList.push(ImageStorage.get("植木鉢くんの最期1"));
         this.#uekibatiImageList.push(ImageStorage.get("植木鉢くんの最期2"));
-        this.#ballImage = ImageStorage.get("バレーボールくん");
         this.#timer = this.#startAnimation();
     }
 
@@ -78,7 +76,7 @@ class HelpScene extends Scene {
         }
         this.#context.translate(ballWidth/2 + ballMarginLeft + this.#ballOffsetX, ballHeight/2 + this.#canvas.height * this.#selectedRow/3 + ballMarginTop);
         this.#context.rotate(this.#ballRadian);
-        this.#context.drawImage(this.#ballImage, -ballWidth/2, -ballHeight/2, ballWidth, ballHeight);
+        this.#context.drawImage(ImageStorage.get("バレーボールくん"), -ballWidth/2, -ballHeight/2, ballWidth, ballHeight);
         this.#context.rotate(-this.#ballRadian);
         this.#context.translate(-ballWidth/2 - ballMarginLeft - this.#ballOffsetX, -ballHeight/2 - this.#canvas.height * this.#selectedRow/3 - ballMarginTop);
         this.#ballRadian = (this.#ballRadian - 0.1 + Math.PI*2) % (Math.PI*2);
