@@ -1,5 +1,7 @@
 
-class RespawnArea extends IDObject {
+class RespawnArea {
+    #id = 0;
+    get id() { return this.#id; }
     #x = 0;
     get x() { return this.#x; }
     #y = 0;
@@ -13,8 +15,8 @@ class RespawnArea extends IDObject {
     #direction = "right";
     get direction() { return this.#direction; }
 
-    constructor(x, y, width, height, direction = "right") {
-        super();
+    constructor(x, y, width, height, direction, id) {
+        this.#id = id;
         this.#x = x;
         this.#y = y;
         this.#width = width;

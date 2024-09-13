@@ -26,6 +26,7 @@ let playerCode = "";
 
 const rowMax = map.length;
 const colMax = map[0].length;
+let respawnId = 1;
 
 for (let row = 0; row < rowMax; row++) {
     for (let col = 0; col < colMax; col++) {
@@ -77,7 +78,11 @@ for (let row = 0; row < rowMax; row++) {
         }
 
         if (type === RESPAWN_L) {
-            entityList.push(`bp(new RespawnArea(${x}, ${y}, ${width}, ${height}, "left"));`);
+            entityList.push(`bp(new RespawnArea(${x}, ${y}, ${width}, ${height}, "left", ${respawnId++}));`);
+            continue;
+        }
+        else if (type === RESPAWN_R) {
+            entityList.push(`bp(new RespawnArea(${x}, ${y}, ${width}, ${height}, "right", ${respawnId++}));`);
             continue;
         }
 
@@ -87,7 +92,6 @@ for (let row = 0; row < rowMax; row++) {
             case TRAMPOLINE: className = "Trampoline"; break;
             case DEATH: className = "DeathBlock"; break;
             case UNSTICKABLE: className = "UnstickableBlock"; break;
-            case RESPAWN_R: className = "RespawnArea"; break;
             case GOAL: className = "GoalArea"; break;
         }
         entityList.push(`bp(new ${className}(${x}, ${y}, ${width}, ${height}));`);
