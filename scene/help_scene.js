@@ -150,6 +150,7 @@ class HelpScene extends Scene {
                 if (!this.#isSelected && this.#selectedRow > 0) {
                     uekibatiBreakSound.play();
                     this.#selectedRow--;
+                    this.#uekibatiTentouFrameCount = 0;
                 }
                 break;
             }
@@ -158,6 +159,7 @@ class HelpScene extends Scene {
                 if (!this.#isSelected && this.#selectedRow < 2) {
                     uekibatiBreakSound.play();
                     this.#selectedRow++;
+                    this.#uekibatiTentouFrameCount = 0;
                 }
                 break;
             }
