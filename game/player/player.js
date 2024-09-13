@@ -36,6 +36,7 @@ class Player {
     #wireVerticalState = "none"; // none, climbing, descending
     #shouldJumpOnTrampoline = false;
     #opacity = 1;
+    #deadFrameCount = 0;
     get opacity() { return this.#opacity; }
     #respawnArea = null;
     #isGoal = false;
@@ -74,6 +75,7 @@ class Player {
 
     draw(context, viewport) {
         if (this.#actStatus === "death") {
+            this.#deadFrameCount++;
             this.#opacity = Math.max(this.#opacity - 0.02, 0);
         }
 
@@ -93,14 +95,25 @@ class Player {
         }
 
         let uekibatiImage = null;
-        if (this.#direction === "left") {
-            uekibatiImage = ImageStorage.get("植木鉢くんL");
+        if (this.#actStatus === "death") {
+            if (this.#deadFrameCount <= 10) {
+                uekibatiImage = ImageStorage.get("植木鉢くんの最期1");
+            }
+            else {
+                uekibatiImage = ImageStorage.get("植木鉢くんの最期2");
+            }
+            // const rate = 
         }
         else {
-            uekibatiImage = ImageStorage.get("植木鉢くんR");
+            if (this.#direction === "left") {
+                uekibatiImage = ImageStorage.get("植木鉢くんL");
+            }
+            else {
+                uekibatiImage = ImageStorage.get("植木鉢くんR");
+            }
+            const diffY = (uekibatiImage.naturalHeight - uekibatiImage.naturalWidth) * (this.#width / uekibatiImage.naturalWidth);
+            context.drawImage(uekibatiImage, this.#x + ox, this.#y - diffY + oy, this.#width, this.#height + diffY);
         }
-        const diffY = (uekibatiImage.naturalHeight - uekibatiImage.naturalWidth) * (this.#width / uekibatiImage.naturalWidth);
-        context.drawImage(uekibatiImage, this.#x + ox, this.#y - diffY + oy, this.#width, this.#height + diffY);
 
         context.globalAlpha = 1;
     }

@@ -9,7 +9,7 @@ class HelpScene extends Scene {
     #ballRadian = 0;
     #isSelected = false;
     #ballOffsetX = 0;
-    #uekibatiTentouFrameCount = 0;
+    #uekibatiAnimeFrameCount = 0;
 
     onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
@@ -34,7 +34,7 @@ class HelpScene extends Scene {
         return setInterval(() => {
             // const time2 = performance.now();
 
-            this.#uekibatiTentouFrameCount++;
+            this.#uekibatiAnimeFrameCount++;
 
             this.#update();
             
@@ -82,7 +82,7 @@ class HelpScene extends Scene {
         this.#ballRadian = (this.#ballRadian - 0.1 + Math.PI*2) % (Math.PI*2);
 
         // 植木鉢くんの設定
-        const uekibatiIndex = Math.floor(this.#uekibatiTentouFrameCount / 20) % 3;
+        const uekibatiIndex = Math.floor(this.#uekibatiAnimeFrameCount / 20) % 3;
         const defaultUekibatiImage = this.#uekibatiImageList[0];
         const uekibatiImage = this.#uekibatiImageList[uekibatiIndex];
         const defaultUekibatiHeihgt = (lineBaseBottomY - lineHeight) * 0.8;
@@ -148,7 +148,7 @@ class HelpScene extends Scene {
                 if (!this.#isSelected && this.#selectedRow > 0) {
                     uekibatiBreakSound.play();
                     this.#selectedRow--;
-                    this.#uekibatiTentouFrameCount = 0;
+                    this.#uekibatiAnimeFrameCount = 0;
                 }
                 break;
             }
@@ -157,7 +157,7 @@ class HelpScene extends Scene {
                 if (!this.#isSelected && this.#selectedRow < 2) {
                     uekibatiBreakSound.play();
                     this.#selectedRow++;
-                    this.#uekibatiTentouFrameCount = 0;
+                    this.#uekibatiAnimeFrameCount = 0;
                 }
                 break;
             }
