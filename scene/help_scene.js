@@ -9,7 +9,8 @@ class HelpScene extends Scene {
     #ballRadian = 0;
     #isSelected = false;
     #ballOffsetX = 0;
-    #uekibatiAnimeFrameCount = 0;
+    #isHitUekibati = false;
+    #uekibatiAnimeFrameCount = 1;
 
     onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
@@ -34,8 +35,9 @@ class HelpScene extends Scene {
         return setInterval(() => {
             // const time2 = performance.now();
 
-            this.#uekibatiAnimeFrameCount++;
-
+            if (this.#isHitUekibati) {
+                this.#uekibatiAnimeFrameCount++;
+            }
             this.#update();
             
             // const fps = 1000 / (time2 - time1);
@@ -71,8 +73,9 @@ class HelpScene extends Scene {
         const ballHeight = ballWidth;
         const ballMarginLeft = 50;
         const ballMarginTop = lineBaseBottomY - lineHeight - ballHeight;
+        const ballX = ballMarginLeft + this.#ballOffsetX;
         if (this.#isSelected) {
-            this.#ballOffsetX += 30;
+            this.#ballOffsetX += 25;
         }
         this.#context.translate(ballWidth/2 + ballMarginLeft + this.#ballOffsetX, ballHeight/2 + this.#canvas.height * this.#selectedRow/3 + ballMarginTop);
         this.#context.rotate(this.#ballRadian);
@@ -82,20 +85,36 @@ class HelpScene extends Scene {
         this.#ballRadian = (this.#ballRadian - 0.1 + Math.PI*2) % (Math.PI*2);
 
         // 植木鉢くんの設定
-        const uekibatiIndex = Math.floor(this.#uekibatiAnimeFrameCount / 20) % 3;
         const defaultUekibatiImage = this.#uekibatiImageList[0];
-        const uekibatiImage = this.#uekibatiImageList[uekibatiIndex];
         const defaultUekibatiHeihgt = (lineBaseBottomY - lineHeight) * 0.8;
+        const defaultUekibatiWidth = defaultUekibatiImage.naturalWidth / defaultUekibatiImage.naturalHeight * defaultUekibatiHeihgt;
+        const defaultUekibatiMarginTop = lineBaseBottomY - lineHeight - defaultUekibatiHeihgt;
+        const defaultUekibatiX = this.#canvas.width - 120 - defaultUekibatiWidth/2;
+
+        if (!this.#isHitUekibati) {
+            uekibatiBreakSound.play();
+            this.#isHitUekibati = ballX + ballWidth > defaultUekibatiX;
+        }
+        
+        let uekibatiIndex = 0;
+        if (this.#isSelected) {
+            if (this.#uekibatiAnimeFrameCount <= 10) {
+                uekibatiIndex = 1;
+            }
+            else {
+                uekibatiIndex = 2;
+            }
+        }
+
+        const uekibatiImage = this.#uekibatiImageList[uekibatiIndex];
         let uekibatiHeight = uekibatiImage.naturalHeight * defaultUekibatiHeihgt / defaultUekibatiImage.naturalHeight;
         if (uekibatiIndex === 1 || uekibatiIndex === 2) {
             uekibatiHeight *= 1.3;
         }
-        const defaultUekibatiWidth = defaultUekibatiImage.naturalWidth / defaultUekibatiImage.naturalHeight * defaultUekibatiHeihgt;
         const uekibatiWidth = uekibatiImage.naturalWidth / uekibatiImage.naturalHeight * uekibatiHeight;
-        const defaultUekibatiMarginTop = lineBaseBottomY - lineHeight - defaultUekibatiHeihgt;
         const uekibatiMarginTop = lineBaseBottomY - lineHeight - uekibatiHeight;
-        const defaultUekibatiX = this.#canvas.width - 120 - defaultUekibatiWidth/2;
         const uekibatiX = this.#canvas.width - 120 - uekibatiWidth/2;
+
         const textList = ["操作方法", "ヒント", "プロローグ"];
         for (let i = 0; i < 3; i++) {
             // 文字
@@ -120,7 +139,7 @@ class HelpScene extends Scene {
             this.#context.fill();
 
             // 植木鉢くん
-            if (i === this.#selectedRow) {
+            if (i === this.#selectedRow && this.#isHitUekibati) {
                 this.#context.drawImage(uekibatiImage, uekibatiX, lineBaseBottomY * i + uekibatiMarginTop, uekibatiWidth, uekibatiHeight);
             }
             else {
@@ -134,6 +153,16 @@ class HelpScene extends Scene {
         this.#context.strokeStyle = "#FFFFFF";
         this.#context.lineWidth = 5;
         drawStrokeText(this.#context, "移動(↑↓キー) 決定(Xキー) 戻る(Zキー)", 10, 10);
+
+        // todo バレーボールが通過したら、画面遷移
+        if (
+            this.#isSelected &&
+            ballX > this.#canvas.width * 1.2 &&
+            this.#uekibatiAnimeFrameCount > 20
+        ) {
+            // todo
+            SceneManager.start(new TitleScene()); // todo 仮置き
+        }
     }
 
     onKeyDown(e) {
@@ -142,22 +171,26 @@ class HelpScene extends Scene {
             return;
         }
 
+        if (this.#isSelected) {
+            // 画面遷移が完了するまで操作禁止
+            e.preventDefault();
+            return;
+        }
+
         switch (e.key) {
             case "ArrowUp": {
                 e.preventDefault();
-                if (!this.#isSelected && this.#selectedRow > 0) {
-                    uekibatiBreakSound.play();
+                if (this.#selectedRow > 0) {
+                    uekibatiBreakSound.play(); // todo
                     this.#selectedRow--;
-                    this.#uekibatiAnimeFrameCount = 0;
                 }
                 break;
             }
             case "ArrowDown": {
                 e.preventDefault();
-                if (!this.#isSelected && this.#selectedRow < 2) {
-                    uekibatiBreakSound.play();
+                if (this.#selectedRow < 2) {
+                    uekibatiBreakSound.play(); // todo
                     this.#selectedRow++;
-                    this.#uekibatiAnimeFrameCount = 0;
                 }
                 break;
             }
