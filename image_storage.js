@@ -3,11 +3,11 @@ class ImageStorage {
     static #dic = {};
     
     static async create(imageDic) {
-        // todo promise.all
-        for (let [name, path] of Object.entries(imageDic)) {
+        const promises = Object.entries(imageDic).map(async ([name, path]) => {
             const image = await loadImage(path);
             this.#dic[name] = image;
-        }
+        });
+        await Promise.all(promises);
     }
 
     static get(name) {
