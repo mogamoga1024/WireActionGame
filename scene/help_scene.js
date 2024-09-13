@@ -3,7 +3,7 @@ class HelpScene extends Scene {
     #controlsDescriptionDom = null;
     #canvas = null;
     #context = null;
-    #uekbtImageList = [];
+    #uekibatiImageList = [];
     #ballImage = null;
     #timer = 0;
     #selectedRow = 0;
@@ -19,9 +19,9 @@ class HelpScene extends Scene {
 
         this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定 Z:戻る";
 
-        this.#uekbtImageList.push(await loadImage("assets/植木鉢くんL.png"));
-        this.#uekbtImageList.push(await loadImage("assets/植木鉢くんの最期1.png"));
-        this.#uekbtImageList.push(await loadImage("assets/植木鉢くんの最期2.png"));
+        this.#uekibatiImageList.push(await loadImage("assets/植木鉢くんL.png"));
+        this.#uekibatiImageList.push(await loadImage("assets/植木鉢くんの最期1.png"));
+        this.#uekibatiImageList.push(await loadImage("assets/植木鉢くんの最期2.png"));
         this.#ballImage = await loadImage("assets/バレーボールくん.png");
         this.#timer = this.#startAnimation();
     }
@@ -84,20 +84,20 @@ class HelpScene extends Scene {
         this.#ballRadian = (this.#ballRadian - 0.1 + Math.PI*2) % (Math.PI*2);
 
         // 植木鉢くんの設定
-        const uekbtIndex = Math.floor(this.#uekibatiTentouFrameCount / 20) % 3;
-        const defaultUekbtImage = this.#uekbtImageList[0];
-        const uekbtImage = this.#uekbtImageList[uekbtIndex];
-        const defaultUekbtHeihgt = (lineBaseBottomY - lineHeight) * 0.8;
-        let uekbtHeight = uekbtImage.naturalHeight * defaultUekbtHeihgt / defaultUekbtImage.naturalHeight;
-        if (uekbtIndex === 1 || uekbtIndex === 2) {
-            uekbtHeight *= 1.3;
+        const uekibatiIndex = Math.floor(this.#uekibatiTentouFrameCount / 20) % 3;
+        const defaultUekibatiImage = this.#uekibatiImageList[0];
+        const uekibatiImage = this.#uekibatiImageList[uekibatiIndex];
+        const defaultUekibatiHeihgt = (lineBaseBottomY - lineHeight) * 0.8;
+        let uekibatiHeight = uekibatiImage.naturalHeight * defaultUekibatiHeihgt / defaultUekibatiImage.naturalHeight;
+        if (uekibatiIndex === 1 || uekibatiIndex === 2) {
+            uekibatiHeight *= 1.3;
         }
-        const defaultUekbtWidth = defaultUekbtImage.naturalWidth / defaultUekbtImage.naturalHeight * defaultUekbtHeihgt;
-        const uekbtWidth = uekbtImage.naturalWidth / uekbtImage.naturalHeight * uekbtHeight;
-        const defaultUekbtMarginTop = lineBaseBottomY - lineHeight - defaultUekbtHeihgt;
-        const uekbtMarginTop = lineBaseBottomY - lineHeight - uekbtHeight;
-        const defaultUekbtX = this.#canvas.width - 120 - defaultUekbtWidth/2;
-        const uekbtX = this.#canvas.width - 120 - uekbtWidth/2;
+        const defaultUekibatiWidth = defaultUekibatiImage.naturalWidth / defaultUekibatiImage.naturalHeight * defaultUekibatiHeihgt;
+        const uekibatiWidth = uekibatiImage.naturalWidth / uekibatiImage.naturalHeight * uekibatiHeight;
+        const defaultUekibatiMarginTop = lineBaseBottomY - lineHeight - defaultUekibatiHeihgt;
+        const uekibatiMarginTop = lineBaseBottomY - lineHeight - uekibatiHeight;
+        const defaultUekibatiX = this.#canvas.width - 120 - defaultUekibatiWidth/2;
+        const uekibatiX = this.#canvas.width - 120 - uekibatiWidth/2;
         const textList = ["操作方法", "ヒント", "プロローグ"];
         for (let i = 0; i < 3; i++) {
             // 文字
@@ -123,10 +123,10 @@ class HelpScene extends Scene {
 
             // 植木鉢くん
             if (i === this.#selectedRow) {
-                this.#context.drawImage(uekbtImage, uekbtX, lineBaseBottomY * i + uekbtMarginTop, uekbtWidth, uekbtHeight);
+                this.#context.drawImage(uekibatiImage, uekibatiX, lineBaseBottomY * i + uekibatiMarginTop, uekibatiWidth, uekibatiHeight);
             }
             else {
-                this.#context.drawImage(defaultUekbtImage, defaultUekbtX, lineBaseBottomY * i + defaultUekbtMarginTop, defaultUekbtWidth, defaultUekbtHeihgt);
+                this.#context.drawImage(defaultUekibatiImage, defaultUekibatiX, lineBaseBottomY * i + defaultUekibatiMarginTop, defaultUekibatiWidth, defaultUekibatiHeihgt);
             }
         }
         
