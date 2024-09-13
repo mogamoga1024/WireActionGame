@@ -1,29 +1,13 @@
 
-// 画像先読み
-{
-    const iamge = new Image();
-    iamge.src = "assets/植木鉢くんL.png";
-}
-{
-    const iamge = new Image();
-    iamge.src = "assets/植木鉢くんR.png";
-}
-{
-    const iamge = new Image();
-    iamge.src = "assets/お花.png";
-}
-{
-    const iamge = new Image();
-    iamge.src = "assets/植木鉢くんの最期1.png";
-}
-{
-    const iamge = new Image();
-    iamge.src = "assets/植木鉢くんの最期2.png";
-}
-{
-    const iamge = new Image();
-    iamge.src = `assets/バレーボールくん.png`;
-}
+// 背景以外の画像
+ImageStorage.create({
+    "植木鉢くんL": "assets/植木鉢くんL.png",
+    "植木鉢くんR": "assets/植木鉢くんR.png",
+    "お花": "assets/お花.png",
+    "植木鉢くんの最期1": "assets/植木鉢くんの最期1.png",
+    "植木鉢くんの最期2": "assets/植木鉢くんの最期2.png",
+    "バレーボールくん": "assets/バレーボールくん.png",
+});
 
 // 音
 const uekibatiBreakSound = new Sound("assets/大破.mp3");

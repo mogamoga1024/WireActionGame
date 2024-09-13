@@ -12,17 +12,17 @@ class HelpScene extends Scene {
     #ballOffsetX = 0;
     #uekibatiTentouFrameCount = 0;
 
-    async onStart() {
+    onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
         this.#canvas = document.querySelector("canvas");
         this.#context = canvas.getContext("2d");
 
         this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定 Z:戻る";
 
-        this.#uekibatiImageList.push(await loadImage("assets/植木鉢くんL.png"));
-        this.#uekibatiImageList.push(await loadImage("assets/植木鉢くんの最期1.png"));
-        this.#uekibatiImageList.push(await loadImage("assets/植木鉢くんの最期2.png"));
-        this.#ballImage = await loadImage("assets/バレーボールくん.png");
+        this.#uekibatiImageList.push(ImageStorage.get("植木鉢くんL"));
+        this.#uekibatiImageList.push(ImageStorage.get("植木鉢くんの最期1"));
+        this.#uekibatiImageList.push(ImageStorage.get("植木鉢くんの最期2"));
+        this.#ballImage = ImageStorage.get("バレーボールくん");
         this.#timer = this.#startAnimation();
     }
 
