@@ -12,7 +12,7 @@ class TitleScene extends Scene {
     async onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
         this.#canvas = document.querySelector("canvas");
-        this.#context = canvas.getContext("2d");
+        this.#context = this.#canvas.getContext("2d");
 
         const strRespawnId = Cookies.get("respaon_area_id");
         if (strRespawnId !== undefined) {
@@ -47,12 +47,12 @@ class TitleScene extends Scene {
         {
             const titleText = "植木鉢くんの";
             const titleTextWidth = this.#context.measureText(titleText).width;
-            drawStrokeText(this.#context, titleText, (canvas.width - titleTextWidth) / 2, 114);
+            drawStrokeText(this.#context, titleText, (this.#canvas.width - titleTextWidth) / 2, 114);
         }
         {
             const titleText = "苦行系ワイヤーアクション";
             const titleTextWidth = this.#context.measureText(titleText).width;
-            drawStrokeText(this.#context, titleText, (canvas.width - titleTextWidth) / 2, 178);
+            drawStrokeText(this.#context, titleText, (this.#canvas.width - titleTextWidth) / 2, 178);
         }
 
         if (this.#goalTime !== -1) {

@@ -14,7 +14,7 @@ class HelpScene extends Scene {
     onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
         this.#canvas = document.querySelector("canvas");
-        this.#context = canvas.getContext("2d");
+        this.#context = this.#canvas.getContext("2d");
 
         this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定 Z:戻る";
 
