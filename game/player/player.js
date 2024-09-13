@@ -102,9 +102,9 @@ class Player {
             else {
                 uekibatiImage = ImageStorage.get("植木鉢くんの最期2");
             }
-            const height = uekibatiImage.naturalHeight * this.#height / ImageStorage.get("植木鉢くんL").naturalHeight * 1.3;
-            const width = uekibatiImage.naturalWidth * height / uekibatiImage.naturalHeight * 1.3;
-            const x = this.#x + ox - (this.#width - width) / 2;
+            const width = uekibatiImage.naturalWidth * this.#width / ImageStorage.get("植木鉢くんL").naturalWidth * 1.3;
+            const height = uekibatiImage.naturalHeight * width / uekibatiImage.naturalWidth;
+            const x = this.#x + ox - (width - this.#width) / 2;
             const y = this.#y + this.#height + oy - height;
             context.drawImage(uekibatiImage, x, y, width, height);
         }
