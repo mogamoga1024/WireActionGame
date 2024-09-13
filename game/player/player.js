@@ -81,7 +81,7 @@ class Player {
 
     draw(context, viewport) {
         if (this.#actStatus === "death") {
-            this.#opacity = Math.max(this.#opacity - 0.02, 0)
+            this.#opacity = Math.max(this.#opacity - 0.02, 0);
         }
 
         const ox =  viewport.offsetX;
