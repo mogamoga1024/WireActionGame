@@ -20,7 +20,7 @@ class GoalArea extends RespawnArea {
 
         let d = 40;
         context.beginPath();
-        context.roundRect(this.x + ox - d, this.y + oy - d, this.width + d*2 , this.height + d*2, radius);
+        context.roundRect(this.x + ox - d, this.y + oy - d, this.width + d*2 , this.height + d*2, radius + d);
         context.fillStyle = "#FFFF00";
         context.fill();
 
@@ -28,7 +28,7 @@ class GoalArea extends RespawnArea {
 
         d = 80;
         context.beginPath();
-        context.roundRect(this.x + ox - d, this.y + oy - d, this.width + d*2 , this.height + d*2, radius);
+        context.roundRect(this.x + ox - d, this.y + oy - d, this.width + d*2 , this.height + d*2, radius + d);
         context.fillStyle = "#FFFF00";
         context.fill();
 
@@ -36,7 +36,7 @@ class GoalArea extends RespawnArea {
 
         d = 120;
         context.beginPath();
-        context.roundRect(this.x + ox - d, this.y + oy - d, this.width + d*2 , this.height + d*2, radius);
+        context.roundRect(this.x + ox - d, this.y + oy - d, this.width + d*2 , this.height + d*2, radius + d);
         context.fillStyle = "#FFFF00";
         context.fill();
 
