@@ -3,7 +3,6 @@ class HelpScene extends Scene {
     #controlsDescriptionDom = null;
     #canvas = null;
     #context = null;
-    #uekibatiImageList = [];
     #timer = 0;
     #selectedRow = 0;
     #ballRadian = 0;
@@ -19,9 +18,6 @@ class HelpScene extends Scene {
 
         this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定 Z:戻る";
 
-        this.#uekibatiImageList.push(ImageStorage.get("植木鉢くんL"));
-        this.#uekibatiImageList.push(ImageStorage.get("植木鉢くんの最期1"));
-        this.#uekibatiImageList.push(ImageStorage.get("植木鉢くんの最期2"));
         this.#timer = this.#startAnimation();
     }
 
@@ -85,30 +81,28 @@ class HelpScene extends Scene {
         this.#ballRadian = (this.#ballRadian - 0.1 + Math.PI*2) % (Math.PI*2);
 
         // 植木鉢くんの設定
-        const defaultUekibatiImage = this.#uekibatiImageList[0];
+        const defaultUekibatiImage = ImageStorage.get("植木鉢くんL");
         const defaultUekibatiHeihgt = (lineBaseBottomY - lineHeight) * 0.8;
         const defaultUekibatiWidth = defaultUekibatiImage.naturalWidth / defaultUekibatiImage.naturalHeight * defaultUekibatiHeihgt;
         const defaultUekibatiMarginTop = lineBaseBottomY - lineHeight - defaultUekibatiHeihgt;
         const defaultUekibatiX = this.#canvas.width - 120 - defaultUekibatiWidth/2;
 
-        if (!this.#isHitUekibati) {
+        if (!this.#isHitUekibati && ballX + ballWidth > defaultUekibatiX) {
             uekibatiBreakSound.play();
-            this.#isHitUekibati = ballX + ballWidth > defaultUekibatiX;
+            this.#isHitUekibati = true;
         }
         
-        let uekibatiIndex = 0;
+        let uekibatiImage = ImageStorage.get("植木鉢くんL");
         if (this.#isSelected) {
             if (this.#uekibatiAnimeFrameCount <= 10) {
-                uekibatiIndex = 1;
+                uekibatiImage = ImageStorage.get("植木鉢くんの最期1");
             }
             else {
-                uekibatiIndex = 2;
+                uekibatiImage = ImageStorage.get("植木鉢くんの最期2");
             }
         }
-
-        const uekibatiImage = this.#uekibatiImageList[uekibatiIndex];
         let uekibatiHeight = uekibatiImage.naturalHeight * defaultUekibatiHeihgt / defaultUekibatiImage.naturalHeight;
-        if (uekibatiIndex === 1 || uekibatiIndex === 2) {
+        if (this.#isSelected) {
             uekibatiHeight *= 1.3;
         }
         const uekibatiWidth = uekibatiImage.naturalWidth / uekibatiImage.naturalHeight * uekibatiHeight;
