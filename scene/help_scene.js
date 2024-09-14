@@ -71,7 +71,7 @@ class HelpScene extends Scene {
         const ballMarginTop = lineBaseBottomY - lineHeight - ballHeight;
         const ballX = ballMarginLeft + this.#ballOffsetX;
         if (this.#isSelected) {
-            this.#ballOffsetX += 25;
+            this.#ballOffsetX += 18;
         }
         this.#context.translate(ballWidth/2 + ballMarginLeft + this.#ballOffsetX, ballHeight/2 + this.#canvas.height * this.#selectedRow/3 + ballMarginTop);
         this.#context.rotate(this.#ballRadian);
