@@ -175,7 +175,7 @@ class HelpScene extends Scene {
             case "ArrowUp": {
                 e.preventDefault();
                 if (this.#selectedRow > 0) {
-                    uekibatiBreakSound.play(); // todo
+                    donSound.play();
                     this.#selectedRow--;
                 }
                 break;
@@ -183,7 +183,7 @@ class HelpScene extends Scene {
             case "ArrowDown": {
                 e.preventDefault();
                 if (this.#selectedRow < 2) {
-                    uekibatiBreakSound.play(); // todo
+                    donSound.play();
                     this.#selectedRow++;
                 }
                 break;

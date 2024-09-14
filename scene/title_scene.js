@@ -134,7 +134,7 @@ class TitleScene extends Scene {
                     return;
                 }
 
-                uekibatiBreakSound.play();
+                donSound.play();
                 
                 let totalTime = 0;
                 if (this.#currentMode === "saisyo") {
