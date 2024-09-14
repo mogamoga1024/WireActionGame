@@ -1,6 +1,6 @@
 
 class RespawnArea {
-    #id = 0;
+    #id = -1;
     get id() { return this.#id; }
     #x = 0;
     get x() { return this.#x; }
@@ -15,7 +15,7 @@ class RespawnArea {
     #direction = "right";
     get direction() { return this.#direction; }
 
-    constructor(x, y, width, height, direction, id) {
+    constructor(x, y, width, height, direction = "right", id = -1) {
         this.#id = id;
         this.#x = x;
         this.#y = y;
