@@ -1,6 +1,7 @@
 
 // 音
 const donSound = new Sound("assets/ドンッ.mp3", 0.8);
+const kakusinhanSound = new Sound("assets/あっ（確信犯）.mp3");
 const uekibatiBreakSound = new Sound("assets/大破.mp3");
 
 // Canvas設定

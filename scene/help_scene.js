@@ -189,6 +189,7 @@ class HelpScene extends Scene {
                 break;
             }
             case "x": {
+                kakusinhanSound.play();
                 this.#isSelected = true;
                 return;
             }
