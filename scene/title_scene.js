@@ -1,5 +1,7 @@
 
 class TitleScene extends Scene {
+    #isLoaded = false;
+
     #controlsDescriptionDom = null;
     #canvas = null;
     #context = null;
@@ -9,7 +11,7 @@ class TitleScene extends Scene {
     #backgroundImage = null;
     #xKeyCount = 0;
 
-    async onStart() {
+    onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
         this.#canvas = document.querySelector("canvas");
         this.#context = this.#canvas.getContext("2d");
@@ -27,9 +29,11 @@ class TitleScene extends Scene {
 
         this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定";
 
-        this.#backgroundImage = await loadImage("assets/植木鉢くんの悲劇.png");
-
-        this.#update();
+        loadImage("assets/植木鉢くんの悲劇.png").then(image => {
+            this.#backgroundImage = image;
+            this.#update();
+            this.#isLoaded = true;
+        });
     }
 
     #update() {
@@ -107,6 +111,9 @@ class TitleScene extends Scene {
     onKeyDown(e) {
         if (e.repeat) {
             e.preventDefault();
+            return;
+        }
+        if (!this.#isLoaded) {
             return;
         }
 

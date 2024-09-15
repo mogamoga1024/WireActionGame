@@ -1,5 +1,7 @@
 
 class GameScene extends Scene {
+    #isLoaded = false;
+
     #respawnId = -1;
     #startTime = null;
     #totalTime = 0;
@@ -37,7 +39,7 @@ class GameScene extends Scene {
         this.#totalTime = totalTime;
     }
 
-    async onStart() {
+    onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
         this.#mapDescriptionDom = document.querySelector("#map-description");
         this.#helpDescriptionDom = document.querySelector("#help-description");
@@ -58,25 +60,28 @@ class GameScene extends Scene {
         this.#mapDescriptionDom.innerText = "C:マップ確認モード開始";
         this.#helpDescriptionDom.innerText = "H:ヘルプ";
 
-        this.#backgroundImage = await loadImage("assets/虚無.png");
+        loadImage("assets/虚無.png").then(image => {
+            this.#backgroundImage = image;
+            this.#timerId = this.#startAnimation();
 
-        this.#timerId = this.#startAnimation();
+            this.#saveFunc = () => {
+                if (this.#player.isGoal) {
+                    return;
+                }
+                const totalTime = new Date() - this.#startTime;
+                Cookies.set("total_time", String(totalTime), {expires: 365});
+            };
+            window.addEventListener("beforeunload", this.#saveFunc);
+            window.addEventListener("popstate", this.#saveFunc);
+            emitter.on("respawn-area-collision", this.#saveFunc);
 
-        this.#saveFunc = () => {
-            if (this.#player.isGoal) {
-                return;
+            this.#startTime = new Date();
+            if (this.#totalTime > 0) {
+                this.#startTime.setTime(this.#startTime.getTime() - this.#totalTime);
             }
-            const totalTime = new Date() - this.#startTime;
-            Cookies.set("total_time", String(totalTime), {expires: 365});
-        };
-        window.addEventListener("beforeunload", this.#saveFunc);
-        window.addEventListener("popstate", this.#saveFunc);
-        emitter.on("respawn-area-collision", this.#saveFunc);
-
-        this.#startTime = new Date();
-        if (this.#totalTime > 0) {
-            this.#startTime.setTime(this.#startTime.getTime() - this.#totalTime);
-        }
+            
+            this.#isLoaded = true;
+        });
     }
 
     onEnd() {
@@ -106,6 +111,9 @@ class GameScene extends Scene {
     onKeyDown(e) {
         if (e.repeat) {
             e.preventDefault();
+            return;
+        }
+        if (!this.#isLoaded) {
             return;
         }
 
