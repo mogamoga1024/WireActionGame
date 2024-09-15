@@ -66,3 +66,12 @@ function loadSound(path, volume) {
         };
     });
 }
+
+function drawLoading(canvas) {
+    const context = canvas.getContext("2d");
+    const text = "Loading...";
+    context.textBaseline = "top";
+    context.font = "48px sans-serif";
+    const {width, height} = measureText(context, text);
+    context.fillText(text, (canvas.width - width)/2, (canvas.height - height)/2);
+}
