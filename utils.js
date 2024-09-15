@@ -55,3 +55,14 @@ function loadImage(path) {
     });
 }
 
+function loadSound(path, volume) {
+    const audio = new Audio(path);
+    return new Promise(resolve => {
+        audio.onloadeddata = () => {
+            resolve(new Sound(audio, volume));
+        };
+        audio.onerror = () => {
+            resolve(new Sound(audio, volume));
+        };
+    });
+}

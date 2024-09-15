@@ -1,9 +1,4 @@
 
-// 音
-const donSound = new Sound("assets/ドンッ.mp3", 0.5);
-const kakusinhanSound = new Sound("assets/あっ（確信犯）.mp3", 0.9);
-const uekibatiBreakSound = new Sound("assets/大破.mp3", 0.9);
-
 // Canvas設定
 const canvas = document.querySelector("canvas");
 canvas.width = 800;
@@ -21,6 +16,13 @@ const emitter = new TinyEmitter();
         "植木鉢くんの最期1": "assets/植木鉢くんの最期1.png",
         "植木鉢くんの最期2": "assets/植木鉢くんの最期2.png",
         "バレーボールくん": "assets/バレーボールくん.png",
+    });
+
+    // 効果音
+    await SoundStorage.create({
+        "ドンッ": {path: "assets/ドンッ.mp3", volume: 0.5},
+        "あっ（確信犯）": {path: "assets/あっ（確信犯）.mp3", volume: 0.9},
+        "大破": {path: "assets/大破.mp3", volume: 0.9},
     });
 
     // ゲーム開始

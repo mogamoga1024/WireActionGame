@@ -134,7 +134,7 @@ class TitleScene extends Scene {
                     return;
                 }
 
-                donSound.play();
+                SoundStorage.get("ドンッ").play();
                 
                 let totalTime = 0;
                 if (this.#currentMode === "saisyo") {

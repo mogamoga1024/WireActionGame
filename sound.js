@@ -1,8 +1,8 @@
 
 class Sound {
     #audio = null;
-    constructor(path, volume = 1) {
-        this.#audio = new Audio(path);
+    constructor(audio, volume = 1) {
+        this.#audio = audio;
         this.#audio.volume = volume;
     }
     play() {

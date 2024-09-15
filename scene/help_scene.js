@@ -88,7 +88,7 @@ class HelpScene extends Scene {
         const defaultUekibatiX = this.#canvas.width - 120 - defaultUekibatiWidth/2;
 
         if (!this.#isHitUekibati && ballX + ballWidth > defaultUekibatiX) {
-            uekibatiBreakSound.play();
+            SoundStorage.get("大破").play();
             this.#isHitUekibati = true;
         }
         
@@ -175,7 +175,7 @@ class HelpScene extends Scene {
             case "ArrowUp": {
                 e.preventDefault();
                 if (this.#selectedRow > 0) {
-                    donSound.play();
+                    SoundStorage.get("ドンッ").play();
                     this.#selectedRow--;
                 }
                 break;
@@ -183,13 +183,13 @@ class HelpScene extends Scene {
             case "ArrowDown": {
                 e.preventDefault();
                 if (this.#selectedRow < 2) {
-                    donSound.play();
+                    SoundStorage.get("ドンッ").play();
                     this.#selectedRow++;
                 }
                 break;
             }
             case "x": {
-                kakusinhanSound.play();
+                SoundStorage.get("あっ（確信犯）").play();
                 this.#isSelected = true;
                 return;
             }
