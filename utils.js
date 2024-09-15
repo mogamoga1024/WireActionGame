@@ -75,3 +75,9 @@ function drawLoading(canvas) {
     const {width, height} = measureText(context, text);
     context.fillText(text, (canvas.width - width)/2, (canvas.height - height)/2);
 }
+
+function loadTestWait() {
+    return new Promise(resolve => {
+        setTimeout(resolve, 3000);
+    });
+}
