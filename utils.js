@@ -69,11 +69,19 @@ function loadSound(path, volume) {
 
 function drawLoading(canvas) {
     const context = canvas.getContext("2d");
+    
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.globalAlpha = 0.8;
+    context.drawImage(drawLoading.backgroundImage, 0, 0, canvas.width, canvas.height);
+    context.globalAlpha = 1;
+
     const text = "Loading...";
     context.textBaseline = "top";
     context.font = "48px sans-serif";
-    const {width, height} = measureText(context, text);
-    context.fillText(text, (canvas.width - width)/2, (canvas.height - height)/2);
+    context.fillStyle = "#000000";
+    context.strokeStyle = "#FFFFFF";
+    context.lineWidth = 5;
+    drawStrokeText(context, text, 530, 400);
 }
 
 function loadTestWait() {
