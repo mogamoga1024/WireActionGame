@@ -75,13 +75,24 @@ function drawLoading(canvas) {
     context.drawImage(drawLoading.backgroundImage, 0, 0, canvas.width, canvas.height);
     context.globalAlpha = 1;
 
-    const text = "Loading...";
-    context.textBaseline = "top";
-    context.font = "48px sans-serif";
-    context.fillStyle = "#000000";
-    context.strokeStyle = "#FFFFFF";
-    context.lineWidth = 5;
-    drawStrokeText(context, text, 530, 400);
+    if (drawLoading.isMobile) {
+        const text = "（PCじゃないと動か）ないです。";
+        context.textBaseline = "top";
+        context.font = "28px sans-serif";
+        context.fillStyle = "#000000";
+        context.strokeStyle = "#FFFFFF";
+        context.lineWidth = 5;
+        drawStrokeText(context, text, 370, 440);
+    }
+    else {
+        const text = "Loading...";
+        context.textBaseline = "top";
+        context.font = "48px sans-serif";
+        context.fillStyle = "#000000";
+        context.strokeStyle = "#FFFFFF";
+        context.lineWidth = 5;
+        drawStrokeText(context, text, 530, 400);
+    }
 }
 
 function loadTestWait() {

@@ -8,6 +8,10 @@ canvas.height = 500;
 const emitter = new TinyEmitter();
 
 loadImage("assets/サブリミナル先輩.png").then(image => {
+    const mobileRegex = /iphone;|(android|nokia|blackberry|bb10;).+mobile|android.+fennec|opera.+mobi|windows phone|symbianos/i;
+    const isMobileByUa = mobileRegex.test(navigator.userAgent);;
+    const isMobileByClientHint = navigator.userAgentData && navigator.userAgentData.mobile;
+    drawLoading.isMobile = isMobileByUa || isMobileByClientHint;
     drawLoading.backgroundImage = image;
     drawLoading(canvas);
 
