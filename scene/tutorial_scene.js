@@ -1,0 +1,4 @@
+
+class TutorialScene extends Scene {
+    
+}
