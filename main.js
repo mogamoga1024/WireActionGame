@@ -33,7 +33,8 @@ loadImage("assets/サブリミナル先輩.png").then(image => {
     
     Promise.all([imageLoadPromise, soundLoadPromise]).then(() => {
         // ゲームを開始
-        SceneManager.start(new TitleScene());
+        // SceneManager.start(new TitleScene());
         // SceneManager.start(new HelpScene());
+        SceneManager.start(new TutorialScene());
     });
 });
