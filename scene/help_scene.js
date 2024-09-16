@@ -21,6 +21,20 @@ class HelpScene extends Scene {
         this.#controlsDescriptionDom.innerText = "";
     }
 
+    onResume() {
+        this.#selectedRow = 0;
+        this.#ballRadian = 0;
+        this.#isSelected = false;
+        this.#ballOffsetX = 0;
+        this.#isHitUekibati = false;
+        this.#uekibatiAnimeFrameCount = 1;
+        this.onStart();
+    }
+
+    onStop() {
+        this.onEnd();
+    }
+
     #startAnimation() {
         // let time1 = performance.now();
         return setInterval(() => {
@@ -146,8 +160,8 @@ class HelpScene extends Scene {
             ballX > canvas.width * 1.2 &&
             this.#uekibatiAnimeFrameCount > 20
         ) {
-            // todo
-            SceneManager.start(new TitleScene()); // todo 仮置き
+            // todo 分岐
+            SceneManager.start(new TutorialScene(), true);
         }
     }
 
@@ -170,7 +184,7 @@ class HelpScene extends Scene {
                     SoundStorage.get("ドンッ").play();
                     this.#selectedRow--;
                 }
-                break;
+                return;
             }
             case "ArrowDown": {
                 e.preventDefault();
@@ -178,7 +192,7 @@ class HelpScene extends Scene {
                     SoundStorage.get("ドンッ").play();
                     this.#selectedRow++;
                 }
-                break;
+                return;
             }
             case "x": {
                 SoundStorage.get("あっ（確信犯）").play();
