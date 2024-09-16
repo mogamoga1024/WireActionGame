@@ -160,8 +160,15 @@ class HelpScene extends Scene {
             ballX > canvas.width * 1.2 &&
             this.#uekibatiAnimeFrameCount > 20
         ) {
-            // todo 分岐
-            SceneManager.start(new TutorialScene(), true);
+            if (this.#selectedRow === 0) {
+                SceneManager.start(new TutorialScene(), true);
+            }
+            else if (this.#selectedRow === 1) {
+                SceneManager.start(new HintScene(), true);
+            }
+            else if (this.#selectedRow === 2) {
+                // todo
+            }
         }
     }
 
