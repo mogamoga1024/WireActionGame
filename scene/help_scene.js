@@ -102,9 +102,6 @@ class HelpScene extends Scene {
             }
         }
         let uekibatiHeight = uekibatiImage.naturalHeight * defaultUekibatiHeihgt / defaultUekibatiImage.naturalHeight;
-        if (this.#isSelected) {
-            uekibatiHeight *= 1.3;
-        }
         const uekibatiWidth = uekibatiImage.naturalWidth / uekibatiImage.naturalHeight * uekibatiHeight;
         const uekibatiMarginTop = lineBaseBottomY - lineHeight - uekibatiHeight;
         const uekibatiX = this.#canvas.width - 120 - uekibatiWidth/2;

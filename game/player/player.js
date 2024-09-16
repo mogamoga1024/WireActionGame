@@ -102,7 +102,7 @@ class Player {
             else {
                 uekibatiImage = ImageStorage.get("植木鉢くんの最期2");
             }
-            const width = uekibatiImage.naturalWidth * this.#width / ImageStorage.get("植木鉢くんL").naturalWidth * 1.3;
+            const width = uekibatiImage.naturalWidth * this.#width / ImageStorage.get("植木鉢くんL").naturalWidth;
             const height = uekibatiImage.naturalHeight * width / uekibatiImage.naturalWidth;
             const x = this.#x + ox - (width - this.#width) / 2;
             const y = this.#y + this.#height + oy - height;
