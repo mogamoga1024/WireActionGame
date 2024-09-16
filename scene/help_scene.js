@@ -147,12 +147,12 @@ class HelpScene extends Scene {
             }
         }
         
-        context.font = "20px sans-serif";
-        context.textBaseline = "top";
-        context.fillStyle = "#000000";
-        context.strokeStyle = "#FFFFFF";
-        context.lineWidth = 5;
-        drawStrokeText(context, "移動(↑↓キー) 決定(Xキー) 戻る(Zキー)", 10, 10);
+        // context.font = "20px sans-serif";
+        // context.textBaseline = "top";
+        // context.fillStyle = "#000000";
+        // context.strokeStyle = "#FFFFFF";
+        // context.lineWidth = 5;
+        // drawStrokeText(context, "移動(↑↓キー) 決定(Xキー) 戻る(Zキー)", 10, 10);
 
         // todo バレーボールが通過したら、画面遷移
         if (
