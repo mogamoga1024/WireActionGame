@@ -34,15 +34,19 @@ class TutorialScene extends Scene {
         context.fillRect(0, 0, canvas.width, canvas.height);
 
         context.textBaseline = "top";
-        context.font = "900 60px sans-serif";
+        context.font = "900 32px sans-serif";
         context.fillStyle = "#FFFFFF";
 
         const text = this.#textList[this.#textIndex];
         const lineTextList = text.split("\n");
+        const textSizeList = lineTextList.map(lineText => measureText(context, lineText))
+        const totalTextHeight = textSizeList.reduce((acc, cur) => acc + cur.height, 0);
+        let y = (canvas.height - totalTextHeight)/2;
         for (let i = 0; i < lineTextList.length; i++) {
             const lineText = lineTextList[i];
-            const {width: textWidth, height: textHeight} = measureText(context, lineText);
-            context.fillText(lineText, (canvas.width - textWidth)/2, (canvas.height - textHeight)/2);
+            const {width: textWidth, height: textHeight} = textSizeList[i];
+            context.fillText(lineText, (canvas.width - textWidth)/2, y);
+            y += textHeight;
         }
     }
 
