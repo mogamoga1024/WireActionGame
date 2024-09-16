@@ -136,6 +136,7 @@ class GameScene extends Scene {
                 break;
             }
             case "h": {
+                SoundStorage.get("これもうわかんねぇな").play();
                 SceneManager.start(new HelpScene(), true);
             }
         }
