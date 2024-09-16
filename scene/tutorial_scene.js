@@ -58,6 +58,7 @@ class TutorialScene extends Scene {
 
         const {section, text} = this.#textDataList[this.#textDataIndex];
         const lineTextList = text.split("\n");
+        context.font = "900 40px sans-serif";
         const textSizeList = lineTextList.map(lineText => measureText(context, lineText))
         const totalTextHeight = textSizeList.reduce((acc, cur) => acc + cur.height, 0);
         let y = (canvas.height - totalTextHeight)/2;
