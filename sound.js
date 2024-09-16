@@ -6,8 +6,13 @@ class Sound {
         this.#audio.volume = volume;
     }
     play() {
-        this.#audio.pause();
-        this.#audio.currentTime = 0;
+        this.reset();
         this.#audio.play();
+    }
+    reset() {
+        if (!this.#audio.paused) {
+            this.#audio.pause();
+        }
+        this.#audio.currentTime = 0;
     }
 }

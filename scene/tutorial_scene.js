@@ -85,6 +85,7 @@ class TutorialScene extends Scene {
         switch (e.key) {
             case "ArrowLeft": {
                 e.preventDefault();
+                SoundStorage.get("閉廷").reset();
                 if (this.#textDataIndex > 0) {
                     SoundStorage.get("ドンッ").play();
                     this.#textDataIndex--;
@@ -94,6 +95,7 @@ class TutorialScene extends Scene {
             }
             case "ArrowRight": case "x": {
                 e.preventDefault();
+                SoundStorage.get("閉廷").reset();
                 if (this.#textDataIndex === this.#textDataList.length - 1) {
                     SceneManager.finish();
                 }
@@ -111,6 +113,7 @@ class TutorialScene extends Scene {
                 return;
             }
             case "z": {
+                SoundStorage.get("閉廷").reset();
                 SceneManager.finish();
                 return;
             }
