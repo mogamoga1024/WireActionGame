@@ -43,7 +43,7 @@ class RespawnArea {
     }
 
     onCollision() {
-        console.log("リスポーン更新");
+        console.log(`リスポーン更新 ${this.id}`);
         Cookies.set("respaon_area_id", String(this.id), {expires: 365});
         emitter.emit("respawn-area-collision");
     }

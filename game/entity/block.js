@@ -32,8 +32,8 @@ class Block {
     }
 
     onCollision(player, status) {
-        if (status !== "床に接している") {
-            console.log(status);
-        }
+        // if (status !== "床に接している") {
+        //     console.log(status);
+        // }
     }
 }

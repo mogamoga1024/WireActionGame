@@ -9,8 +9,40 @@ class HintScene extends Scene {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
         this.#controlsDescriptionDom.innerText = "←:前へ →:次へ Z:説明終了";
 
+        let respawnId = -1;
+        const strRespawnId = Cookies.get("respaon_area_id");
+        if (strRespawnId !== undefined) {
+            respawnId = Number(strRespawnId);
+        }
+
         // todo
-        this.#textList = ["んにゃぴ…\nやりますねえ！", "以上！"];
+        switch (respawnId) {
+            case -1:
+                this.#textList = [
+                    "ジャンプ[X]とワイヤー[Z]を\nタイミングよく交互に出そう！"
+                ];
+                break;
+            case 9:
+                this.#textList = [
+                    "↑を押しながらワイヤー[Z]を出すと\n上に射出できるぞ！",
+                    "ワイヤーは←→で揺らせるぞ！",
+                    "ワイヤー中に↑を押すと\nワイヤーの長さを縮められるぞ！",
+                    "分かってると思うけど\n赤いブロックにワイヤーはくっつかないぞ！"
+                ];
+                break;
+            case 5:
+                this.#textList = [
+                    "ワイヤー[Z]とジャンプ[X]を\n繰り返して上に登ろう！",
+                    "ワイヤー中に↓を押すと\nワイヤーが伸ばせる！\nこれで落下死は怖くない！",
+                    "最後のトランポリンゾーンは\nワイヤーをうまいタイミングでくっつけて\n死を回避してくれ！",
+                    "難しいけど頑張って！",
+                ];
+                break;
+            default:
+                this.#textList = ["（データが）ないです。"];
+                break;
+        }
+        this.#textList.push("終わり！閉廷！以上！皆解散！");
 
         this.#draw();
     }
