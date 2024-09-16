@@ -28,8 +28,8 @@ loadImage("assets/サブリミナル先輩.png").then(image => {
     const soundLoadPromise = SoundStorage.create({
         "ドンッ": {path: "assets/ドンッ.mp3", volume: 0.5},
         "あっ（確信犯）": {path: "assets/あっ（確信犯）.mp3", volume: 0.9},
-        "大破": {path: "assets/大破.mp3", volume: 0.9},
-        "閉廷": {path: "assets/終わり！！閉廷！！以上！！皆解散！！.mp3", volume: 0.2},
+        "大破": {path: "assets/大破.mp3", volume: 0.7},
+        "閉廷": {path: "assets/終わり！！閉廷！！以上！！皆解散！！.mp3", volume: 0.15},
     });
     
     Promise.all([imageLoadPromise, soundLoadPromise]).then(() => {
