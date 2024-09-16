@@ -29,12 +29,13 @@ loadImage("assets/サブリミナル先輩.png").then(image => {
         "ドンッ": {path: "assets/ドンッ.mp3", volume: 0.5},
         "あっ（確信犯）": {path: "assets/あっ（確信犯）.mp3", volume: 0.9},
         "大破": {path: "assets/大破.mp3", volume: 0.9},
+        "閉廷": {path: "assets/終わり！！閉廷！！以上！！皆解散！！.mp3", volume: 0.2},
     });
     
     Promise.all([imageLoadPromise, soundLoadPromise]).then(() => {
         // ゲームを開始
-        // SceneManager.start(new TitleScene());
+        SceneManager.start(new TitleScene());
         // SceneManager.start(new HelpScene());
-        SceneManager.start(new TutorialScene());
+        // SceneManager.start(new TutorialScene());
     });
 });

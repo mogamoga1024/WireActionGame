@@ -98,7 +98,13 @@ class TutorialScene extends Scene {
                     SceneManager.finish();
                 }
                 else {
-                    SoundStorage.get("ドンッ").play();
+                    if (this.#textDataIndex === this.#textDataList.length - 2) {
+                        SoundStorage.get("閉廷").play();
+                    }
+                    else {
+                        SoundStorage.get("ドンッ").play();
+                    }
+
                     this.#textDataIndex++;
                     this.#draw();
                 }
