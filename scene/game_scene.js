@@ -22,9 +22,6 @@ class GameScene extends Scene {
     #isMapMode = false;
     #isGhost = false;
     
-    #canvas = null;
-    #context = null;
-    
     #timerId = 0;
     #fireHookWaitFrame = 0;
     #fireHookWaitFrameMax = 15;
@@ -43,8 +40,6 @@ class GameScene extends Scene {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
         this.#mapDescriptionDom = document.querySelector("#map-description");
         this.#helpDescriptionDom = document.querySelector("#help-description");
-        this.#canvas = document.querySelector("canvas");
-        this.#context = this.#canvas.getContext("2d");
 
         let stateName = (new URL(window.location.href)).searchParams.keys().next().value;
         if (stateName === undefined) {
@@ -54,7 +49,7 @@ class GameScene extends Scene {
         let {player, entityList, world} = MapFactory.create(stateName, this.#respawnId);
         this.#player = player;
         this.#entityList = entityList;
-        this.#viewport = new Viewport(this.#canvas, world, this.#player);
+        this.#viewport = new Viewport(world, this.#player);
 
         this.#updateDescription();
         this.#mapDescriptionDom.innerText = "C:マップ確認モード開始";
@@ -162,10 +157,10 @@ class GameScene extends Scene {
         return setInterval(() => {
             // const time2 = performance.now();
 
-            this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
-            this.#context.globalAlpha = 0.3;
-            this.#context.drawImage(this.#backgroundImage, 0, 0, this.#canvas.width, this.#canvas.height);
-            this.#context.globalAlpha = 1;
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.globalAlpha = 0.3;
+            context.drawImage(this.#backgroundImage, 0, 0, canvas.width, canvas.height);
+            context.globalAlpha = 1;
             this.#update();
 
             // const fps = 1000 / (time2 - time1);
@@ -189,9 +184,9 @@ class GameScene extends Scene {
     
         // 描画する
         this.#entityList.forEach(entity => {
-            entity.draw(this.#context, this.#viewport);
+            entity.draw(context, this.#viewport);
         });
-        this.#player.draw(this.#context, this.#viewport);
+        this.#player.draw(context, this.#viewport);
     
         this.#updateDescription();
         this.#updateText();
@@ -341,24 +336,24 @@ class GameScene extends Scene {
     }
 
     #updateText() {
-        this.#context.save();
+        context.save();
 
         const time = this.#goalTime === -1 ? new Date() - this.#startTime : this.#goalTime;
         const timeText = formatMilliseconds(time);
-        this.#context.font = "30px sans-serif";
-        this.#context.textBaseline = "top";
-        this.#context.fillStyle = "#000000";
-        this.#context.strokeStyle = "#FFFFFF";
-        this.#context.lineWidth = 5;
-        drawStrokeText(this.#context, timeText, 20, 20);
+        context.font = "30px sans-serif";
+        context.textBaseline = "top";
+        context.fillStyle = "#000000";
+        context.strokeStyle = "#FFFFFF";
+        context.lineWidth = 5;
+        drawStrokeText(context, timeText, 20, 20);
 
         const helpText = "HELP! (Hキー)";
-        this.#context.font = "20px sans-serif";
-        this.#context.fillStyle = "#FF0000";
-        this.#context.strokeStyle = "#FFCCCC";
-        drawStrokeText(this.#context, helpText, this.#canvas.width - 160, this.#canvas.height - 40);
+        context.font = "20px sans-serif";
+        context.fillStyle = "#FF0000";
+        context.strokeStyle = "#FFCCCC";
+        drawStrokeText(context, helpText, canvas.width - 160, canvas.height - 40);
 
-        this.#context.restore();
+        context.restore();
 
         if (this.#player.isGoal && this.#goalTime === -1) {
             this.#goalTime = time;

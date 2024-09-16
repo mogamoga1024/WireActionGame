@@ -67,9 +67,7 @@ function loadSound(path, volume) {
     });
 }
 
-function drawLoading(canvas) {
-    const context = canvas.getContext("2d");
-    
+function drawLoading() {
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.globalAlpha = 0.8;
     context.drawImage(drawLoading.backgroundImage, 0, 0, canvas.width, canvas.height);

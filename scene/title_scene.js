@@ -3,8 +3,6 @@ class TitleScene extends Scene {
     #isLoaded = false;
 
     #controlsDescriptionDom = null;
-    #canvas = null;
-    #context = null;
     #currentMode = "saisyo";
     #respawnId = -1;
     #goalTime = -1;
@@ -13,8 +11,6 @@ class TitleScene extends Scene {
 
     onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
-        this.#canvas = document.querySelector("canvas");
-        this.#context = this.#canvas.getContext("2d");
 
         const strRespawnId = Cookies.get("respaon_area_id");
         if (strRespawnId !== undefined) {
@@ -37,34 +33,34 @@ class TitleScene extends Scene {
     }
 
     #update() {
-        this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
+        context.clearRect(0, 0, canvas.width, canvas.height);
 
-        this.#context.globalAlpha = 0.8;
-        this.#context.drawImage(this.#backgroundImage, 0, 0, this.#canvas.width, this.#canvas.height);
-        this.#context.globalAlpha = 1;
+        context.globalAlpha = 0.8;
+        context.drawImage(this.#backgroundImage, 0, 0, canvas.width, canvas.height);
+        context.globalAlpha = 1;
 
-        this.#context.textBaseline = "top";
-        this.#context.font = "48px sans-serif";
-        this.#context.fillStyle = "#000000";
-        this.#context.strokeStyle = "#FFFFFF";
-        this.#context.lineWidth = 5;
+        context.textBaseline = "top";
+        context.font = "48px sans-serif";
+        context.fillStyle = "#000000";
+        context.strokeStyle = "#FFFFFF";
+        context.lineWidth = 5;
         {
             const titleText = "植木鉢くんの";
-            const titleTextWidth = this.#context.measureText(titleText).width;
-            drawStrokeText(this.#context, titleText, (this.#canvas.width - titleTextWidth) / 2, 114);
+            const titleTextWidth = context.measureText(titleText).width;
+            drawStrokeText(context, titleText, (canvas.width - titleTextWidth) / 2, 114);
         }
         {
             const titleText = "苦行系ワイヤーアクション";
-            const titleTextWidth = this.#context.measureText(titleText).width;
-            drawStrokeText(this.#context, titleText, (this.#canvas.width - titleTextWidth) / 2, 178);
+            const titleTextWidth = context.measureText(titleText).width;
+            drawStrokeText(context, titleText, (canvas.width - titleTextWidth) / 2, 178);
         }
 
         if (this.#goalTime !== -1) {
             const goalTimeText = "クリア時間 " + formatMilliseconds(this.#goalTime);
-            this.#context.font = "30px sans-serif";
-            this.#context.strokeStyle = "#FFFFFF";
-            this.#context.lineWidth = 5;
-            drawStrokeText(this.#context, goalTimeText, 20, 20);
+            context.font = "30px sans-serif";
+            context.strokeStyle = "#FFFFFF";
+            context.lineWidth = 5;
+            drawStrokeText(context, goalTimeText, 20, 20);
         }
 
         let saisyoText = "最初から";
@@ -81,26 +77,26 @@ class TitleScene extends Scene {
             tudukiStrokeStyle = "#FFFF99";
         }
         
-        this.#context.font = "32px sans-serif";
-        this.#context.strokeStyle = saisyoStrokeStyle;
-        this.#context.lineWidth = 5;
-        drawStrokeText(this.#context, saisyoText, 270, 320);
+        context.font = "32px sans-serif";
+        context.strokeStyle = saisyoStrokeStyle;
+        context.lineWidth = 5;
+        drawStrokeText(context, saisyoText, 270, 320);
 
         if (this.#respawnId === -1) {
-            this.#context.fillStyle = "#888888";
+            context.fillStyle = "#888888";
         }
-        this.#context.strokeStyle = tudukiStrokeStyle;
-        drawStrokeText(this.#context, tudukiText, 270, 374);
+        context.strokeStyle = tudukiStrokeStyle;
+        drawStrokeText(context, tudukiText, 270, 374);
 
         if (this.#currentMode === "saisyo" && this.#respawnId !== -1) {
             const bikkuri = "！".repeat(this.#xKeyCount + 1);
             let text = `${bikkuri}続きからのデータが消えます${bikkuri}`;
-            this.#context.font = "32px sans-serif";
-            this.#context.fillStyle = "#FF0000";
-            this.#context.strokeStyle = "#FFFFFF";
-            this.#context.lineWidth = 5;
-            const textWidth = this.#context.measureText(text).width;
-            drawStrokeText(this.#context, text, (canvas.width - textWidth) / 2, 266);
+            context.font = "32px sans-serif";
+            context.fillStyle = "#FF0000";
+            context.strokeStyle = "#FFFFFF";
+            context.lineWidth = 5;
+            const textWidth = context.measureText(text).width;
+            drawStrokeText(context, text, (canvas.width - textWidth) / 2, 266);
         }
     }
 

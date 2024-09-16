@@ -1,8 +1,6 @@
 
 class HelpScene extends Scene {
     #controlsDescriptionDom = null;
-    #canvas = null;
-    #context = null;
     #timer = 0;
     #selectedRow = 0;
     #ballRadian = 0;
@@ -13,9 +11,6 @@ class HelpScene extends Scene {
 
     onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
-        this.#canvas = document.querySelector("canvas");
-        this.#context = this.#canvas.getContext("2d");
-
         this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定 Z:戻る";
 
         this.#timer = this.#startAnimation();
@@ -48,20 +43,20 @@ class HelpScene extends Scene {
     }
 
     #update() {
-        this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
+        context.clearRect(0, 0, canvas.width, canvas.height);
 
         const lineHeight = 3;
-        const lineBaseBottomY = this.#canvas.height / 3;
+        const lineBaseBottomY = canvas.height / 3;
 
         // 背景
         const colorList = ["#3F48CC", "#FFF200", "#FFFFFF"];
         for (let i = 0; i < 3; i++) {
-            this.#context.beginPath();
-            this.#context.globalAlpha = 0.5;
-            this.#context.fillStyle = colorList[i];
-            this.#context.rect(0, lineBaseBottomY * i, this.#canvas.width, lineBaseBottomY - lineHeight/2);
-            this.#context.fill();
-            this.#context.globalAlpha = 1;
+            context.beginPath();
+            context.globalAlpha = 0.5;
+            context.fillStyle = colorList[i];
+            context.rect(0, lineBaseBottomY * i, canvas.width, lineBaseBottomY - lineHeight/2);
+            context.fill();
+            context.globalAlpha = 1;
         }
 
         // バレーボールくん
@@ -73,11 +68,11 @@ class HelpScene extends Scene {
         if (this.#isSelected) {
             this.#ballOffsetX += 18;
         }
-        this.#context.translate(ballWidth/2 + ballMarginLeft + this.#ballOffsetX, ballHeight/2 + this.#canvas.height * this.#selectedRow/3 + ballMarginTop);
-        this.#context.rotate(this.#ballRadian);
-        this.#context.drawImage(ImageStorage.get("バレーボールくん"), -ballWidth/2, -ballHeight/2, ballWidth, ballHeight);
-        this.#context.rotate(-this.#ballRadian);
-        this.#context.translate(-ballWidth/2 - ballMarginLeft - this.#ballOffsetX, -ballHeight/2 - this.#canvas.height * this.#selectedRow/3 - ballMarginTop);
+        context.translate(ballWidth/2 + ballMarginLeft + this.#ballOffsetX, ballHeight/2 + canvas.height * this.#selectedRow/3 + ballMarginTop);
+        context.rotate(this.#ballRadian);
+        context.drawImage(ImageStorage.get("バレーボールくん"), -ballWidth/2, -ballHeight/2, ballWidth, ballHeight);
+        context.rotate(-this.#ballRadian);
+        context.translate(-ballWidth/2 - ballMarginLeft - this.#ballOffsetX, -ballHeight/2 - canvas.height * this.#selectedRow/3 - ballMarginTop);
         this.#ballRadian = (this.#ballRadian - 0.1 + Math.PI*2) % (Math.PI*2);
 
         // 植木鉢くんの設定
@@ -85,7 +80,7 @@ class HelpScene extends Scene {
         const defaultUekibatiHeihgt = (lineBaseBottomY - lineHeight) * 0.8;
         const defaultUekibatiWidth = defaultUekibatiImage.naturalWidth / defaultUekibatiImage.naturalHeight * defaultUekibatiHeihgt;
         const defaultUekibatiMarginTop = lineBaseBottomY - lineHeight - defaultUekibatiHeihgt;
-        const defaultUekibatiX = this.#canvas.width - 120 - defaultUekibatiWidth/2;
+        const defaultUekibatiX = canvas.width - 120 - defaultUekibatiWidth/2;
 
         if (!this.#isHitUekibati && ballX + ballWidth > defaultUekibatiX) {
             SoundStorage.get("大破").play();
@@ -104,51 +99,51 @@ class HelpScene extends Scene {
         let uekibatiHeight = uekibatiImage.naturalHeight * defaultUekibatiHeihgt / defaultUekibatiImage.naturalHeight;
         const uekibatiWidth = uekibatiImage.naturalWidth / uekibatiImage.naturalHeight * uekibatiHeight;
         const uekibatiMarginTop = lineBaseBottomY - lineHeight - uekibatiHeight;
-        const uekibatiX = this.#canvas.width - 120 - uekibatiWidth/2;
+        const uekibatiX = canvas.width - 120 - uekibatiWidth/2;
 
         const textList = ["操作方法", "ヒント", "プロローグ"];
         for (let i = 0; i < 3; i++) {
             // 文字
             const text = textList[i];
-            this.#context.font = "70px sans-serif";
-            this.#context.textBaseline = "top";
-            this.#context.fillStyle = "#000000";
-            this.#context.strokeStyle = "#FFFFFF";
-            this.#context.lineWidth = 5;
-            const {width: textWidth, height: textHeight} = measureText(this.#context, text);
+            context.font = "70px sans-serif";
+            context.textBaseline = "top";
+            context.fillStyle = "#000000";
+            context.strokeStyle = "#FFFFFF";
+            context.lineWidth = 5;
+            const {width: textWidth, height: textHeight} = measureText(context, text);
             const textMarginBottom = (lineBaseBottomY - textHeight) / 2 - 5;
             drawStrokeText(
-                this.#context, text,
-                (this.#canvas.width - textWidth) / 2,
+                context, text,
+                (canvas.width - textWidth) / 2,
                 lineBaseBottomY * (i + 1) - lineHeight - textHeight - textMarginBottom
             );
 
             // 区切り線
-            this.#context.beginPath();
-            this.#context.fillStyle = "#000000";
-            this.#context.rect(0, lineBaseBottomY * (i + 1) - lineHeight, this.#canvas.width, lineHeight);
-            this.#context.fill();
+            context.beginPath();
+            context.fillStyle = "#000000";
+            context.rect(0, lineBaseBottomY * (i + 1) - lineHeight, canvas.width, lineHeight);
+            context.fill();
 
             // 植木鉢くん
             if (i === this.#selectedRow && this.#isHitUekibati) {
-                this.#context.drawImage(uekibatiImage, uekibatiX, lineBaseBottomY * i + uekibatiMarginTop, uekibatiWidth, uekibatiHeight);
+                context.drawImage(uekibatiImage, uekibatiX, lineBaseBottomY * i + uekibatiMarginTop, uekibatiWidth, uekibatiHeight);
             }
             else {
-                this.#context.drawImage(defaultUekibatiImage, defaultUekibatiX, lineBaseBottomY * i + defaultUekibatiMarginTop, defaultUekibatiWidth, defaultUekibatiHeihgt);
+                context.drawImage(defaultUekibatiImage, defaultUekibatiX, lineBaseBottomY * i + defaultUekibatiMarginTop, defaultUekibatiWidth, defaultUekibatiHeihgt);
             }
         }
         
-        this.#context.font = "20px sans-serif";
-        this.#context.textBaseline = "top";
-        this.#context.fillStyle = "#000000";
-        this.#context.strokeStyle = "#FFFFFF";
-        this.#context.lineWidth = 5;
-        drawStrokeText(this.#context, "移動(↑↓キー) 決定(Xキー) 戻る(Zキー)", 10, 10);
+        context.font = "20px sans-serif";
+        context.textBaseline = "top";
+        context.fillStyle = "#000000";
+        context.strokeStyle = "#FFFFFF";
+        context.lineWidth = 5;
+        drawStrokeText(context, "移動(↑↓キー) 決定(Xキー) 戻る(Zキー)", 10, 10);
 
         // todo バレーボールが通過したら、画面遷移
         if (
             this.#isSelected &&
-            ballX > this.#canvas.width * 1.2 &&
+            ballX > canvas.width * 1.2 &&
             this.#uekibatiAnimeFrameCount > 20
         ) {
             // todo

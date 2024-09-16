@@ -2,34 +2,30 @@
 class Viewport {
     dx = 0;
     dy = 0;
-    #width = 0;
-    #height = 0;
     #world = null;
     #player = null;
 
-    constructor(canvas, world, player) {
-        this.#width = canvas.width;
-        this.#height = canvas.height;
+    constructor(world, player) {
         this.#world = world;
         this.#player = player;
     }
 
     get offsetX() {
-        if (this.#player.centerX <= this.#width / 2 || this.#world.width <= this.#width) {
+        if (this.#player.centerX <= canvas.width / 2 || this.#world.width <= canvas.width) {
             return 0 - this.dx;
         }
-        else if (this.#player.centerX >= this.#world.width - this.#width / 2) {
-            return this.#width - this.#world.width - this.dx;
+        else if (this.#player.centerX >= this.#world.width - canvas.width / 2) {
+            return canvas.width - this.#world.width - this.dx;
         }
         else {
-            return this.#width / 2 - this.#player.centerX - this.dx;
+            return canvas.width / 2 - this.#player.centerX - this.dx;
         }
     }
 
     get offsetY() {
-        const baseOffsetY = this.#height - this.#world.height;
-        const baseY = this.#height * 2 / 3 - baseOffsetY;
-        if (this.#height * 2 / 3 - this.#player.centerY >= 0) {
+        const baseOffsetY = canvas.height - this.#world.height;
+        const baseY = canvas.height * 2 / 3 - baseOffsetY;
+        if (canvas.height * 2 / 3 - this.#player.centerY >= 0) {
             return 0 - this.dy;
         }
         else if (this.#player.centerY >= baseY) {

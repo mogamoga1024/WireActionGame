@@ -1,6 +1,7 @@
 
 // Canvas設定
 const canvas = document.querySelector("canvas");
+const context = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 500;
 
@@ -13,7 +14,7 @@ loadImage("assets/サブリミナル先輩.png").then(image => {
     const isMobileByClientHint = navigator.userAgentData && navigator.userAgentData.mobile;
     drawLoading.isMobile = isMobileByUa || isMobileByClientHint;
     drawLoading.backgroundImage = image;
-    drawLoading(canvas);
+    drawLoading();
 
     const imageLoadPromise = ImageStorage.create({
         "植木鉢くんL": "assets/植木鉢くんL.png",

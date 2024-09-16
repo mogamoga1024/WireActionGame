@@ -32,10 +32,8 @@ class SceneManager {
             this.#init();
         }
 
-        const canvas = document.querySelector("canvas");
-        const context = canvas.getContext("2d");
         context.clearRect(0, 0, canvas.width, canvas.height);
-        drawLoading(canvas);
+        drawLoading();
 
         scene.onStart();
         this.#scene = scene;
