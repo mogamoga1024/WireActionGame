@@ -7,18 +7,24 @@ class TutorialScene extends Scene {
         "～地上のとき～",
         "←→で移動！",
         "Xでジャンプ！",
-        "Zでワイヤー！\n引っかかったワイヤーはZで戻せる！",
+        "Zでワイヤー！\n" +
+        "引っかかったワイヤーはZで戻せる！",
         "ワイヤーは↑↓←→で方向が指定できる！",
         "～ぶらさがりのとき～",
-        "Xでジャンプ！\nワイヤーは解除されるから注意！",
-        "↑でもジャンプ！\nワイヤーは解除されないから安心！\nワイヤーを縮めたいときに使おう！",
+        "Xでジャンプ！\n" +
+        "ワイヤーは解除されるから注意！",
+        "↑でもジャンプ！\n" +
+        "ワイヤーは解除されないから安心！\n" +
+        "ワイヤーを縮めたいときに使おう！",
         "Zでワイヤー解除！",
         "タイミングよく←→を押すと揺らせる！",
         "↓でワイヤーを伸ばせる！",
         "～その他～",
-        "Cでマップ確認モードになるぞ！\n↑↓←→でマップを確認しよう！\nもう一度Cを押すとマップ確認モードが終わるぞ！",
+        "Cでマップ確認モードになるぞ！\n" +
+        "↑↓←→でマップを確認しよう！",
         "～最後に～",
-        "いろいろ触って、いろいろ動かして慣れてくれ！\nというか画面外の下に操作方法書いてあるよ！",
+        "いろいろ動かして慣れてくれ！\n" +
+        "画面外の下にも操作方法書いてあるよ！",
         "終わり！閉廷！以上！皆解散！"
     ];
 
@@ -34,7 +40,7 @@ class TutorialScene extends Scene {
         context.fillRect(0, 0, canvas.width, canvas.height);
 
         context.textBaseline = "top";
-        context.font = "900 32px sans-serif";
+        context.font = "900 40px sans-serif";
         context.fillStyle = "#FFFFFF";
 
         const text = this.#textList[this.#textIndex];
@@ -70,7 +76,11 @@ class TutorialScene extends Scene {
                 }
                 return;
             }
-            case "ArrowRight": case "x": {
+            case "z": {
+                SceneManager.finish();
+                return;
+            }
+            default: {
                 e.preventDefault();
                 if (this.#textIndex === this.#textList.length - 1) {
                     SceneManager.finish();
@@ -80,10 +90,6 @@ class TutorialScene extends Scene {
                     this.#textIndex++;
                     this.#draw();
                 }
-                return;
-            }
-            case "z": {
-                SceneManager.finish();
                 return;
             }
         }
