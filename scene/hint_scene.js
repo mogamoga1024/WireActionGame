@@ -4,6 +4,8 @@ class HintScene extends Scene {
 
     #textIndex = 0;
     #textList = [];
+    #backgroundImage = null;
+    #hintExists = true;
 
     onStart() {
         this.#controlsDescriptionDom = document.querySelector("#controls-description");
@@ -15,7 +17,6 @@ class HintScene extends Scene {
             respawnId = Number(strRespawnId);
         }
 
-        // todo
         switch (respawnId) {
             case -1:
                 this.#textList = [
@@ -87,17 +88,25 @@ class HintScene extends Scene {
                 ];
                 break;
             case 1: case 3:
-                this.#textList = [
-                    "（ヒントは）ないです"
-                ];
+                this.#hintExists = false;
                 break;
             default:
+                // ここに来るときはデータが狂っている
+                // 要するにエラー 普通に考えて見られることはない
                 this.#textList = ["（データが）ないです"];
                 break;
         }
-        this.#textList.push("終わり！閉廷！以上！皆解散！");
 
-        this.#draw();
+        if (respawnId === 1 || respawnId === 3) {
+            loadImage("assets/ないです.png").then(image => {
+                this.#backgroundImage = image;
+                this.#draw();
+            });
+        }
+        else {
+            this.#textList.push("終わり！閉廷！以上！皆解散！");
+            this.#draw();
+        }
     }
 
     onEnd() {
@@ -105,6 +114,11 @@ class HintScene extends Scene {
     }
 
     #draw() {
+        if (!this.#hintExists) {
+            this.#noHintdraw();
+            return;
+        }
+
         context.fillStyle = "#0000FF";
         context.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -123,6 +137,16 @@ class HintScene extends Scene {
             context.fillText(lineText, (canvas.width - textWidth)/2, y);
             y += textHeight;
         }
+    }
+
+    #noHintdraw() {
+        context.drawImage(this.#backgroundImage, 0, 0, canvas.width, canvas.height);
+        const text = "（ヒントは）ないです";
+        context.textBaseline = "top";
+        context.font = "900 40px sans-serif";
+        context.fillStyle = "#FF0000";
+        const textWidth = context.measureText(text).width;
+        context.fillText(text, (canvas.width - textWidth)/2, 436);
     }
 
     onKeyDown(e) {
@@ -145,7 +169,10 @@ class HintScene extends Scene {
             case "ArrowRight": case "x": {
                 e.preventDefault();
                 SoundStorage.get("閉廷").reset();
-                if (this.#textIndex === this.#textList.length - 1) {
+                if (
+                    !this.#hintExists ||
+                    this.#textIndex === this.#textList.length - 1
+                ) {
                     SceneManager.finish();
                 }
                 else {

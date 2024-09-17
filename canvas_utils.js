@@ -40,11 +40,9 @@ function formatMilliseconds(ms) {
 
 function drawLoading() {
     context.clearRect(0, 0, canvas.width, canvas.height);
-    context.globalAlpha = 0.8;
-    context.drawImage(drawLoading.backgroundImage, 0, 0, canvas.width, canvas.height);
-    context.globalAlpha = 1;
-
+    
     if (drawLoading.isMobile) {
+        context.drawImage(drawLoading.backgroundImage, 0, 0, canvas.width, canvas.height);
         const text = "（PCじゃないと動か）ないです";
         context.textBaseline = "top";
         context.font = "900 36px sans-serif";
@@ -53,6 +51,9 @@ function drawLoading() {
         context.fillText(text, (canvas.width - textWidth)/2, 440);
     }
     else {
+        context.globalAlpha = 0.8;
+        context.drawImage(drawLoading.backgroundImage, 0, 0, canvas.width, canvas.height);
+        context.globalAlpha = 1;
         const text = "Loading...";
         context.textBaseline = "top";
         context.font = "48px sans-serif";
