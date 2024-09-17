@@ -113,12 +113,12 @@ class GameScene extends Scene {
         }
 
         switch (e.key) {
-            case "ArrowUp":    this.#isPressedUp    = true; e.preventDefault(); break;
-            case "ArrowDown":  this.#isPressedDown  = true; e.preventDefault(); break;
-            case "ArrowLeft":  this.#isPressedLeft  = true; e.preventDefault(); break;
-            case "ArrowRight": this.#isPressedRight = true; e.preventDefault(); break;
-            case "x": this.#isPressedX = true; break;
-            case "z": this.#isPressedZ = true; break;
+            case "ArrowUp":    this.#isPressedUp    = true; e.preventDefault(); return;
+            case "ArrowDown":  this.#isPressedDown  = true; e.preventDefault(); return;
+            case "ArrowLeft":  this.#isPressedLeft  = true; e.preventDefault(); return;
+            case "ArrowRight": this.#isPressedRight = true; e.preventDefault(); return;
+            case "x": this.#isPressedX = true; return;
+            case "z": this.#isPressedZ = true; return;
             case "c": {
                 this.#isMapMode = !this.#isMapMode;
                 if (this.#isMapMode) {
@@ -129,27 +129,31 @@ class GameScene extends Scene {
                     this.#viewport.dy = 0;
                     this.#mapDescriptionDom.innerText = "C:マップ確認モード開始";
                 }
-                break;
+                return;
             }
             case "g": {
                 this.#isGhost = !this.#isGhost;
-                break;
+                return;
             }
             case "h": {
+                if (this.#player.isGoal) {
+                    return;
+                }
                 SoundStorage.get("これもうわかんねぇな").play();
                 SceneManager.start(new HelpScene(), true);
+                return;
             }
         }
     }
 
     onKeyUp(e) {
         switch (e.key) {
-            case "ArrowUp":    this.#isPressedUp    = false; break;
-            case "ArrowDown":  this.#isPressedDown  = false; break;
-            case "ArrowLeft":  this.#isPressedLeft  = false; break;
-            case "ArrowRight": this.#isPressedRight = false; break;
-            case "x": this.#isPressedX = false; break;
-            case "z": this.#isPressedZ = false; break;
+            case "ArrowUp":    this.#isPressedUp    = false; return;
+            case "ArrowDown":  this.#isPressedDown  = false; return;
+            case "ArrowLeft":  this.#isPressedLeft  = false; return;
+            case "ArrowRight": this.#isPressedRight = false; return;
+            case "x": this.#isPressedX = false; return;
+            case "z": this.#isPressedZ = false; return;
         }
     }
 
