@@ -8,11 +8,17 @@ canvas.height = 500;
 // えみたん
 const emitter = new TinyEmitter();
 
-loadImage("assets/サブリミナル先輩.png").then(image => {
-    const mobileRegex = /iphone;|(android|nokia|blackberry|bb10;).+mobile|android.+fennec|opera.+mobi|windows phone|symbianos/i;
-    const isMobileByUa = mobileRegex.test(navigator.userAgent);;
-    const isMobileByClientHint = navigator.userAgentData && navigator.userAgentData.mobile;
-    drawLoading.isMobile = isMobileByUa || isMobileByClientHint;
+const mobileRegex = /iphone;|(android|nokia|blackberry|bb10;).+mobile|android.+fennec|opera.+mobi|windows phone|symbianos/i;
+const isMobileByUa = mobileRegex.test(navigator.userAgent);;
+const isMobileByClientHint = navigator.userAgentData && navigator.userAgentData.mobile;
+drawLoading.isMobile = isMobileByUa || isMobileByClientHint;
+
+let backgroundImagePath = "assets/サブリミナル先輩.png";
+if (drawLoading.isMobile) {
+    backgroundImagePath = "assets/ないです.png";
+}
+
+loadImage(backgroundImagePath).then(image => {
     drawLoading.backgroundImage = image;
     drawLoading();
 
@@ -35,7 +41,7 @@ loadImage("assets/サブリミナル先輩.png").then(image => {
     
     Promise.all([imageLoadPromise, soundLoadPromise]).then(() => {
         // ゲームを開始
-        SceneManager.start(new TitleScene());
+        // SceneManager.start(new TitleScene());
         // SceneManager.start(new HelpScene());
         // SceneManager.start(new TutorialScene());
     });

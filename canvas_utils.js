@@ -45,13 +45,12 @@ function drawLoading() {
     context.globalAlpha = 1;
 
     if (drawLoading.isMobile) {
-        const text = "（PCじゃないと動か）ないです。";
+        const text = "（PCじゃないと動か）ないです";
         context.textBaseline = "top";
-        context.font = "28px sans-serif";
-        context.fillStyle = "#000000";
-        context.strokeStyle = "#FFFFFF";
-        context.lineWidth = 5;
-        drawStrokeText(context, text, 370, 440);
+        context.font = "900 36px sans-serif";
+        context.fillStyle = "#FF0000";
+        const textWidth = context.measureText(text).width;
+        context.fillText(text, (canvas.width - textWidth)/2, 440);
     }
     else {
         const text = "Loading...";
