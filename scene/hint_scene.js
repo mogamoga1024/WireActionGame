@@ -81,6 +81,11 @@ class HintScene extends Scene {
                     "ここを乗り切ればゴールは近いぞ\n諦めないでくれ"
                 ];
                 break;
+            case 8:
+                this.#textList = [
+                    "壁を登るときは\n↑でワイヤーを短くするといいぞ"
+                ];
+                break;
             default:
                 this.#textList = ["（データが）ないです。"];
                 break;
