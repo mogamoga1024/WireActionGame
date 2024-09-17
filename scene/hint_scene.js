@@ -86,8 +86,13 @@ class HintScene extends Scene {
                     "壁を登るときは\n↑でワイヤーを短くするといいぞ"
                 ];
                 break;
+            case 1: case 3:
+                this.#textList = [
+                    "（ヒントは）ないです"
+                ];
+                break;
             default:
-                this.#textList = ["（データが）ないです。"];
+                this.#textList = ["（データが）ないです"];
                 break;
         }
         this.#textList.push("終わり！閉廷！以上！皆解散！");
