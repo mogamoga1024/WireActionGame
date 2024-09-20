@@ -1,5 +1,5 @@
 
-Tone.Transport.bpm.value = 76;
+Tone.Transport.bpm.value = 70;
 const t8n = Tone.Time("8n").toSeconds();
 const t4n = t8n*2;
 
@@ -58,7 +58,7 @@ class BGM {
                 }
             }).toDestination();
             const piano2 = new Tone.Sampler({
-                urls, baseUrl, envelope, volume: -5,
+                urls, baseUrl, envelope, volume: -7,
                 onload: () => {
                     this.#synth2 = piano2;
                     if (this.#synth1 !== null) {
@@ -106,112 +106,112 @@ class BGM {
         this.#synth1.triggerAttackRelease("G5", "4n", time);
         this.#synth2.triggerAttackRelease("C3", "4n", time); time += t4n; 
     
-        this.#synth1.triggerAttackRelease("G5", "8n", time + t8n);
+        this.#synth1.triggerAttackRelease("G5", "4n", time + t8n);
         this.#synth2.triggerAttackRelease("C3", "4n", time); time += t4n;
     
-        this.#synth2.triggerAttackRelease("F2", "8n", time); time += t8n;
+        this.#synth2.triggerAttackRelease("F2", "4n", time); time += t8n;
     
-        this.#synth1.triggerAttackRelease("F5", "8n", time);
-        this.#synth2.triggerAttackRelease("C3", "8n", time); time += t8n;
+        this.#synth1.triggerAttackRelease("F5", "4n", time);
+        this.#synth2.triggerAttackRelease("C3", "4n", time); time += t8n;
     
-        this.#synth1.triggerAttackRelease("F5", "8n", time);
-        this.#synth1.triggerAttackRelease("A5", "8n", time + t8n);
+        this.#synth1.triggerAttackRelease("F5", "4n", time);
+        this.#synth1.triggerAttackRelease("A5", "4n", time + t8n);
         this.#synth2.triggerAttackRelease("F3", "4n", time); time += t4n;
     
         this.#synth1.triggerAttackRelease("G5", "4n", time);
-        this.#synth2.triggerAttackRelease("C3", "8n", time);
-        this.#synth2.triggerAttackRelease("E3", "8n", time + t8n); time += t4n;
+        this.#synth2.triggerAttackRelease("C3", "4n", time);
+        this.#synth2.triggerAttackRelease("E3", "4n", time + t8n); time += t4n;
     
-        this.#synth1.triggerAttackRelease("C5", "8n", time + t8n);
+        this.#synth1.triggerAttackRelease("C5", "4n", time + t8n);
         this.#synth2.triggerAttackRelease("G3", "4n", time); time += t4n;
     
-        this.#synth1.triggerAttackRelease("F5", "8n", time);
-        this.#synth2.triggerAttackRelease("F2", "8n", time); time += t8n;
+        this.#synth1.triggerAttackRelease("F5", "4n", time);
+        this.#synth2.triggerAttackRelease("F2", "4n", time); time += t8n;
     
-        this.#synth1.triggerAttackRelease("E5", "8n", time);
-        this.#synth2.triggerAttackRelease("C3", "8n", time); time += t8n;
+        this.#synth1.triggerAttackRelease("E5", "4n", time);
+        this.#synth2.triggerAttackRelease("C3", "4n", time); time += t8n;
     
-        this.#synth1.triggerAttackRelease("D5", "8n", time);
-        this.#synth1.triggerAttackRelease("E5", "8n", time + t8n);
+        this.#synth1.triggerAttackRelease("D5", "4n", time);
+        this.#synth1.triggerAttackRelease("E5", "4n", time + t8n);
         this.#synth2.triggerAttackRelease("F3", "4n", time); time += t4n;
     
         this.#synth1.triggerAttackRelease("C5", "4n", time);
-        this.#synth2.triggerAttackRelease("C3", "8n", time);
-        this.#synth2.triggerAttackRelease("E3", "8n", time + t8n); time += t4n;
+        this.#synth2.triggerAttackRelease("C3", "4n", time);
+        this.#synth2.triggerAttackRelease("E3", "4n", time + t8n); time += t4n;
     
-        this.#synth1.triggerAttackRelease("G5", "8n", time + t8n);
+        this.#synth1.triggerAttackRelease("G5", "4n", time + t8n);
         this.#synth2.triggerAttackRelease("G3", "4n", time); time += t4n;
     
-        this.#synth2.triggerAttackRelease("G2", "8n", time); time += t8n;
+        this.#synth2.triggerAttackRelease("G2", "4n", time); time += t8n;
     
-        this.#synth1.triggerAttackRelease("F5", "8n", time);
-        this.#synth2.triggerAttackRelease("D3", "8n", time); time += t8n;
+        this.#synth1.triggerAttackRelease("F5", "4n", time);
+        this.#synth2.triggerAttackRelease("D3", "4n", time); time += t8n;
     
-        this.#synth1.triggerAttackRelease("B5", "8n", time);
-        this.#synth1.triggerAttackRelease("C6", "8n", time + t8n);
+        this.#synth1.triggerAttackRelease("B5", "4n", time);
+        this.#synth1.triggerAttackRelease("C6", "4n", time + t8n);
         this.#synth2.triggerAttackRelease("G3", "4n", time); time += t4n;
     
         this.#synth1.triggerAttackRelease("G5", "2n", time);
-        this.#synth2.triggerAttackRelease("E3", "8n", time);
-        this.#synth2.triggerAttackRelease("C3", "8n", time + t8n);
-        this.#synth2.triggerAttackRelease("E3", "8n", time + t8n*2);
-        this.#synth2.triggerAttackRelease("G3", "8n", time + t8n*3); time += t4n*2;
+        this.#synth2.triggerAttackRelease("E3", "4n", time);
+        this.#synth2.triggerAttackRelease("C3", "4n", time + t8n);
+        this.#synth2.triggerAttackRelease("E3", "4n", time + t8n*2);
+        this.#synth2.triggerAttackRelease("G3", "4n", time + t8n*3); time += t4n*2;
     
-        this.#synth2.triggerAttackRelease("E3", "8n", time); time += t4n;
+        this.#synth2.triggerAttackRelease("E3", "4n", time); time += t4n;
     
-        this.#synth2.triggerAttackRelease("D3", "8n", time); time += t4n;
+        this.#synth2.triggerAttackRelease("D3", "4n", time); time += t4n;
     
         this.#synth1.triggerAttackRelease("G5", "4n", time);
         this.#synth2.triggerAttackRelease("C3", "4n", time); time += t4n;
     
-        this.#synth1.triggerAttackRelease("G5", "8n", time + t8n);
+        this.#synth1.triggerAttackRelease("G5", "4n", time + t8n);
         this.#synth2.triggerAttackRelease("C3", "4n", time); time += t4n;
     
-        this.#synth1.triggerAttackRelease("F5", "8n", time + t8n);
-        this.#synth2.triggerAttackRelease("A2", "8n", time);
-        this.#synth2.triggerAttackRelease("C3", "8n", time + t8n); time += t4n;
+        this.#synth1.triggerAttackRelease("F5", "4n", time + t8n);
+        this.#synth2.triggerAttackRelease("A2", "4n", time);
+        this.#synth2.triggerAttackRelease("C3", "4n", time + t8n); time += t4n;
     
-        this.#synth1.triggerAttackRelease("F5", "8n", time);
-        this.#synth1.triggerAttackRelease("A5", "8n", time + t8n);
+        this.#synth1.triggerAttackRelease("F5", "4n", time);
+        this.#synth1.triggerAttackRelease("A5", "4n", time + t8n);
         this.#synth2.triggerAttackRelease("F3", "4n", time); time += t4n;
     
         this.#synth1.triggerAttackRelease("G5", "4n", time);
-        this.#synth2.triggerAttackRelease("C3", "8n", time);
-        this.#synth2.triggerAttackRelease("E3", "8n", time + t8n); time += t4n;
+        this.#synth2.triggerAttackRelease("C3", "4n", time);
+        this.#synth2.triggerAttackRelease("E3", "4n", time + t8n); time += t4n;
     
-        this.#synth1.triggerAttackRelease("C6", "8n", time + t8n);
+        this.#synth1.triggerAttackRelease("C6", "4n", time + t8n);
         this.#synth2.triggerAttackRelease("G3", "4n", time); time += t4n;
     
-        this.#synth1.triggerAttackRelease("C6", "8n", time);
-        this.#synth2.triggerAttackRelease("A2", "8n", time); time += t8n;
+        this.#synth1.triggerAttackRelease("C6", "4n", time);
+        this.#synth2.triggerAttackRelease("A2", "4n", time); time += t8n;
     
-        this.#synth1.triggerAttackRelease("C6", "8n", time);
-        this.#synth2.triggerAttackRelease("C3", "8n", time); time += t8n;
+        this.#synth1.triggerAttackRelease("C6", "4n", time);
+        this.#synth2.triggerAttackRelease("C3", "4n", time); time += t8n;
     
-        this.#synth1.triggerAttackRelease("D6", "8n", time);
-        this.#synth1.triggerAttackRelease("E6", "8n", time + t8n);
+        this.#synth1.triggerAttackRelease("D6", "4n", time);
+        this.#synth1.triggerAttackRelease("E6", "4n", time + t8n);
         this.#synth2.triggerAttackRelease("F3", "4n", time); time += t4n;
     
         this.#synth1.triggerAttackRelease("C6", "4n", time);
-        this.#synth2.triggerAttackRelease("C3", "8n", time);
-        this.#synth2.triggerAttackRelease("E3", "8n", time + t8n); time += t4n;
+        this.#synth2.triggerAttackRelease("C3", "4n", time);
+        this.#synth2.triggerAttackRelease("E3", "4n", time + t8n); time += t4n;
     
-        this.#synth1.triggerAttackRelease("G6", "8n", time + t8n);
+        this.#synth1.triggerAttackRelease("G6", "4n", time + t8n);
         this.#synth2.triggerAttackRelease("G3", "4n", time); time += t4n;
     
-        this.#synth1.triggerAttackRelease("F6", "8n", time + t8n);
-        this.#synth2.triggerAttackRelease("B2", "8n", time);
-        this.#synth2.triggerAttackRelease("D3", "8n", time + t8n); time += t4n;
+        this.#synth1.triggerAttackRelease("F6", "4n", time + t8n);
+        this.#synth2.triggerAttackRelease("B2", "4n", time);
+        this.#synth2.triggerAttackRelease("D3", "4n", time + t8n); time += t4n;
     
-        this.#synth1.triggerAttackRelease("D6", "8n", time);
-        this.#synth1.triggerAttackRelease("B5", "8n", time + t8n);
+        this.#synth1.triggerAttackRelease("D6", "4n", time);
+        this.#synth1.triggerAttackRelease("B5", "4n", time + t8n);
         this.#synth2.triggerAttackRelease("G3", "4n", time); time += t4n;
     
         this.#synth1.triggerAttackRelease("C6", "2n", time);
-        this.#synth2.triggerAttackRelease("E3", "8n", time);
-        this.#synth2.triggerAttackRelease("C3", "8n", time + t8n);
-        this.#synth2.triggerAttackRelease("E3", "8n", time + t8n*2);
-        this.#synth2.triggerAttackRelease("G3", "8n", time + t8n*3);
+        this.#synth2.triggerAttackRelease("E3", "4n", time);
+        this.#synth2.triggerAttackRelease("C3", "4n", time + t8n);
+        this.#synth2.triggerAttackRelease("E3", "4n", time + t8n*2);
+        this.#synth2.triggerAttackRelease("G3", "4n", time + t8n*3);
         this.#synth2.triggerAttackRelease("C4", "4n", time + t8n*4); time += t8n*8;
     
         this.#timer2 = setTimeout(() => {
