@@ -1,15 +1,12 @@
 
 class HintScene extends Scene {
-    #controlsDescriptionDom = null;
-
     #textIndex = 0;
     #textList = [];
     #backgroundImage = null;
     #hintExists = true;
 
     onStart() {
-        this.#controlsDescriptionDom = document.querySelector("#controls-description");
-        this.#controlsDescriptionDom.innerText = "←:前へ →:次へ Z:説明終了";
+        controlsDescriptionDom.innerText = "←:前へ →:次へ Z:説明終了";
 
         let respawnId = -1;
         const strRespawnId = Cookies.get("respaon_area_id");
@@ -114,7 +111,7 @@ class HintScene extends Scene {
     }
 
     onEnd() {
-        this.#controlsDescriptionDom.innerText = "";
+        controlsDescriptionDom.innerText = "";
     }
 
     #draw() {

@@ -1,4 +1,10 @@
 
+// DOM
+const controlsDescriptionDom = document.querySelector("#controls-description");
+const mapDescriptionDom = document.querySelector("#map-description");
+const helpDescriptionDom = document.querySelector("#help-description");
+const bgmDescriptionDom = document.querySelector("#bgm-description");
+
 // Canvas設定
 const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
@@ -46,5 +52,3 @@ loadImage(backgroundImagePath).then(image => {
         // SceneManager.start(new TutorialScene());
     });
 });
-
-BGM.start();

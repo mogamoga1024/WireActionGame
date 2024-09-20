@@ -1,13 +1,10 @@
 
 class TutorialScene extends Scene {
-    #controlsDescriptionDom = null;
-
     #textDataIndex = 0;
     #textDataList = [];
 
     onStart() {
-        this.#controlsDescriptionDom = document.querySelector("#controls-description");
-        this.#controlsDescriptionDom.innerText = "←:前へ →:次へ Z:説明終了";
+        controlsDescriptionDom.innerText = "←:前へ →:次へ Z:説明終了";
 
         const tmpTextList = [
             "～地上のとき～",
@@ -75,7 +72,7 @@ class TutorialScene extends Scene {
     }
 
     onEnd() {
-        this.#controlsDescriptionDom.innerText = "";
+        controlsDescriptionDom.innerText = "";
     }
     
     onKeyDown(e) {

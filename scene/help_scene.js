@@ -1,6 +1,5 @@
 
 class HelpScene extends Scene {
-    #controlsDescriptionDom = null;
     #timer = 0;
     #selectedRow = 0;
     #ballRadian = 0;
@@ -10,15 +9,14 @@ class HelpScene extends Scene {
     #uekibatiAnimeFrameCount = 1;
 
     onStart() {
-        this.#controlsDescriptionDom = document.querySelector("#controls-description");
-        this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定 Z:戻る";
+        controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定 Z:戻る";
 
         this.#timer = this.#startAnimation();
     }
 
     onEnd() {
         clearInterval(this.#timer);
-        this.#controlsDescriptionDom.innerText = "";
+        controlsDescriptionDom.innerText = "";
     }
 
     onResume() {

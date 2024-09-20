@@ -14,9 +14,6 @@ class GameScene extends Scene {
     #isPressedX = false;
     #isPressedZ = false;
     
-    #controlsDescriptionDom = null;
-    #mapDescriptionDom = null;
-    #helpDescriptionDom = null;
     #backgroundImage = null;
     #saveFunc = null;
     #isMapMode = false;
@@ -37,10 +34,6 @@ class GameScene extends Scene {
     }
 
     onStart() {
-        this.#controlsDescriptionDom = document.querySelector("#controls-description");
-        this.#mapDescriptionDom = document.querySelector("#map-description");
-        this.#helpDescriptionDom = document.querySelector("#help-description");
-
         let stateName = (new URL(window.location.href)).searchParams.keys().next().value;
         if (stateName === undefined) {
             stateName = "hard";
@@ -52,8 +45,8 @@ class GameScene extends Scene {
         this.#viewport = new Viewport(world, this.#player);
 
         this.#updateDescription();
-        this.#mapDescriptionDom.innerText = "C:マップ確認モード開始";
-        this.#helpDescriptionDom.innerText = "H:ヘルプ";
+        mapDescriptionDom.innerText = "C:マップ確認モード開始";
+        helpDescriptionDom.innerText = "H:ヘルプ";
 
         loadImage("assets/虚無.png").then(image => {
             this.#backgroundImage = image;
@@ -81,9 +74,9 @@ class GameScene extends Scene {
 
     onEnd() {
         clearInterval(this.#timerId);
-        this.#controlsDescriptionDom.innerText = "";
-        this.#mapDescriptionDom.innerText = "";
-        this.#helpDescriptionDom.innerText = "";
+        controlsDescriptionDom.innerText = "";
+        mapDescriptionDom.innerText = "";
+        helpDescriptionDom.innerText = "";
         window.removeEventListener("beforeunload", this.#saveFunc);
         window.removeEventListener("popstate", this.#saveFunc);
         emitter.off("respawn-area-collision", this.#saveFunc);
@@ -91,16 +84,16 @@ class GameScene extends Scene {
 
     onResume() {
         this.#updateDescription();
-        this.#mapDescriptionDom.innerText = "C:マップ確認モード開始";
-        this.#helpDescriptionDom.innerText = "H:ヘルプ";
+        mapDescriptionDom.innerText = "C:マップ確認モード開始";
+        helpDescriptionDom.innerText = "H:ヘルプ";
         this.#timerId = this.#startAnimation();
     }
 
     onStop() {
         clearInterval(this.#timerId);
-        this.#controlsDescriptionDom.innerText = "";
-        this.#mapDescriptionDom.innerText = "";
-        this.#helpDescriptionDom.innerText = "";
+        controlsDescriptionDom.innerText = "";
+        mapDescriptionDom.innerText = "";
+        helpDescriptionDom.innerText = "";
     }
 
     onKeyDown(e) {
@@ -122,12 +115,12 @@ class GameScene extends Scene {
             case "c": {
                 this.#isMapMode = !this.#isMapMode;
                 if (this.#isMapMode) {
-                    this.#mapDescriptionDom.innerText = "C:マップ確認モード終了";
+                    mapDescriptionDom.innerText = "C:マップ確認モード終了";
                 }
                 else {
                     this.#viewport.dx = 0;
                     this.#viewport.dy = 0;
-                    this.#mapDescriptionDom.innerText = "C:マップ確認モード開始";
+                    mapDescriptionDom.innerText = "C:マップ確認モード開始";
                 }
                 return;
             }
@@ -335,8 +328,8 @@ class GameScene extends Scene {
                 break;
         }
         // DOMを頻繁に更新したくない ＆ 範囲選択できない
-        if (this.#controlsDescriptionDom.innerText !== text) {
-            this.#controlsDescriptionDom.innerText = text;
+        if (controlsDescriptionDom.innerText !== text) {
+            controlsDescriptionDom.innerText = text;
         }
     }
 

@@ -2,7 +2,6 @@
 class TitleScene extends Scene {
     #isLoaded = false;
 
-    #controlsDescriptionDom = null;
     #currentMode = "saisyo";
     #respawnId = -1;
     #goalTime = -1;
@@ -10,8 +9,6 @@ class TitleScene extends Scene {
     #xKeyCount = 0;
 
     onStart() {
-        this.#controlsDescriptionDom = document.querySelector("#controls-description");
-
         const strRespawnId = Cookies.get("respaon_area_id");
         if (strRespawnId !== undefined) {
             this.#respawnId = Number(strRespawnId);
@@ -23,7 +20,7 @@ class TitleScene extends Scene {
             this.#goalTime = Number(strGoalTime);
         }
 
-        this.#controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定";
+        controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定";
 
         loadImage("assets/植木鉢くんの悲劇.png").then(image => {
             this.#backgroundImage = image;
@@ -101,7 +98,7 @@ class TitleScene extends Scene {
     }
 
     onEnd() {
-        this.#controlsDescriptionDom.innerText = "";
+        controlsDescriptionDom.innerText = "";
     }
     
     onKeyDown(e) {
@@ -138,6 +135,7 @@ class TitleScene extends Scene {
                 }
 
                 SoundStorage.get("ドンッ").play();
+                BGM.start();
                 
                 let totalTime = 0;
                 if (this.#currentMode === "saisyo") {
