@@ -46,3 +46,5 @@ loadImage(backgroundImagePath).then(image => {
         // SceneManager.start(new TutorialScene());
     });
 });
+
+BGM.start();
