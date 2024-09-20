@@ -19,6 +19,35 @@ const isMobileByUa = mobileRegex.test(navigator.userAgent);;
 const isMobileByClientHint = navigator.userAgentData && navigator.userAgentData.mobile;
 drawLoading.isMobile = isMobileByUa || isMobileByClientHint;
 
+// BGM
+bgmDescriptionDom.innerText = "B:BGM ON";
+window.addEventListener("keydown", e => {
+    if (e.repeat) {
+        e.preventDefault();
+        return;
+    }
+
+    if (e.key === "b") {
+        if (SceneManager.sceneName === "TitleScene") {
+            if (bgmDescriptionDom.innerText === "B:BGM ON") {
+                bgmDescriptionDom.innerText = "B:BGM OFF";
+            }
+            else {
+                bgmDescriptionDom.innerText = "B:BGM ON";
+            }
+        }
+        else if (BGM.isPlaying) {
+            BGM.stop();
+            bgmDescriptionDom.innerText = "B:BGM OFF";
+        }
+        else {
+            BGM.start();
+            bgmDescriptionDom.innerText = "B:BGM ON";
+        }
+    }
+});
+
+// 画像とか音とか読み込んだ後にゲーム開始
 let backgroundImagePath = "assets/サブリミナル先輩.png";
 if (drawLoading.isMobile) {
     backgroundImagePath = "assets/ないです.png";

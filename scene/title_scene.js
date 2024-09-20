@@ -135,7 +135,9 @@ class TitleScene extends Scene {
                 }
 
                 SoundStorage.get("ドンッ").play();
-                BGM.start();
+                if (bgmDescriptionDom.innerText === "B:BGM ON") {
+                    BGM.start();
+                }
                 
                 let totalTime = 0;
                 if (this.#currentMode === "saisyo") {

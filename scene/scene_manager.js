@@ -1,6 +1,12 @@
 
 class SceneManager {
     static #scene = null;
+    static get sceneName() {
+        if (this.#scene === null) {
+            return "";
+        }
+        return this.#scene.constructor.name;
+    }
 
     static #init() {
         window.addEventListener("keydown", e => {

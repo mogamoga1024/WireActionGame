@@ -45,7 +45,7 @@ class GameScene extends Scene {
         this.#viewport = new Viewport(world, this.#player);
 
         this.#updateDescription();
-        mapDescriptionDom.innerText = "C:マップ確認モード開始";
+        mapDescriptionDom.innerText = "C:マップ確認";
         helpDescriptionDom.innerText = "H:ヘルプ";
 
         loadImage("assets/虚無.png").then(image => {
@@ -84,7 +84,7 @@ class GameScene extends Scene {
 
     onResume() {
         this.#updateDescription();
-        mapDescriptionDom.innerText = "C:マップ確認モード開始";
+        mapDescriptionDom.innerText = "C:マップ確認";
         helpDescriptionDom.innerText = "H:ヘルプ";
         this.#timerId = this.#startAnimation();
     }
@@ -115,12 +115,12 @@ class GameScene extends Scene {
             case "c": {
                 this.#isMapMode = !this.#isMapMode;
                 if (this.#isMapMode) {
-                    mapDescriptionDom.innerText = "C:マップ確認モード終了";
+                    mapDescriptionDom.innerText = "C:ゲームに戻る";
                 }
                 else {
                     this.#viewport.dx = 0;
                     this.#viewport.dy = 0;
-                    mapDescriptionDom.innerText = "C:マップ確認モード開始";
+                    mapDescriptionDom.innerText = "C:マップ確認";
                 }
                 return;
             }
