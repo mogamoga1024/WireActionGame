@@ -70,6 +70,8 @@ loadImage(backgroundImagePath).then(image => {
         "ドンッ": {path: "assets/ドンッ.mp3", volume: 0.5},
         "あっ（確信犯）": {path: "assets/あっ（確信犯）.mp3", volume: 0.9},
         "大破": {path: "assets/大破.mp3", volume: 0.7},
+        "やりますねぇ": {path: "assets/やりますねぇ.mp3"},
+        "ぬぁぁん疲れたもぉぉん": {path: "assets/ぬぁぁん疲れたもぉぉん.mp3", volume: 0.7},
         "これもうわかんねぇな": {path: "assets/これもうわかんねぇな.mp3"},
         "閉廷": {path: "assets/終わり！！閉廷！！以上！！皆解散！！.mp3", volume: 0.15},
     });

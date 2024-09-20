@@ -43,7 +43,8 @@ class RespawnArea {
     }
 
     onCollision() {
-        console.log(`リスポーン更新 ${this.id}`);
+        // console.log(`リスポーン更新 ${this.id}`);
+        SoundStorage.get("やりますねぇ").play();
         Cookies.set("respaon_area_id", String(this.id), {expires: 365});
         emitter.emit("respawn-area-collision");
     }

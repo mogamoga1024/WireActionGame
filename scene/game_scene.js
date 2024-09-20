@@ -204,6 +204,7 @@ class GameScene extends Scene {
         }
     
         if (this.#player.opacity === 0) {
+            SoundStorage.get("ぬぁぁん疲れたもぉぉん").play();
             this.#player = this.#player.nextPlayer();
             this.#viewport.setPlayer(this.#player);
         }
