@@ -1,4 +1,4 @@
 # WireActionGame
 ワイヤーアクション WIP
 
-https://mogamoga1024.github.io/WireActionGame/
+https://mogamoga1024.github.io/WireActionGame/?inmu=false
