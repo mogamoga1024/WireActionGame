@@ -34,12 +34,12 @@ class GameScene extends Scene {
     }
 
     onStart() {
-        let stateName = (new URL(window.location.href)).searchParams.keys().next().value;
-        if (stateName === undefined) {
-            stateName = "hard";
+        let stage = (new URL(window.location.href)).searchParams.get("stage");
+        if (stage === null) {
+            stage = "hard";
         }
         
-        let {player, entityList, world} = MapFactory.create(stateName, this.#respawnId);
+        let {player, entityList, world} = MapFactory.create(stage, this.#respawnId);
         this.#player = player;
         this.#entityList = entityList;
         this.#viewport = new Viewport(world, this.#player);
