@@ -8,13 +8,19 @@ class BGM {
     static #synth2 = null;
     static #timer1 = 0;
     static #timer2 = 0;
+    static #isPlaying = false;
+    static get isPlaying() {
+        return this.#isPlaying;
+    }
 
     static async start() {
         await Tone.start();
+        this.#isPlaying = true;
         this.#playMelody1();
     }
 
     static stop() {
+        this.#isPlaying = false;
         this.#stopMelody();
     }
 
