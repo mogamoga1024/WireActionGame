@@ -247,7 +247,8 @@ class MapFactory {
                 bp(new UnstickableBlock(300, 0, 1, 500));
                 bp(new Block(301, 0, 20, 500));
                 bp(new Block(0, 480, 700, 20));
-                player = new Player(65, 430);
+                // player = new Player(65, 430);
+                player = new Player(83, 430);
                 break;
             }
             // 難しい

@@ -76,6 +76,7 @@ class Hook {
         }
 
         let wireLength = this.#calcWireLength(this.#player.centerX, this.#player.centerY);
+        let tmpIsShrinking = this.#isShrinking;
         if (!this.#isShrinking) {
             if (wireLength >= this.#maxWireLength) {
                 // prevは更新しなくてよい
@@ -85,11 +86,13 @@ class Hook {
                     wireLength = this.#calcWireLength(this.#player.centerX, this.#player.centerY);
                 }
                 while (wireLength >= this.#maxWireLength)
-                this.#isShrinking = true;
+                    tmpIsShrinking = true;
             }
         }
 
         this.#resolveCollisionList(entityList);
+
+        this.#isShrinking = tmpIsShrinking;
 
         if (this.#isShrinking) {
             if (wireLength <= this.#v * 1.1) {
