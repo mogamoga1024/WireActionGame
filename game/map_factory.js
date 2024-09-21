@@ -450,6 +450,7 @@ class MapFactory {
                 bp(new DeathBlock(9600, 1110, 20, 100));
                 bp(new Block(9620, 1110, 80, 20));
                 bp(new Block(5860, 1120, 180, 20));
+                bp(new DeathBlock(6520, 1120, 960, 40));
                 bp(new Block(9620, 1130, 20, 260));
                 bp(new Block(6500, 1160, 20, 40));
                 bp(new Block(6720, 1160, 40, 40));
