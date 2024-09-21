@@ -37,7 +37,7 @@ class TitleScene extends Scene {
         context.globalAlpha = 1;
 
         context.textBaseline = "top";
-        context.font = "48px sans-serif";
+        context.font = "900 48px sans-serif";
         context.fillStyle = "#000000";
         context.strokeStyle = "#FFFFFF";
         context.lineWidth = 5;
@@ -54,7 +54,7 @@ class TitleScene extends Scene {
 
         if (this.#goalTime !== -1) {
             const goalTimeText = "クリア時間 " + formatMilliseconds(this.#goalTime);
-            context.font = "30px sans-serif";
+            context.font = "900 30px sans-serif";
             context.strokeStyle = "#FFFFFF";
             context.lineWidth = 5;
             drawStrokeText(context, goalTimeText, 20, 20);
@@ -74,7 +74,7 @@ class TitleScene extends Scene {
             tudukiStrokeStyle = "#FFFF99";
         }
         
-        context.font = "32px sans-serif";
+        context.font = "900 32px sans-serif";
         context.strokeStyle = saisyoStrokeStyle;
         context.lineWidth = 5;
         drawStrokeText(context, saisyoText, 270, 320);
@@ -88,7 +88,7 @@ class TitleScene extends Scene {
         if (this.#currentMode === "saisyo" && this.#respawnId !== -1) {
             const bikkuri = "！".repeat(this.#xKeyCount + 1);
             let text = `${bikkuri}続きからのデータが消えます${bikkuri}`;
-            context.font = "32px sans-serif";
+            context.font = "900 32px sans-serif";
             context.fillStyle = "#FF0000";
             context.strokeStyle = "#FFFFFF";
             context.lineWidth = 5;

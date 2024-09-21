@@ -339,7 +339,7 @@ class GameScene extends Scene {
 
         const time = this.#goalTime === -1 ? new Date() - this.#startTime : this.#goalTime;
         const timeText = formatMilliseconds(time);
-        context.font = "30px sans-serif";
+        context.font = "900 30px sans-serif";
         context.textBaseline = "top";
         context.fillStyle = "#000000";
         context.strokeStyle = "#FFFFFF";
@@ -347,7 +347,7 @@ class GameScene extends Scene {
         drawStrokeText(context, timeText, 20, 20);
 
         const helpText = "HELP! (Hキー)";
-        context.font = "20px sans-serif";
+        context.font = "900 20px sans-serif";
         context.fillStyle = "#FF0000";
         context.strokeStyle = "#FFCCCC";
         drawStrokeText(context, helpText, canvas.width - 160, canvas.height - 40);

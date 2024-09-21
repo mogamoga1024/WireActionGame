@@ -117,7 +117,7 @@ class HelpScene extends Scene {
         for (let i = 0; i < 3; i++) {
             // 文字
             const text = textList[i];
-            context.font = "70px sans-serif";
+            context.font = "900 70px sans-serif";
             context.textBaseline = "top";
             context.fillStyle = "#000000";
             context.strokeStyle = "#FFFFFF";
@@ -145,7 +145,7 @@ class HelpScene extends Scene {
             }
         }
         
-        // context.font = "20px sans-serif";
+        // context.font = "900 20px sans-serif";
         // context.textBaseline = "top";
         // context.fillStyle = "#000000";
         // context.strokeStyle = "#FFFFFF";

@@ -56,7 +56,7 @@ function drawLoading() {
         context.globalAlpha = 1;
         const text = "Loading...";
         context.textBaseline = "top";
-        context.font = "48px sans-serif";
+        context.font = "900 48px sans-serif";
         context.fillStyle = "#000000";
         context.strokeStyle = "#FFFFFF";
         context.lineWidth = 5;
