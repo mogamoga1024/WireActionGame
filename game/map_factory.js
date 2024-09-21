@@ -241,6 +241,15 @@ class MapFactory {
                 player = new Player(20, 430);
                 break;
             }
+            // フックバグ 調査2
+            case "debug13": {
+                worldHeight = 500;
+                bp(new UnstickableBlock(300, 0, 1, 500));
+                bp(new Block(301, 0, 20, 500));
+                bp(new Block(0, 480, 700, 20));
+                player = new Player(65, 430);
+                break;
+            }
             // 難しい
             case "hard": {
                 worldHeight = 1930;
