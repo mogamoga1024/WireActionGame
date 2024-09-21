@@ -92,7 +92,9 @@ class Hook {
 
         this.#resolveCollisionList(entityList);
 
-        this.#isShrinking = tmpIsShrinking;
+        if (tmpIsShrinking) {
+            this.#isShrinking = true;
+        }
 
         if (this.#isShrinking) {
             if (wireLength <= this.#v * 1.1) {
