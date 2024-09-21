@@ -165,7 +165,7 @@ class HelpScene extends Scene {
                 SceneManager.start(new HintScene(), true);
             }
             else if (this.#selectedRow === 2) {
-                // todo
+                SceneManager.start(new PrologueScene(), true);
             }
         }
     }
