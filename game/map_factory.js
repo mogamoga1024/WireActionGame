@@ -251,6 +251,17 @@ class MapFactory {
                 player = new Player(83, 430);
                 break;
             }
+            // 速い速度で振り子になったら最大角度を大きくしたい
+            case "debug14": {
+                worldHeight = 800;
+                const h = worldHeight;
+                bp(new Block(0, h - 100, 1600, 100));
+                bp(new Block(0, h - 500, 50, h));
+                bp(new Block(1600 - 50, h - 500, 50, h));
+                bp(new Block(300, h - 400, 1000, 50));
+                player = new Player(100, 360);
+                break;
+            }
             // 難しい
             case "hard": {
                 worldHeight = 1930;
