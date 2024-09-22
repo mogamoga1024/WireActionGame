@@ -1,5 +1,24 @@
 
 class PrologueScene extends Scene {
+    #komaIndex = 0;
+    #komaList = [
+        {
+            backgrouondImage: null,
+            text: "植木鉢くんが目を覚ますと、見知らぬ不思議な場所にいました。\n" +
+                  "周りは静かで、まるで時間が止まっているかのようです。"
+        },
+        {
+            backgrouondImage: null,
+            text: "何か大切なことを忘れている気がするけれど、思い出せません。\n" +
+                  "それでも胸の奥には、どうしても消えない強い未練が残っていました。"
+        },
+        {
+            backgrouondImage: null,
+            text: "ふと遠くを見ると、まばゆい光が見えます。\n" +
+                  "植木鉢くんはその光の正体が気になり、足を進めることにしました。"
+        },
+    ]
+
     onStart() {
         controlsDescriptionDom.innerText = "←:前へ →:次へ Z:プロローグ終了";
         // todo
@@ -7,6 +26,10 @@ class PrologueScene extends Scene {
     
     onEnd() {
         // noop
+    }
+
+    #draw() {
+        // todo
     }
 
     onKeyDown(e) {
@@ -18,16 +41,24 @@ class PrologueScene extends Scene {
         switch (e.key) {
             case "ArrowLeft": {
                 e.preventDefault();
-                // todo
+                if (this.#komaIndex > 0) {
+                    this.#komaIndex--;
+                    this.#draw();
+                }
                 return;
             }
             case "ArrowRight": case "x": {
                 e.preventDefault();
-                // todo
+                if (this.#komaIndex === this.#komaList.length - 1) {
+                    SceneManager.finish();
+                }
+                else {
+                    this.#komaIndex++;
+                    this.#draw();
+                }
                 return;
             }
             case "z": {
-                // todo
                 SceneManager.finish();
                 return;
             }
