@@ -1,11 +1,12 @@
 
 class PrologueScene extends Scene {
     onStart() {
+        controlsDescriptionDom.innerText = "←:前へ →:次へ Z:プロローグ終了";
         // todo
     }
     
     onEnd() {
-        // todo
+        controlsDescriptionDom.innerText = "";
     }
 
     onKeyDown(e) {
