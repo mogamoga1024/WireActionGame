@@ -111,7 +111,7 @@ class HintScene extends Scene {
     }
 
     onEnd() {
-        controlsDescriptionDom.innerText = "";
+        // noop
     }
 
     #draw() {

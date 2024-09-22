@@ -98,7 +98,7 @@ class TitleScene extends Scene {
     }
 
     onEnd() {
-        controlsDescriptionDom.innerText = "";
+        // noop
     }
     
     onKeyDown(e) {

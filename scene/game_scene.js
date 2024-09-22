@@ -74,9 +74,6 @@ class GameScene extends Scene {
 
     onEnd() {
         clearInterval(this.#timerId);
-        controlsDescriptionDom.innerText = "";
-        mapDescriptionDom.innerText = "";
-        helpDescriptionDom.innerText = "";
         window.removeEventListener("beforeunload", this.#saveFunc);
         window.removeEventListener("popstate", this.#saveFunc);
         emitter.off("respawn-area-collision", this.#saveFunc);
@@ -91,9 +88,6 @@ class GameScene extends Scene {
 
     onStop() {
         clearInterval(this.#timerId);
-        controlsDescriptionDom.innerText = "";
-        mapDescriptionDom.innerText = "";
-        helpDescriptionDom.innerText = "";
     }
 
     onKeyDown(e) {

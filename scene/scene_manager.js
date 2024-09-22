@@ -39,6 +39,10 @@ class SceneManager {
         }
 
         context.clearRect(0, 0, canvas.width, canvas.height);
+        controlsDescriptionDom.innerText = "";
+        mapDescriptionDom.innerText = "";
+        helpDescriptionDom.innerText = "";
+
         drawLoading();
 
         scene.onStart();

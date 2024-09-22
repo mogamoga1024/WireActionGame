@@ -6,7 +6,7 @@ class PrologueScene extends Scene {
     }
     
     onEnd() {
-        controlsDescriptionDom.innerText = "";
+        // noop
     }
 
     onKeyDown(e) {

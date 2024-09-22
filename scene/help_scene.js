@@ -16,7 +16,6 @@ class HelpScene extends Scene {
 
     onEnd() {
         clearInterval(this.#timer);
-        controlsDescriptionDom.innerText = "";
     }
 
     onResume() {

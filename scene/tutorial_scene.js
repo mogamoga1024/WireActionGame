@@ -72,7 +72,7 @@ class TutorialScene extends Scene {
     }
 
     onEnd() {
-        controlsDescriptionDom.innerText = "";
+        // noop
     }
     
     onKeyDown(e) {
