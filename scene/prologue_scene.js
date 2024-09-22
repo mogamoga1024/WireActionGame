@@ -3,17 +3,17 @@ class PrologueScene extends Scene {
     #komaIndex = 0;
     #komaList = [
         {
-            backgrouondImage: null,
+            backgroundImage: null,
             text: "植木鉢くんが目を覚ますと、見知らぬ不思議な場所にいました。\n" +
                   "周りは静かで、まるで時間が止まっているかのようです。"
         },
         {
-            backgrouondImage: null,
+            backgroundImage: null,
             text: "何か大切なことを忘れている気がするけれど、思い出せません。\n" +
                   "それでも胸の奥には、どうしても消えない強い未練が残っていました。"
         },
         {
-            backgrouondImage: null,
+            backgroundImage: null,
             text: "ふと遠くを見ると、まばゆい光が見えます。\n" +
                   "植木鉢くんはその光の正体が気になり、足を進めることにしました。"
         },
@@ -21,7 +21,19 @@ class PrologueScene extends Scene {
 
     onStart() {
         controlsDescriptionDom.innerText = "←:前へ →:次へ Z:プロローグ終了";
-        // todo
+
+        const promiseList = [
+            loadImage("assets/プロローグ/プロローグ1.png"),
+            loadImage("assets/プロローグ/プロローグ2.png"),
+            loadImage("assets/プロローグ/プロローグ3.png")
+        ];
+
+        Promise.all(promiseList).then(imageList => {
+            for (let i = 0; i < imageList.length; i++) {
+                this.#komaList[i].backgroundImage = imageList[i];
+            }
+            this.#draw();
+        });
     }
     
     onEnd() {
@@ -29,7 +41,36 @@ class PrologueScene extends Scene {
     }
 
     #draw() {
-        // todo
+        const {backgroundImage, text} = this.#komaList[this.#komaIndex];
+
+        context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+
+        context.textBaseline = "top";
+        
+        const lineTextList = text.split("\n");
+        context.font = "900 24px sans-serif";
+        const textSizeList = lineTextList.map(lineText => measureText(context, lineText))
+        const textWindowPadding = 18;
+        const textWindowStrokeWidth = 8;
+        const totalTextHeight = textSizeList.reduce((acc, cur) => acc + cur.height, 0) + textWindowPadding * 2;
+        let y = canvas.height - totalTextHeight - textWindowStrokeWidth/2;
+
+        context.beginPath();
+        context.fillStyle = "#FFFDD0";
+        context.strokeStyle = "#8B4513";
+        context.lineWidth = textWindowStrokeWidth;
+        context.roundRect(textWindowStrokeWidth/2, y, canvas.width - textWindowStrokeWidth, totalTextHeight, 20);
+        context.stroke();
+        context.fill();
+
+        y += textWindowPadding;
+        context.fillStyle = "#000000";
+        for (let i = 0; i < lineTextList.length; i++) {
+            const lineText = lineTextList[i];
+            const {width: textWidth, height: textHeight} = textSizeList[i];
+            context.fillText(lineText, (canvas.width - textWidth)/2, y);
+            y += textHeight;
+        }
     }
 
     onKeyDown(e) {
