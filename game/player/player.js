@@ -127,6 +127,7 @@ class Player {
         this.#actStatus = "ground";
         this.#vx = 0;
         this.#vy = 0;
+        this.#maxRadian = 0;
         if (horizontal === "left") {
             this.#x -= 10;
         }
@@ -433,6 +434,7 @@ class Player {
     }
     #fallEnd() {
         this.#vy = 0;
+        this.#maxRadian = 0;
         this.#prevActStatus = this.#actStatus;
         this.#actStatus = "ground";
     }
@@ -465,19 +467,31 @@ class Player {
         this.#angularFrequency = Math.sqrt(gravity / this.#furikoLength);
         this.#furikoForceMode = "none";
 
-        // todo
         // 速度が速い状態で振り子になったときに最大角を大きくしたい
         if (!shouldStopInertia) {
-            if (Math.abs(this.#vx) > 114514) {
-                // todo
-                // this.#maxRadian = 8101919;
+            let vx = Math.abs(this.#vx);
+            let distance = 0;
+            while (vx > 0) {
+                distance += vx;
+                vx -= this.#decelerationX;
+            }
+            // ラジアン = 円弧 / (ワイヤーの長さ * 2 * PI) * (2 * PI)
+            let maxRadian = distance / (this.#furikoLength * Math.PI*2) * Math.PI*2;
+            if (Math.abs(radian) < maxRadian) {
+                maxRadian -= Math.abs(radian);
+                if (maxRadian > Math.abs(this.#maxRadian)) {
+                    if (maxRadian > Math.PI * 3/8) {
+                        maxRadian = Math.PI * 3/8;
+                    }
+                    this.#maxRadian = this.#maxRadian > 0 ? maxRadian : -maxRadian;
+                    console.log(this.#maxRadian);
+                }
             }
         }
 
         // 慣性を残す
         if (
             !shouldStopInertia &&
-            this.#prevActStatus !== "ground" &&
             Math.abs(radian) < Math.abs(this.#maxRadian)
         ) {
             if (this.#vx < 0) {
@@ -491,6 +505,7 @@ class Player {
             // this.#angularFrequency * this.#furikoParam = Math.acos(radian / this.#maxRadian)
             // this.#furikoParam = Math.acos(radian / this.#maxRadian) / this.#angularFrequency
             this.#furikoParam = Math.acos(radian / this.#maxRadian) / this.#angularFrequency;
+            console.log(`this.#furikoParam: ${this.#furikoParam}`);
         }
         // 慣性を殺す
         else {
@@ -678,6 +693,7 @@ class Player {
             }
 
             this.#vx = this.#vy = 0;
+            this.#maxRadian = 0;
             this.#prevActStatus = this.#actStatus;
             this.#actStatus = "ground";
             entity.onCollision(this, "振り子中に地面に衝突");
