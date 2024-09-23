@@ -465,6 +465,15 @@ class Player {
         this.#angularFrequency = Math.sqrt(gravity / this.#furikoLength);
         this.#furikoForceMode = "none";
 
+        // todo
+        // 速度が速い状態で振り子になったときに最大角を大きくしたい
+        if (!shouldStopInertia) {
+            if (Math.abs(this.#vx) > 114514) {
+                // todo
+                // this.#maxRadian = 8101919;
+            }
+        }
+
         // 慣性を残す
         if (
             !shouldStopInertia &&
