@@ -473,7 +473,7 @@ class Player {
             let distance = 0;
             while (vx > 0) {
                 distance += vx;
-                vx -= this.#decelerationX;
+                vx -= this.#decelerationX * 2;
             }
             // ラジアン = 円弧 / (ワイヤーの長さ * 2 * PI) * (2 * PI)
             let maxRadian = distance / (this.#furikoLength * Math.PI*2) * Math.PI*2;
@@ -484,7 +484,6 @@ class Player {
                         maxRadian = Math.PI * 3/8;
                     }
                     this.#maxRadian = this.#maxRadian > 0 ? maxRadian : -maxRadian;
-                    console.log(this.#maxRadian);
                 }
             }
         }
@@ -505,7 +504,6 @@ class Player {
             // this.#angularFrequency * this.#furikoParam = Math.acos(radian / this.#maxRadian)
             // this.#furikoParam = Math.acos(radian / this.#maxRadian) / this.#angularFrequency
             this.#furikoParam = Math.acos(radian / this.#maxRadian) / this.#angularFrequency;
-            console.log(`this.#furikoParam: ${this.#furikoParam}`);
         }
         // 慣性を殺す
         else {
