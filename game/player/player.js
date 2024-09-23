@@ -880,6 +880,7 @@ class Player {
         }
         else {
             // エリア内
+            SoundStorage.get("やりますねぇ").play();
             this.#respawnArea = entity;
             entity.onCollision();
         }
@@ -896,6 +897,7 @@ class Player {
         }
         else {
             // ゴール！
+            SoundStorage.get("やりますねぇ").play();
             this.#isGoal = true;
             this.#respawnArea = entity;
             entity.onCollision();
