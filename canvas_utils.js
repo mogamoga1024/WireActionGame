@@ -64,5 +64,34 @@ function drawLoading() {
     }
 }
 
+function drawKoma(backgroundImage, text) {
+    context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
+    context.textBaseline = "top";
+    
+    const lineTextList = text.split("\n");
+    context.font = "900 24px sans-serif";
+    const textSizeList = lineTextList.map(lineText => measureText(context, lineText))
+    const textWindowPadding = 18;
+    const textWindowStrokeWidth = 8;
+    const totalTextHeight = textSizeList.reduce((acc, cur) => acc + cur.height, 0) + textWindowPadding * 2;
+    let y = canvas.height - totalTextHeight - textWindowStrokeWidth/2;
+
+    context.beginPath();
+    context.fillStyle = "#FFFDD0";
+    context.strokeStyle = "#8B4513";
+    context.lineWidth = textWindowStrokeWidth;
+    context.roundRect(textWindowStrokeWidth/2, y, canvas.width - textWindowStrokeWidth, totalTextHeight, 20);
+    context.stroke();
+    context.fill();
+
+    y += textWindowPadding;
+    context.fillStyle = "#000000";
+    for (let i = 0; i < lineTextList.length; i++) {
+        const lineText = lineTextList[i];
+        const {width: textWidth, height: textHeight} = textSizeList[i];
+        context.fillText(lineText, (canvas.width - textWidth)/2, y);
+        y += textHeight;
+    }
+}
 
