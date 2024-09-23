@@ -402,6 +402,8 @@ class Player {
             return;
         }
 
+        SoundStorage.get("ヌッ！").play();
+
         this.#canDescending = true;
         this.#prevActStatus = this.#actStatus;
         this.#actStatus = "jumping";
