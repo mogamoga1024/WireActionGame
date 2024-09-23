@@ -545,6 +545,7 @@ class Player {
             }
             return;
         }
+        SoundStorage.get("ｼｭｰ").play();
         this.#hook = new Hook(this, radian);
     }
     #hookMove(entityList) {
