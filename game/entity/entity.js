@@ -16,8 +16,19 @@ class Entity {
         this.#height = height;
     }
 
-    canDraw() {
+    canDraw(viewport) {
         const ox = viewport.offsetX;
         const oy = viewport.offsetY;
+        const x = this.x + ox;
+        const y = this.y + oy;
+        if (
+            x > canvas.width ||
+            x + this.width < 0 ||
+            y > canvas.height ||
+            y + this.height < 0
+        ) {
+            return false;
+        }
+        return true;
     }
 }

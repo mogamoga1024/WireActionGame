@@ -176,7 +176,9 @@ class GameScene extends Scene {
     
         // 描画する
         this.#entityList.forEach(entity => {
-            entity.draw(this.#viewport);
+            if (entity.canDraw(this.#viewport)) {
+                entity.draw(this.#viewport);
+            }
         });
         this.#player.draw(this.#viewport);
     
