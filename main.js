@@ -77,6 +77,7 @@ loadImage(backgroundImagePath).then(image => {
         "ぬぁぁん疲れたもぉぉん": {path: "assets/ぬぁぁん疲れたもぉぉん.mp3", volume: 0.7},
         "これもうわかんねぇな": {path: "assets/これもうわかんねぇな.mp3"},
         "閉廷": {path: "assets/終わり！！閉廷！！以上！！皆解散！！.mp3", volume: 0.15},
+        "ほらいくどー": {path: "assets/ほらいくどー.mp3", volume: 0.9},
     });
     
     Promise.all([imageLoadPromise, soundLoadPromise]).then(() => {

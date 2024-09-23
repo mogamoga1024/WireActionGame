@@ -134,7 +134,7 @@ class TitleScene extends Scene {
                     return;
                 }
 
-                SoundStorage.get("ドンッ").play();
+                SoundStorage.get("ほらいくどー").play();
                 if (bgmDescriptionDom.innerText === "B:BGM ON") {
                     BGM.start();
                 }
