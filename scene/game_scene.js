@@ -322,7 +322,7 @@ class GameScene extends Scene {
                 text = "Z:フックを外す ←→:移動";
                 break;
         }
-        // DOMを頻繁に更新したくない ＆ 範囲選択できない
+        // DOMを頻繁に更新したくない ＆ 範囲選択させたい
         if (controlsDescriptionDom.innerText !== text) {
             controlsDescriptionDom.innerText = text;
         }
