@@ -4,7 +4,7 @@ class GoalArea extends RespawnArea {
         super(x, y, width, height);
     }
 
-    draw(context, viewport) {
+    draw(viewport) {
         const ox =  viewport.offsetX;
         const oy =  viewport.offsetY;
         const radius = this.height / 2;

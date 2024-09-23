@@ -1,6 +1,6 @@
 
 class InvisibleBlock extends UnstickableBlock {
-    draw(context, viewport) {
+    draw(viewport) {
         // 見えない
     }
 }

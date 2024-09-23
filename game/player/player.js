@@ -73,7 +73,7 @@ class Player {
         this.#isGoal = isGoal;
     }
 
-    draw(context, viewport) {
+    draw(viewport) {
         if (this.#actStatus === "death") {
             this.#deadFrameCount++;
             this.#opacity = Math.max(this.#opacity - 0.02, 0);
@@ -91,7 +91,7 @@ class Player {
             context.moveTo(this.centerX + ox, this.centerY + oy);
             context.lineTo(this.#hook.centerX + ox, this.#hook.centerY + oy);
             context.stroke();
-            this.#hook.draw(context, viewport);
+            this.#hook.draw(viewport);
         }
 
         let uekibatiImage = null;

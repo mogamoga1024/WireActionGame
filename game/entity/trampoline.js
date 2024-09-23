@@ -1,6 +1,6 @@
 
 class Trampoline extends UnstickableBlock {
-    draw(context, viewport) {
+    draw(viewport) {
         const ox =  viewport.offsetX;
         const oy =  viewport.offsetY;
 

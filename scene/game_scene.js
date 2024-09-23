@@ -176,9 +176,9 @@ class GameScene extends Scene {
     
         // 描画する
         this.#entityList.forEach(entity => {
-            entity.draw(context, this.#viewport);
+            entity.draw(this.#viewport);
         });
-        this.#player.draw(context, this.#viewport);
+        this.#player.draw(this.#viewport);
     
         this.#updateDescription();
         this.#updateText();
