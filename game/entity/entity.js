@@ -17,6 +17,7 @@ class Entity {
     }
 
     canDraw() {
-        
+        const ox = viewport.offsetX;
+        const oy = viewport.offsetY;
     }
 }

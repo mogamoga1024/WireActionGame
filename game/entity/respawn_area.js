@@ -14,8 +14,8 @@ class RespawnArea extends Entity {
     }
 
     draw(viewport) {
-        const ox =  viewport.offsetX;
-        const oy =  viewport.offsetY;
+        const ox = viewport.offsetX;
+        const oy = viewport.offsetY;
 
         context.globalAlpha = 0.4;
 

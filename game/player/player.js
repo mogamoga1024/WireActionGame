@@ -79,8 +79,8 @@ class Player {
             this.#opacity = Math.max(this.#opacity - 0.02, 0);
         }
 
-        const ox =  viewport.offsetX;
-        const oy =  viewport.offsetY;
+        const ox = viewport.offsetX;
+        const oy = viewport.offsetY;
 
         context.globalAlpha = this.#opacity;
 

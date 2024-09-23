@@ -39,8 +39,8 @@ class Hook {
     }
 
     draw(viewport) {
-        const ox =  viewport.offsetX;
-        const oy =  viewport.offsetY;
+        const ox = viewport.offsetX;
+        const oy = viewport.offsetY;
 
         const d = 10;
         context.drawImage(ImageStorage.get("お花"), this.#x - d/2 + ox, this.#y - d/2 + oy, this.#width + d, this.#height + d);
