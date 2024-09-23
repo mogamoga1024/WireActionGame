@@ -6,6 +6,7 @@ class TitleScene extends Scene {
     #respawnId = -1;
     #goalTime = -1;
     #backgroundImage = null;
+    #horaikudoSound = null;
     #xKeyCount = 0;
 
     onStart() {
@@ -22,8 +23,12 @@ class TitleScene extends Scene {
 
         controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定";
 
-        loadImage("assets/植木鉢くんの悲劇.png").then(image => {
+        Promise.all([
+            loadImage("assets/植木鉢くんの悲劇.png"),
+            loadSound("assets/ほらいくどー.mp3", 0.9)
+        ]).then(([image, sound]) => {
             this.#backgroundImage = image;
+            this.#horaikudoSound = sound;
             this.#update();
             this.#isLoaded = true;
         });
@@ -134,7 +139,7 @@ class TitleScene extends Scene {
                     return;
                 }
 
-                SoundStorage.get("ほらいくどー").play();
+                this.#horaikudoSound.play();
                 if (bgmDescriptionDom.innerText === "B:BGM ON") {
                     BGM.start();
                 }
