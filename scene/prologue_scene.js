@@ -17,7 +17,7 @@ class PrologueScene extends Scene {
             text: "ふと遠くを見ると、まばゆい光が見えます。\n" +
                   "植木鉢くんはその光の正体が気になり、足を進めることにしました。"
         },
-    ]
+    ];
 
     onStart() {
         controlsDescriptionDom.innerText = "←:前へ →:次へ Z:プロローグ終了";
