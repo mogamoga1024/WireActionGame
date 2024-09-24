@@ -20,7 +20,7 @@ class GameScene extends Scene {
     #isGhost = false;
     #fadeOutAlpha = 0;
     
-    #timerId = 0;
+    #animeId = 0;
     #fireHookWaitFrame = 0;
     #fireHookWaitFrameMax = 15;
 
@@ -53,7 +53,7 @@ class GameScene extends Scene {
 
         loadImage("assets/虚無.png").then(image => {
             this.#backgroundImage = image;
-            this.#timerId = this.#startAnimation();
+            this.#startAnimation();
 
             this.#saveFunc = () => {
                 if (this.#player.isGoal) {
@@ -76,7 +76,7 @@ class GameScene extends Scene {
     }
 
     onEnd() {
-        clearInterval(this.#timerId);
+        cancelAnimationFrame(this.#animeId);
         window.removeEventListener("beforeunload", this.#saveFunc);
         window.removeEventListener("popstate", this.#saveFunc);
         emitter.off("respawn-area-collision", this.#saveFunc);
@@ -86,11 +86,11 @@ class GameScene extends Scene {
         this.#updateDescription();
         mapDescriptionDom.innerText = "C:マップ確認";
         helpDescriptionDom.innerText = "H:ヘルプ";
-        this.#timerId = this.#startAnimation();
+        this.#startAnimation();
     }
 
     onStop() {
-        clearInterval(this.#timerId);
+        cancelAnimationFrame(this.#animeId);
     }
 
     onKeyDown(e) {
@@ -148,13 +148,15 @@ class GameScene extends Scene {
     }
 
     #startAnimation() {
-        return setInterval(() => {
+        const anime = () => {
             context.clearRect(0, 0, canvas.width, canvas.height);
             context.globalAlpha = 0.3;
             context.drawImage(this.#backgroundImage, 0, 0, canvas.width, canvas.height);
             context.globalAlpha = 1;
             this.#update();
-        }, deltaTime * 1000);
+            this.#animeId = requestAnimationFrame(anime);
+        };
+        anime();
     }
 
     #update() {
