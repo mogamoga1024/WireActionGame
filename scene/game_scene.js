@@ -18,6 +18,7 @@ class GameScene extends Scene {
     #saveFunc = null;
     #isMapMode = false;
     #isGhost = false;
+    #fadeOutAlpha = 0;
     
     #timerId = 0;
     #fireHookWaitFrame = 0;
@@ -38,6 +39,8 @@ class GameScene extends Scene {
         if (stage === null) {
             stage = "hard";
         }
+
+        this.#respawnId = 3; // デバグ用 最終リポーン地点
         
         let {player, entityList, world} = MapFactory.create(stage, this.#respawnId);
         this.#player = player;
@@ -186,8 +189,17 @@ class GameScene extends Scene {
         this.#updateText();
 
         if (this.#player.isGoal) {
-            // todo
             console.log("ゴール！おめでとう！");
+            context.globalAlpha = this.#fadeOutAlpha;
+            context.beginPath();
+            context.fillStyle = "#FFFF00";
+            context.rect(0, 0, canvas.width, canvas.height);
+            context.fill();
+            context.globalAlpha = 1;
+            this.#fadeOutAlpha += 0.005;
+            if (this.#fadeOutAlpha > 1) {
+                SceneManager.start(new EndingScene());
+            }
         }
     }
     
