@@ -1,6 +1,6 @@
 
 class HelpScene extends Scene {
-    #animeId = 0;
+    #shouldAnimation = true;
     #selectedRow = 0;
     #ballRadian = 0;
     #isSelected = false;
@@ -14,10 +14,11 @@ class HelpScene extends Scene {
     }
 
     onEnd() {
-        cancelAnimationFrame(this.#animeId);
+        this.#shouldAnimation = false;
     }
 
     onResume() {
+        this.#shouldAnimation = true;
         this.#selectedRow = 0;
         this.#ballRadian = 0;
         this.#isSelected = false;
@@ -37,7 +38,9 @@ class HelpScene extends Scene {
                 this.#uekibatiAnimeFrameCount++;
             }
             this.#update();
-            this.#animeId = requestAnimationFrame(anime);
+            if (this.#shouldAnimation) {
+                requestAnimationFrame(anime);
+            }
         };
         anime();
     }
