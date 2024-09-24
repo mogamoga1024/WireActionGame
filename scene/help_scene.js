@@ -18,7 +18,6 @@ class HelpScene extends Scene {
     }
 
     onResume() {
-        this.#shouldAnimation = true;
         this.#selectedRow = 0;
         this.#ballRadian = 0;
         this.#isSelected = false;
@@ -33,6 +32,7 @@ class HelpScene extends Scene {
     }
 
     #startAnimation() {
+        this.#shouldAnimation = true;
         const anime = () => {
             if (this.#isHitUekibati) {
                 this.#uekibatiAnimeFrameCount++;

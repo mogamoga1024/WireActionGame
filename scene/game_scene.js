@@ -20,7 +20,7 @@ class GameScene extends Scene {
     #isGhost = false;
     #fadeOutAlpha = 0;
     
-    #animeId = 0;
+    #shouldAnimation = true;
     #fireHookWaitFrame = 0;
     #fireHookWaitFrameMax = 15;
 
@@ -76,7 +76,7 @@ class GameScene extends Scene {
     }
 
     onEnd() {
-        cancelAnimationFrame(this.#animeId);
+        this.#shouldAnimation = false;
         window.removeEventListener("beforeunload", this.#saveFunc);
         window.removeEventListener("popstate", this.#saveFunc);
         emitter.off("respawn-area-collision", this.#saveFunc);
@@ -90,7 +90,7 @@ class GameScene extends Scene {
     }
 
     onStop() {
-        cancelAnimationFrame(this.#animeId);
+        this.#shouldAnimation = false;
     }
 
     onKeyDown(e) {
@@ -148,13 +148,16 @@ class GameScene extends Scene {
     }
 
     #startAnimation() {
+        this.#shouldAnimation = true;
         const anime = () => {
             context.clearRect(0, 0, canvas.width, canvas.height);
             context.globalAlpha = 0.3;
             context.drawImage(this.#backgroundImage, 0, 0, canvas.width, canvas.height);
             context.globalAlpha = 1;
             this.#update();
-            this.#animeId = requestAnimationFrame(anime);
+            if (this.#shouldAnimation) {
+                requestAnimationFrame(anime);
+            }
         };
         anime();
     }
