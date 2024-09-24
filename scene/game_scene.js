@@ -190,17 +190,23 @@ class GameScene extends Scene {
 
         if (this.#player.isGoal) {
             console.log("ゴール！おめでとう！");
-            context.globalAlpha = this.#fadeOutAlpha;
-            context.beginPath();
-            context.fillStyle = "#FFFF00";
-            context.rect(0, 0, canvas.width, canvas.height);
-            context.fill();
-            context.globalAlpha = 1;
+            this.#fadeOut();
             this.#fadeOutAlpha += 0.005;
             if (this.#fadeOutAlpha > 1) {
-                SceneManager.start(new EndingScene());
+                this.#fadeOutAlpha = 1;
+                this.#fadeOut();
+                SceneManager.start(new EndingScene(), false, false);
             }
         }
+    }
+
+    #fadeOut() {
+        context.globalAlpha = this.#fadeOutAlpha;
+        context.beginPath();
+        context.fillStyle = "#FFFF00";
+        context.rect(0, 0, canvas.width, canvas.height);
+        context.fill();
+        context.globalAlpha = 1;
     }
     
     #updatePlayer() {

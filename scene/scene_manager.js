@@ -17,7 +17,7 @@ class SceneManager {
         });
     }
 
-    static start(scene, rememberCurrentScene = false) {
+    static start(scene, rememberCurrentScene = false, needDrawLoading = true) {
         if (scene === null) {
             throw new Error("Sceneが未指定");
         }
@@ -38,12 +38,14 @@ class SceneManager {
             this.#init();
         }
 
-        context.clearRect(0, 0, canvas.width, canvas.height);
         controlsDescriptionDom.innerText = "";
         mapDescriptionDom.innerText = "";
         helpDescriptionDom.innerText = "";
 
-        drawLoading();
+        if (needDrawLoading) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            drawLoading();
+        }
 
         scene.onStart();
         this.#scene = scene;
