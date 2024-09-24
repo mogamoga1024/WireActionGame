@@ -33,16 +33,20 @@ class HelpScene extends Scene {
 
     #startAnimation() {
         this.#shouldAnimation = true;
-        const anime = () => {
-            if (this.#isHitUekibati) {
-                this.#uekibatiAnimeFrameCount++;
+        let prevTime = -1;
+        const anime = (time) => {
+            if (prevTime === -1 || time - prevTime >= deltaTime * 1000 * 0.9) {
+                prevTime = time;
+                if (this.#isHitUekibati) {
+                    this.#uekibatiAnimeFrameCount++;
+                }
+                this.#update();
             }
-            this.#update();
             if (this.#shouldAnimation) {
                 requestAnimationFrame(anime);
             }
         };
-        anime();
+        anime(performance.now());
     }
 
     #update() {
