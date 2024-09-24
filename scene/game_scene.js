@@ -148,24 +148,12 @@ class GameScene extends Scene {
     }
 
     #startAnimation() {
-        // let time1 = performance.now();
         return setInterval(() => {
-            // const time2 = performance.now();
-
             context.clearRect(0, 0, canvas.width, canvas.height);
             context.globalAlpha = 0.3;
             context.drawImage(this.#backgroundImage, 0, 0, canvas.width, canvas.height);
             context.globalAlpha = 1;
             this.#update();
-
-            // const fps = 1000 / (time2 - time1);
-            // time1 = time2;
-            // if (fps <= 60/2) {
-            //     console.error(fps);
-            // }
-            // else {
-            //     console.log(fps);
-            // }
         }, deltaTime * 1000);
     }
 

@@ -33,23 +33,11 @@ class HelpScene extends Scene {
     }
 
     #startAnimation() {
-        // let time1 = performance.now();
         return setInterval(() => {
-            // const time2 = performance.now();
-
             if (this.#isHitUekibati) {
                 this.#uekibatiAnimeFrameCount++;
             }
             this.#update();
-            
-            // const fps = 1000 / (time2 - time1);
-            // time1 = time2;
-            // if (fps <= 60/2) {
-            //     console.error(fps);
-            // }
-            // else {
-            //     console.log(fps);
-            // }
         }, 1000 / 60);
     }
 
