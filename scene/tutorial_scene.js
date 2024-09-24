@@ -70,10 +70,6 @@ class TutorialScene extends Scene {
             y += textHeight;
         }
     }
-
-    onEnd() {
-        // noop
-    }
     
     onKeyDown(e) {
         if (e.repeat) {

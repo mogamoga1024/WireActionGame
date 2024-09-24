@@ -35,10 +35,6 @@ class PrologueScene extends Scene {
             this.#draw();
         });
     }
-    
-    onEnd() {
-        // noop
-    }
 
     #draw() {
         const {backgroundImage, text} = this.#komaList[this.#komaIndex];

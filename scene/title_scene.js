@@ -101,10 +101,6 @@ class TitleScene extends Scene {
             drawStrokeText(context, text, (canvas.width - textWidth) / 2, 266);
         }
     }
-
-    onEnd() {
-        // noop
-    }
     
     onKeyDown(e) {
         if (e.repeat) {

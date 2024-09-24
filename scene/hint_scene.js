@@ -109,11 +109,7 @@ class HintScene extends Scene {
             this.#draw();
         }
     }
-
-    onEnd() {
-        // noop
-    }
-
+    
     #draw() {
         if (!this.#hintExists) {
             this.#noHintdraw();
