@@ -48,10 +48,10 @@ window.addEventListener("keydown", e => {
 });
 
 // todo
-const isInmu = (new URL(window.location.href)).searchParams.get("inmu") === "true";
+const folderName = (new URL(window.location.href)).searchParams.get("inmu") === "true" ? "INMU" : "健全";
 
 // 画像とか音とか読み込んだ後にゲーム開始
-let backgroundImagePath = "assets/サブリミナル先輩.png";
+let backgroundImagePath = `assets/${folderName}/サブリミナル先輩.png`;
 if (drawLoading.isMobile) {
     backgroundImagePath = "assets/ないです.png";
 }
