@@ -1,6 +1,6 @@
 
 class HelpScene extends Scene {
-    #timer = 0;
+    #animeId = 0;
     #selectedRow = 0;
     #ballRadian = 0;
     #isSelected = false;
@@ -10,12 +10,11 @@ class HelpScene extends Scene {
 
     onStart() {
         controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定 Z:戻る";
-
-        this.#timer = this.#startAnimation();
+        this.#startAnimation();
     }
 
     onEnd() {
-        clearInterval(this.#timer);
+        cancelAnimationFrame(this.#animeId);
     }
 
     onResume() {
@@ -33,12 +32,14 @@ class HelpScene extends Scene {
     }
 
     #startAnimation() {
-        return setInterval(() => {
+        const anime = () => {
             if (this.#isHitUekibati) {
                 this.#uekibatiAnimeFrameCount++;
             }
             this.#update();
-        }, 1000 / 60);
+            this.#animeId = requestAnimationFrame(anime);
+        };
+        anime();
     }
 
     #update() {
