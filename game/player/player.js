@@ -279,7 +279,7 @@ class Player {
         
         if (this.#actStatus === "furiko") {
             const prevRad = this.#angularFrequency * this.#furikoParam % (Math.PI * 2);
-            this.#furikoParam += dt * 10;
+            this.#furikoParam += deltaTime * 10;
             let rad = this.#angularFrequency * this.#furikoParam % (Math.PI * 2);
             if (
                 prevRad > Math.PI * 3 / 2 && prevRad < Math.PI * 2 &&
@@ -304,7 +304,7 @@ class Player {
             this.#vy = this.#y - this.#prevY;
 
             if (
-                this.#furikoParam > dt * 10 &&
+                this.#furikoParam > deltaTime * 10 &&
                 Math.sign(prevVx) * Math.sign(this.#vx) === 1 &&
                 Math.sign(prevVy) * Math.sign(this.#vy) === -1
             ) {
@@ -343,7 +343,7 @@ class Player {
         // 振り子以外
         else {
             if (this.#actStatus !== "ground") {
-                this.#vy += dt * gravity;
+                this.#vy += deltaTime * gravity;
                 this.#prevY = this.#y;
                 this.#y += this.#vy;
                 if (this.#hook !== null && this.#y !== this.#hook.y) {

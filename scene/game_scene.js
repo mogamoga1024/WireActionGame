@@ -166,7 +166,7 @@ class GameScene extends Scene {
             // else {
             //     console.log(fps);
             // }
-        }, dt * 1000);
+        }, deltaTime * 1000);
     }
 
     #update() {
