@@ -16,6 +16,7 @@ canvas {
 #other-description {
   width: 100%;
   margin-top: 8px;
+  overflow: hidden;
 }
 
 #credit {
