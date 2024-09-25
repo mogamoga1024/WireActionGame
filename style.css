@@ -1,8 +1,7 @@
 
 #main {
-  width: fit-content;
-  height: 600px;
-  margin: 16px auto;
+  width: 810px;
+  margin: 24px auto 24px;
 }
 
 canvas {
