@@ -2,7 +2,8 @@
 
 # 植木鉢くんの苦行系ワイヤーアクションゲーム
 
-https://mogamoga1024.github.io/WireActionGame/?inmu=false
+https://mogamoga1024.github.io/uekibati-kun-wire-action-game
+/?inmu=false
 
 **苦行系ワイヤーアクションゲームに挑戦してみませんか？**
 
