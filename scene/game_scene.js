@@ -40,7 +40,7 @@ class GameScene extends Scene {
             stage = "hard";
         }
 
-        this.#respawnId = 3; // デバグ用 最終リポーン地点
+        // this.#respawnId = 3; // デバグ用 最終リポーン地点
         
         let {player, entityList, world} = MapFactory.create(stage, this.#respawnId);
         this.#player = player;

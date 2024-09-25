@@ -14,6 +14,7 @@ canvas.height = 500;
 // えみたん
 const emitter = new TinyEmitter();
 
+// スマホは遊べない
 const mobileRegex = /iphone;|(android|nokia|blackberry|bb10;).+mobile|android.+fennec|opera.+mobi|windows phone|symbianos/i;
 const isMobileByUa = mobileRegex.test(navigator.userAgent);;
 const isMobileByClientHint = navigator.userAgentData && navigator.userAgentData.mobile;
@@ -47,6 +48,7 @@ window.addEventListener("keydown", e => {
     }
 });
 
+// 淫夢要素が必要かどうか
 const isInmu = (new URL(window.location.href)).searchParams.get("inmu") === "true";
 const edition = isInmu ? "INMU" : "健全";
 
