@@ -122,7 +122,9 @@ class GameScene extends Scene {
                 return;
             }
             case "g": {
-                // this.#isGhost = !this.#isGhost; // debug用
+                if (isDebug) {
+                    this.#isGhost = !this.#isGhost;
+                }
                 return;
             }
             case "h": {
