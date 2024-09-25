@@ -9,6 +9,19 @@ canvas {
   border: solid 1px black;
 }
 
+#controls-description {
+  height: 50px;
+}
+
+#other-description {
+  width: 100%;
+  margin-top: 8px;
+}
+
+#credit {
+  float: right;
+}
+
 #poem {
   margin-top: 1000px;
 }
