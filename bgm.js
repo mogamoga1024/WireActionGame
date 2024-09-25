@@ -14,6 +14,9 @@ class BGM {
     }
 
     static async start() {
+        if (this.#isPlaying) {
+            this.#stopMelody();
+        }
         await Tone.start();
         this.#isPlaying = true;
 
