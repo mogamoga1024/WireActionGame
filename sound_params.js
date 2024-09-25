@@ -4,6 +4,9 @@ function soundParams(key) {
         case "ドンッ": return {path: "assets/ドンッ.mp3", volume: 0.5};
         case "大破": return {path: "assets/大破.mp3", volume: 0.7};
         case "ないです": return {path: "assets/ないです.mp3", volume: 0.6};
+        case "プロローグ1": return {path: "assets/プロローグ/プロローグ1.mp3", volume: 0.9};
+        case "プロローグ2": return {path: "assets/プロローグ/プロローグ2.mp3", volume: 0.9};
+        case "プロローグ3": return {path: "assets/プロローグ/プロローグ3.mp3", volume: 0.9};
     }
     
     if (isInmu) {

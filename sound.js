@@ -9,6 +9,9 @@ class Sound {
         this.reset();
         this.#audio.play();
     }
+    stop() {
+        this.#audio.pause();
+    }
     reset() {
         if (!this.#audio.paused) {
             this.#audio.pause();
