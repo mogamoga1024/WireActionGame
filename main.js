@@ -47,14 +47,11 @@ window.addEventListener("keydown", e => {
     }
 });
 
-// todo
 const isInmu = (new URL(window.location.href)).searchParams.get("inmu") === "true";
+const edition = isInmu ? "INMU" : "健全";
 
 // 画像とか音とか読み込んだ後にゲーム開始
-let backgroundImagePath = "assets/健全/サブリミナル先輩.png";
-if (isInmu) {
-    backgroundImagePath = "assets/INMU/サブリミナル先輩.png";
-}
+let backgroundImagePath = `assets/${edition}/サブリミナル先輩.png`;
 if (drawLoading.isMobile) {
     backgroundImagePath = "assets/ないです.png";
 }
@@ -74,14 +71,14 @@ loadImage(backgroundImagePath).then(image => {
     
     const soundLoadPromise = SoundStorage.create({
         "ドンッ": {path: "assets/ドンッ.mp3", volume: 0.5},
-        "あっ（確信犯）": {path: "assets/あっ（確信犯）.mp3", volume: 0.9},
+        "あっ（確信犯）": {path: `assets/${edition}/あっ（確信犯）.mp3`, volume: 0.9},
         "大破": {path: "assets/大破.mp3", volume: 0.7},
-        "やりますねぇ": {path: "assets/やりますねぇ.mp3"},
-        "ぬぁぁん疲れたもぉぉん": {path: "assets/ぬぁぁん疲れたもぉぉん.mp3", volume: 0.5},
-        "これもうわかんねぇな": {path: "assets/これもうわかんねぇな.mp3"},
-        "閉廷": {path: "assets/終わり！！閉廷！！以上！！皆解散！！.mp3", volume: 0.15},
-        "ｼｭｰ": {path: "assets/ｼｭｰ.mp3", volume: 0.8},
-        "ヌッ！": {path: "assets/ヌッ！.mp3", volume: 0.8},
+        "やりますねぇ": {path: `assets/${edition}/やりますねぇ.mp3`},
+        "ぬぁぁん疲れたもぉぉん": {path: `assets/${edition}/ぬぁぁん疲れたもぉぉん.mp3`, volume: 0.5},
+        "これもうわかんねぇな": {path: `assets/${edition}/これもうわかんねぇな.mp3`},
+        "閉廷": {path: `assets/${edition}/終わり！！閉廷！！以上！！皆解散！！.mp3`, volume: 0.15},
+        "ｼｭｰ": {path: `assets/${edition}/ｼｭｰ.mp3`, volume: 0.8},
+        "ヌッ！": {path: `assets/${edition}/ヌッ！.mp3`, volume: 0.8},
     });
     
     Promise.all([imageLoadPromise, soundLoadPromise]).then(() => {
