@@ -49,7 +49,7 @@ window.addEventListener("keydown", e => {
 });
 
 // 淫夢要素が必要かどうか
-const isInmu = (new URL(window.location.href)).searchParams.get("inmu") !== "false";
+const isInmu = (new URL(window.location.href)).searchParams.get("inmu") === "true";
 const edition = isInmu ? "INMU" : "健全";
 
 // 画像とか音とか読み込んだ後にゲーム開始

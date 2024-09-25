@@ -48,7 +48,7 @@ class BGM {
                 release: 1
             };
             const piano1 = new Tone.Sampler({
-                urls, baseUrl, envelope,
+                urls, baseUrl, envelope, volume: -5,
                 onload: () => {
                     this.#synth1 = piano1;
                     if (this.#synth2 !== null) {
@@ -58,7 +58,7 @@ class BGM {
                 }
             }).toDestination();
             const piano2 = new Tone.Sampler({
-                urls, baseUrl, envelope, volume: -7,
+                urls, baseUrl, envelope, volume: -12,
                 onload: () => {
                     this.#synth2 = piano2;
                     if (this.#synth1 !== null) {
