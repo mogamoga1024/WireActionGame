@@ -122,7 +122,7 @@ class GameScene extends Scene {
                 return;
             }
             case "g": {
-                this.#isGhost = !this.#isGhost;
+                // this.#isGhost = !this.#isGhost; // debug用
                 return;
             }
             case "h": {
@@ -186,7 +186,7 @@ class GameScene extends Scene {
         this.#updateText();
 
         if (this.#player.isGoal) {
-            console.log("ゴール！おめでとう！");
+            // console.log("ゴール！おめでとう！");
             this.#fadeOut();
             this.#fadeOutAlpha += 0.005;
             if (this.#fadeOutAlpha > 1) {
