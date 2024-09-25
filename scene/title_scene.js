@@ -1,13 +1,12 @@
 
 class TitleScene extends Scene {
-    #isLoaded = false;
-
     #currentMode = "saisyo";
     #respawnId = -1;
     #goalTime = -1;
     #backgroundImage = null;
     #horaikudoSound = null;
     #xKeyCount = 0;
+    #isLoading = true;
 
     onStart() {
         const strRespawnId = Cookies.get("respaon_area_id");
@@ -30,7 +29,7 @@ class TitleScene extends Scene {
             this.#backgroundImage = image;
             this.#horaikudoSound = sound;
             this.#update();
-            this.#isLoaded = true;
+            this.#isLoading = false;
         });
     }
 
@@ -107,7 +106,7 @@ class TitleScene extends Scene {
             e.preventDefault();
             return;
         }
-        if (!this.#isLoaded) {
+        if (this.#isLoading) {
             return;
         }
 

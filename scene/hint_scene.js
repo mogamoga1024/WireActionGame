@@ -4,6 +4,7 @@ class HintScene extends Scene {
     #textList = [];
     #backgroundImage = null;
     #hintExists = true;
+    #isLoading = true;
 
     onStart() {
         controlsDescriptionDom.innerText = "←:前へ →:次へ Z:説明終了";
@@ -102,11 +103,13 @@ class HintScene extends Scene {
                 this.#backgroundImage = image;
                 sound.play();
                 this.#draw();
+                this.#isLoading = false;
             });
         }
         else {
             this.#textList.push("終わり！閉廷！以上！皆解散！");
             this.#draw();
+            this.#isLoading = false;
         }
     }
     
@@ -149,6 +152,10 @@ class HintScene extends Scene {
     onKeyDown(e) {
         if (e.repeat) {
             e.preventDefault();
+            return;
+        }
+
+        if (this.#isLoading) {
             return;
         }
 

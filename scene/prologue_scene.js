@@ -22,6 +22,7 @@ class PrologueScene extends Scene {
         },
     ];
     #sound = null;
+    #isLoading = true;
 
     onStart() {
         controlsDescriptionDom.innerText = "←:前へ →:次へ Z:プロローグ終了";
@@ -45,6 +46,7 @@ class PrologueScene extends Scene {
             this.#sound = this.#komaList[0].sound;
             this.#sound.play();
             this.#draw();
+            this.#isLoading = false;
         });
     }
 
@@ -56,6 +58,10 @@ class PrologueScene extends Scene {
     onKeyDown(e) {
         if (e.repeat) {
             e.preventDefault();
+            return;
+        }
+
+        if (this.#isLoading) {
             return;
         }
 
