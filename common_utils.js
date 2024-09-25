@@ -16,7 +16,8 @@ function loadImage(path) {
     });
 }
 
-function loadSound(path, volume) {
+function loadSound(key) {
+    const {path, volume = 1} = soundParams(key);
     const audio = new Audio(path);
     return new Promise(resolve => {
         audio.oncanplaythrough = () => {

@@ -97,7 +97,7 @@ class HintScene extends Scene {
         if (respawnId === 1 || respawnId === 3) {
             Promise.all([
                 loadImage("assets/ないです.png"),
-                loadSound("assets/ないです.mp3", 0.6)
+                loadSound("ないです")
             ]).then(([image, sound]) => {
                 this.#backgroundImage = image;
                 sound.play();

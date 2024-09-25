@@ -2,15 +2,15 @@
 class SoundStorage {
     static #dic = {};
 
-    static async create(soundDic) {
-        const promises = Object.entries(soundDic).map(async ([name, {path, volume}]) => {
-            const sound = await loadSound(path, volume);
-            this.#dic[name] = sound;
+    static async create(soundKeyList) {
+        const promises = soundKeyList.map(async key => {
+            const sound = await loadSound(key);
+            this.#dic[key] = sound;
         });
         await Promise.all(promises);
     }
 
-    static get(name) {
-        return this.#dic[name];
+    static get(key) {
+        return this.#dic[key];
     }
 }

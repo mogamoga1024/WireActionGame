@@ -25,7 +25,7 @@ class TitleScene extends Scene {
 
         Promise.all([
             loadImage("assets/植木鉢くんの悲劇.png"),
-            loadSound(`assets/${edition}/ほらいくどー.mp3`, 0.9)
+            loadSound("ほらいくどー")
         ]).then(([image, sound]) => {
             this.#backgroundImage = image;
             this.#horaikudoSound = sound;
