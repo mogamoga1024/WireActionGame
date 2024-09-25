@@ -157,8 +157,4 @@ class TitleScene extends Scene {
             }
         }
     }
-    
-    onKeyUp(e) {
-        // noop
-    }
 }

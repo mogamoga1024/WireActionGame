@@ -56,6 +56,7 @@ class EndingScene extends Scene {
         },
     ];
     #sound = null;
+    #isLoading = true;
     #canKeyDown = true;
 
     onStart() {
@@ -90,7 +91,14 @@ class EndingScene extends Scene {
             this.#sound = this.#komaList[0].sound;
             this.#sound.play();
             this.#draw();
+            this.#isLoading = false;
         });
+
+        // 初回時、次ページにすぐ行ってほしくない
+        this.#canKeyDown = false;
+        setTimeout(() => {
+            this.#canKeyDown = true;
+        }, 2000);
     }
     
     #draw() {
@@ -104,6 +112,9 @@ class EndingScene extends Scene {
             return;
         }
 
+        if (this.#isLoading) {
+            return;
+        }
         if (!this.#canKeyDown) {
             return;
         }
