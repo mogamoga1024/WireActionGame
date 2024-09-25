@@ -1,10 +1,10 @@
 
 function soundParams(key) {
-    const ondoku = 0.7;
+    const ondoku = 0.8;
     switch (key) {
-        case "ドンッ": return {path: "assets/ドンッ.mp3", volume: 0.3};
-        case "大破": return {path: "assets/大破.mp3", volume: 0.5};
-        case "ないです": return {path: "assets/ないです.mp3", volume: 0.5};
+        case "ドンッ": return {path: "assets/ドンッ.mp3", volume: 0.4};
+        case "大破": return {path: "assets/大破.mp3", volume: 0.6};
+        case "ないです": return {path: "assets/ないです.mp3", volume: 0.6};
         case "プロローグ1": return {path: "assets/プロローグ/プロローグ1.mp3", volume: ondoku};
         case "プロローグ2": return {path: "assets/プロローグ/プロローグ2.mp3", volume: ondoku};
         case "プロローグ3": return {path: "assets/プロローグ/プロローグ3.mp3", volume: ondoku};
@@ -20,18 +20,18 @@ function soundParams(key) {
     
     if (isInmu) {
         switch (key) {
-            case "あっ（確信犯）": return {path: `assets/${edition}/あっ（確信犯）.mp3`, volume: 0.7};
+            case "あっ（確信犯）": return {path: `assets/${edition}/あっ（確信犯）.mp3`, volume: 0.8};
             case "やりますねぇ": return {path: `assets/${edition}/やりますねぇ.mp3`, volume: 0.7};
             case "ぬぁぁん疲れたもぉぉん": return {path: `assets/${edition}/ぬぁぁん疲れたもぉぉん.mp3`, volume: 0.3};
-            case "これもうわかんねぇな": return {path: `assets/${edition}/これもうわかんねぇな.mp3`, volume: 0.8};
-            case "閉廷": return {path: `assets/${edition}/終わり！！閉廷！！以上！！皆解散！！.mp3`, volume: 0.1};
-            case "ｼｭｰ": return {path: `assets/${edition}/ｼｭｰ.mp3`, volume: 0.4};
-            case "ヌッ！": return {path: `assets/${edition}/ヌッ！.mp3`, volume: 0.5};
-            case "ほらいくどー": return {path: `assets/${edition}/ほらいくどー.mp3`, volume: 0.6};
+            case "これもうわかんねぇな": return {path: `assets/${edition}/これもうわかんねぇな.mp3`, volume: 0.9};
+            case "閉廷": return {path: `assets/${edition}/終わり！！閉廷！！以上！！皆解散！！.mp3`, volume: 0.15};
+            case "ｼｭｰ": return {path: `assets/${edition}/ｼｭｰ.mp3`, volume: 0.5};
+            case "ヌッ！": return {path: `assets/${edition}/ヌッ！.mp3`, volume: 0.6};
+            case "ほらいくどー": return {path: `assets/${edition}/ほらいくどー.mp3`, volume: 0.7};
         }
     }
     else {
-        const volume = 0.8;
+        const volume = 0.9;
         switch (key) {
             case "あっ（確信犯）": return {path: `assets/${edition}/あっ（確信犯）.mp3`, volume};
             case "やりますねぇ": return {path: `assets/${edition}/やりますねぇ.mp3`, volume};
