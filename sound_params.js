@@ -7,6 +7,14 @@ function soundParams(key) {
         case "プロローグ1": return {path: "assets/プロローグ/プロローグ1.mp3", volume: 0.9};
         case "プロローグ2": return {path: "assets/プロローグ/プロローグ2.mp3", volume: 0.9};
         case "プロローグ3": return {path: "assets/プロローグ/プロローグ3.mp3", volume: 0.9};
+        case "エンディング1": return {path: "assets/エンディング/エンディング1.mp3", volume: 0.9};
+        case "エンディング2": return {path: "assets/エンディング/エンディング2.mp3", volume: 0.9};
+        case "エンディング3": return {path: "assets/エンディング/エンディング3.mp3", volume: 0.9};
+        case "エンディング4": return {path: "assets/エンディング/エンディング4.mp3", volume: 0.9};
+        case "エンディング5": return {path: "assets/エンディング/エンディング5.mp3", volume: 0.9};
+        case "エンディング6": return {path: "assets/エンディング/エンディング6.mp3", volume: 0.9};
+        case "エンディング7": return {path: "assets/エンディング/エンディング7.mp3", volume: 0.9};
+        case "エンディング8": return {path: "assets/エンディング/エンディング8.mp3", volume: 0.9};
     }
     
     if (isInmu) {

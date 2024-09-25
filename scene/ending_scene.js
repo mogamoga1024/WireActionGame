@@ -61,7 +61,7 @@ class EndingScene extends Scene {
     onStart() {
         controlsDescriptionDom.innerText = "←:前へ →:次へ";
 
-        const promiseList = [
+        const loadImagePromise = Promise.all([
             loadImage("assets/エンディング/エンディング1.png"),
             loadImage("assets/エンディング/エンディング2.png"),
             loadImage("assets/エンディング/エンディング3.png"),
@@ -70,12 +70,25 @@ class EndingScene extends Scene {
             loadImage("assets/エンディング/エンディング6.png"),
             loadImage("assets/エンディング/エンディング7.png"),
             loadImage("assets/虚無.png"),
-        ];
+        ]);
+        const loadSoundPromise = Promise.all([
+            loadSound("エンディング1"),
+            loadSound("エンディング2"),
+            loadSound("エンディング3"),
+            loadSound("エンディング4"),
+            loadSound("エンディング5"),
+            loadSound("エンディング6"),
+            loadSound("エンディング7"),
+            loadSound("エンディング8"),
+        ]);
 
-        Promise.all(promiseList).then(imageList => {
+        Promise.all([loadImagePromise, loadSoundPromise]).then(([imageList, soundList]) => {
             for (let i = 0; i < imageList.length; i++) {
                 this.#komaList[i].backgroundImage = imageList[i];
+                this.#komaList[i].sound = soundList[i];
             }
+            this.#sound = this.#komaList[0].sound;
+            this.#sound.play();
             this.#draw();
         });
     }
@@ -100,6 +113,9 @@ class EndingScene extends Scene {
                 e.preventDefault();
                 if (this.#komaIndex > 0) {
                     this.#komaIndex--;
+                    this.#sound.stop();
+                    this.#sound = this.#komaList[this.#komaIndex].sound;
+                    this.#sound.play();
                     this.#draw();
                 }
                 return;
@@ -109,11 +125,15 @@ class EndingScene extends Scene {
                 if (this.#komaIndex === this.#komaList.length - 1) {
                     this.#canKeyDown = false;
                     setTimeout(() => {
+                        this.#sound.stop();
                         SceneManager.start(new TitleScene());
-                    }, 500);
+                    }, 2000);
                 }
                 else {
                     this.#komaIndex++;
+                    this.#sound.stop();
+                    this.#sound = this.#komaList[this.#komaIndex].sound;
+                    this.#sound.play();
                     this.#draw();
                 }
                 return;
