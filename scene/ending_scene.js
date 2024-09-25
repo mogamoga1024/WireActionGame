@@ -79,7 +79,7 @@ class EndingScene extends Scene {
             loadSound("エンディング5"),
             loadSound("エンディング6"),
             loadSound("エンディング7"),
-            loadSound("エンディング8"),
+            loadSound("おしまい"),
         ]);
 
         Promise.all([loadImagePromise, loadSoundPromise]).then(([imageList, soundList]) => {

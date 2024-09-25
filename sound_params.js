@@ -14,7 +14,7 @@ function soundParams(key) {
         case "エンディング5": return {path: "assets/エンディング/エンディング5.mp3", volume: 0.9};
         case "エンディング6": return {path: "assets/エンディング/エンディング6.mp3", volume: 0.9};
         case "エンディング7": return {path: "assets/エンディング/エンディング7.mp3", volume: 0.9};
-        case "エンディング8": return {path: "assets/エンディング/エンディング8.mp3", volume: 0.9};
+        case "おしまい": return {path: "assets/エンディング/おしまい.mp3", volume: 0.9};
     }
     
     if (isInmu) {
