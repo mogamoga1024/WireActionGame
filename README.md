@@ -1,25 +1,23 @@
-【作成中…】
 
-# 植木鉢くんの苦行系ワイヤーアクションゲーム
+# Uekibati-kun’s Challenging Wire Action Game
 
-https://mogamoga1024.github.io/uekibati-kun-wire-action-game/?inmu=false
+[https://mogamoga1024.github.io/uekibati-kun-wire-action-game/?inmu=false](https://mogamoga1024.github.io/uekibati-kun-wire-action-game/?inmu=false)
 
-**苦行系ワイヤーアクションゲームに挑戦してみませんか？**
+**Are you ready to take on the challenge of a difficult wire action game?**
 
-植木鉢くんは、あなたの助けを必要としています！  
-どこか不思議な場所で目を覚ました彼は、過去の忘れられない出来事と向き合いながら光の彼方を目指します。
+Uekibati-kun needs your help!  
+Waking up in a mysterious place, he aims for the light while confronting unforgettable events from his past.
 
-操作はシンプルだけど、その道のりは決して優しくはない…。  
-ジャンプして、ワイヤーでぶら下がり、時にはタイミングを見計らいながらゴールを目指してください。
+The controls are simple, but the journey is anything but easy...  
+Jump, hang on wires, and sometimes time your movements to reach the goal.
 
-「誰かクリアしてください。お願いします。何でもしますから。」と願う植木鉢くんの運命を、あなたの手で切り開こう！
+Help Uekibati-kun, who wishes, “Please, someone clear this. I’ll do anything for you,” to carve out his fate with your hands!
 
-## 操作方法
-- 移動[←→]、ジャンプ[X]、ワイヤー[Z]を使って新たな場所に挑戦！
-- ぶら下がり中はジャンプ[Z]やワイヤーを揺らしたり[←→]、伸び縮み[↑↓]させて突破口を探ろう！
-- マップ[C]を確認し、迷わず進もう！
+## Controls
+- Move [←→], Jump [X], and use the Wire [Z] to explore new areas!
+- While hanging, use Jump [X], shake the wire [←→], or adjust its length [↑↓] to find a way through!
+- Check the map [C] to navigate without getting lost!
 
-## 注意
+## Note
 
-「真夏の夜の淫夢」の要素はありません。
-
+This game does not contain elements from "Manatsu no Yo no Inmu".
