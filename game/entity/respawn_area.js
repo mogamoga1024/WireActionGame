@@ -33,7 +33,7 @@ class RespawnArea extends Entity {
 
     onCollision() {
         // console.log(`リスポーン更新 ${this.id}`);
-        Cookies.set("respaon_area_id", String(this.id), {expires: 365});
+        Cookies.set("respaon_area_id", String(this.id), {expires: 365, path: cookiePath});
         emitter.emit("respawn-area-collision");
     }
 }

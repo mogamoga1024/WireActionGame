@@ -60,7 +60,7 @@ class GameScene extends Scene {
                     return;
                 }
                 const totalTime = new Date() - this.#startTime;
-                Cookies.set("total_time", String(totalTime), {expires: 365});
+                Cookies.set("total_time", String(totalTime), {expires: 365, path: cookiePath});
             };
             window.addEventListener("beforeunload", this.#saveFunc);
             window.addEventListener("popstate", this.#saveFunc);
@@ -371,12 +371,12 @@ class GameScene extends Scene {
             this.#goalTime = time;
             const strOldGoalTime = Cookies.get("goal_time");
             if (strOldGoalTime === undefined) {
-                Cookies.set("goal_time", String(time), {expires: 365});
+                Cookies.set("goal_time", String(time), {expires: 365, path: cookiePath});
             }
             else {
                 const oldGoalTime = Number(strOldGoalTime);
                 if (time < oldGoalTime) {
-                    Cookies.set("goal_time", String(time), {expires: 365});
+                    Cookies.set("goal_time", String(time), {expires: 365, path: cookiePath});
                 }
             }
         }

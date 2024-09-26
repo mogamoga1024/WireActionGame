@@ -14,6 +14,9 @@ canvas.height = 500;
 // えみたん
 const emitter = new TinyEmitter();
 
+// Cookie Path
+const cookiePath = "/uekibati-kun-wire-action-game";
+
 // スマホは遊べない
 const mobileRegex = /iphone;|(android|nokia|blackberry|bb10;).+mobile|android.+fennec|opera.+mobi|windows phone|symbianos/i;
 const isMobileByUa = mobileRegex.test(navigator.userAgent);;
