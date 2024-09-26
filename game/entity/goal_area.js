@@ -4,6 +4,25 @@ class GoalArea extends RespawnArea {
         super(x, y, width, height);
     }
 
+    canDraw(viewport) {
+        const ox = viewport.offsetX;
+        const oy = viewport.offsetY;
+        const d = 120;
+        const x = this.x + ox - d;
+        const y = this.y + oy - d;
+        const width = this.width + d*2;
+        const height = this.height + d*2;
+        if (
+            x > canvas.width ||
+            x + width < 0 ||
+            y > canvas.height ||
+            y + height < 0
+        ) {
+            return false;
+        }
+        return true;
+    }
+
     draw(viewport) {
         const ox = viewport.offsetX;
         const oy = viewport.offsetY;
