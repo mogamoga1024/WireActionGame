@@ -24,7 +24,7 @@ function soundParams(key) {
             case "やりますねぇ": return {path: `assets/${edition}/やりますねぇ.mp3`, volume: 0.7};
             case "ぬぁぁん疲れたもぉぉん": return {path: `assets/${edition}/ぬぁぁん疲れたもぉぉん.mp3`, volume: 0.3};
             case "これもうわかんねぇな": return {path: `assets/${edition}/これもうわかんねぇな.mp3`, volume: 0.9};
-            case "閉廷": return {path: `assets/${edition}/終わり！！閉廷！！以上！！皆解散！！.mp3`, volume: 0.15};
+            case "閉廷": return {path: `assets/${edition}/終わり！！閉廷！！以上！！皆解散！！.mp3`, volume: 1};
             case "ｼｭｰ": return {path: `assets/${edition}/ｼｭｰ.mp3`, volume: 0.5};
             case "ヌッ！": return {path: `assets/${edition}/ヌッ！.mp3`, volume: 0.6};
             case "ほらいくどー": return {path: `assets/${edition}/ほらいくどー.mp3`, volume: 0.7};
