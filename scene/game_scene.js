@@ -153,15 +153,15 @@ class GameScene extends Scene {
         this.#shouldAnimation = true;
         let prevTime = -1;
         const anime = (time) => {
-            if (prevTime === -1 || time - prevTime >= deltaTime * 1000 * 0.9) {
-                prevTime = time;
-                context.clearRect(0, 0, canvas.width, canvas.height);
-                context.globalAlpha = 0.3;
-                context.drawImage(this.#backgroundImage, 0, 0, canvas.width, canvas.height);
-                context.globalAlpha = 1;
-                this.#update();
-            }
             if (this.#shouldAnimation) {
+                if (prevTime === -1 || time - prevTime >= deltaTime * 1000 * 0.9) {
+                    prevTime = time;
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                    context.globalAlpha = 0.3;
+                    context.drawImage(this.#backgroundImage, 0, 0, canvas.width, canvas.height);
+                    context.globalAlpha = 1;
+                    this.#update();
+                }
                 requestAnimationFrame(anime);
             }
         };
