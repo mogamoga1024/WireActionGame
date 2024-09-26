@@ -6,7 +6,7 @@
 **Are you ready to take on the challenge of a difficult wire action game?**
 
 Uekibati-kun needs your help!  
-Waking up in a mysterious place, he aims for the light while confronting unforgettable events from his past.
+Waking up in a mysterious place, he finds himself haunted by a strong sense of unfinished business, despite not remembering the events from his past. Driven by this lingering feeling, he sets out toward the distant light.
 
 The controls are simple, but the journey is anything but easy...  
 Jump, hang on wires, and sometimes time your movements to reach the goal.
