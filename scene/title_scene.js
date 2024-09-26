@@ -23,7 +23,7 @@ class TitleScene extends Scene {
         controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定";
 
         Promise.all([
-            loadImage("assets/植木鉢くんの悲劇.png"),
+            loadImage("asset/植木鉢くんの悲劇.png"),
             loadSound("ほらいくどー")
         ]).then(([image, sound]) => {
             this.#backgroundImage = image;

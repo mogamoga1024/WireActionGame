@@ -63,14 +63,14 @@ class EndingScene extends Scene {
         controlsDescriptionDom.innerText = "←:前へ →:次へ";
 
         const loadImagePromise = Promise.all([
-            loadImage("assets/エンディング/エンディング1.png"),
-            loadImage("assets/エンディング/エンディング2.png"),
-            loadImage("assets/エンディング/エンディング3.png"),
-            loadImage("assets/エンディング/エンディング4.png"),
-            loadImage("assets/エンディング/エンディング5.png"),
-            loadImage("assets/エンディング/エンディング6.png"),
-            loadImage("assets/エンディング/エンディング7.png"),
-            loadImage("assets/虚無.png"),
+            loadImage("asset/エンディング/エンディング1.png"),
+            loadImage("asset/エンディング/エンディング2.png"),
+            loadImage("asset/エンディング/エンディング3.png"),
+            loadImage("asset/エンディング/エンディング4.png"),
+            loadImage("asset/エンディング/エンディング5.png"),
+            loadImage("asset/エンディング/エンディング6.png"),
+            loadImage("asset/エンディング/エンディング7.png"),
+            loadImage("asset/虚無.png"),
         ]);
         const loadSoundPromise = Promise.all([
             loadSound("エンディング1"),

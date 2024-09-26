@@ -51,7 +51,7 @@ class GameScene extends Scene {
         mapDescriptionDom.innerText = "C:マップ確認";
         helpDescriptionDom.innerText = "H:ヘルプ";
 
-        loadImage("assets/虚無.png").then(image => {
+        loadImage("asset/虚無.png").then(image => {
             this.#backgroundImage = image;
             this.#startAnimation();
 

@@ -56,9 +56,9 @@ const isDebug = (new URL(window.location.href)).searchParams.get("debug") === "t
 const edition = isInmu ? "INMU" : "健全";
 
 // 画像とか音とか読み込んだ後にゲーム開始
-let backgroundImagePath = `assets/${edition}/サブリミナル先輩.png`;
+let backgroundImagePath = `asset/${edition}/サブリミナル先輩.png`;
 if (drawLoading.isMobile) {
-    backgroundImagePath = "assets/ないです.png";
+    backgroundImagePath = "asset/ないです.png";
 }
 
 loadImage(backgroundImagePath).then(image => {
@@ -66,12 +66,12 @@ loadImage(backgroundImagePath).then(image => {
     drawLoading();
 
     const imageLoadPromise = ImageStorage.create({
-        "植木鉢くんL": "assets/植木鉢くんL.png",
-        "植木鉢くんR": "assets/植木鉢くんR.png",
-        "お花": "assets/お花.png",
-        "植木鉢くんの最期1": "assets/植木鉢くんの最期1.png",
-        "植木鉢くんの最期2": "assets/植木鉢くんの最期2.png",
-        "バレーボールくん": "assets/バレーボールくん.png",
+        "植木鉢くんL": "asset/植木鉢くんL.png",
+        "植木鉢くんR": "asset/植木鉢くんR.png",
+        "お花": "asset/お花.png",
+        "植木鉢くんの最期1": "asset/植木鉢くんの最期1.png",
+        "植木鉢くんの最期2": "asset/植木鉢くんの最期2.png",
+        "バレーボールくん": "asset/バレーボールくん.png",
     });
     
     const soundLoadPromise = SoundStorage.create([

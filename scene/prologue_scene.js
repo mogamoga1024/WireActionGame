@@ -28,9 +28,9 @@ class PrologueScene extends Scene {
         controlsDescriptionDom.innerText = "←:前へ →:次へ Z:プロローグ終了";
 
         const loadImagePromise = Promise.all([
-            loadImage("assets/プロローグ/プロローグ1.png"),
-            loadImage("assets/プロローグ/プロローグ2.png"),
-            loadImage("assets/プロローグ/プロローグ3.png")
+            loadImage("asset/プロローグ/プロローグ1.png"),
+            loadImage("asset/プロローグ/プロローグ2.png"),
+            loadImage("asset/プロローグ/プロローグ3.png")
         ]);
         const loadSoundPromise = Promise.all([
             loadSound("プロローグ1"),
