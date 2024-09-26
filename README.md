@@ -1,7 +1,7 @@
 
 # Uekibati-kun’s Challenging Wire Action Game
 
-[https://mogamoga1024.github.io/uekibati-kun-wire-action-game/?inmu=false](https://mogamoga1024.github.io/uekibati-kun-wire-action-game/?inmu=false)
+https://mogamoga1024.github.io/uekibati-kun-wire-action-game/?inmu=false
 
 **Are you ready to take on the challenge of a difficult wire action game?**
 
