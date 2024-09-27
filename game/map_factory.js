@@ -262,6 +262,16 @@ class MapFactory {
                 player = new Player(100, 360);
                 break;
             }
+            // bug28のデバグ
+            case "debug15": {
+                worldHeight = 800;
+                const h = worldHeight;
+                bp(new Block(0, h - 100, 1000, 100));
+                bp(new Block(0, h - 500, 50, h));
+                bp(new Block(0, h - 500, 1000, 50));
+                player = new Player(60, 500);
+                break;
+            }
             // 難しい
             case "hard": {
                 worldHeight = 1930;
