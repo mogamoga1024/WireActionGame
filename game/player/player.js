@@ -27,7 +27,7 @@ class Player {
     }
     #maxRadian = 0;
     #radianEpsilon = 0.02;
-    #furikoLength = 0;
+    #wireLength = 0;
     #angularFrequency = 0;
     #furikoParam = 0;
     #furikoForceMode = "none"; // none, accelerate, decelerate
@@ -291,8 +291,8 @@ class Player {
             const radian = this.#maxRadian * Math.cos(rad);
             this.#prevX = this.#x;
             this.#prevY = this.#y;
-            this.#x = this.#hook.centerX + this.#furikoLength * Math.sin(radian) - this.#width / 2;
-            this.#y = this.#hook.centerY + this.#furikoLength * Math.cos(radian) - this.#height / 2;
+            this.#x = this.#hook.centerX + this.#wireLength * Math.sin(radian) - this.#width / 2;
+            this.#y = this.#hook.centerY + this.#wireLength * Math.cos(radian) - this.#height / 2;
             const prevVx = this.#vx;
             const prevVy = this.#vy;
             this.#vx = this.#x - this.#prevX;
@@ -475,12 +475,12 @@ class Player {
             radian = 0;
         }
 
-        this.#furikoLength = Math.sqrt(Math.pow(vecX, 2) + Math.pow(vecY, 2));
-        if (this.#furikoLength > this.#hook.maxWireLength) {
+        this.#wireLength = Math.sqrt(Math.pow(vecX, 2) + Math.pow(vecY, 2));
+        if (this.#wireLength > this.#hook.maxWireLength) {
             console.error("ワイヤーが長い");
-            console.error(this.#furikoLength);
+            console.error(this.#wireLength);
         }
-        this.#angularFrequency = Math.sqrt(gravity / this.#furikoLength);
+        this.#angularFrequency = Math.sqrt(gravity / this.#wireLength);
         this.#furikoForceMode = "none";
 
         // 速度が速い状態で振り子になったときに最大角を大きくしたい
@@ -493,7 +493,7 @@ class Player {
                     vx -= this.#decelerationX * 2;
                 }
                 // ラジアン = 円弧 / (ワイヤーの長さ * 2 * PI) * (2 * PI)
-                let maxRadian = distance / (this.#furikoLength * Math.PI*2) * Math.PI*2;
+                let maxRadian = distance / (this.#wireLength * Math.PI*2) * Math.PI*2;
                 if (Math.abs(radian) < maxRadian) {
                     maxRadian -= Math.abs(radian);
                     if (maxRadian > Math.abs(this.#maxRadian)) {
