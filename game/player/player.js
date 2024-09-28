@@ -312,7 +312,7 @@ class Player {
                     this.#furikoForceMode = "none";
                     const nextMaxRadian = this.#maxRadian * 1.2;
                     if (Math.abs(nextMaxRadian) < Math.PI / 8) {
-                        console.log("動作中の加速:強制最小角度");
+                        // console.log("動作中の加速:強制最小角度");
                         this.#maxRadian = Math.sign(nextMaxRadian) * Math.PI / 8;
                     }
                     else if (Math.abs(nextMaxRadian) <= Math.PI * 3 / 8) {
@@ -333,7 +333,7 @@ class Player {
             // 停止中の加速
             else if (this.#maxRadian === 0 && this.#furikoForceMode === "accelerate") {
                 this.#furikoForceMode = "none";
-                console.log("停止中の加速:強制最小角度");
+                // console.log("停止中の加速:強制最小角度");
                 if (this.#direction === "left") {
                     this.#furikoParam = (Math.PI / 2) / this.#angularFrequency;
                     this.#maxRadian = Math.PI / 8;
@@ -484,9 +484,6 @@ class Player {
                 }
                 // ラジアン = 円弧 / (ワイヤーの長さ * 2 * PI) * (2 * PI)
                 let maxRadian = distance / (this.#furikoLength * Math.PI*2) * Math.PI*2;
-                // if (maxRadian < Math.PI / 8) {
-                //     maxRadian = Math.PI / 8;
-                // }
                 if (Math.abs(radian) < maxRadian) {
                     maxRadian -= Math.abs(radian);
                     if (maxRadian > Math.abs(this.#maxRadian)) {
@@ -497,11 +494,6 @@ class Player {
                     }
                 }
             }
-            // else {
-            //     if (Math.abs(radian) < Math.PI / 8) {
-            //         this.#maxRadian = -1 * Math.sign(this.#vx) * Math.PI / 8;
-            //     }
-            // }
         }
 
         // vxが正 かつ フックがプレイヤーより左ならmaxRadianを採用しない
@@ -531,13 +523,6 @@ class Player {
             this.#maxRadian = radian;
             this.#furikoParam = 0;
         }
-
-        // if (this.#maxRadian === 0) {
-        //     if (this.#vx !== 0) {
-        //         this.#furikoParam = (Math.PI / 2) / this.#angularFrequency;
-        //         this.#maxRadian = -1 * Math.sign(this.#vx) * Math.PI / 8;
-        //     }
-        // }
 
         this.#prevActStatus = this.#actStatus;
         this.#actStatus = "furiko";
