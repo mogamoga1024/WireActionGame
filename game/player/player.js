@@ -167,6 +167,7 @@ class Player {
         else if (vertical === "down") {
             if (this.#canDescending) {
                 this.#wireVerticalState = "descending";
+                this.#vx = 0;
             }
             else {
                 this.#wireVerticalState = "none";
@@ -243,7 +244,7 @@ class Player {
         if (this.#shouldJumpOnTrampoline) {
             this.jumpStart();
         }
-        
+
         if (
             this.#hook !== null &&
             this.#vy >= 0 &&
@@ -256,13 +257,8 @@ class Player {
             if (this.#vx === 0) {
                 this.#furikoStart(true);
             }
-            // 振り子を伸ばせるなら慣性を残す
-            else if (this.#canDescending) {
-                this.#furikoStart(false);
-            }
-            // 振り子を伸ばせないなら慣性を殺す
             else {
-                this.#furikoStart(true);
+                this.#furikoStart(false);
             }
         }
 
@@ -359,6 +355,7 @@ class Player {
         }
         // 振り子以外
         else {
+            // jumping or falling
             if (this.#actStatus !== "ground") {
                 this.#vy += deltaTime * gravity;
                 this.#prevY = this.#y;
