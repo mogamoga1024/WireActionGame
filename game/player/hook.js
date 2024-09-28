@@ -22,7 +22,10 @@ class Hook {
     #v = 30;
     #vx = 0;
     #vy = 0;
+    #firstWireLength = 0;
+    get firstWireLength() { return this.#firstWireLength; }
     #minWireLength = 110;
+    get minWireLength() { return this.#minWireLength; }
     #maxWireLength = 300;
     get maxWireLength() { return this.#maxWireLength; }
     #isShrinking = false;
@@ -174,6 +177,7 @@ class Hook {
 
         if (resultList.every(result => result.actStatus === "stuck")) {
             this.#actStatus = "stuck";
+            this.#firstWireLength = this.#calcWireLength(this.#player.centerX, this.#player.centerY);
         }
         else {
             this.return();

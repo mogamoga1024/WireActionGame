@@ -510,6 +510,7 @@ class Player {
         // vxが負 かつ フックがプレイヤーより右ならmaxRadianを採用しない
         if (
             !shouldStopInertia &&
+            this.#hook.firstWireLength >= this.#hook.minWireLength &&
             this.#hook.radian !== Math.PI / 2 &&
             (this.#vx > 0 && this.#hook.centerX < this.centerX || this.#vx < 0 && this.#hook.centerX > this.centerX)
         ) {
