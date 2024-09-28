@@ -495,7 +495,7 @@ class Player {
             }
             else {
                 if (Math.abs(radian) < Math.PI / 8) {
-                    this.#maxRadian = Math.PI / 8;
+                    this.#maxRadian = -1 * Math.sign(this.#vx) * Math.PI / 8;
                 }
             }
         }
@@ -505,12 +505,7 @@ class Player {
             !shouldStopInertia &&
             Math.abs(radian) < Math.abs(this.#maxRadian)
         ) {
-            if (this.#vx < 0) {
-                this.#maxRadian = Math.abs(this.#maxRadian);
-            }
-            else if (this.#vx > 0) {
-                this.#maxRadian = -1 * Math.abs(this.#maxRadian);
-            }
+            this.#maxRadian = -1 * Math.sign(this.#vx) * Math.abs(this.#maxRadian);
             // const radian = this.#maxRadian * Math.cos(this.#angularFrequency * this.#furikoParam);
             // Math.cos(this.#angularFrequency * this.#furikoParam) = radian / this.#maxRadian
             // this.#angularFrequency * this.#furikoParam = Math.acos(radian / this.#maxRadian)
