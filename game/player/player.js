@@ -538,14 +538,6 @@ class Player {
                 this.#maxRadian = -1 * Math.sign(this.#vx) * Math.PI / 8;
             }
         }
-        // else if ( // MEMO 降りたときにこれが発動すると変な感じ というかなんで書いた？
-        //     !shouldStopInertia &&
-        //     this.#vx !== 0 &&
-        //     Math.abs(this.#maxRadian) < Math.PI / 8
-        // ) {
-        //     this.#maxRadian = -1 * Math.sign(this.#vx) * Math.PI / 8;
-        //     this.#furikoParam = Math.acos(radian / this.#maxRadian) / this.#angularFrequency;
-        // }
 
         this.#prevActStatus = this.#actStatus;
         this.#actStatus = "furiko";
