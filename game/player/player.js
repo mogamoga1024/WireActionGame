@@ -470,7 +470,7 @@ class Player {
         this.#furikoForceMode = "none";
 
         // 速度が速い状態で振り子になったときに最大角を大きくしたい
-        if (!shouldStopInertia) {
+        if (!shouldStopInertia && Math.abs(this.#vx) > this.#vxMax) {
             let vx = Math.abs(this.#vx);
             let distance = 0;
             while (vx > 0) {
@@ -479,6 +479,9 @@ class Player {
             }
             // ラジアン = 円弧 / (ワイヤーの長さ * 2 * PI) * (2 * PI)
             let maxRadian = distance / (this.#furikoLength * Math.PI*2) * Math.PI*2;
+            if (maxRadian < Math.PI / 8) {
+                maxRadian = Math.PI / 8;
+            }
             if (Math.abs(radian) < maxRadian) {
                 maxRadian -= Math.abs(radian);
                 if (maxRadian > Math.abs(this.#maxRadian)) {
