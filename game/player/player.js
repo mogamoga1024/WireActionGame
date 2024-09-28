@@ -321,7 +321,7 @@ class Player {
                 }
                 else if (this.#furikoForceMode === "decelerate") {
                     this.#furikoForceMode = "none";
-                    if (Math.abs(this.#maxRadian) >= Math.PI / 8) {
+                    if (Math.abs(this.#maxRadian) >= Math.PI / 16) {
                         this.#maxRadian *= 0.5;
                     }
                     else {
@@ -330,6 +330,9 @@ class Player {
                 }
                 else {
                     if (Math.abs(this.#maxRadian) >= Math.PI / 8) {
+                        this.#maxRadian *= 0.9;
+                    }
+                    else if (Math.abs(this.#maxRadian) >= Math.PI / 16) {
                         this.#maxRadian *= 0.8;
                     }
                     else {
