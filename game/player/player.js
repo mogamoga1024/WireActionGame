@@ -321,10 +321,20 @@ class Player {
                 }
                 else if (this.#furikoForceMode === "decelerate") {
                     this.#furikoForceMode = "none";
-                    this.#maxRadian *= 0.8;
+                    if (Math.abs(this.#maxRadian) >= Math.PI / 8) {
+                        this.#maxRadian *= 0.5;
+                    }
+                    else {
+                        this.#maxRadian *= 0.1;
+                    }
                 }
                 else {
-                    this.#maxRadian *= 0.9;
+                    if (Math.abs(this.#maxRadian) >= Math.PI / 8) {
+                        this.#maxRadian *= 0.8;
+                    }
+                    else {
+                        this.#maxRadian *= 0.5;
+                    }
                     if (Math.abs(this.#maxRadian) < this.#radianEpsilon) {
                         this.#maxRadian = 0;
                     }
