@@ -298,7 +298,7 @@ class Player {
             this.#vx = this.#x - this.#prevX;
             this.#vy = this.#y - this.#prevY;
 
-            // 動作中の加速、原則
+            // 動作中の加速、減速
             if (
                 this.#furikoParam > deltaTime * 10 &&
                 Math.sign(prevVx) * Math.sign(this.#vx) === 1 &&
