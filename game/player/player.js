@@ -178,13 +178,12 @@ class Player {
 
         if (this.#actStatus === "furiko") {
             if (
-                this.#vy >= 0 &&
+                this.#vy >= 0 && // 下降中
                 (horizontal === "left" && this.#vx <= 0 || horizontal === "right" && this.#vx >= 0)
             ) {
                 this.#furikoForceMode = "accelerate";
             }
             else if (
-                this.#vy <= 0 &&
                 horizontal === "left" && this.#vx > 0 || horizontal === "right" && this.#vx < 0
             ) {
                 this.#furikoForceMode = "decelerate";
@@ -330,6 +329,7 @@ class Player {
                 }
             }
             else if (this.#maxRadian === 0 && this.#furikoForceMode === "accelerate") {
+                this.#furikoForceMode = "none";
                 if (this.#direction === "left") {
                     this.#furikoParam = (Math.PI / 2) / this.#angularFrequency;
                     this.#maxRadian = Math.PI / 8;
