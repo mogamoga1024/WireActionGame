@@ -302,6 +302,7 @@ class Player {
             this.#vx = this.#x - this.#prevX;
             this.#vy = this.#y - this.#prevY;
 
+            // 動作中の加速、原則
             if (
                 this.#furikoParam > deltaTime * 10 &&
                 Math.sign(prevVx) * Math.sign(this.#vx) === 1 &&
@@ -328,6 +329,7 @@ class Player {
                     }
                 }
             }
+            // 停止中の加速
             else if (this.#maxRadian === 0 && this.#furikoForceMode === "accelerate") {
                 this.#furikoForceMode = "none";
                 if (this.#direction === "left") {
