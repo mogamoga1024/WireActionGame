@@ -17,6 +17,8 @@ class Hook {
     #centerY(y) { return y + this.#height / 2; }
 
     #player = null;
+    #radian = 0;
+    get radian() { return this.#radian; }
     #v = 30;
     #vx = 0;
     #vy = 0;
@@ -30,6 +32,7 @@ class Hook {
     
     constructor(player, radian) {
         this.#player = player;
+        this.#radian = radian;
         this.#x = player.x + player.width / 2 - this.#width / 2;
         this.#y = player.y + player.height / 2 - this.#height / 2;
         this.#prevX = this.#x;

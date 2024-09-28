@@ -500,6 +500,16 @@ class Player {
             }
         }
 
+        // vxが正 かつ フックがプレイヤーより左ならmaxRadianを採用しない
+        // vxが負 かつ フックがプレイヤーより右ならmaxRadianを採用しない
+        if (
+            !shouldStopInertia &&
+            this.#hook.radian !== Math.PI / 2 &&
+            (this.#vx > 0 && this.#hook.centerX < this.centerX || this.#vx < 0 && this.#hook.centerX > this.centerX)
+        ) {
+            shouldStopInertia = true;
+        }
+
         // 慣性を残す
         if (
             !shouldStopInertia &&
