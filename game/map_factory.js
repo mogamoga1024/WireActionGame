@@ -278,7 +278,7 @@ class MapFactory {
                 bp(new Block(150, 0, 80, 310));
                 bp(new Block(0, 560, 1000, 20));
                 const respawnArea = this.#findRespawnArea(entityList, respawnId);
-                player = new Player(10, 510, respawnArea);
+                player = new Player(14, 510, respawnArea);
                 break;
             }
             // 難しい
