@@ -312,6 +312,7 @@ class Player {
                     this.#furikoForceMode = "none";
                     const nextMaxRadian = this.#maxRadian * 1.2;
                     if (Math.abs(nextMaxRadian) < Math.PI / 8) {
+                        console.log("動作中の加速:強制最小角度");
                         this.#maxRadian = Math.sign(nextMaxRadian) * Math.PI / 8;
                     }
                     else if (Math.abs(nextMaxRadian) <= Math.PI * 3 / 8) {
@@ -332,6 +333,7 @@ class Player {
             // 停止中の加速
             else if (this.#maxRadian === 0 && this.#furikoForceMode === "accelerate") {
                 this.#furikoForceMode = "none";
+                console.log("停止中の加速:強制最小角度");
                 if (this.#direction === "left") {
                     this.#furikoParam = (Math.PI / 2) / this.#angularFrequency;
                     this.#maxRadian = Math.PI / 8;
