@@ -272,6 +272,15 @@ class MapFactory {
                 player = new Player(60, 500);
                 break;
             }
+            // 最大角デバグ
+            case "debug16": {
+                worldHeight = 580;
+                bp(new Block(150, 0, 80, 310));
+                bp(new Block(0, 560, 1000, 20));
+                const respawnArea = this.#findRespawnArea(entityList, respawnId);
+                player = new Player(10, 510, respawnArea);
+                break;
+            }
             // 難しい
             case "hard": {
                 worldHeight = 1930;
