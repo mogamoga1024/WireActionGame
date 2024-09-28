@@ -535,6 +535,10 @@ class Player {
             this.#furikoParam = 0;
         }
 
+        if (Math.abs(this.#maxRadian) < this.#radianEpsilon) {
+            this.#maxRadian = 0;
+        }
+
         this.#prevActStatus = this.#actStatus;
         this.#actStatus = "furiko";
     }
