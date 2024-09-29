@@ -1,6 +1,7 @@
 
 class HelpScene extends Scene {
     #shouldAnimation = true;
+    #respaonOrdinalNum = -1;
     #selectedRow = 0;
     #ballRadian = 0;
     #isSelected = false;
@@ -10,6 +11,7 @@ class HelpScene extends Scene {
 
     onStart() {
         controlsDescriptionDom.innerText = "↑↓:カーソル移動 X:決定 Z:戻る";
+        this.#respaonOrdinalNum = respaonOrdinalNum();
         this.#startAnimation();
     }
 
@@ -18,7 +20,6 @@ class HelpScene extends Scene {
     }
 
     onResume() {
-        this.#selectedRow = 0;
         this.#ballRadian = 0;
         this.#isSelected = false;
         this.#ballOffsetX = 0;
@@ -108,7 +109,7 @@ class HelpScene extends Scene {
         const uekibatiMarginTop = lineBaseBottomY - lineHeight - uekibatiHeight;
         const uekibatiX = canvas.width - 120 - uekibatiWidth/2;
 
-        const textList = ["操作方法", "ヒント", "プロローグ"];
+        const textList = ["操作方法", `ヒント${this.#respaonOrdinalNum}`, "プロローグ"];
         for (let i = 0; i < 3; i++) {
             // 文字
             const text = textList[i];
@@ -140,14 +141,7 @@ class HelpScene extends Scene {
             }
         }
         
-        // context.font = "900 20px sans-serif";
-        // context.textBaseline = "top";
-        // context.fillStyle = "#000000";
-        // context.strokeStyle = "#FFFFFF";
-        // context.lineWidth = 5;
-        // drawStrokeText(context, "移動(↑↓キー) 決定(Xキー) 戻る(Zキー)", 10, 10);
-
-        // todo バレーボールが通過したら、画面遷移
+        // バレーボールが通過したら、画面遷移
         if (
             this.#isSelected &&
             ballX > canvas.width * 1.2 &&

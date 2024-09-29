@@ -8,20 +8,15 @@ class HintScene extends Scene {
 
     onStart() {
         controlsDescriptionDom.innerText = "←:前へ →:次へ Z:説明終了";
+        const ordinalNum = respaonOrdinalNum();
 
-        let respawnId = -1;
-        const strRespawnId = Cookies.get("respaon_area_id");
-        if (strRespawnId !== undefined) {
-            respawnId = Number(strRespawnId);
-        }
-
-        switch (respawnId) {
-            case -1:
+        switch (ordinalNum) {
+            case 1:
                 this.#textList = [
                     "ジャンプ[X]とワイヤー[Z]を\nタイミングよく交互に出そう"
                 ];
                 break;
-            case 9:
+            case 2:
                 this.#textList = [
                     "↑を押しながらワイヤー[Z]を出すと\n上に射出できるぞ",
                     "ワイヤーは←→で揺らせるぞ",
@@ -29,7 +24,7 @@ class HintScene extends Scene {
                     "分かってると思うけど\n赤いブロックにワイヤーはくっつかないぞ"
                 ];
                 break;
-            case 5:
+            case 3:
                 this.#textList = [
                     "ワイヤー[Z]とジャンプ[X]を\n繰り返して上に登ろう",
                     "ワイヤー中に↓を押すと\nワイヤーが伸ばせる\nこれで落下死は怖くない",
@@ -43,32 +38,32 @@ class HintScene extends Scene {
                     "飛んだ時の勢いは\n進行方向の逆のキーで\n抑えられるぞ"
                 ];
                 break;
-            case 6:
+            case 5:
                 this.#textList = [
                     "最初は特にいうことなし",
                     "最後らへんは↓でワイヤーを伸ばして\nジャンプ[X]ワイヤー[Z]\nって感じ"
                 ];
                 break;
-            case 10:
+            case 6:
                 this.#textList = [
                     "最初は特にいうことなし\n揺れて飛んで\n↑押してワイヤー[Z]って感じ",
                     "ネズミ返しゾーンは\n右にジャンプ[X]してから\n左上にワイヤー[Z]すれば登れるぞ",
                     "難しいけど頑張って"
                 ];
                 break;
-            case 2:
+            case 7:
                 this.#textList = [
                     "右に行って～\n左に行って～\n右に行くよ～",
                     "最後の箇所、\n揺れは自然と収まるから待とう",
                     "かなり難しいけど頑張って"
                 ];
                 break;
-            case 7:
+            case 8:
                 this.#textList = [
                     "下に行くときは\n↓を押しながらワイヤー[Z]で\n命綱を作って落ちよう",
                 ];
                 break;
-            case 11:
+            case 9:
                 this.#textList = [
                     "難所だよ",
                     "まず上にワイヤー[Z]して\n←→で最大まで揺らそう",
@@ -80,12 +75,12 @@ class HintScene extends Scene {
                     "ここを乗り切ればゴールは近いぞ\n諦めないでくれ"
                 ];
                 break;
-            case 8:
+            case 10:
                 this.#textList = [
                     "壁を登るときは\n↑でワイヤーを短くするといいぞ"
                 ];
                 break;
-            case 1: case 3:
+            case 11: case 12:
                 this.#hintExists = false;
                 break;
             default:
@@ -95,7 +90,7 @@ class HintScene extends Scene {
                 break;
         }
 
-        if (respawnId === 1 || respawnId === 3) {
+        if (!this.#hintExists) {
             Promise.all([
                 loadImage("asset/ないです.png"),
                 loadSound("ないです")
