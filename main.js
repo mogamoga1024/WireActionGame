@@ -4,6 +4,7 @@ const controlsDescriptionDom = document.querySelector("#controls-description");
 const mapDescriptionDom = document.querySelector("#map-description");
 const helpDescriptionDom = document.querySelector("#help-description");
 const bgmDescriptionDom = document.querySelector("#bgm-description");
+const editionDom = document.querySelector("#edition a");
 
 // Canvas設定
 const canvas = document.querySelector("canvas");
@@ -54,6 +55,15 @@ window.addEventListener("keydown", e => {
 const isInmu = (new URL(window.location.href)).searchParams.get("inmu") === "true";
 const isDebug = (new URL(window.location.href)).searchParams.get("debug") === "true";
 const edition = isInmu ? "INMU" : "健全";
+
+if (isInmu) {
+    editionDom.innerText = "通常版";
+    editionDom.href = "./";
+}
+else {
+    editionDom.innerText = "野獣先輩版";
+    editionDom.href = "./?inmu=true";
+}
 
 // 画像とか音とか読み込んだ後にゲーム開始
 let backgroundImagePath = `asset/${edition}/サブリミナル先輩.png`;

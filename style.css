@@ -18,8 +18,12 @@ canvas {
   overflow: hidden;
 }
 
-#credit {
+#url {
   float: right;
+}
+
+#edition {
+  margin-right: 8px;
 }
 
 #poem {
