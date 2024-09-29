@@ -621,7 +621,7 @@ class Player {
         ) {
             this.#x = entity.x + entity.width;
             this.#prevX = this.#x;
-            this.#vx = 0;
+            this.#vx *= -0.4;
             entity.onCollision(this, "地面で左の壁に衝突");
             return this.#actStatus;
         }
@@ -636,7 +636,7 @@ class Player {
         ) {
             this.#x = entity.x - this.#width;
             this.#prevX = this.#x;
-            this.#vx = 0;
+            this.#vx *= -0.4;
             entity.onCollision(this, "地面で右の壁に衝突");
             return this.#actStatus;
         }
@@ -844,7 +844,7 @@ class Player {
         ) {
             this.#x = entity.x + entity.width;
             this.#prevX = this.#x;
-            this.#vx *= -0.8;
+            this.#vx *= -0.4;
             entity.onCollision(this, "空中で左の壁に衝突");
             return this.#actStatus;
         }
@@ -860,7 +860,7 @@ class Player {
         ) {
             this.#x = entity.x - this.#width;
             this.#prevX = this.#x;
-            this.#vx *= -0.8;
+            this.#vx *= -0.4;
             entity.onCollision(this, "空中で右の壁に衝突");
             return this.#actStatus;
         }
