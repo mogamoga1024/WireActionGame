@@ -129,7 +129,6 @@ class TitleScene extends Scene {
             case "x": {
                 if (this.#currentMode === "saisyo" && this.#respawnId !== -1 && this.#xKeyCount < 5) {
                     this.#xKeyCount++;
-                    // todo sound 本当？
                     this.#update();
                     return;
                 }
